@@ -115,3 +115,32 @@ test('compatibilidade combina comprador, segurança e desbloqueios informados',a
   await catalog(page).getByRole('combobox',{name:'Disponibilidade',exact:true}).selectOption('fixed');
   await expect(car).toHaveCount(0);
 });
+
+test('revenda separa scan observado, referência do modelo base e cotações de outro escopo',async({page})=>{
+  const errors=[];
+  page.on('pageerror',error=>errors.push(error.message));
+  await enter(page);
+  await finderSearch(page).fill('purple drank');
+  await card(page,'variant-progen-purple-drank-emerus').click();
+  await expect(dialog(page)).toContainText('Revenda no modo livre');
+  await dialog(page).getByText('Scans e fontes de preço').click();
+  await expect(dialog(page)).toContainText('NiaDB');
+  await expect(dialog(page).locator('a[href="https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus"]').first()).toBeVisible();
+  await dialog(page).getByRole('button',{name:'Fechar ficha'}).click();
+  await finderSearch(page).fill('gold rope infernus');
+  const variant=card(page,'variant-pegassi-gold-rope-infernus');
+  await expect(variant).toBeVisible();
+  await catalog(page).getByText('Filtros',{exact:true}).click();
+  await catalog(page).getByLabel('Apenas com valor de revenda conhecido').check();
+  await expect(variant).toHaveCount(0);
+  await catalog(page).getByLabel('Apenas com valor de revenda conhecido').uncheck();
+  await variant.click();
+  await expect(dialog(page)).toContainText('Referência do modelo base');
+  await expect(dialog(page)).toContainText('Não é cotação confirmada desta variante');
+  await dialog(page).getByRole('button',{name:'Fechar ficha'}).click();
+  await finderSearch(page).fill('comet s2');
+  await card(page,'pfister-comet-s2').click();
+  await dialog(page).getByText('Outras cotações').click();
+  await expect(dialog(page)).toContainText('Veículo destruído');
+  expect(errors).toEqual([]);
+});

@@ -1,5 +1,23 @@
 # Progresso da entrega
 
+## Versão 1.6.0 · 24/11/2026 · preços de revenda dos veículos
+
+**Mudanças**
+- **Revenda ampliada: 112 → 127 fichas com cotação** (17 novas, 2 removidas por escopo demonstrado). Modelos 111 → 120 de 366; variantes 1 → 7 de 263. Entre as classes terrestres comercializáveis: modelos 110 → 119 de 239 e variantes 1 → 7 de 230. O denominador 629 inclui barcos, aeronaves, serviços e emergência, então não mede carros comercializáveis.
+- **Fontes usadas.** NiaDB (14 fichas individuais, com crédito e link exato), Leonida Racing (6 fichas com valor e condição) e Clutchbase (tabela de scans, 22 linhas). GTA6Wiki confere com a base atual em 44 de 44 valores comparáveis e não trouxe preço novo utilizável.
+- **Escopo por observação.** Cada cotação nova tem `id` estável, `kind`, `context`, crédito e data da consulta. A faixa `resale.value` só soma scans WAiNK e valores agregados sem contexto. GTA+, encomenda do Randy, cartão de veículo próprio ou destruído, cartão de menu e valores descartados ficam em `valueNotes`. Compradores específicos continuam em `buyerPrices`.
+- **Merge de observações.** `scripts/vehicles-normalize.mjs` usa `id ?? source` como chave. Três scans da mesma página convivem, e uma tabela importada sem `id` continua substituindo o valor antigo da mesma fonte. Novas chaves de override: `retagQuotes` e `appendBuyerPrices`. `node scripts/update-vehicles.mjs --overrides-only` reaplica só as correções manuais, sem rede.
+- **Correções demonstradas.** Growler: 13.310 era o valor RK do Randy (12.100) com GTA+; o scan sem selo é 5.700. Zorrusso: 21.250 e 23.375 eram RK e RK com GTA+, então ficou sem revenda livre. Coquette: 7.205 = 6.550 × 1,10 e 12.320 era do Coquette '64. Mais cinco valores do GTAPedia com razão exata de 1,10 sobre outra fonte (Schafter V12, Greta, Dorado, Furia, Montagne XL). Os outros valores só do GTAPedia continuam, sem prova de escopo.
+- **Interface.** Contexto e crédito em cada cotação. Seção "Outras cotações (fora da faixa de revenda livre)". Variante sem preço próprio mostra "Referência do modelo base", rotulada e fora de filtros e ranking. Filtro "Apenas com valor de revenda conhecido".
+- **Não alterado.** IDs, favoritos, mapa e as demais categorias. O Riata do Moses (`vehicle-vapid-riata-celle-de-moses`) tem a mesma taxa de registro de `vapid-riata` e 1.980 = 1.800 × 1,10, mas continua separado para não perder favoritos.
+
+**Lacunas mantidas.** 108 modelos terrestres sem cotação e 105 variantes sem cotação própria cujo modelo base tem preço. Devil's Rope Gauntlet respondeu 404 no NiaDB e não foi tentado por palpite de endereço. Não há pedido enviado ao NiaDB: o rascunho está em `data/reference/niadb-pedido-acesso.md`.
+
+**Testes executados**
+- `npm test`: 22 testes aprovados. Três novos cobrem merge por `id`, escopos fora da faixa e invariantes dos dados.
+- `npm run build`: 30 recursos no cache PWA, versão do service worker regenerada.
+- Playwright (`tests/vehicles.e2e.js`) em Chrome desktop e WebKit iPhone 15: 5 testes em cada, incluindo o novo de revenda, e o teste de versão em `tests/app.e2e.js` (desktop).
+
 ## Versão 1.5.0 · 24/11/2026 · complemento MapGenie
 
 **Mudanças**

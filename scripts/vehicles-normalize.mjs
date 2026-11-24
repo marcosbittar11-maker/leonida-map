@@ -140,6 +140,29 @@ export function readMy(html) {
 const best = {official:3,checked:2,reported:1};
 const unique = items => [...new Set(items)];
 const combineList = (old,next,key) => [...new Map([...old ?? [],...next ?? []].map(v=>[key(v),v])).values()];
+// Observações importadas são substituídas por fonte (q.source); scans manuais têm id estável e coexistem na mesma página.
+export const observationKey = q => q.id ?? q.source;
+// Escopos que não entram na faixa principal de revenda livre: bônus GTA+, encomenda de Randy, cartão de oferta/mapa,
+// veículo próprio ou destruído e ficha de menu sem scan. O restante (scan WAiNK ou valor agregado sem contexto) compõe a faixa.
+export const sideScopes = new Set(['gtaplus','randy','map-card','owned-card','destroyed','info-card','rejected']);
+const range = list => ({value:[Math.min(...list.map(q=>q.value[0])),Math.max(...list.map(q=>q.value[1]))],observations:list});
+const allObservations = record => [...record?.resale?.observations ?? [],...record?.valueNotes ?? []];
+/** Separa a faixa principal das cotações de outro escopo, sem descartar nenhuma evidência. */
+export function splitObservations(list) {
+  const valid = list.filter(q=>q.value?.every(n=>Number.isFinite(n)&&n>=0));
+  const main = valid.filter(q=>!sideScopes.has(q.kind));
+  const side = valid.filter(q=>sideScopes.has(q.kind));
+  return {resale:main.length?range(main):undefined, valueNotes:side.length?side:undefined};
+}
+function withObservations(record, list) {
+  const {resale,valueNotes}=splitObservations(list);
+  const {resale:_r,valueNotes:_v,...rest}=record;
+  return {...rest,...(resale?{resale}:{}),...(valueNotes?{valueNotes}:{})};
+}
+const retag = (list,rules) => list.map(q=>{
+  const rule=rules?.find(r=>(r.id?r.id===q.id:r.source===q.source) && (!r.value || (r.value[0]===q.value[0]&&r.value[1]===q.value[1])));
+  return rule?{...q,kind:rule.kind,context:rule.context ?? q.context}:q;
+});
 function merge(old, next) {
   const hasVariant = old.variant || next.variant;
   const result = {...old, ...Object.fromEntries(Object.entries(next).filter(([k,v])=>old[k]==null&&v!=null))};
@@ -150,7 +173,7 @@ function merge(old, next) {
   result.refs=unique([...old.refs ?? [], ...next.refs ?? []]);
   result.spawns=combineList(old.spawns,next.spawns,s=>s.id ?? s.type+':'+s.label+':'+(s.chapter??''));
   result.scans=combineList(old.scans,next.scans,s=>JSON.stringify(s));
-  result.quotes=combineList(old.quotes,next.quotes,q=>q.source);
+  result.quotes=combineList(old.quotes,next.quotes,observationKey);
   if (hasVariant) result.variant=true;
   return result;
 }
@@ -224,32 +247,37 @@ export function consolidate({lab,finder,pedia,my,pages,catalog,manual,previous,d
     if (old) {
       const augmented=merge(old,record);
       // New facts replace the prior observation from the same source. Other sources survive partial refreshes.
-      const observations=combineList(old.resale?.observations,record.resale?.observations,q=>q.source);
-      if (observations.length) augmented.resale={value:[Math.min(...observations.map(q=>q.value[0])),Math.max(...observations.map(q=>q.value[1]))],observations};
+      const observations=combineList(allObservations(old),record.resale?.observations,observationKey);
+      delete augmented.resale; delete augmented.valueNotes;
+      Object.assign(augmented,withObservations(augmented,observations));
       for(const field of ['stats','statsRefs','ratings','register']) if(record[field]!=null) augmented[field]=record[field];
       delete augmented.quotes;
       byId.set(record.id,augmented);
     } else byId.set(record.id,record);
   }
+  applyOverrides(byId,manual);
+  for (const id of manual.remove ?? []) byId.delete(id);
+  return {schema:1,updated:date,labUpdated:lab.vehicleDatabase?.checkedAgainst?.date ?? lab.meta?.updated,
+    sources, vehicles:[...byId.values()].sort((a,b)=>a.id.localeCompare(b.id,'en'))};
+}
+
+export function applyOverrides(byId, manual) {
   for (const record of manual.additions ?? []) {
     byId.set(record.id,{...byId.get(record.id),...record});
   }
   for (const [id,patch] of Object.entries(manual.overrides ?? {})) {
     if (!byId.has(id)) throw Error('Correção de veículo sem ID correspondente: '+id);
     const record=byId.get(id);
-    const {appendScans,appendSpawns,appendQuotes,addRefs,...fields}=patch;
-    const observations=combineList(record.resale?.observations,appendQuotes,q=>q.source);
-    const resale=observations.length ? {value:[Math.min(...observations.map(q=>q.value[0])),Math.max(...observations.map(q=>q.value[1]))],observations} : undefined;
-    byId.set(id,{...record,...fields,refs:unique([...record.refs??[],...addRefs??[]]),
-      resale,
+    const {appendScans,appendSpawns,appendQuotes,retagQuotes,appendBuyerPrices,addRefs,...fields}=patch;
+    const observations=retag(combineList(allObservations(record),appendQuotes,observationKey),retagQuotes);
+    const buyerPrices=combineList(record.buyerPrices,appendBuyerPrices,o=>[o.buyer,o.source,o.value].join('|'));
+    byId.set(id,withObservations({...record,...fields,refs:unique([...record.refs??[],...addRefs??[]]),
+      ...(buyerPrices.length?{buyerPrices}:{}),
       scans:combineList(record.scans,appendScans,s=>JSON.stringify(s)),spawns:combineList(record.spawns,appendSpawns?.map(spawn=>{
         const existing=record.spawns?.find(s=>s.id===spawn.id);
         return {...existing,...spawn};
-      }),s=>s.id??s.label)});
+      }),s=>s.id??s.label)},observations));
   }
-  for (const id of manual.remove ?? []) byId.delete(id);
-  return {schema:1,updated:date,labUpdated:lab.vehicleDatabase?.checkedAgainst?.date ?? lab.meta?.updated,
-    sources, vehicles:[...byId.values()].sort((a,b)=>a.id.localeCompare(b.id,'en'))};
 }
 
 function mergeAlias(index,item,id) {

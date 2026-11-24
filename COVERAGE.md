@@ -1,5 +1,27 @@
 # Cobertura do Leonida Map · versão 1.3.0, com complemento da 1.5.0
 
+## Complemento de preços de revenda · versão 1.6.0 (24/11/2026)
+
+Escopo: só `public/data/vehicles.json`. Mapa, antisspoiler e as demais categorias não foram reauditados.
+
+| Grupo | Antes | Depois |
+| --- | --- | --- |
+| Fichas com revenda (todas) | 112 de 629 | 127 de 629 |
+| Modelos (todas as classes) | 111 de 366 | 120 de 366 |
+| Variantes (todas as classes) | 1 de 263 | 7 de 263 |
+| Modelos terrestres comercializáveis | 110 de 239 | 119 de 239 |
+| Variantes terrestres | 1 de 230 | 7 de 230 |
+
+Por classe (modelos / variantes). Muscle 20 → 21 / 0. SUV 14 → 16 / 0 → 1. Sedã 20 → 22 / 0. Cupê 12 → 13 / 0 → 1. Esportivo 9 → 10 / 0. Picape 11 → 12 / 0. Moto 3 → 5 / 0. Off-road 7 / 0 → 1. Supercarro 6 / 1 → 3. Sem classe 3 → 2 / 0 → 1. Barcos, aeronaves, emergência e serviços seguem em zero, sem fonte de revenda de carro.
+
+**Cotação WAiNK × pagamento recorrente.** Nenhum valor novo é pagamento recorrente garantido. Scans de telefone (NiaDB, Leonida Racing, Clutchbase) são estimativas de um exemplar e mudam com a condição da carroceria. Valores com selo RK (Growler 12.100, Zorrusso 21.250, '96 Infernus 15.600) ficam em Compradores, como oferta do Randy. A oferta do Pay 'n' Spray - Balsero para o Gauntlet Hellfire (9.775) também fica em Compradores.
+
+**Exclusões justificadas.** Comet S2 destruído do Jason (9.710), cartões de menu de carros próprios (Carbonizzare 14.150, SFB 1000 5.250, Tulip M-100 3.370, Rebel 3.330, Buffalo '07 2.150, Cavalcade XL 7.800) e valores descartados (12.320 atribuído ao Coquette atual, que é do '64). Todos seguem visíveis em "Outras cotações". O Ganado do Jason (1.980 na GTA6Wiki) não entrou: o valor é idêntico ao do Riata do Moses com GTA+ e o escopo é incerto.
+
+**GTA+ no GTAPedia.** Em 33 fichas com GTAPedia e outra fonte, 6 têm razão exata de 1,10 sobre a outra fonte. Growler, Coquette e o Riata do Moses mostram a mesma razão contra scans do Clutchbase e do NiaDB. Esses casos foram reclassificados. As demais diferenças variam de 0,34 a 1,86, o que aponta para condição e exemplar, não para uma regra. Por isso não houve conversão universal.
+
+**Variantes.** 105 variantes sem preço próprio têm modelo base cotado. Nenhum valor foi copiado: `parentName` não prova identidade de preço. A ficha mostra o valor do modelo base como referência rotulada.
+
 ## Complemento MapGenie · versão 1.5.0 (24/11/2026)
 
 **Resultado: 0 pinos importados do MapGenie.** O MapGenie carrega no navegador os 2.690 marcadores com coordenadas e descrições. Os [termos da Ziff Davis](https://www.ziffdavis.com/terms-of-use), dona do MapGenie e do IGN, proíbem copiar, extrair, raspar e criar conjuntos de dados a partir do serviço. Por isso nada foi gravado: nem coordenadas, nem descrições, nem ícones. A validação de CRS e de resíduos não se aplicou, porque nenhum pino dessa fonte foi publicado. Não encontramos API ou exportação oficial documentada.

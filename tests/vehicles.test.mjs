@@ -68,3 +68,64 @@ test('atualização preserva correções manuais, observações ausentes e IDs e
   assert.equal(output.vehicles.find(v=>v.id==='id-0').name,'Modelo corrigido');
   assert.equal(output.vehicles.find(v=>v.id==='id-0').register,10);
 });
+
+test('scans da mesma página coexistem, mas a reimportação da mesma tabela substitui o valor antigo',()=>{
+  const lab={vehicles:Array.from({length:100},(_,i)=>({slug:'id-'+i,name:'Modelo '+i,status:'checked'})),vehicleDatabase:{prices:{}}};
+  const page='https://exemplo.test/ficha';
+  const scans=[1,2,3].map(n=>({id:'fonte:id-0:'+n,value:[1000*n,1000*n],source:page,kind:'waink-scan'}));
+  const manual={overrides:{'id-0':{appendQuotes:scans}}};
+  const first=consolidate({lab,pages:[],catalog:{points:[]},manual,previous:null,date:'2026-11-24'});
+  const record=first.vehicles.find(v=>v.id==='id-0');
+  assert.deepEqual(record.resale.observations.map(q=>q.value[0]),[1000,2000,3000]);
+  assert.deepEqual(record.resale.value,[1000,3000]);
+  // Reimportação sem os scans: o catálogo anterior preserva todos e reaplica a mesma correção sem duplicar.
+  const again=consolidate({lab,pages:[],catalog:{points:[]},manual,previous:first,date:'2026-11-25'});
+  assert.equal(again.vehicles.find(v=>v.id==='id-0').resale.observations.length,3);
+  // Fonte importada por tabela (sem id) continua sendo substituída por fonte.
+  const table='https://tabela.test/precos';
+  const old={vehicles:[{id:'id-0',name:'Modelo 0',resale:{value:[500,500],observations:[{value:[500,500],source:table}]}}]};
+  const labWithPrice={...lab,vehicles:lab.vehicles.map(v=>v.slug==='id-0'?{...v,game:{sell:700}}:v),vehicleDatabase:{prices:{url:table}}};
+  const next=consolidate({lab:labWithPrice,pages:[],catalog:{points:[]},manual:{},previous:old,date:'2026-11-25'});
+  assert.deepEqual(next.vehicles.find(v=>v.id==='id-0').resale.observations.map(q=>q.value[0]),[700]);
+});
+
+test('GTA+, encomenda do Randy, veículo destruído e valor descartado ficam fora da faixa principal',()=>{
+  const lab={vehicles:Array.from({length:100},(_,i)=>({slug:'id-'+i,name:'Modelo '+i,status:'checked'})),vehicleDatabase:{prices:{}}};
+  const src='https://exemplo.test/x';
+  const quotes=[['a',1000,'waink-scan'],['b',1100,'gtaplus'],['c',2500,'randy'],['d',400,'destroyed'],['e',9000,'rejected']]
+    .map(([n,v,kind])=>({id:'t:'+n,value:[v,v],source:src,kind}));
+  const output=consolidate({lab,pages:[],catalog:{points:[]},manual:{overrides:{'id-0':{appendQuotes:quotes}}},previous:null,date:'2026-11-24'});
+  const record=output.vehicles.find(v=>v.id==='id-0');
+  assert.deepEqual(record.resale.value,[1000,1000]);
+  assert.deepEqual(record.valueNotes.map(q=>q.kind).sort(),['destroyed','gtaplus','randy','rejected']);
+  // Sem nenhuma cotação de escopo principal não existe revenda livre, e as demais evidências permanecem.
+  const only=consolidate({lab,pages:[],catalog:{points:[]},manual:{overrides:{'id-1':{appendQuotes:quotes.slice(1)}}},previous:null,date:'2026-11-24'}).vehicles.find(v=>v.id==='id-1');
+  assert.equal(only.resale,undefined);
+  assert.equal(only.valueNotes.length,4);
+});
+
+test('revenda ampliada: valores com proveniência, escopos separados e filtro de valor conhecido',()=>{
+  for (const v of snapshot.vehicles) {
+    for (const q of [...v.resale?.observations ?? [],...v.valueNotes ?? []]) {
+      assert.ok(Number.isFinite(q.value[0]) && q.value[0]<=q.value[1],v.id);
+      if (q.id) assert.match(q.source,/^https:\/\//,v.id);
+    }
+    if (v.resale) assert.ok(v.resale.observations.length && v.resale.value[0]===Math.min(...v.resale.observations.map(q=>q.value[0])),v.id);
+    assert.ok(!(v.resale?.observations ?? []).some(q=>['gtaplus','randy','destroyed','rejected','owned-card','info-card','map-card'].includes(q.kind)),v.id);
+  }
+  const niaDrank=byId.get('variant-progen-purple-drank-emerus').resale;
+  assert.deepEqual(niaDrank.observations.map(q=>q.value[0]),[33000,32205,27620]);
+  assert.ok(niaDrank.observations.every(q=>q.source==='https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus'));
+  // Comet S2 destruído do Jason não entra na faixa do exemplar em circulação.
+  const comet=byId.get('pfister-comet-s2');
+  assert.ok(comet.resale.observations.every(q=>q.value[0]!==9710));
+  assert.equal(comet.valueNotes.find(q=>q.kind==='destroyed').value[0],9710);
+  // Valor RK do Growler e o bônus GTA+ não definem a revenda livre.
+  const growler=byId.get('pfister-growler');
+  assert.deepEqual(growler.resale.value,[5700,5700]);
+  assert.equal(growler.buyerPrices.find(o=>o.buyer==='randy').value[0],12100);
+  // A variante não herda o valor do modelo base.
+  assert.equal(byId.get('variant-pegassi-gold-rope-infernus').resale,undefined);
+  const known=selectVehicles(snapshot.vehicles,{priced:true,sort:'name'},progress);
+  assert.ok(known.length>120 && known.every(v=>v.resale));
+});

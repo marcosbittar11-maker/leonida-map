@@ -102,6 +102,17 @@
       ],
       "addRefs": [
         "https://gta6playertools.com/locations/sell-and-register-cars"
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            715,
+            715
+          ],
+          "kind": "gtaplus",
+          "context": "715 = 650 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
       ]
     },
     "karin-rebel-84": {
@@ -112,6 +123,18 @@
             1100
           ],
           "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        },
+        {
+          "id": "clutchbase:karin-rebel-84:1",
+          "value": [
+            3330,
+            3330
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "owned-card",
+          "credit": "Clutchbase",
+          "context": "Cartão de menu do Rebel registrado do Jason; não é scan de exemplar de rua.",
+          "checked": "2026-11-24"
         }
       ],
       "appendScans": [
@@ -124,7 +147,8 @@
         }
       ],
       "addRefs": [
-        "https://gta6playertools.com/locations/sell-and-register-cars"
+        "https://gta6playertools.com/locations/sell-and-register-cars",
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
       ]
     },
     "vapid-caracara-4x4": {
@@ -611,6 +635,17 @@
       ],
       "addRefs": [
         "https://www.gta6heists.com/money/sell-stolen-cars"
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            23045,
+            23045
+          ],
+          "kind": "gtaplus",
+          "context": "23.045 = 20.950 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
       ]
     },
     "vehicle-pegassi-gold-rush-tempesta": {
@@ -634,6 +669,1073 @@
       ],
       "addRefs": [
         "https://www.gta6heists.com/money/sell-stolen-cars"
+      ]
+    },
+    "albany-cavalcade-xl": {
+      "appendQuotes": [
+        {
+          "id": "niadb:albany-cavalcade-xl:1",
+          "value": [
+            8850,
+            8850
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/albany-cavalcade-xl",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, rastreador padrão (vídeo de Sirloin).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "clutchbase:albany-cavalcade-xl:3",
+          "value": [
+            7800,
+            7800
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "info-card",
+          "credit": "Clutchbase",
+          "context": "Cartão de menu de um carro (não scan WAiNK); contexto do exemplar não informado.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/albany-cavalcade-xl",
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 28250,
+      "appendScans": [
+        {
+          "label": "Exemplar destrancado",
+          "tracker": "standard",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/albany-cavalcade-xl"
+        },
+        {
+          "label": "Exemplar alarmado",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/albany-cavalcade-xl"
+        }
+      ]
+    },
+    "bravado-banshee": {
+      "appendQuotes": [
+        {
+          "id": "niadb:bravado-banshee:1",
+          "value": [
+            3950,
+            3950
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/bravado-banshee",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar com clonador de chaves, alarmado, rastreador padrão (vídeo de Nerpah).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "leonidaracing:bravado-banshee:2",
+          "value": [
+            6650,
+            6650
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/bravado-banshee/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição média; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/bravado-banshee",
+        "https://leonidaracing.com/cars/vehicles/bravado-banshee/"
+      ],
+      "register": 24500,
+      "appendScans": [
+        {
+          "label": "Exemplar alarmado",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/bravado-banshee"
+        }
+      ]
+    },
+    "bravado-gauntlet-hellfire": {
+      "appendQuotes": [
+        {
+          "id": "niadb:bravado-gauntlet-hellfire:1",
+          "value": [
+            5400,
+            5400
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar com clonador de chaves, alarmado, rastreador padrão (vídeo de Arekkz Gaming).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:bravado-gauntlet-hellfire:2",
+          "value": [
+            4300,
+            4300
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: outro exemplar destrancado, sem alarme, rastreador padrão.",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "clutchbase:bravado-gauntlet-hellfire:3",
+          "value": [
+            9200,
+            9200
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Linha da tabela de scans sem selo RK: clonador de chaves, alarmado, rastreador padrão.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire",
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 28400,
+      "appendScans": [
+        {
+          "label": "Exemplar alarmado",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire"
+        },
+        {
+          "label": "Exemplar destrancado",
+          "tracker": "standard",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "pay",
+          "value": [
+            9775,
+            9775
+          ],
+          "note": "Cartão de interesse no mapa (Pay 'n' Spray - Balsero). Oferta de uma sessão; não é scan de exemplar nem preço garantido.",
+          "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire"
+        }
+      ]
+    },
+    "pegassi-tempesta": {
+      "appendQuotes": [
+        {
+          "id": "niadb:pegassi-tempesta:1",
+          "value": [
+            7650,
+            7650
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/pegassi-tempesta",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, rastreador avançado (vídeo de Skill Up).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/pegassi-tempesta"
+      ],
+      "register": 38750,
+      "appendScans": [
+        {
+          "label": "Exemplar destrancado",
+          "tracker": "advanced",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/pegassi-tempesta"
+        }
+      ]
+    },
+    "ubermacht-rebla-gts": {
+      "appendQuotes": [
+        {
+          "id": "niadb:ubermacht-rebla-gts:1",
+          "value": [
+            5200,
+            5200
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/ubermacht-rebla-gts",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, rastreador padrão; o outro exemplar tinha alarme e clonador de chaves.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/ubermacht-rebla-gts"
+      ],
+      "register": 19150,
+      "appendScans": [
+        {
+          "label": "Exemplar destrancado",
+          "tracker": "standard",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/ubermacht-rebla-gts"
+        },
+        {
+          "label": "Exemplar alarmado",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/ubermacht-rebla-gts"
+        }
+      ]
+    },
+    "vapid-riata": {
+      "appendQuotes": [
+        {
+          "id": "niadb:vapid-riata:1",
+          "value": [
+            1800,
+            1800
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/vapid-riata",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: picape do Moses, clonador de chaves, alarmada, rastreador padrão (vídeo de AFGuidesHD). Valor do exemplar, não regra do modelo.",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "clutchbase:vapid-riata:2",
+          "value": [
+            1800,
+            1800
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: mesmo valor e mesma taxa de registro (US$ 11.250).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/vapid-riata"
+      ],
+      "register": 11250,
+      "appendScans": [
+        {
+          "label": "Picape do Moses",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/vapid-riata"
+        }
+      ]
+    },
+    "vehicle-vapid-riata-celle-de-moses": {
+      "condition": "Provável registro duplicado de Vapid Riata (picape do Moses): mesma taxa de registro (US$ 11.250) e 1.980 = 1.800 × 1,10. Mantido separado para não perder favoritos; confirme em jogo.",
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            1980,
+            1980
+          ],
+          "kind": "gtaplus",
+          "context": "1.980 = 1.800 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
+      ]
+    },
+    "variant-progen-royal-ruby-emerus": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-progen-royal-ruby-emerus:1",
+          "value": [
+            33000,
+            33000
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/progen-royal-ruby-emerus",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, sem rastreador (vídeo de WiLLiSGaming).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/progen-royal-ruby-emerus"
+      ],
+      "register": 29900,
+      "appendScans": [
+        {
+          "label": "Exemplar sem rastreador",
+          "tracker": "none",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/progen-royal-ruby-emerus"
+        },
+        {
+          "label": "Outro exemplar (Imack Studios), sem valor de venda legível",
+          "tracker": "standard",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/progen-royal-ruby-emerus"
+        }
+      ]
+    },
+    "variant-progen-purple-drank-emerus": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-progen-purple-drank-emerus:1",
+          "value": [
+            33000,
+            33000
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: primeiro exemplar destrancado, sem alarme, sem rastreador (vídeo de WiLLiSGaming).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:variant-progen-purple-drank-emerus:2",
+          "value": [
+            32205,
+            32205
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: segundo exemplar.",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:variant-progen-purple-drank-emerus:3",
+          "value": [
+            27620,
+            27620
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: terceiro exemplar, destrancado, sem alarme, sem rastreador.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus"
+      ],
+      "register": 29900,
+      "appendScans": [
+        {
+          "label": "Exemplar sem rastreador",
+          "tracker": "none",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/progen-purple-drank-emerus"
+        }
+      ]
+    },
+    "variant-pegassi-charred-toros": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-pegassi-charred-toros:1",
+          "value": [
+            23045,
+            23045
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/pegassi-charred-toros",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, sem rastreador (vídeo de WiLLiSGaming).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/pegassi-charred-toros"
+      ],
+      "register": 8950,
+      "appendScans": [
+        {
+          "label": "Exemplar sem rastreador",
+          "tracker": "none",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/pegassi-charred-toros"
+        }
+      ]
+    },
+    "variant-vapid-truth-justice-caracara": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-vapid-truth-justice-caracara:1",
+          "value": [
+            5900,
+            5900
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/vapid-truth-and-justice-caracara",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar destrancado, sem alarme, sem rastreador (vídeo de FP Good Game).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/vapid-truth-and-justice-caracara"
+      ],
+      "register": 5550,
+      "appendScans": [
+        {
+          "label": "Exemplar sem rastreador",
+          "tracker": "none",
+          "entry": "open",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/vapid-truth-and-justice-caracara"
+        }
+      ]
+    },
+    "variant-bravado-copperheads-gauntlet": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-bravado-copperheads-gauntlet:1",
+          "value": [
+            10120,
+            10120
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/bravado-copperheads-gauntlet",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar trancado, rastreador padrão, sem alarme informado (vídeo de WiLLiSGaming).",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/bravado-copperheads-gauntlet"
+      ],
+      "register": 28400,
+      "appendScans": [
+        {
+          "label": "Exemplar trancado",
+          "tracker": "standard",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles/bravado-copperheads-gauntlet"
+        }
+      ]
+    },
+    "variant-annis-drifter-elegy": {
+      "appendQuotes": [
+        {
+          "id": "niadb:variant-annis-drifter-elegy:1",
+          "value": [
+            4110,
+            4110
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/annis-drifter-elegy",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar trancado, alarmado, rastreador padrão (vídeo de WiLLiSGaming).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:variant-annis-drifter-elegy:2",
+          "value": [
+            2175,
+            2175
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/annis-drifter-elegy",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: outro exemplar trancado, alarmado, rastreador padrão (vídeo de Arekkz Gaming).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:variant-annis-drifter-elegy:3",
+          "value": [
+            3725,
+            3725
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/annis-drifter-elegy",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: terceiro exemplar trancado, alarmado, rastreador padrão, carroceria em condição média.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/annis-drifter-elegy"
+      ],
+      "register": 14250,
+      "appendScans": [
+        {
+          "label": "Exemplares trancados e alarmados",
+          "tracker": "standard",
+          "alarm": true,
+          "source": "https://meowdb.com/gta6/vehicles/annis-drifter-elegy"
+        }
+      ]
+    },
+    "pfister-comet-s2": {
+      "appendQuotes": [
+        {
+          "id": "niadb:pfister-comet-s2:2",
+          "value": [
+            15000,
+            15000
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/pfister-comet-s2",
+          "kind": "waink-scan",
+          "credit": "NiaDB",
+          "context": "Scan de telefone: exemplar em circulação, destrancado, sem alarme, rastreador avançado (vídeo de NickPlaysGames).",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "niadb:pfister-comet-s2:3",
+          "value": [
+            9710,
+            9710
+          ],
+          "source": "https://meowdb.com/gta6/vehicles/pfister-comet-s2",
+          "kind": "destroyed",
+          "credit": "NiaDB",
+          "context": "Cartão no mapa do veículo destruído do Jason; fora da faixa de revenda de exemplares em circulação.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles/pfister-comet-s2"
+      ]
+    },
+    "vehicle-fathom-fr36": {
+      "appendQuotes": [
+        {
+          "id": "leonidaracing:vehicle-fathom-fr36:1",
+          "value": [
+            1000,
+            1000
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/fathom-fr36/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição ruim; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://leonidaracing.com/cars/vehicles/fathom-fr36/"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Leonida Racing (ruim)",
+          "tracker": "none",
+          "source": "https://leonidaracing.com/cars/vehicles/fathom-fr36/"
+        }
+      ],
+      "register": 3650
+    },
+    "schyster-woodland-85": {
+      "appendQuotes": [
+        {
+          "id": "leonidaracing:schyster-woodland-85:1",
+          "value": [
+            825,
+            825
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/schyster-woodland-85/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição ruim; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://leonidaracing.com/cars/vehicles/schyster-woodland-85/"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Leonida Racing (ruim)",
+          "tracker": "none",
+          "source": "https://leonidaracing.com/cars/vehicles/schyster-woodland-85/"
+        }
+      ]
+    },
+    "declasse-bobcat-500-55": {
+      "appendQuotes": [
+        {
+          "id": "leonidaracing:declasse-bobcat-500-55:1",
+          "value": [
+            4000,
+            4000
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/declasse-bobcat-500-55/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição média; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://leonidaracing.com/cars/vehicles/declasse-bobcat-500-55/"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Leonida Racing (média)",
+          "tracker": "standard",
+          "source": "https://leonidaracing.com/cars/vehicles/declasse-bobcat-500-55/"
+        }
+      ]
+    },
+    "dundreary-chino-65": {
+      "appendQuotes": [
+        {
+          "id": "leonidaracing:dundreary-chino-65:1",
+          "value": [
+            2850,
+            2850
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/dundreary-chino-65/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição sucata; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://leonidaracing.com/cars/vehicles/dundreary-chino-65/"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Leonida Racing (sucata)",
+          "tracker": "none",
+          "source": "https://leonidaracing.com/cars/vehicles/dundreary-chino-65/"
+        }
+      ]
+    },
+    "vehicle-declasse-granger-3600lx": {
+      "appendQuotes": [
+        {
+          "id": "leonidaracing:vehicle-declasse-granger-3600lx:1",
+          "value": [
+            2200,
+            2200
+          ],
+          "source": "https://leonidaracing.com/cars/vehicles/declasse-granger-3600lx/",
+          "kind": "waink-scan",
+          "credit": "Leonida Racing",
+          "context": "Scan do jogo em condição boa; sem bônus GTA+.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://leonidaracing.com/cars/vehicles/declasse-granger-3600lx/"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Leonida Racing (boa)",
+          "tracker": "none",
+          "source": "https://leonidaracing.com/cars/vehicles/declasse-granger-3600lx/"
+        }
+      ]
+    },
+    "vapid-lowline": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:vapid-lowline:1",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: trancado, alarmado, sem rastreador.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 4750,
+      "appendScans": [
+        {
+          "label": "Scan Clutchbase",
+          "tracker": "none",
+          "alarm": true,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ]
+    },
+    "vehicle-albany-primo": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:vehicle-albany-primo:1",
+          "value": [
+            600,
+            600
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: trancado, alarmado, sem rastreador.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 2250,
+      "appendScans": [
+        {
+          "label": "Scan Clutchbase",
+          "tracker": "none",
+          "alarm": true,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ]
+    },
+    "dinka-verus": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:dinka-verus:1",
+          "value": [
+            550,
+            550
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: trancado, sem alarme, sem rastreador.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 3500,
+      "appendScans": [
+        {
+          "label": "Scan Clutchbase",
+          "tracker": "none",
+          "alarm": false,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ]
+    },
+    "vehicle-nagasaki-sfb-1000": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:vehicle-nagasaki-sfb-1000:1",
+          "value": [
+            2850,
+            2850
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: SFB 1000 de rua, trancada, alarmada, sem rastreador.",
+          "checked": "2026-11-24"
+        },
+        {
+          "id": "clutchbase:vehicle-nagasaki-sfb-1000:2",
+          "value": [
+            5250,
+            5250
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "owned-card",
+          "credit": "Clutchbase",
+          "context": "Exemplar registrado do Jason (vídeo da GameSpot), cartão do menu; não é scan de rua.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 10500,
+      "appendScans": [
+        {
+          "label": "Scan Clutchbase",
+          "tracker": "none",
+          "alarm": true,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ]
+    },
+    "declasse-yosemite-1500": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:declasse-yosemite-1500:1",
+          "value": [
+            1850,
+            1850
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Tabela de scans: trancado, alarmado, sem rastreador.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "appendScans": [
+        {
+          "label": "Scan Clutchbase",
+          "tracker": "none",
+          "alarm": true,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ]
+    },
+    "pfister-growler": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:pfister-growler:1",
+          "value": [
+            5700,
+            5700
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Scan da GameSpot sem selo RK: clonador de chaves, alarmado, rastreador padrão.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "register": 29450,
+      "appendScans": [
+        {
+          "label": "Scan sem selo RK",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "alarm": true,
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            12100,
+            12100
+          ],
+          "note": "Selo RK (item da lista do Randy) em vídeo de MonkeyKingHero; mais que o dobro do scan sem selo (US$ 5.700). Não é revenda livre.",
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            13310,
+            13310
+          ],
+          "kind": "randy",
+          "context": "13.310 = 12.100 × 1,10: cotação RK do Randy com bônus GTA+ (GTAPedia)."
+        }
+      ]
+    },
+    "grotti-carbonizzare": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:grotti-carbonizzare:1",
+          "value": [
+            14150,
+            14150
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "owned-card",
+          "credit": "Clutchbase",
+          "context": "Cartão de menu do Carbonizzare registrado do Jason (especialista Luxury); não é scan de exemplar de rua.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ]
+    },
+    "declasse-tulip-m-100-78": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:declasse-tulip-m-100-78:1",
+          "value": [
+            3370,
+            3370
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "owned-card",
+          "credit": "Clutchbase",
+          "context": "Cartão de menu do Tulip M-100 da Lucia; não é scan de exemplar de rua.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ]
+    },
+    "vehicle-bravado-buffalo-07": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:vehicle-bravado-buffalo-07:1",
+          "value": [
+            2150,
+            2150
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "owned-card",
+          "credit": "Clutchbase",
+          "context": "Cartão de menu de um '07 Buffalo (especialista Tuner); não é scan de exemplar de rua.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ]
+    },
+    "invetero-coquette": {
+      "appendQuotes": [
+        {
+          "id": "clutchbase:invetero-coquette:1",
+          "value": [
+            6550,
+            6550
+          ],
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal",
+          "kind": "waink-scan",
+          "credit": "Clutchbase",
+          "context": "Scan da GameSpot: clonador de chaves, alarmado, rastreador padrão. Taxa de registro US$ 24.000 confere com a ficha.",
+          "checked": "2026-11-24"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            7205,
+            7205
+          ],
+          "kind": "gtaplus",
+          "context": "7.205 = 6.550 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        },
+        {
+          "source": "https://mygta6map.com/pt/veiculos/",
+          "value": [
+            12320,
+            12320
+          ],
+          "kind": "rejected",
+          "context": "12.320 é o valor da ficha do Coquette '64 (taxa de registro US$ 29.150); o Coquette atual registra US$ 24.000."
+        }
+      ]
+    },
+    "granforma-zorrusso": {
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            21250,
+            21250
+          ],
+          "note": "Selo RK (item da lista do Randy). Não é revenda livre.",
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://www.gtafinder.com/gta-6/guides/car-prices",
+          "value": [
+            21250,
+            21250
+          ],
+          "kind": "randy",
+          "context": "Valor idêntico ao scan com selo RK (Clutchbase)."
+        },
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            23375,
+            23375
+          ],
+          "kind": "gtaplus",
+          "context": "23.375 = 21.250 × 1,10: cotação RK com bônus GTA+ (GTAPedia)."
+        }
+      ]
+    },
+    "pegassi-infernus-96": {
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            15600,
+            15600
+          ],
+          "note": "Selo RK (item da lista do Randy) em vídeo de MonkeyKingHero. Não é revenda livre; o valor agregado do modelo pode vir de outro scan.",
+          "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        }
+      ],
+      "addRefs": [
+        "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+      ]
+    },
+    "benefactor-schafter-v12": {
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            1870,
+            1870
+          ],
+          "kind": "gtaplus",
+          "context": "1.870 = 1.700 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
+      ]
+    },
+    "bf-greta": {
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            495,
+            495
+          ],
+          "kind": "gtaplus",
+          "context": "495 = 450 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
+      ]
+    },
+    "vapid-montagne-xl": {
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            605,
+            605
+          ],
+          "kind": "gtaplus",
+          "context": "605 = 550 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
       ]
     }
   },

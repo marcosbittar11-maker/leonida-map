@@ -282,7 +282,7 @@ test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})
 
 test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.5.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.6.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
   await expect(map(page)).toHaveAttribute('data-points','0');

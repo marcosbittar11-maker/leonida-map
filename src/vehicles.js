@@ -88,6 +88,7 @@ export function selectVehicles(vehicles, filters, progress) {
     if (!words.every(word=>(v.search ?? vehicleSearch(v)).includes(word))) return false;
     if (filters.favorites && !progress.vehicleFavorites.includes(v.id)) return false;
     if (filters.class && v.class!==filters.class) return false;
+    if (filters.priced && !priceRange(v)) return false;
     if (filters.buyer && !eligibleBuyer(v,filters.buyer)) return false;
     if (filters.compatible && !compatible(v,progress,filters.buyer)) return false;
     if (!optional(filters.rarity,v.rarity) || !optional(filters.tracker,observed(v,'tracker')) ||

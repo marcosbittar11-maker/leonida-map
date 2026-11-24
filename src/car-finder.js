@@ -20,6 +20,8 @@ const source = (url,label) => {
   if (!/^https:\/\//i.test(url ?? '')) return '';
   return '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label||new URL(url).hostname.replace(/^www\./,''))+icon('arrow-up-right')+'</a>';
 };
+const noteKinds = {gtaplus:'Com bônus GTA+',randy:'Encomenda do Randy',destroyed:'Veículo destruído','map-card':'Cartão no mapa','owned-card':'Veículo próprio','info-card':'Cartão de menu',rejected:'Descartado'};
+const observation = q => '<div>'+esc(rangeText(q.value))+(noteKinds[q.kind]?' · '+esc(noteKinds[q.kind]):'')+(q.context?' · '+esc(q.context):'')+' · '+source(q.source,q.credit)+'</div>';
 const action = (label,attr,value='',glyph='',styles='') => '<button type="button" class="ui-button '+styles+'" data-'+attr+'="'+esc(value)+'">'+icon(glyph)+esc(label)+'</button>';
 const favoritesButton = (vehicle,favorite) => '<button type="button" class="icon-button vf-star '+(favorite?'is-fave':'')+'" data-vehicle-favorite="'+esc(vehicle.id)+'" aria-label="Favoritar '+esc(vehicle.name)+'" aria-pressed="'+favorite+'">'+icon('star')+'</button>';
 function photo(vehicle, base, large=false) {
@@ -47,6 +49,7 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
     select('Rastreador','tracker',{...trackers,unknown})+select('Alarme','alarm',{...ternary,unknown})+
     select('Clonador de chaves','cloner',{...ternary,unknown})+select('Raridade','rarity',{...rarity,unknown})+
     select('Disponibilidade','availability',{...availability,unknown},'Todas')+
+    '<label class="check vf-compatible"><input name="priced" type="checkbox"> Apenas com valor de revenda conhecido</label>'+
     '<label class="check vf-compatible"><input name="compatible" type="checkbox"> Apenas compatíveis com meus equipamentos</label>'+
     '<small class="vf-help">Usa o Slim Jim e o clonador de chaves marcados em Configurações e o rastreador observado nos scans. Compradores precisam estar liberados no seu jogo. A raridade indica variantes e edições especiais.</small>'+
     action('Limpar filtros','vehicle-reset')+'</form></details></header>'+
@@ -136,6 +139,7 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
     const fixed=exactMarkers(v,progress);
     const all=exactMarkers(v,progress,{reported:true});
     const value=priceRange(v);
+    const reference=!value && v.parentName ? priceRange(catalog.vehicles.find(m=>m.name===v.parentName && !m.variant) ?? {}) : null;
     const favored=progress.vehicleFavorites.includes(v.id);
     const globalSources=[...new Set(v.refs ?? [])];
     const specs=Object.entries(statsLabels).filter(([key])=>v.stats?.[key]!=null)
@@ -160,7 +164,9 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
       section('Revenda no modo livre','<strong class="vf-value">'+esc(value?rangeText(value):unknown)+'</strong>'+
         (value?'<p class="muted">Estimativa do WAiNK. O estado do veículo e o exemplar podem alterar a oferta.</p>':'')+
         (v.register!=null?fields([['Taxa de registro',moneyText(v.register)]]):'')+
-        (value?'<details class="note"><summary>Scans e fontes de preço</summary>'+v.resale.observations.map(q=>'<div>'+esc(rangeText(q.value))+' · '+source(q.source)+'</div>').join('')+'</details>':''))+
+        (value?'<details class="note"><summary>Scans e fontes de preço</summary>'+v.resale.observations.map(observation).join('')+'</details>':
+          (reference?'<p class="muted">Sem cotação própria. Referência do modelo base ('+esc(v.parentName)+'): '+esc(rangeText(reference))+'. Não é cotação confirmada desta variante.</p>':''))+
+        (v.valueNotes?.length?'<details class="note"><summary>Outras cotações (fora da faixa de revenda livre)</summary>'+v.valueNotes.map(observation).join('')+'</details>':''))+
       section('Compradores',fields(buyerRows)+
         documentedOffers.map(o=>'<p>'+esc(buyers[o.buyer]+' · '+rangeText(o.value)+' · '+o.note)+' '+source(o.source,'Ver registro')+'</p>').join('')+
         '<p class="muted">Consulte o WAiNK e a oficina para o exemplar encontrado.</p>')+

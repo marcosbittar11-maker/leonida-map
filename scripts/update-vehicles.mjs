@@ -1,10 +1,11 @@
 
 import { readFile, writeFile, rename } from 'node:fs/promises';
 import { join } from 'node:path';
-import { consolidate } from './vehicles-normalize.mjs';
+import { consolidate, applyOverrides } from './vehicles-normalize.mjs';
 import { sources } from './vehicle-facts.mjs';
 
 const option = process.argv.indexOf('--inputs');
+const overridesOnly = process.argv.includes('--overrides-only');
 if (option!==-1 && !process.argv[option+1]) throw Error('Informe a pasta de insumos após --inputs.');
 const cache = option===-1 ? null : process.argv[option+1];
 const target = new URL('../public/data/vehicles.json',import.meta.url);
@@ -22,6 +23,17 @@ async function read(name,url,required=false) {
   }
 }
 
+if (overridesOnly) {
+  // Reaplica apenas scripts/vehicle-overrides.json sobre o catálogo atual, sem consultar fontes externas.
+  const current = JSON.parse(await readFile(target,'utf8'));
+  const byId = new Map(current.vehicles.map(v=>[v.id,v]));
+  applyOverrides(byId,JSON.parse(await readFile(new URL('./vehicle-overrides.json',import.meta.url),'utf8')));
+  const output = {...current,vehicles:[...byId.values()].sort((a,b)=>a.id.localeCompare(b.id,'en'))};
+  await writeFile(new URL('vehicles.json.tmp',target),JSON.stringify(output)+'\n');
+  await rename(new URL('vehicles.json.tmp',target),target);
+  console.log(output.vehicles.length+' veículos, '+output.vehicles.filter(v=>v.resale).length+' com revenda (somente correções manuais).');
+  process.exit(0);
+}
 const [labText,finder,pedia,my,catalog,manual,previous,first] = await Promise.all([
   read('lab',sources.lab,true), read('finder',sources.finder), read('pedia',sources.pedia), read('my',sources.my),
   json(new URL('../public/data/catalog.json',import.meta.url)), json(new URL('./vehicle-overrides.json',import.meta.url)),

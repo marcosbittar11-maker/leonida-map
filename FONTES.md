@@ -73,6 +73,16 @@ Consultas de 24/11/2026. As listas nominais transcritas para a auditoria estão 
 - **Vice City API**. A camada de mapa (6.624 pinos), o feed de mudanças e as exportações exigem o plano Developer, de 4,99 € por mês. O plano gratuito tem 5 requisições por dia, sem mapa, e os termos vedam republicar as exportações como estão. Nada foi contratado nem cadastrado. Usamos apenas a chave pública de demonstração, que confirmou a senha 0212 já registrada. Conclusão detalhada em [COVERAGE.md](COVERAGE.md). [Documentação](https://vice-city.app/developers)
 - **Flashenem**. Mantido só como referência pública de cobertura, sem acesso a conteúdo restrito.
 
+## Complemento de preços de revenda da versão 1.6.0
+
+Consultas de 24/11/2026. Todas pontuais, com pausa entre os pedidos, sem varredura.
+
+- **NiaDB / NiaMeowDB**. 14 fichas individuais de veículos, todas já listadas na tarefa, com crédito "NiaDB" e o link da ficha exata em cada cotação. A [política de reuso](https://meowdb.com/reuse) respondeu 403 ao acesso automatizado e não foi lida. Como a regra citada exige autorização para coleta em massa, não houve rastreio, API nem cópia da base. A ficha do Devil's Rope Gauntlet respondeu 404 e ficou como lacuna. O rascunho de pedido de acesso está em `data/reference/niadb-pedido-acesso.md`, sem envio. [Fontes](https://meowdb.com/gta6/sources)
+- **Leonida Racing**. Seis fichas com valor do scan e condição da carroceria. A metodologia exclui o bônus GTA+. Os termos de reuso não foram confirmados, por isso o uso é pontual e creditado. As demais fichas mostram "—" no campo de venda. [Como medimos](https://leonidaracing.com/cars/how-we-measure/)
+- **Clutchbase**. Tabela "What cars are worth" (22 linhas). Distingue o selo RK, e as notas separam cartões de menu de scans WAiNK. [Guia](https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal)
+- **GTA6Wiki**. A lista de 344 entradas traz 64 valores de venda. 44 conferem com a base atual, 0 divergem e 18 não têm correspondência direta. Parece derivada da mesma tabela do GTAFinder. Nenhum preço novo foi adotado. [Lista](https://gta6wiki.eu/vehicles/all/)
+- **Não consultados.** GTABase, IGN, timesaver.gg, leonidanotebook, gta6viki, gta6values, Game8 e fóruns: as fontes consultadas não deixaram lacuna que justificasse mais buscas, e o timesaver traz identidade e estatísticas, não revenda.
+
 ## Complemento MapGenie da versão 1.5.0
 
 Consultas de 24/11/2026.
