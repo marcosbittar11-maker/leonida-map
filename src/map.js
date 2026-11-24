@@ -1,14 +1,10 @@
 import L from 'leaflet';
-import Supercluster from 'supercluster';
 import 'leaflet/dist/leaflet.css';
 
 const base = import.meta.env.BASE_URL;
 const bounds = L.latLngBounds([-1024,0],[0,1024]);
 const domain = L.latLngBounds([-757,249],[-245,612]);
 const xy = p => [-p.y,p.x];
-const geoX = x => x * 360 / 1024 - 180;
-const geoY = y => Math.atan(Math.sinh(Math.PI*(1-2*y/1024))) * 180 / Math.PI;
-const mapY = lat => (1-Math.asinh(Math.tan(lat*Math.PI/180))/Math.PI)*512;
 const remote = 'https://cdn.jsdelivr.net/gh/fbritoferreira/gta6@';
 const urlTile = (root,z,y,x) => root + 'tiles/night/' + z + '/' + [z,y,x].join(',') + '.webp';
 
@@ -63,63 +59,47 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
   }
   const pins = L.layerGroup().addTo(map);
   const line = L.layerGroup().addTo(map);
-  let index, pointMap = new Map(), currentProgress, selected, placing = false;
+  let points = [], currentProgress, selected, placing = false;
   const rendered = new Map();
   const container = map.getContainer();
 
   function draw() {
-    if (!index) return;
+    if (!currentProgress) return;
     const view = map.getBounds().pad(0.16);
-    const box = [Math.max(-180,geoX(view.getWest())),geoY(-view.getSouth()),Math.min(180,geoX(view.getEast())),geoY(-view.getNorth())];
-    const z = Math.max(0,Math.min(11,Math.floor(map.getZoom()+2)));
-    const features = index.getClusters(box,z);
     const live = new Set();
-    for (const feature of features) {
-      const props = feature.properties, [x,y] = feature.geometry.coordinates;
-      const point = pointMap.get(props.id);
-      const cluster = props.cluster;
-      const done = point && !!currentProgress.completed[point.id];
-      const favorite = point && currentProgress.favorites.includes(point.id);
-      const active = point?.id === selected;
-      const key = cluster ? 'c-' + props.cluster_id : point.id;
+    const favorites = new Set(currentProgress.favorites);
+    for (const point of points) {
+      if (!view.contains(xy(point))) continue;
+      const key = point.id;
+      const done = !!currentProgress.completed[key];
+      const favorite = favorites.has(key);
+      const active = key === selected;
       live.add(key);
       const old = rendered.get(key);
-      const variant = [done,favorite,active].join('/');
-      if (old && old.variant === variant) continue;
+      const variant = [done,favorite,active,point.name,point.kind,point.x,point.y].join('/');
+      if (old?.variant === variant) continue;
       if (old) pins.removeLayer(old.marker);
       const html = document.createElement('span');
-      if (cluster) html.textContent = props.point_count;
-      else {
-        html.setAttribute('aria-hidden','true');
-        html.innerHTML = markerIcon(point,done);
-      }
-      if (point?.category?.colour) html.style.setProperty('--pin',point.category.colour);
-      const type = cluster ? 'map-cluster' : 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'');
-      const name = cluster ? props.point_count + ' pontos · aproximar' : point.name;
-      const marker = L.marker([ -mapY(y),(x+180)*1024/360 ], {
-        title:name, alt:name, zIndexOffset:active ? 1500 : 100,
-        icon:L.divIcon({html,className:type,iconSize:cluster ? [38,38] : [29,29]})
+      html.setAttribute('aria-hidden','true');
+      html.innerHTML = markerIcon(point,done);
+      const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'');
+      const marker = L.marker(xy(point), {
+        title:point.name, alt:point.name, zIndexOffset:active ? 1500 : 100,
+        icon:L.divIcon({html,className:type,iconSize:[29,29]})
       }).on('click', () => {
         if (placing) return place(marker.getLatLng());
-        if (point) onSelect(point.id,false);
-        else {
-          const target = Math.min(7, Math.max(map.getZoom()+1,index.getClusterExpansionZoom(props.cluster_id)-2));
-          if (map.getZoom() >= 7) {
-            const nearby = index.getLeaves(props.cluster_id,Infinity).map(item => item.properties.id);
-            onSelect(null,false,nearby);
-          } else map.setView(marker.getLatLng(),target);
-        }
+        onSelect(key,false);
       }).addTo(pins);
       const element=marker.getElement();
-      element?.setAttribute('aria-label',name);
-      if(point?.category?.colour) element?.style.setProperty('--pin',point.category.colour);
+      element?.setAttribute('aria-label',point.name);
+      if(point.category?.colour) element?.style.setProperty('--pin',point.category.colour);
       rendered.set(key,{marker,variant});
     }
     for (const [key,item] of rendered) if (!live.has(key)) {
       pins.removeLayer(item.marker); rendered.delete(key);
     }
-    container.dataset.points = pointMap.size;
-    container.dataset.drawn = features.length;
+    container.dataset.points = points.length;
+    container.dataset.drawn = live.size;
     container.dataset.zoom = map.getZoom();
   }
 
@@ -134,13 +114,10 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
   new ResizeObserver(() => map.invalidateSize({pan:false})).observe(container);
 
   return {
-    update(points, progress, active) {
+    update(visiblePoints, progress, active) {
       currentProgress = progress; selected = active;
-      pointMap = new Map(points.filter(p=>p.x!=null).map(p=>[p.id,p]));
-      index = new Supercluster({radius:70, extent:512, maxZoom:9}).load([...pointMap.values()].map(p=>({
-        type:'Feature', geometry:{type:'Point',coordinates:[geoX(p.x),geoY(p.y)]}, properties:{id:p.id}
-      })));
-      pins.clearLayers(); rendered.clear(); draw();
+      points = visiblePoints.filter(p=>p.x!=null);
+      draw();
     },
     focus(point, {raised=false, zoomIn=true}={}) {
       if(point.x==null)return;

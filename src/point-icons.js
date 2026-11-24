@@ -18,7 +18,7 @@ const categorySymbols = {
   race:FlagTriangleRight, range:Crosshair, safe:Vault, safehouse:House, shop:ShoppingBag,
   smash:Gem, store:Store, stunt:Motorbike, towatm:Truck, transport:Bus, treasure:Coins,
   underwater:Shell, vehicle:Car, waink:ScanEye, weapon:Bomb, streetart:SprayCan,
-  workshop:Wrench, clothes:Shirt, gym:Dumbbell, easter:Egg, electronics:Headphones,
+  workshop:Wrench, ammushop:Crosshair, style:Scissors, clothes:Shirt, gym:Dumbbell, easter:Egg, electronics:Headphones,
   tablet:Smartphone, drug:PillBottle, custom:MapPin
 };
 

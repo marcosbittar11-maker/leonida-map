@@ -30,7 +30,8 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 
 ## Consultar
 
-- Busque por nome, região ou categoria. Abra os grupos da legenda para combinar filtros. O grupo **Locais** começa desligado. Marque sua caixa para mostrar os pontos e guardar a escolha no aparelho.
+- O mapa começa com **Operações**. Use **Filtros → Categorias** para ativar outros grupos e expandir suas linhas. O app guarda os grupos ativados no aparelho. Cada pino representa um ponto, com a busca disponível para locais sobrepostos.
+- Em **Veículos**, ative **Veículos variantes** e abra **Coleções de variantes** para escolher famílias como Street Racer, Ultra-Luxe ou Girlypop. Consulte o WAiNK e a oficina no jogo para saber se aquele exemplar pode ser registrado.
 - Use o botão de capítulo para informar equipamentos e desbloqueios. O filtro de acesso exige os requisitos documentados. O jogo ainda pode impor condições que a fonte não registrou.
 - Pontos cartográficos de baixo risco editorial podem aparecer sem capítulo. Atividades sem capítulo documentado ficam ocultas por padrão. Também é possível exibi-las explicitamente e manter o bloqueio dos capítulos posteriores.
 - Marque conclusões e favoritos na ficha. Adicione pontos a uma rota em ordem de visita. A linha tracejada usa distância em linha reta. A linha verde usa trechos conectados da malha comunitária, sem simulação de sentidos ou travessias. As distâncias estão em unidades da base, e as posições no jogo podem variar em precisão.
@@ -42,7 +43,7 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 | Caminho | Responsabilidade |
 |---|---|
 | `src/main.js`, `src/style.css` | Controles, fichas e interface responsiva |
-| `src/map.js`, `src/routes.js` | CRS.Simple, pinos, agrupamento e malha viária |
+| `src/map.js`, `src/routes.js` | CRS.Simple, pinos individuais e malha viária |
 | `public/data/catalog.json` | Catálogo, aliases, revisão e hashes SHA-256 |
 | `src/guides.js` | Guias autorais, evidências, capítulos e requisitos |
 | `src/model.js` | Filtros, progresso versionado, validação e consolidação |

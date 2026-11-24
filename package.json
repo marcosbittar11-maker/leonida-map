@@ -1,6 +1,6 @@
 {
   "name": "leonida-map",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "leaflet": "^1.9.4",
-    "lucide-static": "^1.79.0",
-    "supercluster": "^9.1.0"
+    "lucide-static": "^1.79.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

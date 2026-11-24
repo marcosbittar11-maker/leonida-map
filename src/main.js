@@ -1,8 +1,11 @@
 import { createMap } from './map.js';
 import { installIcons, icon } from './icons.js';
 import { pointSymbol } from './point-icons.js';
+import { layers } from './layers.js';
+import { registrationGuide } from './standout.js';
+import { version } from '../package.json';
 import { checked, equipment, leads } from './guides.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, placesGroup, normalize, visible, availableOnMap, matches, remaining, rangeText } from './model.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, normalize, visible, availableOnMap, matches, remaining, rangeText } from './model.js';
 import { graphFromRoads, routeLeg } from './routes.js';
 import './style.css';
 
@@ -12,9 +15,9 @@ const fmt = new Intl.NumberFormat('pt-BR');
 const base = import.meta.env.BASE_URL;
 const storageKey = 'leonida-map:progress:v1';
 const mobile = () => matchMedia('(max-width: 760px)').matches;
-const filters = {status:'all',groups:new Set(),kinds:new Set(),words:[]};
-let panel='map', selected=null, placeMode=false, groupList=null, progress, catalog, map, staticPoints, data, filtered, lookup;
-let roadsPromise, graph=null, routeRevision=0, flashTimer, listLimit=50;
+const filters = {status:'all',series:new Set(),kinds:new Set(),words:[]};
+let panel='map', selected=null, placeMode=false, progress, catalog, map, staticPoints, data, filtered, lookup;
+let seriesOpen=false, roadsPromise, graph=null, routeRevision=0, flashTimer, listLimit=50;
 const openGroups=new Set(['Operações']);
 const badge = (text,tone='') => '<span class="badge '+tone+'">'+esc(text)+'</span>';
 const button = (label, action, image, extra='') => '<button type="button" class="ui-button '+extra+'" data-action="'+action+'">'+(image?icon(image):'')+esc(label)+'</button>';
@@ -39,7 +42,7 @@ function save() {
   catch {toast('Armazenamento indisponível. Exporte seu progresso para guardá-lo.');}
 }
 function customPoints() {
-  return progress.custom.map(p=>({...p,kind:'custom',category:{key:'custom',name:'Personalizado',group:'Outros',colour:'#eeb994',icon:'📍'},
+  return progress.custom.map(p=>({...p,kind:'custom',category:{key:'custom',name:'Personalizado',group:'Pessoal',colour:'#eeb994',icon:'📍'},
     evidence:'personal',neutral:true,search:normalize([p.name,p.region,p.description,'personalizado'].join(' '))}));
 }
 function refresh() {
@@ -53,21 +56,39 @@ function refresh() {
   $('chapter-label').textContent='Capítulo '+progress.chapter;
   renderPanel(); renderDetail(); drawRoute();
 }
+function filterRow(key, name, total, {enabled=true, on=true, attribute='kind', marker=''}={}) {
+  return '<label class="category-row"><input type="checkbox" data-'+attribute+'="'+esc(key)+'" '+(on?'checked ':'')+
+    (!enabled?'disabled ':'')+'>'+marker+'<span>'+esc(name)+'</span><small>'+fmt.format(total)+'</small></label>';
+}
 function groupMarkup(allowed) {
-  const counted=new Map();
-  for (const p of allowed) counted.set(p.kind,(counted.get(p.kind)||0)+1);
-  const groups=new Map();
-  for (const c of [...catalog.categories,{key:'custom',name:'Personalizados',group:'Outros',colour:'#eeb994',icon:'📍'}]) {
-    if (!counted.has(c.key)) continue;
-    const list=groups.get(c.group) || [];
-    list.push(c); groups.set(c.group,list);
+  const groups=new Map(layers.map(([label])=>[label,new Map()]));
+  const series=new Map();
+  for(const p of allowed) {
+    const kinds=groups.get(p.category?.group);
+    if(!kinds) continue;
+    const row=kinds.get(p.kind);
+    kinds.set(p.kind,{category:p.category,count:(row?.count || 0)+1});
+    if(p.variant)series.set(p.series,(series.get(p.series)||0)+1);
   }
-  return '<div class="section-title"><h2>Categorias</h2>'+button('Restaurar','reset-filters','','text-button')+'</div>'+
-    ['Operações','Colecionáveis','Atividades','Locais','Outros'].filter(g=>groups.has(g)).map(group=>{
-      const list=groups.get(group), total=list.reduce((sum,c)=>sum+counted.get(c.key),0);
-      const on=group===placesGroup ? progress.placesEnabled : !filters.groups.has(group);
-      return '<section class="category-group"><div class="category-head"><input type="checkbox" aria-label="'+group+'" data-group="'+group+'" '+(on?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+openGroups.has(group)+'"><strong>'+group+'</strong><small>'+fmt.format(total)+'</small>'+icon('chevron-down')+'</button></div>'+
-        (openGroups.has(group)?list.map(c=>'<label class="category-row" style="--pin:'+esc(c.colour)+'"><input type="checkbox" data-kind="'+esc(c.key)+'" '+(!filters.kinds.has(c.key)&&on?'checked ':'')+(!on?'disabled ':'')+'><span class="category-symbol">'+pointSymbol({kind:c.key})+'</span><span>'+esc(c.name)+'</span><small>'+fmt.format(counted.get(c.key))+'</small></label>').join(''):'')+'</section>';
+  return '<div class="section-title"><h2>Categorias</h2></div><div class="layer-actions">'+
+    button('Mostrar tudo','layers-all','','text-button')+button('Ocultar tudo','layers-none','','text-button')+
+    button('Restaurar','reset-filters','','text-button')+'</div>'+layers.map(([group,glyph])=>{
+      const rows=[...groups.get(group).values()];
+      const total=rows.reduce((sum,row)=>sum+row.count,0);
+      const on=progress.enabledGroups.includes(group);
+      const expanded=openGroups.has(group);
+      const children=rows.map(({category:c,count})=>filterRow(c.key,c.name,count,{
+        enabled:on,on:on&&!filters.kinds.has(c.key),
+        marker:'<span class="category-symbol" style="--pin:'+esc(c.colour)+'">'+pointSymbol({kind:c.key})+'</span>'
+      })).join('');
+      const variants=group==='Veículos'&&series.size ? '<details class="series" '+(seriesOpen?'open':'')+'><summary>Coleções de variantes</summary>'+
+        [...series].sort(([a],[b])=>a.localeCompare(b,'pt-BR')).map(([key,count])=>filterRow(key,key,count,{
+          attribute:'series',enabled:on&&!filters.kinds.has('vehicle'),on:on&&!filters.kinds.has('vehicle')&&!filters.series.has(key)
+        })).join('')+'</details>' : '';
+      return '<section class="category-group"><div class="category-head"><input type="checkbox" aria-label="'+group+
+        '" data-group="'+group+'" '+(on?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+expanded+'">'+
+        icon(glyph)+'<strong>'+group+'</strong><small>'+fmt.format(total)+'</small>'+icon('chevron-down')+'</button></div>'+
+        (expanded?children+variants:'')+'</section>';
     }).join('');
 }
 function listMarkup(points) {
@@ -90,11 +111,11 @@ function renderPanel() {
   const pct=available.length?Math.round(completed.length/available.length*100):0;
   const scroll=$('panel-content').scrollTop;
   if (panel==='map') {
-    const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides || groupList;
-    const list=groupList ? filtered.filter(p=>groupList.includes(p.id)) : filtered;
-    const featured=['safe-070','L2453','liquor-store-002','vehicle-request-013'].map(id=>lookup.get(id)).filter(p=>p && filtered.includes(p));
+    const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides;
+    const list=filtered;
+    const featured=['safe-070','L2453','liquor-store-002','standout-vehicle-101'].map(id=>lookup.get(id)).filter(p=>p && filtered.includes(p));
     $('panel-content').innerHTML=(showingList?
-      '<div class="section-title"><h2>'+(groupList?'Pinos próximos':'Resultados')+'</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
+      '<div class="section-title"><h2>Resultados</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
       : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+groupMarkup(entitled);
   }
   if (panel==='rank') renderRank();
@@ -129,6 +150,10 @@ function renderDetail() {
   const complete=!!progress.completed[p.id], favorite=progress.favorites.includes(p.id);
   const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto'}[p.evidence]);
   const fields={...(p.guide?.fields || {})};
+  if(p.variant){
+    fields['Coleção']=p.series;
+    fields['Registro']='Consulte a taxa e o rastreador no WAiNK. A oficina precisa aceitar o veículo.';
+  }
   if (p.guide) {
     if (['bank','smash','gang','payday','store','safe'].includes(p.kind)) {
       fields['Câmeras e alarmes']??=unknown;
@@ -145,26 +170,24 @@ function renderDetail() {
   }
   const coord=p.x!=null?'X '+fmt.format(p.x*32-16384)+' · Y '+fmt.format(16384-p.y*32):'Sem coordenadas';
   const gate=(p.requires||[]).map(key=>equipment[key]).join(' · ');
-  const sourceLinks=[...new Set([...(p.refs||[]),...(!p.neutral?p.sources||[]:[])])];
+  const sourceLinks=[...new Set([...(p.refs||[]),...(!p.neutral||p.variant?p.sources||[]:[])])];
   d.hidden=false;
   d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+'">'+pointSymbol(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
     '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter):'')+(complete?badge('Concluído','green'):'')+'</div>'+
     '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· posição da fonte</small>':'')+'</p>'+
-    (p.intro?'<p>'+esc(p.intro)+'</p>':'')+
-    (p.description && (p.evidence==='personal'||(!p.guide && (!progress.spoilers||progress.showUnknown)))?'<p>'+esc(p.description)+'</p>':'')+
+    (p.intro||p.variantNote?'<p>'+esc(p.intro||p.variantNote)+'</p>':'')+
+    (p.description && (p.evidence==='personal'||(!p.guide && !p.variantNote && (p.variantDescription || !progress.spoilers||progress.showUnknown)))?'<p>'+esc(p.description)+'</p>':'')+
     (gate?'<div class="requirement">'+icon('shield')+'<span>'+esc(gate)+'</span></div>':'')+
     (p.guide?.image?'<img class="location-photo" src="'+esc(base+p.guide.image.file)+'" alt="'+esc(p.guide.image.alt)+'" loading="lazy"><small>'+esc(p.guide.image.credit)+'</small>':'')+
     (Object.keys(fields).length?'<dl>'+Object.entries(fields).map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>':'')+
     (p.steps?.length?'<details class="note"><summary>Como fazer</summary><ol>'+p.steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol></details>':'')+
     (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide?checked:catalog.metadata.verified)+'</summary>'+
-      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas')+'</details>')+
+      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(p.collection==='gameta'?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
+      (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
       (p.x!=null?button('Rota','route-add','route'):'')+(p.evidence==='personal'?button('Editar','edit','settings-2'):'')+'</div>';
 }
-function selectPoint(id,focus=false,nearby=null) {
-  if (nearby) {
-    groupList=nearby;panel='map';listLimit=50;$('workspace').classList.add('panel-open');renderPanel();return;
-  }
+function selectPoint(id,focus=false) {
   const p=lookup.get(id);
   if (!p||!availableOnMap(p,progress)) return;
   selected=id;
@@ -251,6 +274,7 @@ function openCustom(point) {
       const edited={id,name:f.get('name').trim(),region:f.get('region').trim(),description:f.get('description').trim(),x:Number(f.get('x')),y:Number(f.get('y'))};
       progress.custom=[...progress.custom.filter(p=>p.id!==id),edited];
     }
+    if(action!=='delete'&&!progress.enabledGroups.includes('Pessoal'))progress.enabledGroups.push('Pessoal');
     commit();if(action!=='delete')selectPoint(id,true);
   };
   dialog.showModal();
@@ -275,7 +299,7 @@ function changeRoute(id,direction) {
   commit();
 }
 function openPanel(name) {
-  panel=name;groupList=null;$('panel-content').scrollTop=0;
+  panel=name;$('panel-content').scrollTop=0;
   $('workspace').classList.toggle('panel-open',name!=='map');
   $('workspace').classList.remove('panel-collapsed');
   if(mobile()&&name!=='map'){selected=null;map.highlight(null);renderDetail();}
@@ -287,8 +311,8 @@ function handleClick(event) {
   const d=target.dataset;
   if(d.point)return selectPoint(d.point,true);
   if(d.panel)return openPanel(d.panel);
-  if(d.status){filters.status=d.status;groupList=null;listLimit=50;refresh();return;}
-  if(d.filter){filters[d.filter]=!filters[d.filter];groupList=null;listLimit=50;refresh();return;}
+  if(d.status){filters.status=d.status;listLimit=50;refresh();return;}
+  if(d.filter){filters[d.filter]=!filters[d.filter];listLimit=50;refresh();return;}
   if(d.toggleGroup){if(openGroups.has(d.toggleGroup))openGroups.delete(d.toggleGroup);else openGroups.add(d.toggleGroup);renderPanel();return;}
   if(d.routeRemove)return changeRoute(d.routeRemove,0);
   if(d.routeUp)return changeRoute(d.routeUp,-1);
@@ -309,7 +333,9 @@ function handleClick(event) {
     case 'cancel-place':placement(false);break;
     case 'list-more':listLimit+=50;renderPanel();break;
     case 'close-detail':selected=null;map.highlight(null);renderDetail();break;
-    case 'reset-filters':Object.assign(filters,{status:'all',groups:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false});$('query').value='';groupList=null;refresh();break;
+    case 'layers-all':progress.enabledGroups=layers.map(([name])=>name);commit();break;
+    case 'layers-none':progress.enabledGroups=[];commit();break;
+    case 'reset-filters':Object.assign(filters,{status:'all',series:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false});$('query').value='';commit();break;
     case 'done':if(selected){if(progress.completed[selected])delete progress.completed[selected];else progress.completed[selected]=new Date().toISOString();commit();}break;
     case 'favorite':if(selected){progress.favorites=progress.favorites.includes(selected)?progress.favorites.filter(id=>id!==selected):[...progress.favorites,selected];commit();}break;
     case 'route-add':
@@ -362,20 +388,28 @@ async function init() {
     if(e.key==='Escape'&&!$('dialog').open){if(placeMode)placement(false);else if(selected){selected=null;map.highlight(null);renderDetail();}}
   });
   document.addEventListener('change',e=>{
-    for(const [attr,set] of [['group',filters.groups],['kind',filters.kinds]])if(e.target.dataset[attr]){
-      const key=e.target.dataset[attr];
-      if(attr==='group' && key===placesGroup) {
-        progress.placesEnabled=e.target.checked;
-        save();
-      } else if(e.target.checked)set.delete(key);else set.add(key);
+    const {group,kind,series}=e.target.dataset;
+    if(group){
+      progress.enabledGroups=progress.enabledGroups.filter(name=>name!==group);
+      if(e.target.checked){
+        progress.enabledGroups.push(group);
+        openGroups.add(group);
+      }
+      commit();
+    } else if(kind || series) {
+      const set=kind?filters.kinds:filters.series, key=kind||series;
+      if(e.target.checked)set.delete(key);else set.add(key);
       refresh();
     }
   });
+  $('panel-content').addEventListener('toggle',event=>{
+    if(event.target.matches('.series'))seriesOpen=event.target.open;
+  },true);
   let searchTimer;
   $('query').addEventListener('input',e=>{
     clearTimeout(searchTimer);
     searchTimer=setTimeout(()=>{
-      filters.words=normalize(e.target.value).split(' ').filter(Boolean);groupList=null;listLimit=50;
+      filters.words=normalize(e.target.value).split(' ').filter(Boolean);listLimit=50;
       $('panel-content').scrollTop=0;refresh();
     },75);
   });
@@ -402,9 +436,10 @@ async function init() {
     gripStart=null;
   });
   document.addEventListener('pointercancel',()=>{gripStart=null;});
-  if(!mobile()&&!progress.completed['safe-070'])selected='safe-070';
+
   refresh();
 }
+$('app-version').textContent='v'+version;
 installIcons();
 init().catch(error=>{console.error(error);$('startup-error').hidden=false;});
 

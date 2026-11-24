@@ -47,3 +47,11 @@ Nenhum ponto recebeu confirmação de coordenadas por inspeção independente no
 - A versão estática foi recarregada offline no Chrome em um subdiretório `/leonida-map/`, como o caminho padrão de um repositório no GitHub Pages.
 - Inspeção visual do Chrome a 1487 × 1058 e do perfil iPhone 15, incluindo ficha. A referência de design local foi comparada com o cabeçalho, a tipografia, a densidade da legenda, os controles de zoom e a posição da ficha. A implementação usa a cartografia pública com enquadramento estadual, guias em destaque e reorganização da navegação e da ficha no celular.
 
+
+## Versão 1.1.0
+
+- Cabeçalho com a versão do pacote. Filtros em 11 grupos, com Operações ativa em uma configuração nova, e controle de coleção para variantes.
+- Remoção dos agrupamentos numéricos. O mapa mantém pinos independentes na área visível e preserva o agrupamento por categoria na legenda.
+- 262 pontos de variantes terrestres na seleção editorial, incluindo dois aparecimentos adicionais do Gameta. Pedidos de entregas e aparecimentos genéricos ficaram fora da camada. Os IDs antigos continuam no catálogo para preservar o progresso.
+- A comparação de fontes e a transformação das duas coordenadas estão documentadas em [FONTES.md](FONTES.md).
+- Validação desta versão com oito testes unitários e 24 testes Playwright. A carga em navegador usou mais de 5.000 pontos sem agrupar.

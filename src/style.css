@@ -96,8 +96,7 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:20px}
 .leaflet-container .leaflet-control-attribution{background:#111524e8;color:#b5badd;font-size:10px;padding:2px 6px}
 .leaflet-control-attribution a{color:#deccff!important}
 .map-label{pointer-events:none;text-align:center;white-space:nowrap;color:#e1eaff;font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;text-shadow:0 1px 4px #111927,0 0 4px #111927}
-.map-cluster,.map-pin{display:grid!important;place-items:center;border-radius:50%;font:700 12px system-ui}
-.map-cluster{background:#6335a8;color:#fff;border:2px solid #ca9dff;box-shadow:0 0 14px #ad5dff9c,inset 0 0 14px #421b76}
+.map-pin{display:grid!important;place-items:center;border-radius:50%;font:700 12px system-ui}
 .map-pin{background:#19182e;color:var(--pin,#e0bcff);border:1px solid var(--pin,#d1a8ff);box-shadow:0 2px 9px #030616d0}
 .map-pin span{display:grid;place-items:center}
 .map-pin svg{width:16px;height:16px;stroke-width:2.2}
@@ -209,3 +208,13 @@ legend{color:var(--soft);font-size:12px}
 
 .point-icon svg,.category-symbol svg{width:17px;height:17px}
 .point-icon.large svg{width:21px;height:21px}
+
+.app-version{align-self:center;font-size:10px;letter-spacing:0;color:#dfc7ff;border:1px solid #554072;border-radius:6px;padding:3px 5px;font-variant-numeric:tabular-nums}
+.layer-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 6px}
+.category-head button svg:first-child{width:16px;color:var(--accent)}
+.category-row .category-symbol{flex:none}
+.category-row>span:not(.category-symbol){flex:1}
+.series{padding:6px 0 8px 15px}
+.series summary{cursor:pointer;padding:7px 0;color:#d7c6ee;font-size:12px}
+.series .category-row{padding-left:10px}
+@media(max-width:760px){.app-version{font-size:9px;padding:2px 4px}}
