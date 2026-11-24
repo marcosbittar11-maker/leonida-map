@@ -176,7 +176,7 @@ export const operationFacts = {
     'Entrada':'Dá para subir até o escritório pela janela aberta dos fundos.'}},
   'gang-operation-024':{refs:[mg], fields:{
     'Itens-chave':'Cofre no escritório do andar de cima, relógio B&G Ark Royal Ashore e submetralhadora Guardia Brothers VF5.',
-    'Entrada':'A porta no alto do telhado leva direto ao escritório do cofre.', 'Senha':'Nenhuma senha publicada nas fontes consultadas.'}},
+    'Entrada':'A porta no alto do telhado leva direto ao escritório do cofre.', 'Senha':'Desconhecida: nenhuma senha publicada nas fontes consultadas.'}},
   'gang-operation-002':{refs:[gw('sunrise-rv-park')], fields:{
     'Senha':'6769 no cofre do prédio do cais (bloco de notas no local). O cofre do escritório não tem código publicado.',
     'Comprador':'Brian no capítulo 1 ou Dunk depois.'}}

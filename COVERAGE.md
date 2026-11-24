@@ -2,7 +2,7 @@
 
 ## Complemento MapGenie · versão 1.5.0 (24/11/2026)
 
-**Resultado: 0 pinos importados do MapGenie.** O MapGenie carrega no navegador os 2.690 marcadores com coordenadas e descrições. Os [termos da Ziff Davis](https://www.ziffdavis.com/terms-of-use), dona do MapGenie e do IGN, proíbem copiar, extrair, raspar e criar conjuntos de dados a partir do serviço. Por isso nada foi gravado: nem coordenadas, nem descrições, nem ícones. A validação de CRS e de resíduos não se aplicou, porque nenhum pino dessa fonte foi publicado. Não existe API ou exportação pública oficial.
+**Resultado: 0 pinos importados do MapGenie.** O MapGenie carrega no navegador os 2.690 marcadores com coordenadas e descrições. Os [termos da Ziff Davis](https://www.ziffdavis.com/terms-of-use), dona do MapGenie e do IGN, proíbem copiar, extrair, raspar e criar conjuntos de dados a partir do serviço. Por isso nada foi gravado: nem coordenadas, nem descrições, nem ícones. A validação de CRS e de resíduos não se aplicou, porque nenhum pino dessa fonte foi publicado. Não encontramos API ou exportação oficial documentada.
 
 **IGN não é fonte independente.** O [mapa do IGN](https://www.ign.com/maps/gta-6/leonida) mostra a mesma base: 2.690 marcadores, as mesmas categorias e os mesmos números. As categorias do MapGenie também trazem campos `ign_enabled` e `ign_page_id`.
 
@@ -12,12 +12,14 @@
 
 | Mudança | Antes | Depois | Evidência |
 |---|--:|--:|---|
-| Operações do checklist identificadas por nome | 38/39 | 39/39 + 1 UE | Saber Shipping Yard (`gang-operation-022`) e Facility (`-024`), identificadas pelos itens-chave da busca do MapGenie e confirmadas pela vizinhança local (Chino, cofre e pistola no 022; cofre, relógio e VF5 no 024) |
+| Operações do checklist identificadas por nome | 37/39 + 1 UE | 39/39 + 1 UE | Saber Shipping Yard (`gang-operation-022`) e Facility (`-024`), identificadas pelos itens-chave da busca do MapGenie e confirmadas pela vizinhança local (Chino, cofre e pistola no 022; cofre, relógio e VF5 no 024) |
 | Senha 8046 do Leonida Lab com ponto local | pendente | `safe-029` | O cofre do escritório é o cofre da Yard, apesar do nome importado "Office Safe - Saber Shipping Facility" |
 | BASE jumps | 32 | 25 | Sete caixas de paraquedas (`parachuting-001…007`) foram para a nova categoria **Caixas de paraquedas**. Agora o número confere com PowerPyx e MapGenie |
 | Trocas de livros | 8 | 7 | "Book: Killer Prom" (`book-swap-010`), a 0,19 unidade da Book Swap 1, é o livro, não uma troca. Passou para Livros e revistas |
-| Fichas enriquecidas | — | 3 | Saber Yard, Saber Facility e `safe-029`: itens-chave, acesso e local exato, em frases próprias |
+| Fichas enriquecidas | — | 3 || Saber Yard, Saber Facility e `safe-029`: itens-chave, acesso e local exato, em frases próprias |
 | Duplicatas evitadas | — | 0 novas | Nenhum ponto novo entrou. Os IDs foram preservados, e os nomes antigos continuam pesquisáveis como alias |
+
+**Conferência da 1.3.0.** A contagem automatizada por nome não reproduzia o "39/39" da versão 1.3.0. Dava 37/39 + 1 UE, porque a Saber Shipping Yard não tinha correspondência e o nome da Facility caía em um cofre. O 39/39 anterior contava os dois pinos da Guardia sem saber qual era qual. As demais listas conferem: 20/20 joalherias, 15/15 penhores, 14 + 8 bancos, 7/7 financeiras e 21/21 fast food. Das lojas de bebidas, 13/14 têm pino, e a Three Sheets fica no guia da arara.
 
 **Cobertura comparada.** A tabela completa sai de `node scripts/audit.mjs`, na seção "Comparação com as contagens do MapGenie" de [audit/AUDIT.md](audit/AUDIT.md). Das 51 linhas comparáveis, 27 conferem exatamente: joalherias 12+8, penhores 15, bancos 14+8, financeiras 7, academias, Ammu-Nation, oficinas, postos, estilo, eletrônicos, playlists, murais, cartas Jack of Hearts, basquete, sinuca, arcades, estandes, saltos, BASE jumps, voos de faca, pontes, drones, trocas de livros e outras. Em 17 linhas o catálogo local tem mais pontos, por exemplo cofres 96×40, revistas 93×29, cartas Delights 37×18 e WAiNK 101×89.
 
@@ -116,8 +118,8 @@ Todas ficam em [src/curation.js](src/curation.js), separadas do snapshot importa
 | Bancos | 14 | 14 | 14 | 0 | 0 | 14 | 14 |
 | Grandes bancos | 8 | 8 | 8 | 0 | 0 | 8 | 8 |
 | Financeiras | 7 | 7 | 7 | 0 | 0 | 7 | 7 |
-| Operações ilegais | 43 | 17 | 10 | 3 | 0 | 0 | 1 |
-| Cofres | 96 | 0 | 25 | 24 | 0 | 0 | 0 |
+| Operações ilegais | 43 | 17 | 11 | 3 | 0 | 0 | 1 |
+| Cofres | 96 | 0 | 26 | 24 | 0 | 0 | 0 |
 | Receptadores | 16 | 0 | — | — | — | 7 | 4 |
 | Caixas eletrônicos rebocáveis | 94 | 0 | — | — | — | 94 | 94 |
 

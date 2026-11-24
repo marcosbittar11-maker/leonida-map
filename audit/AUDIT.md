@@ -97,7 +97,7 @@ A coluna "Antes" usa a categoria da versão anterior quando o nome coincide; joa
 | bank | 14 | 14 | 14 | 0 | 0 | 14 | 2 | 14 |
 | bigbank | 8 | 8 | 8 | 0 | 0 | 8 | 0 | 8 |
 | payday | 7 | 7 | 7 | 0 | 0 | 7 | 0 | 7 |
-| gang | 43 | 17 | 12 | 3 | 0 | 0 | 1 | 1 |
+| gang | 43 | 17 | 11 | 3 | 0 | 0 | 1 | 1 |
 | safe | 96 | 0 | 26 | 1 | 0 | 0 | 1 | 0 |
 | fence | 16 | 0 | 0 | 0 | 0 | 7 | 4 | 4 |
 | weapon | 87 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
