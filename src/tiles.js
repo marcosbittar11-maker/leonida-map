@@ -1,4 +1,4 @@
-// Cartografia base: pirâmide "day" do GTADB (mapa do jogo capturado), CC BY 4.0.
+// Cartografia base: pirâmide "day" do GTADB (mapa diurno do jogo, modo --official do tiles.py), CC BY 4.0.
 // Mesma grade do CRS atual: z0 = 1024 px para 32.768 m, tiles de 256 px; z6 = 2 px/m.
 // Os arquivos ficam em public/tiles/game/ (scripts/import-tiles.mjs) e são servidos pelo próprio site.
 export const tileSource = {

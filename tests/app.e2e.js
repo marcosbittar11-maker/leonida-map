@@ -400,6 +400,16 @@ test('cartografia do jogo: tiles nativos no nível certo, detalhe ao aproximar e
   expect(levels).toEqual([Math.min(6,Math.round(zoom)+(retina?1:0))]);
   const size=await detail.first().evaluate(img=>img.getBoundingClientRect().width);
   expect(Math.round(size/2**(zoom-Math.round(zoom)))).toBe(retina?128:256);
+  if(info.project.name==='desktop') {
+    // Roda do mouse: zoom fracionário (passo 0,75) para os dois lados, sem falhas de tile.
+    const box=await map(page).boundingBox();
+    await page.mouse.move(box.x+box.width/2,box.y+box.height/2);
+    await page.mouse.wheel(0,240);
+    await expect.poll(async()=>Number(await map(page).getAttribute('data-zoom'))).toBeLessThan(zoom);
+    await page.mouse.wheel(0,-120);
+    await expect.poll(async()=>Number(await map(page).getAttribute('data-zoom'))%1).not.toBe(0);
+    await expect(map(page).locator('.tiles-detail img.leaflet-tile-loaded').first()).toBeVisible();
+  }
   await expect(page.locator('#map')).not.toHaveAttribute('data-detail-failures',/.+/);
   expect(failed).toEqual([]);
   await page.locator('.chapter').click();

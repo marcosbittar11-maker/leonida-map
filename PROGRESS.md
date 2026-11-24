@@ -3,7 +3,7 @@
 ## Versão 1.7.0 · 24/11/2026 · cartografia, estradas e zoom
 
 **Mudanças**
-- **Base cartográfica nova.** O mapa agora usa a pirâmide "day" do GTADB, que é o mapa do jogo capturado: z0–z6, 2 px/m no z6, CC BY 4.0, revisão `b6334a3`. Ela substitui os tiles noturnos do Open GTA 6 Map. Trevos, alças, pontes, faixas, quadras e prédios seguem o jogo. Diagnóstico, fontes, calibração e limitações estão em [CARTOGRAPHY.md](CARTOGRAPHY.md), e as capturas antes/depois, em `docs/cartografia/`.
+- **Base cartográfica nova.** O mapa agora usa a pirâmide "day" do GTADB, que é o mapa diurno do jogo, adicionado ao GTADB no dia do lançamento: z0–z6, 2 px/m no z6, CC BY 4.0, revisão `b6334a3`. Ela substitui os tiles noturnos do Open GTA 6 Map. Trevos, alças, pontes, faixas, quadras e prédios seguem o jogo. Diagnóstico, fontes, calibração e limitações estão em [CARTOGRAPHY.md](CARTOGRAPHY.md), e as capturas antes/depois, em `docs/cartografia/`.
 - **O que era da fonte.** Pontas arredondadas soltas (inclusive nos acessos a pontes), ramais, cruzamentos confusos e traço largo já estavam nos tiles originais, desenhados a partir de linhas centrais vetorizadas, com uma largura por tipo e junções arredondadas.
 - **O que era do renderizador.**
   - O canvas reduzia o tile de 1024 px.
@@ -36,7 +36,7 @@
 **Testes executados**
 - `npm test`: 22 aprovados.
 - `npm run build`: 155 recursos no precache (141 tiles de visão geral).
-- Playwright direcionado (`tests/app.e2e.js` e `tests/vehicles.e2e.js`) em Chrome desktop e WebKit iPhone 15.
+- Playwright, suíte completa em Chrome desktop e WebKit iPhone 15: 45 aprovados e 1 ignorado. O ignorado é anterior a esta versão.
 - Novos testes E2E:
   - nível de tile por DPR, tamanho em CSS e ausência de falhas ao aproximar;
   - créditos nas Configurações;
@@ -44,7 +44,9 @@
   - falha do fornecedor (tiles z3–z6 abortados): o tile fica transparente sobre a visão geral e o aviso aparece uma vez.
 - O teste offline exige o tile de visão geral de 256 px vindo do precache.
 - Inspeção visual de pinos no zoom 6: `docs/cartografia/pinos-zoom6.webp`.
-- Não houve teste em iPhone físico. A pinça foi exercida só pela API de zoom do Leaflet.
+- Nível de tile e nitidez conferidos em DPR 1, 2 e 3: até o zoom 5, a razão aparelho/fonte fica entre 0,5× e 1,8×. A tabela está em CARTOGRAPHY.md.
+- A roda do mouse foi testada no E2E (desktop) e num script à parte (zoom de 1,25 a 6,5 e de volta), sem erros de tile.
+- A pinça foi testada com toque sintético via CDP no Chromium móvel com DPR 3 (zoom de −0,25 a 4, nível 5 carregado). Não houve teste em iPhone físico.
 
 **Limitações mantidas.** O zoom 7 é ampliação do z6. O mapa do jogo não tem nomes de ruas. O mapa escuro antigo não ficou como alternativa (motivo em CARTOGRAPHY.md).
 

@@ -4,7 +4,7 @@ Versão 1.7.0 · 24/11/2026. Este documento registra o diagnóstico da base cart
 
 ## Resumo
 
-- **Nova base:** a pirâmide **"day" do GTADB**, que é o mapa do jogo capturado, nos níveis z0 a z6 (2 px/m no z6). Ela substitui os tiles noturnos do Open GTA 6 Map. Ruas, rodovias, trevos, pontes, rampas, quadras e prédios vêm do mapa do jogo, não de uma reconstrução.
+- **Nova base:** a pirâmide **"day" do GTADB**, que é o mapa diurno do jogo (origem na tabela de fontes), nos níveis z0 a z6 (2 px/m no z6). Ela substitui os tiles noturnos do Open GTA 6 Map. Ruas, rodovias, trevos, pontes, rampas, quadras e prédios vêm do mapa do jogo, não de uma reconstrução.
 - **Sem transformação de coordenadas.** O GTADB usa a mesma grade do nosso CRS. Pinos, IDs e progresso não mudaram.
 - **Hospedagem própria.** Os 31.022 tiles (82,2 MB) são servidos pelo GitHub Pages do Leonida Map, na revisão fixa `b6334a3e3386d028e8ffb4eab35b584bf588e59d`, e foram obtidos por sparse checkout. O jsDelivr foi descartado porque recusa arquivos de repositórios grandes, como mostra a seção de diagnóstico.
 - **Carregador novo:**
@@ -33,7 +33,7 @@ O tile `5,61,61` ficou preso no recorte z0 na captura "antes" do iPhone em Vice 
 | Fonte | O que oferece | Decisão |
 |---|---|---|
 | Open GTA 6 Map (`fbritoferreira/gta6@d860901`) | Tiles noturnos z0–5 de 1024 px (6.720 no z5, esparsos), vetorizados de tiles comunitários e do pôster da Rockstar. Também `roads.json`, com 9.075 linhas (highway, main, street, minor). | Mantido para **dados** (locais e coordenadas). A base visual foi substituída, porque o próprio traçado é o problema. |
-| GTADB (`rolux/gtadb.org@b6334a3`) | `maps/tiles/6/day`: mapa do jogo, z0–6, tiles JPEG de 256 px, retângulo completo por nível (12, 30, 99, 374, 1.496, 5.829 e 23.182 arquivos). | **Adotado como base padrão.** |
+| GTADB (`rolux/gtadb.org@b6334a3`) | `maps/tiles/6/day`: mapa do jogo, z0–6, tiles JPEG de 256 px, retângulo completo por nível (12, 30, 99, 374, 1.496, 5.829 e 23.182 arquivos). **Origem:** o commit `3e7fac7` (rolux, 19/11/2026, dia do lançamento) acrescentou o conjunto, e `ed5c610` o tornou o padrão do site no lugar dos mapas comunitários (yanis, dupzor, cyber). O `maps/tiles.py` gera esse conjunto no modo `--official`, a partir de uma única imagem de 2 px/m (`maps/6/day.png`, que não está no repositório) com fundo `(47,144,176)`. O conteúdo visual é o do mapa diurno do jogo, com ícones de heliponto, hospitais e delegacias. Não verificamos como a imagem foi capturada. | **Adotado como base padrão.** |
 | GTAMap.io | Declara In-Game Day de 34.304 × 44.544 px a 2 px/m, z0–7. | Só comparação. O retângulo z6 do GTADB tem 134 × 173 tiles = 34.304 × 44.288 px, o que bate com a largura declarada. Não verificamos a origem do GTAMap.io e não usamos o serviço. |
 | State of Leonida GIS (`wpenistone/leonida_gis`) | Rede viária GeoJSON em desenvolvimento. | Não usado. Com a imagem do jogo disponível, uma rede vetorial a mais exigiria fundo sem estradas e não traria melhoria demonstrável. |
 | Mapa imprimível oficial (Rockstar) e MapGenie | Referência visual. | Não reutilizados: direitos não concedidos e termos que vedam extração. |
@@ -44,7 +44,7 @@ Não foi necessário redesenhar estradas nem criar camada vetorial. Nenhuma rua 
 
 O `readme.md` do repositório, na revisão usada, autoriza usar dados, fotos e tiles e pede para não buscar dados ou mídia ao vivo de gtadb.org. Para atualizar, a orientação é usar `git pull` ou `git sparse-checkout set ... maps/tiles/6`. `LICENSE-DATA` declara CC BY 4.0 para os tiles e sugere a atribuição "GTA VI Map Tiles (CC BY 4.0) — https://map.gtadb.org".
 
-`scripts/import-tiles.mjs` faz exatamente isto: clone parcial (`--filter=blob:none --sparse`) da revisão fixa, conferência de que cada nível tem o retângulo completo e cópia para `public/tiles/game/`. Os arquivos **não foram alterados**: sem reamostragem nem recompressão. A arte do mapa pertence à Rockstar Games. O GTADB licencia a captura, e o Leonida Map é um projeto comunitário sem fins comerciais.
+`scripts/import-tiles.mjs` faz exatamente isto: clone parcial (`--filter=blob:none --sparse`) da revisão fixa, conferência de que cada nível tem o retângulo completo e cópia para `public/tiles/game/`. Os arquivos **não foram alterados**: sem reamostragem nem recompressão. A arte do mapa pertence à Rockstar Games. O GTADB licencia a captura, e o Leonida Map é um projeto comunitário sem fins comerciais. A [política da Rockstar sobre material protegido](https://support.rockstargames.com/articles/7bNaeoMFTV0iUDGhStTXvz/policy-on-posting-copyrighted-rockstar-games-material), atualizada em 10/01/2025 e lida em 24/11/2026, diz que a Take-Two em geral não se opõe ao uso não comercial por fãs, inclusive em sites de fãs, desde que sem spoilers deliberados. Ela define "não comercial" como não ganhar dinheiro nem promover produto ou serviço e reserva o direito de pedir remoção a qualquer momento. Não há proibição específica a mapas de fãs. O app não tem anúncios nem cobrança. Se houver pedido de remoção, a base volta à reconstrução do Open GTA 6 Map com o carregador novo: basta trocar `src/tiles.js` e a pasta de tiles.
 
 A CC BY 4.0 (seção 3(a)(2)) aceita atribuição "de qualquer forma razoável conforme o meio". Por isso a faixa sobre o mapa foi trocada por uma seção em **Configurações → Créditos do mapa**, que tem:
 - o texto preferido pelo GTADB;
@@ -102,6 +102,27 @@ O resíduo mediano é de **6 m (0,19 unidade)** e o máximo, de **11 m (0,34 uni
 - **Falhas.** Um tile que falha tem até duas novas tentativas (0,7 s e 1,4 s, com `?retry=` que o service worker ignora). A tentativa só acontece se o tile ainda estiver na grade, para não repetir em tiles descartados. Depois disso, o tile fica transparente e a visão geral aparece por baixo. `#map[data-detail-failures]` conta as falhas, e um aviso discreto aparece **uma vez** por sessão ("Sem conexão: …" ou "Alguns detalhes do mapa não carregaram…"). Não há promises em cache, e o próprio Leaflet aborta tiles descartados.
 - **Sem defeito escondido.** O fundo do contêiner usa a cor do mar do mapa do jogo (`#2f90b0`), e o zoom mínimo e o máximo continuam −1 e 7.
 
+### Nível de tile e nitidez por DPR
+
+Conferido em Chrome no trevo de Vice City. A coluna "razão" é pixel do aparelho por pixel da fonte: 1,0 é nativo, abaixo de 1 a imagem está reduzida e acima de 1 está ampliada.
+
+| Zoom | DPR 1 (nível, razão) | DPR 2 | DPR 3 |
+|---|---|---|---|
+| −1 | z0, 0,50× | z0, 1,00× | z0, 1,50× |
+| 0,5 | z1, 0,71× | z2, 0,71× | z2, 1,06× |
+| 2,25 | z2, 1,19× | z3, 1,19× | z3, 1,78× |
+| 3 | z3, 1,00× | z4, 1,00× | z4, 1,50× |
+| 4,75 | z5, 0,84× | z6, 0,84× | z6, 1,26× |
+| 6 | z6, 1,00× | z6, 2,00× | z6, 3,00× |
+| 7 | z6, 2,00× | z6, 4,00× | z6, 6,00× |
+
+Até o zoom 5, a razão fica entre 0,5× e 1,8× em todos os DPR. Ela só passa disso acima do z6, onde a fonte acaba.
+
+### Gestos
+
+- **Roda do mouse** (desktop): o zoom vai de 1,25 a 6,5 e volta a 3,5 em passos de 0,75. Foram carregados 30 tiles de detalhe, sem respostas de erro. A roda também está no E2E.
+- **Pinça:** Chromium em emulação móvel (393 × 852, DPR 3, touch) com `Input.synthesizePinchGesture` via CDP. O zoom foi de −0,25 a 1,75 e depois a 4, com 28 tiles de detalhe do nível 5 e sem erros. É toque sintético, não um gesto físico. O WebKit do Playwright não tem gesto de pinça sintético.
+
 ## PWA e cache
 
 - **Precache.** O precache tem 155 recursos: o shell e os **141 tiles de visão geral (~0,7 MB)**. Os tiles z3–z6 ficam fora do precache e do hash de versão (`scripts/offline.mjs`).
@@ -137,4 +158,4 @@ As capturas antes/depois estão em `docs/cartografia/`:
 - O mapa do jogo não tem nomes de ruas. Os rótulos de região continuam vindo do catálogo.
 - O detalhe máximo é o z6 (2 px/m). O zoom 7 é ampliação, não mais detalhe.
 - A aparência agora é a do mapa diurno do jogo, que é clara. O mapa escuro antigo não foi mantido como alternativa, porque era justamente a base imprecisa e um seletor serviria só para esconder o problema.
-- Os testes usaram Chrome desktop e WebKit com perfil iPhone 15 no Playwright, não um iPhone físico. A pinça foi coberta só pelo zoom do Leaflet, sem gesto físico.
+- Os testes usaram Chrome desktop e WebKit com perfil iPhone 15 no Playwright, não um iPhone físico. A pinça foi testada com toque sintético no Chromium.
