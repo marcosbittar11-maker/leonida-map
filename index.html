@@ -7,12 +7,25 @@
 <link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icons/icon-192.png"><link rel="icon" href="./icons/icon.svg">
 <title>Leonida Map · GTA VI</title></head>
 <body>
-<header class="topbar">
+<header class="topbar" id="topbar" hidden>
 <button class="brand" data-action="home" aria-label="Leonida Map, visão geral"><i class="brand-mark" data-icon="navigation"></i><span>Leonida<span class="brand-accent"> Map</span><small>GTA VI</small></span></button>
 <nav aria-label="Navegação principal"><button class="nav-btn active" data-panel="map"><i data-icon="map"></i>Mapa</button><button class="nav-btn" data-panel="rank"><i data-icon="trophy"></i>Rankings</button><button class="nav-btn" data-panel="route"><i data-icon="route"></i>Rotas</button><button class="nav-btn" data-panel="progress"><i data-icon="chart-no-axes-column-increasing"></i>Progresso</button></nav>
-<button class="chapter" data-action="settings"><i data-icon="shield-check"></i><span id="chapter-label">Capítulo 3</span><i data-icon="chevron-down"></i></button>
+<button class="chapter" data-action="settings"><i data-icon="shield-check"></i><span id="chapter-label">Capítulo</span><i data-icon="chevron-down"></i></button>
 </header>
-<main class="workspace" id="workspace">
+<main class="chapter-gate" id="chapter-gate" aria-labelledby="chapter-question" hidden>
+<form id="initial-chapter">
+<div class="brand-mark" data-icon="navigation"></div>
+<p class="gate-brand">Leonida Map</p>
+<h1 id="chapter-question">Em qual capítulo você está?</h1>
+<p>Usamos sua escolha para proteger você de spoilers.</p>
+<label class="form-row">Capítulo atual
+<select name="chapter" required><option value="" selected disabled>Selecione um capítulo</option></select>
+</label>
+<button type="submit" class="ui-button primary full">Abrir mapa</button>
+</form>
+</main>
+<p role="alert" class="startup-error" id="startup-error" hidden>Não foi possível carregar o mapa. Recarregue a página com internet.</p>
+<main class="workspace" id="workspace" hidden>
 <aside class="sidebar" id="sidebar" aria-label="Painel de exploração">
 <div class="mobile-grip" aria-hidden="true"></div>
 <div class="panel-head"><div><h1 id="panel-title">Explorar Leonida</h1><p id="panel-caption">Pontos de interesse e guias de GTA VI</p></div><button class="icon-button" data-action="sidebar" aria-label="Recolher painel"><i data-icon="panel-left-close"></i></button></div>

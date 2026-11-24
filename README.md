@@ -1,6 +1,6 @@
 # Leonida Map
 
-Aplicativo web em português brasileiro para consultar GTA VI no computador ou pelo celular enquanto joga no PS5. A versão inicial abre no Capítulo 3 com proteção contra spoilers.
+Aplicativo web em português brasileiro para consultar GTA VI no computador ou pelo celular enquanto joga no PS5. Na primeira abertura, o app pergunta em qual capítulo você está para aplicar a proteção contra spoilers. A resposta fica salva no aparelho e pode ser alterada pelo botão de capítulo.
 
 [Abrir o Leonida Map no GitHub Pages](https://marcosbittar11-maker.github.io/leonida-map/)
 

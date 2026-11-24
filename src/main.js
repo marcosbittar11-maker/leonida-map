@@ -1,7 +1,7 @@
 import { createMap } from './map.js';
 import { installIcons, icon } from './icons.js';
 import { checked, equipment, leads } from './guides.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, normalize, visible, matches, remaining, rangeText } from './model.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, normalize, visible, matches, remaining, rangeText } from './model.js';
 import { graphFromRoads, routeLeg } from './routes.js';
 import './style.css';
 
@@ -206,7 +206,7 @@ async function drawRoute(fit=false) {
 function openSettings() {
   const dialog=$('dialog');
   dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>Capítulo e acesso</h2><button class="icon-button" value="cancel" aria-label="Fechar preferências">'+icon('x')+'</button></div>'+
-    '<label class="form-row">Capítulo atual<select name="chapter">'+[1,2,3,4,5].map(n=>'<option '+(progress.chapter===n?'selected':'')+' value="'+n+'">Capítulo '+n+'</option>').join('')+'</select></label>'+
+    '<label class="form-row">Capítulo atual<select name="chapter">'+chapters.map(n=>'<option '+(progress.chapter===n?'selected':'')+' value="'+n+'">Capítulo '+n+'</option>').join('')+'</select></label>'+
     '<label class="check"><input type="checkbox" name="spoilers" '+(progress.spoilers?'checked':'')+'> Proteger contra spoilers</label>'+
     '<label class="check"><input type="checkbox" name="showUnknown" '+(progress.showUnknown?'checked':'')+'> Mostrar atividades sem capítulo verificado</label>'+
     '<p class="muted">Atividades sem capítulo conhecido e links externos podem conter spoilers.</p>'+
@@ -320,13 +320,34 @@ function handleClick(event) {
   }
 }
 
+function selectInitialChapter() {
+  const gate=$('chapter-gate'), form=$('initial-chapter');
+  const select=form.elements.chapter;
+  for (const chapter of chapters) select.add(new Option('Capítulo '+chapter,chapter));
+  gate.hidden=false;
+  return new Promise(resolve=>{
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      progress.chapter=Number(select.value);
+      progress.chapterSelected=true;
+      save();
+      gate.hidden=true;
+      resolve();
+    },{once:true});
+  });
+}
+
 async function init() {
+  if('serviceWorker' in navigator&&import.meta.env.PROD)navigator.serviceWorker.register(base+'sw.js').catch(()=>{});
   const response=await fetch(base+'data/catalog.json');
   if(!response.ok)throw new Error('Catálogo indisponível');
   catalog=await response.json();
   progress=freshProgress();
   try {const old=localStorage.getItem(storageKey);if(old)progress=decodeProgress(JSON.parse(old),catalog.aliases);}
   catch {toast('O progresso salvo não pôde ser lido.');}
+  if(progress.chapter===null)await selectInitialChapter();
+  $('topbar').hidden=false;
+  $('workspace').hidden=false;
   staticPoints=applyGuides(catalog);
   map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
     onPlace:p=>{placement(false);openCustom(p);},markerText:categoryIcon});
@@ -376,8 +397,7 @@ async function init() {
   document.addEventListener('pointercancel',()=>{gripStart=null;});
   if(!mobile()&&!progress.completed['safe-070'])selected='safe-070';
   refresh();
-  if('serviceWorker' in navigator&&import.meta.env.PROD)navigator.serviceWorker.register(base+'sw.js').catch(()=>{});
 }
 installIcons();
-init().catch(error=>{console.error(error);$('map-count').textContent='Catálogo indisponível';toast('Não foi possível carregar o mapa. Recarregue online.');});
+init().catch(error=>{console.error(error);$('startup-error').hidden=false;});
 

@@ -5,8 +5,14 @@ const map = page => page.locator('#map');
 const detail = page => page.locator('#detail');
 const tap = (page,name) => page.getByRole('button',{name,exact:true});
 const query = page => page.getByRole('searchbox',{name:'Buscar em Leonida'});
+async function chooseChapter(page,chapter='3') {
+  const gate=page.locator('#chapter-gate');
+  await gate.getByLabel('Capítulo atual').selectOption(chapter);
+  await gate.getByRole('button',{name:'Abrir mapa'}).click();
+}
 async function ready(page) {
   await page.goto('/');
+  await chooseChapter(page);
   await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
 }
 async function filters(page) {
@@ -116,6 +122,7 @@ test('favorito, conclusão, checklist e round-trip de backup',async({page})=>{
   expect(backup.completed.L2453).toBeTruthy();
   await page.evaluate(()=>localStorage.clear());
   await page.reload();
+  await chooseChapter(page);
   await tap(page,'Progresso').click();
   await page.locator('#backup-input').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:content});
   await expect(page.getByRole('status')).toHaveText('Progresso importado.');
@@ -186,3 +193,38 @@ test('trajeto viário e ranking de revenda usam dados do catálogo',async({page}
   await expect(page.locator('[data-point="standout-vehicle-087"]')).toBeVisible();
 });
 
+
+test('pergunta o capítulo antes de mostrar o mapa e lembra a resposta',async({page})=>{
+  await page.goto('/');
+  const gate=page.locator('#chapter-gate');
+  await expect(gate.getByRole('heading')).toHaveText('Em qual capítulo você está?');
+  await expect(gate.getByLabel('Capítulo atual')).toHaveValue('');
+  await expect(map(page)).toBeHidden();
+  await gate.getByRole('button',{name:'Abrir mapa'}).click();
+  await expect(gate).toBeVisible();
+  await chooseChapter(page,'2');
+  await expect(page.locator('#chapter-label')).toHaveText('Capítulo 2');
+  await expect(gate).toBeHidden();
+  await search(page,'Zorrusso entrega inicial');
+  await expect(page.locator('[data-point="vehicle-request-013"]')).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('#chapter-label')).toHaveText('Capítulo 2');
+  await expect(gate).toBeHidden();
+});
+
+test('dados anteriores recebem a seleção sem perder conclusões',async({page})=>{
+  await page.addInitScript(()=>{
+    const key='leonida-map:progress:v1';
+    if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify({
+      version:1,chapter:3,custom:[],favorites:['L2453'],completed:{L2453:'2026-11-24T12:00:00.000Z'},route:['L2453']
+    }));
+  });
+  await page.goto('/');
+  await expect(page.locator('#chapter-gate')).toBeVisible();
+  await chooseChapter(page,'1');
+  await tap(page,'Progresso').click();
+  await expect(page.locator('#panel-content [data-point="L2453"]')).toBeVisible();
+  const progress=await page.evaluate(()=>JSON.parse(localStorage.getItem('leonida-map:progress:v1')));
+  expect(progress.favorites).toEqual(['L2453']);
+  expect(progress.route).toEqual(['L2453']);
+});

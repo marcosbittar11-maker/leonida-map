@@ -30,8 +30,11 @@ test('dedup conservador com aliases e proveniência',()=>{
   assert.equal(result.points.length,3);
 });
 test('capítulo, requisitos, busca normalizada e flags positivas',()=>{
-  const progress=freshProgress(), p=byId.get('safe-070');
-  assert.equal(progress.chapter,3);
+  const p=byId.get('safe-070');
+  assert.equal(freshProgress().chapter,null);
+  assert.equal(visible(p,freshProgress()),false);
+  assert.equal(visible(p,{...freshProgress(),spoilers:false}),false);
+  const progress={...freshProgress(),chapter:3,chapterSelected:true};
   assert.equal(visible(p,progress),true);
   assert.equal(visible(byId.get('vehicle-request-013'),{...progress,chapter:2}),false);
   assert.equal(visible(byId.get('vehicle-request-013'),{...progress,chapter:2,showUnknown:true}),false);
@@ -48,8 +51,10 @@ test('backup resolve aliases, preserva capítulo atual e valida pontos customiza
   const imported=decodeProgress(raw,{before:'after'});
   assert.deepEqual(imported.favorites,['after']);
   assert.deepEqual(imported.completed,{after:'2026-11-24T00:00:00.000Z'});
-  const merged=mergeProgress(freshProgress(),imported);
-  assert.equal(merged.chapter,3);
+  assert.equal(imported.chapter,null);
+  const merged=mergeProgress({...freshProgress(),chapter:4,chapterSelected:true},imported);
+  assert.equal(merged.chapter,4);
+  assert.equal(decodeProgress(merged).chapter,4);
   assert.deepEqual(merged.route,['after']);
   assert.throws(()=>decodeProgress({...raw,custom:[{id:'bad',name:'bad',x:5000,y:30}]}));
 });

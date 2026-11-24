@@ -3,7 +3,8 @@ import { guides, bankSummary, officialPlaces, rockstarPlaces } from './guides.js
 export const normalize = value => (value ?? '').toString().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 const safeKinds = new Set(['shop','electronics','clothes','gym','food','hotel','transport','civic','leisure','nature','workshop','building']);
 const spoilerName = /\b(mission|story|heist|chapter|finale|epilogue|death|destroyed|safehouse|request|abandoned)\b/i;
-export const freshProgress = () => ({ version:1, chapter:3, showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], custom:[], route:[] });
+export const chapters = [1,2,3,4,5];
+export const freshProgress = () => ({ version:1, chapter:null, chapterSelected:false, showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], custom:[], route:[] });
 
 export function resolveId(id, aliases) {
   const visited = new Set();
@@ -31,6 +32,7 @@ export function applyGuides(catalog) {
   });
 }
 export function visible(point, progress) {
+  if (progress.chapter == null) return false;
   if (progress.spoilers) {
     if (Math.max(point.chapter ?? 0,point.latestReference ?? 0) > progress.chapter) return false;
     if (!point.neutral && point.chapter == null && !progress.showUnknown) return false;
@@ -73,8 +75,9 @@ export function decodeProgress(payload, aliases = {}) {
     const iso = new Date(date).toISOString();
     if (!completed[canonical] || completed[canonical] < iso) completed[canonical] = iso;
   }
+  const chapterSelected = payload.chapterSelected === true && chapters.includes(payload.chapter);
   return {
-    ...defaults, chapter:Number.isInteger(payload.chapter) && payload.chapter >= 1 && payload.chapter <= 5 ? payload.chapter : 3,
+    ...defaults, chapter:chapterSelected ? payload.chapter : null, chapterSelected,
     showUnknown:payload.showUnknown === true, spoilers:payload.spoilers !== false, strictAccess:payload.strictAccess === true,
     equipment:Array.isArray(payload.equipment) ? ids(payload.equipment) : [],
     completed, favorites:ids(payload.favorites), custom:[...custom.values()],

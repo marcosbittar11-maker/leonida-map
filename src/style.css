@@ -196,3 +196,12 @@ legend{color:var(--soft);font-size:12px}
 
 
 #map[data-zoom^='-'] .local-map-label{display:none}
+
+.chapter-gate{flex:1;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(ellipse at 50% 25%,#29213f 0%,var(--bg) 65%)}
+.chapter-gate form{width:min(100%,410px);padding:clamp(22px,6vw,34px);background:var(--panel);border:1px solid #514369;border-radius:16px;box-shadow:0 16px 48px #08061188}
+.chapter-gate .gate-brand{margin:14px 0 8px;color:var(--accent);font-weight:750}
+.chapter-gate h1{font-size:clamp(23px,6vw,30px);line-height:1.15;letter-spacing:-.025em}
+.chapter-gate h1+p{margin:10px 0 22px;color:var(--soft);line-height:1.45}
+.chapter-gate .form-row{margin-bottom:14px}
+.chapter-gate select,.chapter-gate .ui-button{min-height:44px}
+.startup-error{margin:auto;padding:24px;color:var(--fg);text-align:center}

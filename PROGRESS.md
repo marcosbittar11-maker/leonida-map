@@ -15,12 +15,13 @@
 | Resumos adicionais de bancos com modalidade e valor | 20 |
 | Modelos com estimativa comunitária de revenda livre | 3 |
 | Lojas de eletrônicos relacionadas à busca por tablets | 15 |
-| Pontos iniciais visíveis com Capítulo 3 | 2.399 |
+| Pontos visíveis após selecionar o Capítulo 3 | 2.399 |
 
 Nenhum ponto recebeu confirmação de coordenadas por inspeção independente no PS5. A existência oficial de seis locais vem da Rockstar. Outros guias citam relatos de testes em jogo, inclusive Apollo Aggregates em PlayStation. Consulte [FONTES.md](FONTES.md).
 
 ## Recursos entregues
 
+- Seleção inicial obrigatória de capítulo. Dados de progresso de versões anteriores são preservados.
 - Cartografia noturna de alta resolução, clusters e legenda com grupos e categorias.
 - Busca por nome, região e categoria. Filtros por conclusão, favorito, repetição, confronto, evidência de capítulo e requisitos selecionados.
 - Guias com valores, campos desconhecidos explícitos e links para fontes e vídeos, inclusive momentos marcados da arara e da entrega inicial do Zorrusso.
