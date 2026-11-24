@@ -1,5 +1,7 @@
 name: Publicar Leonida Map
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

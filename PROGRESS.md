@@ -1,6 +1,28 @@
 # Progresso da entrega
 
-## Inventário de 24/11/2026
+## Versão 1.3.0 · 24/11/2026
+
+**Mudanças**
+- **Antisspoiler removido.** Não há mais seleção de capítulo ao iniciar, seletor no cabeçalho, proteção contra spoilers nem ocultação por capítulo em mapa, busca, rankings, fichas ou Car Finder. Na 1.2.0, 2.882 pontos sem capítulo ficavam ocultos no capítulo 3.
+- **Configurações com cinco itens.** São eles Slim Jim, clonador de chaves, Snap Gun e assaltos a caixas e a cofres de bancos. Os demais requisitos são informativos.
+- **Disponibilidade.** Há filtro por estado (atendidos, pendentes, desconhecidos), filtro por equipamento e cadeado discreto no pino. A janela de configurações tem altura responsiva, rolagem interna e áreas seguras no iPhone.
+- **Contadores e filtros ativos.** Cada categoria mostra visíveis/catalogados, e os filtros ativos aparecem como etiquetas removíveis.
+- **Classificação.** Joalherias e penhores ficaram separados, assim como bancos e grandes bancos. Fast food foi para Lojas assaltáveis, e relógios e armas no chão viraram subcategorias. Houve 3 reclassificações e 7 duplicatas consolidadas com aliases.
+- **Fichas.** Receberam senhas (GTA6Wiki e Leonida Lab), itens-chave, entradas, desbloqueios, receptadores por tipo e 117 itens vinculados ao seu complexo.
+- **PWA.** Avisa quando uma versão nova do catálogo é instalada.
+
+**Auditoria** (`scripts/audit.mjs`, detalhes em [COVERAGE.md](COVERAGE.md))
+- Os pontos conferem por nome com as listas externas: 20/20 joalherias, 15/15 casas de penhores, 22/22 bancos (14 + 8), 7/7 financeiras, 39/39 operações do checklist e 21/21 fast foods.
+- Há 5.533 pontos consultáveis, dos quais 2.889 foram recuperados em relação ao capítulo 3 da 1.2.0.
+- Nenhuma coordenada inválida.
+
+**Testes executados antes da publicação**
+- `npm test`: 16 testes unitários. Incluem regressão para pontos sem capítulo, migração de preferências antigas, estados de requisito, contadores, vínculos sem dupla contagem e senhas importadas.
+- Playwright: 31 aprovados e 1 ignorado de propósito (teste só para celular no projeto desktop), em Chrome desktop e WebKit com perfil iPhone 15 emulado. Não houve teste em aparelho físico.
+
+**Pendências.** Saber Shipping Yard/Facility, 5 caixas eletrônicos rebocáveis, 14 laboratórios Kitty Litter sem coordenadas, colecionáveis sem pinos (flamingos, descobertas subaquáticas, tesouros do Kenton) e preços de revenda para 517 dos 629 modelos. Lista completa em [COVERAGE.md](COVERAGE.md).
+
+## Histórico · inventário de 24/11/2026 (versão 1.2.0)
 
 | Métrica | Total |
 |---|---:|
@@ -19,7 +41,9 @@
 
 Nenhum ponto recebeu confirmação de coordenadas por inspeção independente no PS5. A existência oficial de seis locais vem da Rockstar. Outros guias citam relatos de testes em jogo, inclusive Apollo Aggregates em PlayStation. Consulte [FONTES.md](FONTES.md).
 
-## Recursos entregues
+## Recursos entregues até a 1.2.0
+
+Itens sobre capítulo e Rotas descrevem a versão 1.2.0. O antisspoiler foi removido na 1.3.0, e Rotas deu lugar a Veículos na 1.2.0.
 
 - Seleção inicial obrigatória de capítulo. Dados de progresso de versões anteriores são preservados.
 - Grupo Locais desligado na primeira abertura, com a escolha salva no aparelho. Símbolos vetoriais de categoria e serviço nos pinos, na legenda e nas fichas.
