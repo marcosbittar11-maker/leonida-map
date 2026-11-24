@@ -26,7 +26,7 @@ function overviewTile(y,x) {
   return ancestorCache.get(key);
 }
 
-export function createMap({ revision, labels, onSelect, onPlace, markerText }) {
+export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
   const map = L.map('map', { crs:L.CRS.Simple, zoomControl:false, attributionControl:false, minZoom:-1, maxZoom:7,
     zoomSnap:0.25, zoomDelta:0.75, maxBounds:bounds.pad(0.25), maxBoundsViscosity:0.85, preferCanvas:true });
   const tileLayer = L.gridLayer({ tileSize:256, minZoom:-1, maxZoom:7, minNativeZoom:0, maxNativeZoom:5, bounds, keepBuffer:2 });
@@ -88,7 +88,11 @@ export function createMap({ revision, labels, onSelect, onPlace, markerText }) {
       if (old && old.variant === variant) continue;
       if (old) pins.removeLayer(old.marker);
       const html = document.createElement('span');
-      html.textContent = cluster ? props.point_count : done ? '✓' : markerText(point);
+      if (cluster) html.textContent = props.point_count;
+      else {
+        html.setAttribute('aria-hidden','true');
+        html.innerHTML = markerIcon(point,done);
+      }
       if (point?.category?.colour) html.style.setProperty('--pin',point.category.colour);
       const type = cluster ? 'map-cluster' : 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'');
       const name = cluster ? props.point_count + ' pontos · aproximar' : point.name;

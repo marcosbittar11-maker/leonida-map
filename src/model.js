@@ -4,7 +4,8 @@ export const normalize = value => (value ?? '').toString().normalize('NFD').repl
 const safeKinds = new Set(['shop','electronics','clothes','gym','food','hotel','transport','civic','leisure','nature','workshop','building']);
 const spoilerName = /\b(mission|story|heist|chapter|finale|epilogue|death|destroyed|safehouse|request|abandoned)\b/i;
 export const chapters = [1,2,3,4,5];
-export const freshProgress = () => ({ version:1, chapter:null, chapterSelected:false, showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], custom:[], route:[] });
+export const placesGroup = 'Locais';
+export const freshProgress = () => ({ version:1, chapter:null, chapterSelected:false, placesEnabled:false, showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], custom:[], route:[] });
 
 export function resolveId(id, aliases) {
   const visited = new Set();
@@ -39,8 +40,11 @@ export function visible(point, progress) {
   }
   return !progress.strictAccess || (point.chapter == null ? !!point.neutral : (point.requires || []).every(key => progress.equipment.includes(key)));
 }
+export function availableOnMap(point, progress) {
+  return (point.category?.group !== placesGroup || progress.placesEnabled) && visible(point, progress);
+}
 export function matches(point, filters, progress) {
-  if (!visible(point, progress)) return false;
+  if (!availableOnMap(point, progress)) return false;
   if (filters.kinds?.has(point.kind) || filters.groups?.has(point.category?.group)) return false;
   if (filters.status === 'done' && !progress.completed[point.id]) return false;
   if (filters.status === 'pending' && progress.completed[point.id]) return false;
@@ -78,7 +82,7 @@ export function decodeProgress(payload, aliases = {}) {
   const chapterSelected = payload.chapterSelected === true && chapters.includes(payload.chapter);
   return {
     ...defaults, chapter:chapterSelected ? payload.chapter : null, chapterSelected,
-    showUnknown:payload.showUnknown === true, spoilers:payload.spoilers !== false, strictAccess:payload.strictAccess === true,
+    placesEnabled:payload.placesEnabled === true, showUnknown:payload.showUnknown === true, spoilers:payload.spoilers !== false, strictAccess:payload.strictAccess === true,
     equipment:Array.isArray(payload.equipment) ? ids(payload.equipment) : [],
     completed, favorites:ids(payload.favorites), custom:[...custom.values()],
     route:Array.isArray(payload.route) ? ids(payload.route).slice(0,25) : []

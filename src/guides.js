@@ -17,7 +17,7 @@ export const equipment = {
 
 export const guides = {
   'safe-070': {
-    name:'Laboratório do Caranguejo', symbol:'🦀', region:'Pelican Valley', kind:'easter', chapter:1, requires:['boat'],
+    name:'Laboratório do Caranguejo', region:'Pelican Valley', kind:'easter', chapter:1, requires:['boat'],
     intro:'Posto de pesquisa no pântano. O cofre e a cabana do cais fazem parte da mesma visita.',
     fields:{'Entrada':'Atracação do posto de pesquisa', 'Computador':'CLEAVES', 'Cofre':'0072 · dobro da amostra 0036', 'Cabana no cais':'0212',
       'Itens':'Crabshack VF5 SMG, notas marcadas e dinheiro no cofre', 'Valor relatado':'US$ 8.000 a 10.000 em notas marcadas conforme o relato, mais cerca de US$ 1.100 no cofre em uma fonte. Cotação de venda variável.',
@@ -35,7 +35,7 @@ export const guides = {
     reward:[12720,14400], repeatable:true, noGunfire:true, refs:[apollo]
   },
   'liquor-store-002':{
-    name:'Arara da Three Sheets Liquor', symbol:'🦜', kind:'easter', chapter:1, requires:['shirley'],
+    name:'Arara da Three Sheets Liquor', kind:'easter', chapter:1, requires:['shirley'],
     intro:'Evento Strange Noises no quintal da loja em Key Lento.',
     fields:{'Entrada':'Pule o muro lateral, perto da oficina', 'Itens':'Cerca de US$ 1.300 na ventilação, mais o cofre da loja como opcional',
       'Hostis':'Guardas no quintal. Há relatos de polícia após o confronto.'},

@@ -39,6 +39,7 @@ test('navegação, zoom, filtros de grupo e individuais, busca e seleção',asyn
   await ready(page);
   await expect(map(page).locator('canvas.leaflet-tile-loaded').first()).toBeVisible();
   if(info.project.name==='desktop') {
+    await tap(page,'Fechar detalhes').click();
     const position=await map(page).boundingBox();
     const pane=map(page).locator('.leaflet-map-pane');
     const beforePan=await pane.evaluate(el=>el.style.transform);
@@ -152,6 +153,8 @@ test('rota, ponto personalizado e edição',async({page})=>{
 test('catálogo completo de milhares, agrupamento e busca responsiva',async({page},info)=>{
   await ready(page);
   await prefs(page,d=>d.getByLabel('Proteger contra spoilers').uncheck());
+  await filters(page);
+  await page.getByRole('checkbox',{name:'Locais',exact:true}).check();
   await expect(map(page)).toHaveAttribute('data-points','5665');
   expect(Number(await map(page).getAttribute('data-drawn'))).toBeLessThan(500);
   await filters(page);
@@ -180,6 +183,8 @@ test('trajeto viário e ranking de revenda usam dados do catálogo',async({page}
   await ready(page);
   await pick(page,'Fleeca Key Lento','bank-006');
   await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
+  await filters(page);
+  await page.getByRole('checkbox',{name:'Locais',exact:true}).check();
   await pick(page,'spray Key Lento','pay-n-spray-002');
   await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
   await tap(page,'Rotas').click();
@@ -227,4 +232,37 @@ test('dados anteriores recebem a seleção sem perder conclusões',async({page})
   const progress=await page.evaluate(()=>JSON.parse(localStorage.getItem('leonida-map:progress:v1')));
   expect(progress.favorites).toEqual(['L2453']);
   expect(progress.route).toEqual(['L2453']);
+});
+
+test('Locais fica oculto até ativação e guarda os dois estados',async({page})=>{
+  await ready(page);
+  const places=page.getByRole('checkbox',{name:'Locais',exact:true});
+  const pin=page.locator('[data-point="pay-n-spray-002"]');
+  await search(page,'spray Key Lento');
+  await expect(places).not.toBeChecked();
+  await expect(pin).toHaveCount(0);
+  await places.check();
+  await expect(pin).toBeVisible();
+  await page.reload();
+  await search(page,'spray Key Lento');
+  await expect(places).toBeChecked();
+  await expect(pin).toBeVisible();
+  await tap(page,'Restaurar').click();
+  await expect(places).toBeChecked();
+  await places.uncheck();
+  await page.reload();
+  await search(page,'spray Key Lento');
+  await expect(places).not.toBeChecked();
+  await expect(pin).toHaveCount(0);
+});
+
+test('pinos, resultados, legenda e ficha usam símbolos vetoriais',async({page})=>{
+  await ready(page);
+  await search(page,'fleeca washington beach');
+  const result=page.locator('[data-point="bank-001"]');
+  await expect(result.locator('.point-icon svg')).toBeVisible();
+  await expect(page.getByRole('checkbox',{name:/Bancos e cofres/}).locator('..').locator('.category-symbol svg')).toBeVisible();
+  await result.click();
+  await expect(detail(page).locator('.point-icon svg')).toBeVisible();
+  await expect(map(page).getByRole('button',{name:'Fleeca - Washington Beach',exact:true}).locator('svg')).toBeVisible();
 });

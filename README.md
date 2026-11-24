@@ -30,7 +30,7 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 
 ## Consultar
 
-- Busque por nome, região ou categoria. Abra os grupos da legenda para combinar filtros.
+- Busque por nome, região ou categoria. Abra os grupos da legenda para combinar filtros. O grupo **Locais** começa desligado. Marque sua caixa para mostrar os pontos e guardar a escolha no aparelho.
 - Use o botão de capítulo para informar equipamentos e desbloqueios. O filtro de acesso exige os requisitos documentados. O jogo ainda pode impor condições que a fonte não registrou.
 - Pontos cartográficos de baixo risco editorial podem aparecer sem capítulo. Atividades sem capítulo documentado ficam ocultas por padrão. Também é possível exibi-las explicitamente e manter o bloqueio dos capítulos posteriores.
 - Marque conclusões e favoritos na ficha. Adicione pontos a uma rota em ordem de visita. A linha tracejada usa distância em linha reta. A linha verde usa trechos conectados da malha comunitária, sem simulação de sentidos ou travessias. As distâncias estão em unidades da base, e as posições no jogo podem variar em precisão.
@@ -60,5 +60,5 @@ npm run test:e2e
 
 O sincronizador mantém IDs e aliases observados. Para remover ou substituir um ID na fonte, preserve ou introduza um alias antes de publicar a mudança. O catálogo normalizado e os dados de navegação ficam no repositório e permitem desenvolvimento local sem rodar a importação. Consulte [FONTES.md](FONTES.md) para atribuições e [PROGRESS.md](PROGRESS.md) para cobertura e testes.
 
-Projeto comunitário independente. A cartografia e os dados foram adaptados de [Open GTA 6 Map](https://github.com/fbritoferreira/gta6) sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Ícones de interface são [Lucide](https://lucide.dev/license).
+Projeto comunitário independente. A cartografia e os dados foram adaptados de [Open GTA 6 Map](https://github.com/fbritoferreira/gta6) sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Os ícones são do [Lucide](https://lucide.dev/license). A legenda segue a associação de categorias do Open GTA 6 Map, com ajustes para os serviços do Leonida Map.
 

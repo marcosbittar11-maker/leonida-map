@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { prepareCatalog } from '../scripts/normalize.mjs';
 import { guides } from '../src/guides.js';
 import { applyGuides, decodeProgress, mergeProgress, freshProgress, visible, matches, remaining } from '../src/model.js';
+import { pointSymbol } from '../src/point-icons.js';
 import { graphFromRoads, routeLeg } from '../src/routes.js';
 
 const catalog=JSON.parse(await readFile(new URL('../public/data/catalog.json',import.meta.url)));
@@ -68,3 +69,21 @@ test('trajeto viário usa segmentos conectados e separa lacunas',()=>{
   assert.equal(routeLeg(a,{x:50,y:50},graph).known,false);
 });
 
+
+test('Locais começa desativado e só aparece após a ativação explícita',()=>{
+  const place=byId.get('pay-n-spray-002');
+  const progress={...freshProgress(),chapter:3,chapterSelected:true};
+  assert.equal(matches(place,{},progress),false);
+  assert.equal(matches(place,{},decodeProgress({...progress,placesEnabled:true})),true);
+  assert.equal(matches(place,{},decodeProgress({...progress,placesEnabled:'true'})),false);
+  assert.equal(mergeProgress(progress,{...progress,placesEnabled:true}).placesEnabled,false);
+});
+
+test('todas as categorias do catálogo têm ícones vetoriais',()=>{
+  for(const {key} of catalog.categories) {
+    const symbol=pointSymbol({kind:key});
+    assert.match(symbol,/<svg\b/,key);
+    if(key!=='other')assert.notEqual(symbol,pointSymbol({kind:'other'}),key);
+  }
+  assert.notEqual(pointSymbol({kind:'shop',type:'Gas station'}),pointSymbol({kind:'shop',type:'ATM'}));
+});

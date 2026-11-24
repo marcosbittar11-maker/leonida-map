@@ -1,7 +1,8 @@
 import { createMap } from './map.js';
 import { installIcons, icon } from './icons.js';
+import { pointSymbol } from './point-icons.js';
 import { checked, equipment, leads } from './guides.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, normalize, visible, matches, remaining, rangeText } from './model.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, placesGroup, normalize, visible, availableOnMap, matches, remaining, rangeText } from './model.js';
 import { graphFromRoads, routeLeg } from './routes.js';
 import './style.css';
 
@@ -19,7 +20,6 @@ const badge = (text,tone='') => '<span class="badge '+tone+'">'+esc(text)+'</spa
 const button = (label, action, image, extra='') => '<button type="button" class="ui-button '+extra+'" data-action="'+action+'">'+(image?icon(image):'')+esc(label)+'</button>';
 const auditDate = date => date?.split('-').reverse().join('/') ?? '';
 const routeDistance = units => fmt.format(Math.round(units))+' u';
-const categoryIcon = p => p.symbol || p.category?.icon || '📍';
 const external = (url, title) => /^https?:\/\//i.test(url) ? '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(title)+icon('arrow-up-right')+'</a>' : '';
 const sourceURL = (c,rev) => 'https://github.com/fbritoferreira/gta6/blob/'+rev+'/public/data/'+(c || 'locations')+'.json';
 function sourceName(url,index) {
@@ -27,7 +27,7 @@ function sourceName(url,index) {
   catch {return 'Fonte '+(index+1);}
 }
 function pointButton(p,value='') {
-  return '<button class="point-row" data-point="'+esc(p.id)+'"><span class="point-icon" style="--pin:'+esc(p.category?.colour || '#be90ff')+'">'+esc(categoryIcon(p))+'</span><span class="point-copy"><strong>'+esc(p.name)+'</strong><small>'+esc(value || p.region || p.category?.name || 'Ponto personalizado')+'</small></span>'+(progress.completed[p.id]?'<span class="mint">✓</span>':'')+icon('chevron-right')+'</button>';
+  return '<button class="point-row" data-point="'+esc(p.id)+'"><span class="point-icon" style="--pin:'+esc(p.category?.colour || '#be90ff')+'">'+pointSymbol(p)+'</span><span class="point-copy"><strong>'+esc(p.name)+'</strong><small>'+esc(value || p.region || p.category?.name || 'Ponto personalizado')+'</small></span>'+(progress.completed[p.id]?'<span class="mint">✓</span>':'')+icon('chevron-right')+'</button>';
 }
 function toast(message) {
   clearTimeout(flashTimer);
@@ -48,7 +48,8 @@ function refresh() {
   filtered=data.filter(p=>matches(p,filters,progress));
   if (selected && !filtered.some(p=>p.id===selected)) selected=null;
   map.update(filtered,progress,selected);
-  $('map-count').textContent=fmt.format(filtered.filter(p=>p.x!=null).length)+' pinos';
+  const pinCount=filtered.filter(p=>p.x!=null).length;
+  $('map-count').textContent=fmt.format(pinCount)+(pinCount===1?' pino':' pinos');
   $('chapter-label').textContent='Capítulo '+progress.chapter;
   renderPanel(); renderDetail(); drawRoute();
 }
@@ -63,9 +64,10 @@ function groupMarkup(allowed) {
   }
   return '<div class="section-title"><h2>Categorias</h2>'+button('Restaurar','reset-filters','','text-button')+'</div>'+
     ['Operações','Colecionáveis','Atividades','Locais','Outros'].filter(g=>groups.has(g)).map(group=>{
-      const list=groups.get(group), total=list.reduce((sum,c)=>sum+counted.get(c.key),0), on=!filters.groups.has(group);
+      const list=groups.get(group), total=list.reduce((sum,c)=>sum+counted.get(c.key),0);
+      const on=group===placesGroup ? progress.placesEnabled : !filters.groups.has(group);
       return '<section class="category-group"><div class="category-head"><input type="checkbox" aria-label="'+group+'" data-group="'+group+'" '+(on?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+openGroups.has(group)+'"><strong>'+group+'</strong><small>'+fmt.format(total)+'</small>'+icon('chevron-down')+'</button></div>'+
-        (openGroups.has(group)?list.map(c=>'<label class="category-row" style="--pin:'+esc(c.colour)+'"><input type="checkbox" data-kind="'+esc(c.key)+'" '+(!filters.kinds.has(c.key)&&on?'checked ':'')+(!on?'disabled ':'')+'><span class="category-symbol">'+esc(c.icon)+'</span><span>'+esc(c.name)+'</span><small>'+fmt.format(counted.get(c.key))+'</small></label>').join(''):'')+'</section>';
+        (openGroups.has(group)?list.map(c=>'<label class="category-row" style="--pin:'+esc(c.colour)+'"><input type="checkbox" data-kind="'+esc(c.key)+'" '+(!filters.kinds.has(c.key)&&on?'checked ':'')+(!on?'disabled ':'')+'><span class="category-symbol">'+pointSymbol({kind:c.key})+'</span><span>'+esc(c.name)+'</span><small>'+fmt.format(counted.get(c.key))+'</small></label>').join(''):'')+'</section>';
     }).join('');
 }
 function listMarkup(points) {
@@ -83,7 +85,8 @@ function renderPanel() {
   $('search-tools').hidden=panel!=='map';
   $('panel-title').textContent=({map:'Explorar Leonida',rank:'Rankings',route:'Planejar rotas',progress:'Seu progresso'})[panel];
   $('panel-caption').textContent=({map:'Pontos de interesse e guias de GTA VI',rank:'Compare as recompensas disponíveis',route:'Monte um trajeto com pinos do mapa',progress:'Checklist e histórico de exploração'})[panel];
-  const available=data.filter(p=>visible(p,progress)), completed=available.filter(p=>progress.completed[p.id]);
+  const entitled=data.filter(p=>visible(p,progress));
+  const available=entitled.filter(p=>availableOnMap(p,progress)), completed=available.filter(p=>progress.completed[p.id]);
   const pct=available.length?Math.round(completed.length/available.length*100):0;
   const scroll=$('panel-content').scrollTop;
   if (panel==='map') {
@@ -92,7 +95,7 @@ function renderPanel() {
     const featured=['safe-070','L2453','liquor-store-002','vehicle-request-013'].map(id=>lookup.get(id)).filter(p=>p && filtered.includes(p));
     $('panel-content').innerHTML=(showingList?
       '<div class="section-title"><h2>'+(groupList?'Pinos próximos':'Resultados')+'</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
-      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):'')+groupMarkup(available));
+      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+groupMarkup(entitled);
   }
   if (panel==='rank') renderRank();
   if (panel==='progress') renderProgress(available,completed);
@@ -122,7 +125,7 @@ function renderProgress(available,completed) {
 const unknown='Desconhecido';
 function renderDetail() {
   const p=selected?lookup.get(selected):null, d=$('detail');
-  if (!p || !visible(p,progress)) {d.hidden=true;d.innerHTML='';return;}
+  if (!p || !availableOnMap(p,progress)) {d.hidden=true;d.innerHTML='';return;}
   const complete=!!progress.completed[p.id], favorite=progress.favorites.includes(p.id);
   const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto'}[p.evidence]);
   const fields={...(p.guide?.fields || {})};
@@ -144,7 +147,7 @@ function renderDetail() {
   const gate=(p.requires||[]).map(key=>equipment[key]).join(' · ');
   const sourceLinks=[...new Set([...(p.refs||[]),...(!p.neutral?p.sources||[]:[])])];
   d.hidden=false;
-  d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+'">'+esc(categoryIcon(p))+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
+  d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+'">'+pointSymbol(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
     '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter):'')+(complete?badge('Concluído','green'):'')+'</div>'+
     '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· posição da fonte</small>':'')+'</p>'+
     (p.intro?'<p>'+esc(p.intro)+'</p>':'')+
@@ -163,7 +166,7 @@ function selectPoint(id,focus=false,nearby=null) {
     groupList=nearby;panel='map';listLimit=50;$('workspace').classList.add('panel-open');renderPanel();return;
   }
   const p=lookup.get(id);
-  if (!p||!visible(p,progress)) return;
+  if (!p||!availableOnMap(p,progress)) return;
   selected=id;
   const raised=mobile();
   if (raised) $('workspace').classList.remove('panel-open');
@@ -171,7 +174,7 @@ function selectPoint(id,focus=false,nearby=null) {
   map.highlight(id); renderDetail();
 }
 function routePoints() {
-  return progress.route.map(id=>lookup.get(id)).filter(p=>p?.x!=null&&visible(p,progress));
+  return progress.route.map(id=>lookup.get(id)).filter(p=>p?.x!=null&&availableOnMap(p,progress));
 }
 let legs=[];
 function renderRoutePanel() {
@@ -350,7 +353,7 @@ async function init() {
   $('workspace').hidden=false;
   staticPoints=applyGuides(catalog);
   map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
-    onPlace:p=>{placement(false);openCustom(p);},markerText:categoryIcon});
+    onPlace:p=>{placement(false);openCustom(p);},markerIcon:pointSymbol});
   document.addEventListener('click',handleClick);
   document.addEventListener('keydown',e=>{
     if(e.key==='/'&&!$('dialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){
@@ -360,7 +363,11 @@ async function init() {
   });
   document.addEventListener('change',e=>{
     for(const [attr,set] of [['group',filters.groups],['kind',filters.kinds]])if(e.target.dataset[attr]){
-      if(e.target.checked)set.delete(e.target.dataset[attr]);else set.add(e.target.dataset[attr]);
+      const key=e.target.dataset[attr];
+      if(attr==='group' && key===placesGroup) {
+        progress.placesEnabled=e.target.checked;
+        save();
+      } else if(e.target.checked)set.delete(key);else set.add(key);
       refresh();
     }
   });
