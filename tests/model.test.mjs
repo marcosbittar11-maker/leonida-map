@@ -20,7 +20,7 @@ test('snapshot público mantém coordenadas, categorias e guias referenciáveis'
   assert.ok(catalog.stats.total>5000);
   assert.equal(new Set(data.map(p=>p.id)).size,data.length);
   const dups=Object.keys(duplicateAliases).filter(id=>catalog.points.some(p=>p.id===id)).length;
-  assert.equal(data.filter(p=>p.collection!=='gameta'&&Number.isFinite(p.x)&&Number.isFinite(p.y)).length,catalog.stats.positioned-dups);
+  assert.equal(data.filter(p=>!['gameta','leonidalab'].includes(p.collection)&&Number.isFinite(p.x)&&Number.isFinite(p.y)).length,catalog.stats.positioned-dups);
   assert.ok(data.every(p=>p.category && p.category.group));
   for(const [id,guide] of Object.entries(guides)) {
     assert.ok(byId.get(id)?.guide,id);
@@ -99,6 +99,14 @@ test('contadores usam o total catalogado e os pontos filtrados',()=>{
   assert.equal(counts.get('jewelry').total,20);
   assert.ok(counts.get('jewelry').shown<20);
   assert.equal(categoryCounts(data,[]).get('payday').shown,0);
+});
+test('senhas importadas do Leonida Lab entram como fatos com proveniência',()=>{
+  assert.match(byId.get('safe-015').fields['Senha'],/^0300/);
+  assert.equal(byId.get('safe-009').fields['Confirmação'],'Senha corroborada por Leonida Lab e GTA6Wiki.');
+  const dock=byId.get('leonidalab-sunrise-rv-park-dock');
+  assert.equal(dock.partOf,'gang-operation-002');
+  assert.ok(dock.refs.includes('https://leonidalab.com/safe-codes/'));
+  assert.match(byId.get('safe-070').fields['Confirmação'],/0072/);
 });
 test('vínculos de complexo e ranking sem dupla contagem',()=>{
   const boat=byId.get('gang-operation-007');

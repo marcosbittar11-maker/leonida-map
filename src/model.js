@@ -4,6 +4,28 @@ import { additionalVariants, isPersonalVariant, variantNotes, variantSeries, sta
 import { duplicateAliases, reclassified, renames, regions, gangOperations, fences, fenceTypes, fastFoodStickUps,
   storeFacts, operationFacts, safeFacts, valueConflicts, categoryRules } from './curation.js';
 import { configurableKeys, requirementState, usesEquipment } from './requirements.js';
+import safeCodes from './data/safe-codes.js';
+
+const lockNames = {safe:'Cofre', keypad:'Teclado', password:'Senha do computador'};
+const statusNames = {checked:'verificada (duas fontes ou teste)', reported:'relato de uma fonte'};
+/** Campos de senha a partir dos fatos importados do Leonida Lab. */
+function codeFields(facts = [], curated = {}, guided = false) {
+  const fields = {};
+  if (guided) {
+    const text = Object.values(curated).join(' ');
+    const confirmed = facts.filter(f => f.kind === 'fixed' && text.includes(f.code));
+    return confirmed.length ? {'Confirmação':'Senhas ' + confirmed.map(f => f.code).join(', ') + ' corroboradas pelo Leonida Lab.'} : {};
+  }
+  for (const f of facts) {
+    const label = facts.length > 1 ? (lockNames[f.lock] || 'Senha') + ' · ' + f.name : 'Senha';
+    const value = f.kind === 'fixed' ? f.code + ' · ' + statusNames[f.status] : f.kind === 'none' ? 'Sem senha: arrombe no local.' : 'Aleatória a cada assalto.';
+    fields[label] = value;
+    if (f.where) fields[facts.length > 1 ? 'Local · ' + f.name : 'Local exato (fonte em inglês)'] = f.where + (f.inside ? ' Contém: ' + f.inside : '');
+  }
+  const code = facts.find(f => f.kind === 'fixed')?.code;
+  if (code && String(curated['Senha'] || '').startsWith(code)) fields['Confirmação'] = 'Senha corroborada por Leonida Lab e GTA6Wiki.';
+  return fields;
+}
 
 export const normalize = value => (value ?? '').toString().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 export const freshProgress = () => ({ version:1, enabledGroups:defaultLayers(), equipment:[], completed:{}, favorites:[], vehicleFavorites:[], custom:[] });
@@ -54,7 +76,7 @@ export function applyGuides(catalog) {
     const name=category.key==='vehicle'?'Veículos variantes':category.name;
     return [category.key,{...category,name,group:pointLayer(category)}];
   }));
-  const points = [...catalog.points,...additionalVariants].filter(point => !duplicateAliases[point.id]).map(point => {
+  const points = [...catalog.points,...additionalVariants,...safeCodes.created].filter(point => !duplicateAliases[point.id]).map(point => {
     const kindKey = curatedKind(point);
     const rule = categoryRules[kindKey] || {};
     const guide = guides[point.id] || bankSummary(point);
@@ -85,13 +107,15 @@ export function applyGuides(catalog) {
       ...(gang && category?.key === 'gang' ? {'100%':gang.checklist ? 'Conta para as 39 operações do checklist' : gang.note || 'Não contabilizada no checklist de 39'} : {}),
       ...(security && !guide?.fields?.['Segurança'] ? {'Segurança':securityText[security] || security} : {}),
       ...(reward && !guide?.reward ? {'Valor da fonte':rangeText(reward)+' · faixa do cartão do jogo publicada pelo Open GTA 6 Map'} : {}),
-      ...(rule.fields || {}), ...(storeFacts[point.id] || {}), ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}),
+      ...(rule.fields || {}), ...codeFields(point.facts || safeCodes.records[point.id], {...safeFacts[point.id], ...operationFacts[point.id]?.fields, ...guide?.fields}, !!guide?.fields && !guide.summary),
+      ...(storeFacts[point.id] || {}), ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}),
       ...(valueConflicts[point.id] ? {'Divergência de valor':valueConflicts[point.id]} : {}),
       ...(rename?.conflict ? {'Divergência':rename.conflict} : {}),
       ...(fence?.note ? {'Local':fence.note} : {})
     };
     const refs = [...new Set([
-      ...(official?[rockstarPlaces]:[]), ...(guide?.refs||[]), ...(notes?.refs||[]), ...(operationFacts[point.id]?.refs||[]), ...(rule.refs||[]),
+      ...(official?[rockstarPlaces]:[]), ...(guide?.refs||[]), ...(notes?.refs||[]), ...(operationFacts[point.id]?.refs||[]),
+      ...(safeCodes.records[point.id] || point.facts ? [safeCodes.source.replace('/api/data.json','/safe-codes/')] : []), ...(rule.refs||[]),
       ...(variant?[standoutIndex]:[]), ...(point.kind==='electronics'?['https://gamemaps.gg/game/grand-theft-auto-6/guides/electronics']:[])
     ])];
     return {...point, ...guide, guide, category, official, variant, excludedVehicle, series, name, region, refs, reward,

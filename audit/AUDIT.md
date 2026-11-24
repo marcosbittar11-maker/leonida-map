@@ -64,7 +64,7 @@ Gerado por `node scripts/audit.mjs`. Revisão do catálogo: `d8609016b8a883988d7
 | Hotéis `hotel` | Locais | 30 | 30 | 0 | 0 | 0 | 0 | 0 |
 | Eletrônicos e tablets `electronics` | Locais | 15 | 15 | 0 | 0 | 0 | 0 | 0 |
 | Lojas assaltáveis (Stick Ups) `store` | Operações | 0 | 106 | 85 | 29 | 0 | 106 | 0 |
-| Cofres `safe` | Operações | 1 | 95 | 94 | 0 | 0 | 95 | 41 |
+| Cofres `safe` | Operações | 1 | 96 | 94 | 0 | 0 | 96 | 42 |
 | Caixas eletrônicos rebocáveis `towatm` | Operações | 0 | 94 | 94 | 0 | 94 | 0 | 0 |
 | Drogas e contrabando `drug` | Operações | 0 | 71 | 71 | 0 | 0 | 71 | 0 |
 | Operações ilegais `gang` | Operações | 1 | 43 | 42 | 17 | 1 | 42 | 40 |
@@ -88,11 +88,11 @@ A coluna "Antes" usa a categoria da versão anterior quando o nome coincide; joa
 | --- | --: | --: | --: | --: | --: | --: | --: | --: |
 | jewelry | 20 | 20 | 20 | 2 | 21 | 20 | 1 | 20 |
 | pawn | 15 | 15 | 15 | 2 | 0 | 15 | 1 | 15 |
-| bank | 14 | 14 | 0 | 0 | 0 | 14 | 2 | 14 |
-| bigbank | 8 | 8 | 0 | 0 | 0 | 8 | 0 | 8 |
-| payday | 7 | 7 | 0 | 0 | 0 | 7 | 0 | 7 |
+| bank | 14 | 14 | 14 | 0 | 0 | 14 | 2 | 14 |
+| bigbank | 8 | 8 | 8 | 0 | 0 | 8 | 0 | 8 |
+| payday | 7 | 7 | 7 | 0 | 0 | 7 | 0 | 7 |
 | gang | 43 | 17 | 10 | 3 | 0 | 0 | 1 | 1 |
-| safe | 95 | 0 | 9 | 1 | 0 | 0 | 1 | 0 |
+| safe | 96 | 0 | 25 | 1 | 0 | 0 | 1 | 0 |
 | fence | 16 | 0 | 0 | 0 | 0 | 7 | 4 | 4 |
 | weapon | 87 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | store | 106 | 29 | 0 | 0 | 0 | 0 | 0 | 0 |

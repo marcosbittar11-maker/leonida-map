@@ -4,7 +4,7 @@
  "totals": {
   "imported": 5709,
   "catalog": 5665,
-  "consultable": 5532,
+  "consultable": 5533,
   "curatedAliases": 7,
   "reclassified": 3,
   "hiddenBeforeChapter3": {
@@ -594,17 +594,17 @@
   "safe": {
    "name": "Cofres",
    "group": "Operações",
-   "total": 95,
+   "total": 96,
    "withReward": 0,
    "withGuide": 1,
    "states": {
     "met": 0,
     "unmet": 0,
-    "unknown": 95,
+    "unknown": 96,
     "na": 0
    },
    "unknownSafeCode": 0,
-   "linked": 41
+   "linked": 42
   },
   "meteorite": {
    "name": "Meteoritos",
@@ -1743,7 +1743,7 @@
   "bank": {
    "total": 14,
    "valor": 14,
-   "senha": 0,
+   "senha": 14,
    "cofre": 0,
    "desbloqueio": 14,
    "alarme": 0,
@@ -1753,7 +1753,7 @@
   "bigbank": {
    "total": 8,
    "valor": 8,
-   "senha": 0,
+   "senha": 8,
    "cofre": 0,
    "desbloqueio": 8,
    "alarme": 0,
@@ -1763,7 +1763,7 @@
   "payday": {
    "total": 7,
    "valor": 7,
-   "senha": 0,
+   "senha": 7,
    "cofre": 0,
    "desbloqueio": 7,
    "alarme": 0,
@@ -1781,9 +1781,9 @@
    "requisitosConhecidos": 1
   },
   "safe": {
-   "total": 95,
+   "total": 96,
    "valor": 0,
-   "senha": 9,
+   "senha": 25,
    "cofre": 1,
    "desbloqueio": 0,
    "alarme": 0,
