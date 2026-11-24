@@ -211,7 +211,7 @@ function renderDetail() {
   }
   const coord=p.x!=null?'X '+fmt.format(p.x*32-16384)+' · Y '+fmt.format(16384-p.y*32):'Sem coordenadas';
   const req=availability(p,progress);
-  const reqStatus={met:['Requisitos configuráveis atendidos','check','ok'],unmet:['Falta '+req.missing.map(key=>configurable[key].short).join(' e '),'lock','missing'],
+  const reqStatus={met:[req.required.length?'Requisitos configuráveis atendidos':'Nenhum equipamento obrigatório','check','ok'],unmet:['Falta '+req.missing.map(key=>configurable[key].short).join(' e '),'lock','missing'],
     unknown:[req.partial?'Requisitos parcialmente documentados':'Requisitos não documentados','circle-help','unknown']}[req.state];
   const reqBlock=reqStatus||req.info.length||req.optional.length?'<section class="requirement '+(reqStatus?.[2]||'')+'"><h3>'+icon(reqStatus?.[1]||'shield')+esc(reqStatus?.[0]||'Requisitos informativos')+'</h3><ul>'+
     req.required.map(key=>'<li class="'+(progress.equipment.includes(key)?'ok':'missing')+'">'+icon(progress.equipment.includes(key)?'check':'lock')+esc(configurable[key].label)+'</li>').join('')+

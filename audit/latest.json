@@ -1,0 +1,1934 @@
+{
+ "generated": "2026-11-24",
+ "catalogRevision": "d8609016b8a883988d7abac4b6b1b1d98708ca70",
+ "totals": {
+  "imported": 5709,
+  "catalog": 5665,
+  "consultable": 5532,
+  "curatedAliases": 7,
+  "reclassified": 3,
+  "hiddenBeforeChapter3": {
+   "capituloDesconhecido": 2882,
+   "capituloPosterior": 11,
+   "excludedVehicle": 128
+  },
+  "hiddenBeforeChapter5": {
+   "capituloDesconhecido": 2885,
+   "excludedVehicle": 128
+  }
+ },
+ "lists": {
+  "jewelry": {
+   "source": "https://www.powerpyx.com/gta-6-all-smash-n-grabs-locations/",
+   "expected": 20,
+   "extra": 0,
+   "localKind": "jewelry",
+   "localTotal": 20,
+   "matched": 20,
+   "missing": [],
+   "misclassified": [],
+   "localNotInList": []
+  },
+  "pawn": {
+   "source": "https://www.powerpyx.com/gta-6-all-smash-n-grabs-locations/",
+   "expected": 15,
+   "extra": 0,
+   "localKind": "pawn",
+   "localTotal": 15,
+   "matched": 15,
+   "missing": [],
+   "misclassified": [],
+   "localNotInList": []
+  },
+  "bank": {
+   "source": "https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/",
+   "expected": 14,
+   "extra": 0,
+   "localKind": "bank",
+   "localTotal": 14,
+   "matched": 14,
+   "missing": [],
+   "misclassified": [],
+   "localNotInList": []
+  },
+  "bigbank": {
+   "source": "https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/",
+   "expected": 8,
+   "extra": 0,
+   "localKind": "bigbank",
+   "localTotal": 8,
+   "matched": 8,
+   "missing": [],
+   "misclassified": [],
+   "localNotInList": []
+  },
+  "payday": {
+   "source": "https://www.powerpyx.com/gta-6-all-payday-loans-jobs-locations/",
+   "expected": 7,
+   "extra": 0,
+   "localKind": "payday",
+   "localTotal": 7,
+   "matched": 7,
+   "missing": [],
+   "misclassified": [],
+   "localNotInList": []
+  },
+  "gang": {
+   "source": "https://www.powerpyx.com/gta-6-all-illegal-gang-operations-locations/",
+   "expected": 39,
+   "extra": 1,
+   "localKind": "gang",
+   "localTotal": 43,
+   "matched": 38,
+   "missing": [
+    "Saber Shipping Yard"
+   ],
+   "misclassified": [
+    {
+     "name": "Saber Shipping Facility",
+     "id": "safe-026",
+     "kind": "safe"
+    }
+   ],
+   "localNotInList": [
+    {
+     "id": "gang-operation-022",
+     "name": "Saber Shipping · Guardia Brothers (1)"
+    },
+    {
+     "id": "gang-operation-024",
+     "name": "Saber Shipping · Guardia Brothers (2)"
+    },
+    {
+     "id": "gang-compound-002",
+     "name": "Drumboyz"
+    },
+    {
+     "id": "gang-operation-046",
+     "name": "Small Weed Farm"
+    },
+    {
+     "id": "L2453",
+     "name": "Armazém Apollo Aggregates"
+    }
+   ]
+  },
+  "fastfood": {
+   "source": "https://www.powerpyx.com/gta-6-all-fast-food-stores-locations/",
+   "expected": 21,
+   "extra": 0,
+   "localKind": "store",
+   "localTotal": 106,
+   "matched": 21,
+   "missing": [],
+   "misclassified": []
+  },
+  "liquor": {
+   "source": "https://www.powerpyx.com/gta-6-all-liquor-stores-locations/",
+   "expected": 14,
+   "extra": 0,
+   "localKind": "store",
+   "localTotal": 106,
+   "matched": 13,
+   "missing": [],
+   "misclassified": [
+    {
+     "name": "Three Sheets Liquor",
+     "id": "liquor-store-002",
+     "kind": "easter"
+    }
+   ]
+  }
+ },
+ "categories": {
+  "clothes": {
+   "name": "Lojas de roupas",
+   "group": "Estilo",
+   "total": 69,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 69
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "style": {
+   "name": "Estilo e personalização",
+   "group": "Estilo",
+   "total": 46,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 46
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "safehouse": {
+   "name": "Esconderijos",
+   "group": "Pessoal",
+   "total": 22,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 22
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "store": {
+   "name": "Lojas assaltáveis (Stick Ups)",
+   "group": "Operações",
+   "total": 106,
+   "withReward": 29,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 106,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "building": {
+   "name": "Edifícios e marcos",
+   "group": "Locais",
+   "total": 521,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 521
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "food": {
+   "name": "Bares e restaurantes",
+   "group": "Comidas e bebidas",
+   "total": 439,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 439
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "workshop": {
+   "name": "Oficinas e preparação",
+   "group": "Veículos",
+   "total": 34,
+   "withReward": 0,
+   "withGuide": 4,
+   "states": {
+    "met": 2,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 32
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "ammushop": {
+   "name": "Ammu-Nation",
+   "group": "Armas",
+   "total": 24,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 24
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "transport": {
+   "name": "Transporte",
+   "group": "Transporte público",
+   "total": 488,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 488
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "leisure": {
+   "name": "Esportes e lazer",
+   "group": "Locais",
+   "total": 55,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 55
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "civic": {
+   "name": "Serviços públicos",
+   "group": "Locais",
+   "total": 123,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 123
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "bank": {
+   "name": "Bancos · caixa e cofre pequeno",
+   "group": "Operações",
+   "total": 14,
+   "withReward": 14,
+   "withGuide": 2,
+   "states": {
+    "met": 0,
+    "unmet": 14,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "bigbank": {
+   "name": "Grandes bancos · cofre",
+   "group": "Operações",
+   "total": 8,
+   "withReward": 8,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 8,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "electronics": {
+   "name": "Eletrônicos e tablets",
+   "group": "Locais",
+   "total": 15,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 15
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "shop": {
+   "name": "Lojas e serviços",
+   "group": "Locais",
+   "total": 433,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 433
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "fence": {
+   "name": "Receptadores",
+   "group": "Operações",
+   "total": 16,
+   "withReward": 0,
+   "withGuide": 4,
+   "states": {
+    "met": 4,
+    "unmet": 0,
+    "unknown": 12,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 6
+  },
+  "gym": {
+   "name": "Academias",
+   "group": "Atividades",
+   "total": 9,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 9
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "card": {
+   "name": "Cartas",
+   "group": "Colecionáveis",
+   "total": 447,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 447
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "package": {
+   "name": "Pacotes e contrabando",
+   "group": "Colecionáveis",
+   "total": 71,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 71,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "event": {
+   "name": "Eventos aleatórios",
+   "group": "Atividades",
+   "total": 281,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 281,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "gang": {
+   "name": "Operações ilegais",
+   "group": "Operações",
+   "total": 43,
+   "withReward": 17,
+   "withGuide": 1,
+   "states": {
+    "met": 1,
+    "unmet": 0,
+    "unknown": 42,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 40
+  },
+  "easter": {
+   "name": "Easter eggs",
+   "group": "Exploração",
+   "total": 23,
+   "withReward": 1,
+   "withGuide": 2,
+   "states": {
+    "met": 2,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 21
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "payday": {
+   "name": "Financeiras",
+   "group": "Operações",
+   "total": 7,
+   "withReward": 7,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 7,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "jewelry": {
+   "name": "Joalherias",
+   "group": "Operações",
+   "total": 20,
+   "withReward": 20,
+   "withGuide": 1,
+   "states": {
+    "met": 20,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "pawn": {
+   "name": "Casas de penhores",
+   "group": "Operações",
+   "total": 15,
+   "withReward": 15,
+   "withGuide": 1,
+   "states": {
+    "met": 15,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 6
+  },
+  "race": {
+   "name": "Corridas",
+   "group": "Atividades",
+   "total": 54,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 54
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "arcade": {
+   "name": "Arcades e minigolfe",
+   "group": "Atividades",
+   "total": 51,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 51
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "pickup": {
+   "name": "Armas no chão",
+   "group": "Armas",
+   "total": 86,
+   "withReward": 0,
+   "withGuide": 1,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 86
+   },
+   "unknownSafeCode": 0,
+   "linked": 13
+  },
+  "stunt": {
+   "name": "Saltos acrobáticos",
+   "group": "Atividades",
+   "total": 130,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 130
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "bottle": {
+   "name": "Mensagens na garrafa",
+   "group": "Colecionáveis",
+   "total": 6,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 6
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "safe": {
+   "name": "Cofres",
+   "group": "Operações",
+   "total": 95,
+   "withReward": 0,
+   "withGuide": 1,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 95,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 41
+  },
+  "meteorite": {
+   "name": "Meteoritos",
+   "group": "Colecionáveis",
+   "total": 78,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 78
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "treasure": {
+   "name": "Tesouros",
+   "group": "Colecionáveis",
+   "total": 6,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 6
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "basejump": {
+   "name": "Paraquedismo",
+   "group": "Atividades",
+   "total": 32,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 32
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "hoop": {
+   "name": "Basquete",
+   "group": "Atividades",
+   "total": 100,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 100
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "bookswap": {
+   "name": "Troca de livros",
+   "group": "Colecionáveis",
+   "total": 8,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 8
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "drone": {
+   "name": "Corridas de drone",
+   "group": "Atividades",
+   "total": 42,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 42
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "fishing": {
+   "name": "Pesca",
+   "group": "Atividades",
+   "total": 36,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 36
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "knife": {
+   "name": "Voos de faca",
+   "group": "Atividades",
+   "total": 40,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 40
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "magazine": {
+   "name": "Livros e revistas",
+   "group": "Colecionáveis",
+   "total": 92,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 92
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "mural": {
+   "name": "Murais 1010",
+   "group": "Colecionáveis",
+   "total": 5,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 5
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "playlist": {
+   "name": "Playlists",
+   "group": "Colecionáveis",
+   "total": 7,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 7
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "range": {
+   "name": "Estandes de tiro",
+   "group": "Atividades",
+   "total": 15,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 15
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "vehicle": {
+   "name": "Veículos variantes",
+   "group": "Veículos",
+   "total": 262,
+   "withReward": 0,
+   "withGuide": 2,
+   "states": {
+    "met": 1,
+    "unmet": 3,
+    "unknown": 258,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 24
+  },
+  "towatm": {
+   "name": "Caixas eletrônicos rebocáveis",
+   "group": "Operações",
+   "total": 94,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 94,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "bridge": {
+   "name": "Voos sob pontes",
+   "group": "Atividades",
+   "total": 202,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 202
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "waink": {
+   "name": "Escaneamentos WAiNK",
+   "group": "Exploração",
+   "total": 101,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 101
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "drug": {
+   "name": "Drogas e contrabando",
+   "group": "Operações",
+   "total": 71,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 71,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "hunting": {
+   "name": "Caça",
+   "group": "Atividades",
+   "total": 9,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 9
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "other": {
+   "name": "Outros locais",
+   "group": "Exploração",
+   "total": 317,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 317
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "meditation": {
+   "name": "Meditação",
+   "group": "Atividades",
+   "total": 10,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 10
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "streetart": {
+   "name": "Arte de rua",
+   "group": "Colecionáveis",
+   "total": 62,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 62
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "watch": {
+   "name": "Relógios de luxo",
+   "group": "Operações",
+   "total": 23,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 23
+   },
+   "unknownSafeCode": 0,
+   "linked": 5
+  },
+  "weapon": {
+   "name": "Armas especiais",
+   "group": "Armas",
+   "total": 87,
+   "withReward": 0,
+   "withGuide": 1,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 87,
+    "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 28
+  },
+  "hotel": {
+   "name": "Hotéis",
+   "group": "Locais",
+   "total": 30,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 30
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "nature": {
+   "name": "Paisagens naturais",
+   "group": "Exploração",
+   "total": 52,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 52
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  }
+ },
+ "rawKinds": {
+  "clothes": 69,
+  "shop": 504,
+  "safehouse": 22,
+  "food": 462,
+  "building": 522,
+  "workshop": 33,
+  "gang": 43,
+  "transport": 488,
+  "leisure": 55,
+  "civic": 123,
+  "bank": 24,
+  "store": 86,
+  "electronics": 15,
+  "fence": 20,
+  "gym": 9,
+  "card": 447,
+  "package": 71,
+  "event": 281,
+  "payday": 7,
+  "smash": 35,
+  "race": 54,
+  "arcade": 51,
+  "vehicle": 386,
+  "weapon": 173,
+  "stunt": 130,
+  "bottle": 6,
+  "safe": 96,
+  "meteorite": 78,
+  "treasure": 6,
+  "basejump": 32,
+  "hoop": 100,
+  "bookswap": 8,
+  "drone": 42,
+  "fishing": 36,
+  "knife": 40,
+  "magazine": 92,
+  "mural": 5,
+  "playlist": 7,
+  "range": 15,
+  "towatm": 94,
+  "bridge": 202,
+  "waink": 101,
+  "drug": 71,
+  "hunting": 9,
+  "other": 340,
+  "meditation": 10,
+  "streetart": 62,
+  "easter": 21,
+  "hotel": 30,
+  "nature": 52
+ },
+ "before": {
+  "clothes": {
+   "total": 69,
+   "visible": 69
+  },
+  "style": {
+   "total": 46,
+   "visible": 46
+  },
+  "safehouse": {
+   "total": 22,
+   "visible": 0
+  },
+  "food": {
+   "total": 462,
+   "visible": 462
+  },
+  "building": {
+   "total": 521,
+   "visible": 521
+  },
+  "workshop": {
+   "total": 33,
+   "visible": 33
+  },
+  "ammushop": {
+   "total": 24,
+   "visible": 24
+  },
+  "gang": {
+   "total": 44,
+   "visible": 1
+  },
+  "transport": {
+   "total": 488,
+   "visible": 488
+  },
+  "leisure": {
+   "total": 55,
+   "visible": 55
+  },
+  "civic": {
+   "total": 123,
+   "visible": 123
+  },
+  "bank": {
+   "total": 24,
+   "visible": 14
+  },
+  "store": {
+   "total": 85,
+   "visible": 0
+  },
+  "electronics": {
+   "total": 15,
+   "visible": 15
+  },
+  "shop": {
+   "total": 434,
+   "visible": 432
+  },
+  "fence": {
+   "total": 20,
+   "visible": 4
+  },
+  "gym": {
+   "total": 9,
+   "visible": 9
+  },
+  "card": {
+   "total": 447,
+   "visible": 0
+  },
+  "package": {
+   "total": 71,
+   "visible": 0
+  },
+  "event": {
+   "total": 281,
+   "visible": 0
+  },
+  "easter": {
+   "total": 23,
+   "visible": 2
+  },
+  "payday": {
+   "total": 7,
+   "visible": 0
+  },
+  "smash": {
+   "total": 35,
+   "visible": 2
+  },
+  "race": {
+   "total": 54,
+   "visible": 0
+  },
+  "arcade": {
+   "total": 51,
+   "visible": 0
+  },
+  "vehicle": {
+   "total": 388,
+   "visible": 261
+  },
+  "weapon": {
+   "total": 173,
+   "visible": 2
+  },
+  "stunt": {
+   "total": 130,
+   "visible": 0
+  },
+  "bottle": {
+   "total": 6,
+   "visible": 0
+  },
+  "safe": {
+   "total": 95,
+   "visible": 1
+  },
+  "meteorite": {
+   "total": 78,
+   "visible": 0
+  },
+  "treasure": {
+   "total": 6,
+   "visible": 0
+  },
+  "basejump": {
+   "total": 32,
+   "visible": 0
+  },
+  "hoop": {
+   "total": 100,
+   "visible": 0
+  },
+  "bookswap": {
+   "total": 8,
+   "visible": 0
+  },
+  "drone": {
+   "total": 42,
+   "visible": 0
+  },
+  "fishing": {
+   "total": 36,
+   "visible": 0
+  },
+  "knife": {
+   "total": 40,
+   "visible": 0
+  },
+  "magazine": {
+   "total": 92,
+   "visible": 0
+  },
+  "mural": {
+   "total": 5,
+   "visible": 0
+  },
+  "playlist": {
+   "total": 7,
+   "visible": 0
+  },
+  "range": {
+   "total": 15,
+   "visible": 0
+  },
+  "towatm": {
+   "total": 94,
+   "visible": 0
+  },
+  "bridge": {
+   "total": 202,
+   "visible": 0
+  },
+  "waink": {
+   "total": 101,
+   "visible": 0
+  },
+  "drug": {
+   "total": 71,
+   "visible": 0
+  },
+  "hunting": {
+   "total": 9,
+   "visible": 0
+  },
+  "other": {
+   "total": 340,
+   "visible": 0
+  },
+  "meditation": {
+   "total": 10,
+   "visible": 0
+  },
+  "streetart": {
+   "total": 62,
+   "visible": 0
+  },
+  "hotel": {
+   "total": 30,
+   "visible": 30
+  },
+  "nature": {
+   "total": 52,
+   "visible": 52
+  }
+ },
+ "beforeAll": {
+  "clothes": {
+   "total": 69,
+   "visible": 69
+  },
+  "style": {
+   "total": 46,
+   "visible": 46
+  },
+  "safehouse": {
+   "total": 22,
+   "visible": 0
+  },
+  "food": {
+   "total": 462,
+   "visible": 462
+  },
+  "building": {
+   "total": 521,
+   "visible": 521
+  },
+  "workshop": {
+   "total": 33,
+   "visible": 33
+  },
+  "ammushop": {
+   "total": 24,
+   "visible": 24
+  },
+  "gang": {
+   "total": 44,
+   "visible": 1
+  },
+  "transport": {
+   "total": 488,
+   "visible": 488
+  },
+  "leisure": {
+   "total": 55,
+   "visible": 55
+  },
+  "civic": {
+   "total": 123,
+   "visible": 123
+  },
+  "bank": {
+   "total": 24,
+   "visible": 22
+  },
+  "store": {
+   "total": 85,
+   "visible": 0
+  },
+  "electronics": {
+   "total": 15,
+   "visible": 15
+  },
+  "shop": {
+   "total": 434,
+   "visible": 432
+  },
+  "fence": {
+   "total": 20,
+   "visible": 4
+  },
+  "gym": {
+   "total": 9,
+   "visible": 9
+  },
+  "card": {
+   "total": 447,
+   "visible": 0
+  },
+  "package": {
+   "total": 71,
+   "visible": 0
+  },
+  "event": {
+   "total": 281,
+   "visible": 0
+  },
+  "easter": {
+   "total": 23,
+   "visible": 2
+  },
+  "payday": {
+   "total": 7,
+   "visible": 0
+  },
+  "smash": {
+   "total": 35,
+   "visible": 2
+  },
+  "race": {
+   "total": 54,
+   "visible": 0
+  },
+  "arcade": {
+   "total": 51,
+   "visible": 0
+  },
+  "vehicle": {
+   "total": 388,
+   "visible": 261
+  },
+  "weapon": {
+   "total": 173,
+   "visible": 2
+  },
+  "stunt": {
+   "total": 130,
+   "visible": 0
+  },
+  "bottle": {
+   "total": 6,
+   "visible": 0
+  },
+  "safe": {
+   "total": 95,
+   "visible": 1
+  },
+  "meteorite": {
+   "total": 78,
+   "visible": 0
+  },
+  "treasure": {
+   "total": 6,
+   "visible": 0
+  },
+  "basejump": {
+   "total": 32,
+   "visible": 0
+  },
+  "hoop": {
+   "total": 100,
+   "visible": 0
+  },
+  "bookswap": {
+   "total": 8,
+   "visible": 0
+  },
+  "drone": {
+   "total": 42,
+   "visible": 0
+  },
+  "fishing": {
+   "total": 36,
+   "visible": 0
+  },
+  "knife": {
+   "total": 40,
+   "visible": 0
+  },
+  "magazine": {
+   "total": 92,
+   "visible": 0
+  },
+  "mural": {
+   "total": 5,
+   "visible": 0
+  },
+  "playlist": {
+   "total": 7,
+   "visible": 0
+  },
+  "range": {
+   "total": 15,
+   "visible": 0
+  },
+  "towatm": {
+   "total": 94,
+   "visible": 0
+  },
+  "bridge": {
+   "total": 202,
+   "visible": 0
+  },
+  "waink": {
+   "total": 101,
+   "visible": 0
+  },
+  "drug": {
+   "total": 71,
+   "visible": 0
+  },
+  "hunting": {
+   "total": 9,
+   "visible": 0
+  },
+  "other": {
+   "total": 340,
+   "visible": 0
+  },
+  "meditation": {
+   "total": 10,
+   "visible": 0
+  },
+  "streetart": {
+   "total": 62,
+   "visible": 0
+  },
+  "hotel": {
+   "total": 30,
+   "visible": 30
+  },
+  "nature": {
+   "total": 52,
+   "visible": 52
+  }
+ },
+ "recovered": {
+  "safehouse": {
+   "capitulo3": 22,
+   "mesmoNoCapitulo5": 22
+  },
+  "bigbank": {
+   "capitulo3": 8,
+   "mesmoNoCapitulo5": 0
+  },
+  "store": {
+   "capitulo3": 85,
+   "mesmoNoCapitulo5": 85
+  },
+  "fence": {
+   "capitulo3": 12,
+   "mesmoNoCapitulo5": 12
+  },
+  "card": {
+   "capitulo3": 447,
+   "mesmoNoCapitulo5": 447
+  },
+  "package": {
+   "capitulo3": 71,
+   "mesmoNoCapitulo5": 71
+  },
+  "event": {
+   "capitulo3": 281,
+   "mesmoNoCapitulo5": 281
+  },
+  "gang": {
+   "capitulo3": 42,
+   "mesmoNoCapitulo5": 42
+  },
+  "payday": {
+   "capitulo3": 7,
+   "mesmoNoCapitulo5": 7
+  },
+  "jewelry": {
+   "capitulo3": 19,
+   "mesmoNoCapitulo5": 19
+  },
+  "pawn": {
+   "capitulo3": 14,
+   "mesmoNoCapitulo5": 14
+  },
+  "race": {
+   "capitulo3": 54,
+   "mesmoNoCapitulo5": 54
+  },
+  "arcade": {
+   "capitulo3": 51,
+   "mesmoNoCapitulo5": 51
+  },
+  "pickup": {
+   "capitulo3": 85,
+   "mesmoNoCapitulo5": 85
+  },
+  "stunt": {
+   "capitulo3": 130,
+   "mesmoNoCapitulo5": 130
+  },
+  "bottle": {
+   "capitulo3": 6,
+   "mesmoNoCapitulo5": 6
+  },
+  "safe": {
+   "capitulo3": 94,
+   "mesmoNoCapitulo5": 94
+  },
+  "meteorite": {
+   "capitulo3": 78,
+   "mesmoNoCapitulo5": 78
+  },
+  "treasure": {
+   "capitulo3": 6,
+   "mesmoNoCapitulo5": 6
+  },
+  "basejump": {
+   "capitulo3": 32,
+   "mesmoNoCapitulo5": 32
+  },
+  "hoop": {
+   "capitulo3": 100,
+   "mesmoNoCapitulo5": 100
+  },
+  "bookswap": {
+   "capitulo3": 8,
+   "mesmoNoCapitulo5": 8
+  },
+  "drone": {
+   "capitulo3": 42,
+   "mesmoNoCapitulo5": 42
+  },
+  "fishing": {
+   "capitulo3": 36,
+   "mesmoNoCapitulo5": 36
+  },
+  "knife": {
+   "capitulo3": 40,
+   "mesmoNoCapitulo5": 40
+  },
+  "magazine": {
+   "capitulo3": 92,
+   "mesmoNoCapitulo5": 92
+  },
+  "mural": {
+   "capitulo3": 5,
+   "mesmoNoCapitulo5": 5
+  },
+  "playlist": {
+   "capitulo3": 7,
+   "mesmoNoCapitulo5": 7
+  },
+  "range": {
+   "capitulo3": 15,
+   "mesmoNoCapitulo5": 15
+  },
+  "towatm": {
+   "capitulo3": 94,
+   "mesmoNoCapitulo5": 94
+  },
+  "bridge": {
+   "capitulo3": 202,
+   "mesmoNoCapitulo5": 202
+  },
+  "waink": {
+   "capitulo3": 101,
+   "mesmoNoCapitulo5": 101
+  },
+  "drug": {
+   "capitulo3": 71,
+   "mesmoNoCapitulo5": 71
+  },
+  "hunting": {
+   "capitulo3": 9,
+   "mesmoNoCapitulo5": 9
+  },
+  "other": {
+   "capitulo3": 317,
+   "mesmoNoCapitulo5": 317
+  },
+  "meditation": {
+   "capitulo3": 10,
+   "mesmoNoCapitulo5": 10
+  },
+  "streetart": {
+   "capitulo3": 62,
+   "mesmoNoCapitulo5": 62
+  },
+  "watch": {
+   "capitulo3": 23,
+   "mesmoNoCapitulo5": 23
+  },
+  "weapon": {
+   "capitulo3": 86,
+   "mesmoNoCapitulo5": 86
+  },
+  "shop": {
+   "capitulo3": 2,
+   "mesmoNoCapitulo5": 2
+  },
+  "easter": {
+   "capitulo3": 21,
+   "mesmoNoCapitulo5": 21
+  },
+  "vehicle": {
+   "capitulo3": 1,
+   "mesmoNoCapitulo5": 1
+  },
+  "workshop": {
+   "capitulo3": 1,
+   "mesmoNoCapitulo5": 1
+  }
+ },
+ "duplicates": [
+  {
+   "a": "card-americas-next-top-hooker-009",
+   "b": "card-americas-next-top-hooker-025",
+   "name": "America's Next Top Hooker card: Kalvyn (Standard)",
+   "kind": "card",
+   "distance": 0.47
+  },
+  {
+   "a": "L2718",
+   "b": "L2719",
+   "name": "Prison Building",
+   "kind": "civic",
+   "distance": 0.41
+  },
+  {
+   "a": "L2717",
+   "b": "L2720",
+   "name": "Prison Building",
+   "kind": "civic",
+   "distance": 0.5
+  },
+  {
+   "a": "L2719",
+   "b": "L2720",
+   "name": "Prison Building",
+   "kind": "civic",
+   "distance": 0.41
+  }
+ ],
+ "invalid": [],
+ "suspicious": [
+  {
+   "id": "ammu-nation-002",
+   "name": "Pawn & Gun - Port Gellhorn",
+   "kind": "ammushop",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "ammu-nation-003",
+   "name": "Vice City Gun & Pawn",
+   "kind": "ammushop",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "ammu-nation-016",
+   "name": "Pawn & Gun - Crosstown",
+   "kind": "ammushop",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "ammu-nation-019",
+   "name": "Zenon’s Pawn Shop",
+   "kind": "ammushop",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "hidden-package-015",
+   "name": "Jewellery Lockbox ($300)",
+   "kind": "package",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "random-event-061",
+   "name": "Payday Loan Crashout",
+   "kind": "event",
+   "near": [
+    "payday-loan-007 (Cash Flow)"
+   ],
+   "verdict": "próximo de um alvo catalogado"
+  },
+  {
+   "id": "L298",
+   "name": "Pawn & Gun",
+   "kind": "shop",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  },
+  {
+   "id": "L2747",
+   "name": "Little Gems Jewellery",
+   "kind": "building",
+   "near": [],
+   "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
+  }
+ ],
+ "practical": {
+  "jewelry": {
+   "total": 20,
+   "valor": 20,
+   "senha": 20,
+   "cofre": 2,
+   "desbloqueio": 20,
+   "alarme": 21,
+   "guia": 1,
+   "requisitosConhecidos": 20
+  },
+  "pawn": {
+   "total": 15,
+   "valor": 15,
+   "senha": 15,
+   "cofre": 2,
+   "desbloqueio": 15,
+   "alarme": 0,
+   "guia": 1,
+   "requisitosConhecidos": 15
+  },
+  "bank": {
+   "total": 14,
+   "valor": 14,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 14,
+   "alarme": 0,
+   "guia": 2,
+   "requisitosConhecidos": 14
+  },
+  "bigbank": {
+   "total": 8,
+   "valor": 8,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 8,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 8
+  },
+  "payday": {
+   "total": 7,
+   "valor": 7,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 7,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 7
+  },
+  "gang": {
+   "total": 43,
+   "valor": 17,
+   "senha": 10,
+   "cofre": 3,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 1,
+   "requisitosConhecidos": 1
+  },
+  "safe": {
+   "total": 95,
+   "valor": 0,
+   "senha": 9,
+   "cofre": 1,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 1,
+   "requisitosConhecidos": 0
+  },
+  "fence": {
+   "total": 16,
+   "valor": 0,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 7,
+   "alarme": 0,
+   "guia": 4,
+   "requisitosConhecidos": 4
+  },
+  "weapon": {
+   "total": 87,
+   "valor": 0,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 1,
+   "requisitosConhecidos": 0
+  },
+  "store": {
+   "total": 106,
+   "valor": 29,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 0
+  },
+  "towatm": {
+   "total": 94,
+   "valor": 0,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 94
+  },
+  "drug": {
+   "total": 71,
+   "valor": 0,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 0
+  },
+  "watch": {
+   "total": 23,
+   "valor": 0,
+   "senha": 0,
+   "cofre": 0,
+   "desbloqueio": 0,
+   "alarme": 0,
+   "guia": 0,
+   "requisitosConhecidos": 0
+  }
+ },
+ "externalCounts": {
+  "powerpyxChecklist": {
+   "gang": 39,
+   "bankJobs": 22,
+   "payday": 7,
+   "smash": 35,
+   "stickUps": 91,
+   "vaults": 8,
+   "underwater": 33,
+   "magazinesAndBookSwaps": 34,
+   "bookswap": 7,
+   "meditation": 18,
+   "flamingo": 125,
+   "playlist": 2,
+   "styles": 79,
+   "uniqueRaces": 40,
+   "raceChallenges": 13,
+   "range": 42,
+   "videoGames": 4,
+   "pool": 7,
+   "minigolf": 3,
+   "hoop": 100,
+   "drone": 42,
+   "stunt": 130,
+   "bridge": 202,
+   "knife": 40,
+   "basejump": 25,
+   "challenges": 80,
+   "bret": 15,
+   "kentonSets": 7,
+   "cardSets": 18,
+   "waink": 100,
+   "baseVehicles": 277,
+   "standardWeapons": 66,
+   "animals": 255
+  },
+  "powerpyxStores": {
+   "convenience": 72,
+   "fastFood": 21,
+   "liquor": 14,
+   "kittyLitterLabs": 14
+  },
+  "gta6wiki": {
+   "gang": 44,
+   "bank": 25,
+   "payday": 7,
+   "smash": 36,
+   "safe": 42,
+   "fence": 14,
+   "towatm": 99,
+   "stickUps": 107,
+   "atm": 193,
+   "standout": 86,
+   "ammunation": 24,
+   "paynspray": 19,
+   "modShop": 16
+  },
+  "gameta": {
+   "gang": 43,
+   "safe": 40,
+   "bankRobbery": 34,
+   "quickRobbery": 21,
+   "atm": 292,
+   "pawn": 16,
+   "standout": 231,
+   "ammunation": 26,
+   "paynspray": 19,
+   "workshop": 15,
+   "electronics": 19,
+   "kentonTreasure": 41,
+   "magazine": 29
+  },
+  "viceCityApi": {
+   "pins": 6624,
+   "codes": 27,
+   "secrets": 41,
+   "vehicles": 394,
+   "plan": "Developer, 4,99 €/mês para /map e /export; plano gratuito: 5 requisições/dia sem mapa"
+  }
+ }
+}

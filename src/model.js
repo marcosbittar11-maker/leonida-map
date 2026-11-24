@@ -2,7 +2,7 @@ import { guides, bankSummary, officialPlaces, rockstarPlaces } from './guides.js
 import { decodeLayers, defaultLayers, placeCategory, pointLayer, specializedCategories } from './layers.js';
 import { additionalVariants, isPersonalVariant, variantNotes, variantSeries, standoutIndex } from './standout.js';
 import { duplicateAliases, reclassified, renames, regions, gangOperations, fences, fenceTypes, fastFoodStickUps,
-  storeFacts, valueConflicts, categoryRules } from './curation.js';
+  storeFacts, operationFacts, safeFacts, valueConflicts, categoryRules } from './curation.js';
 import { configurableKeys, requirementState, usesEquipment } from './requirements.js';
 
 export const normalize = value => (value ?? '').toString().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
@@ -85,13 +85,13 @@ export function applyGuides(catalog) {
       ...(gang && category?.key === 'gang' ? {'100%':gang.checklist ? 'Conta para as 39 operações do checklist' : gang.note || 'Não contabilizada no checklist de 39'} : {}),
       ...(security && !guide?.fields?.['Segurança'] ? {'Segurança':securityText[security] || security} : {}),
       ...(reward && !guide?.reward ? {'Valor da fonte':rangeText(reward)+' · faixa do cartão do jogo publicada pelo Open GTA 6 Map'} : {}),
-      ...(rule.fields || {}), ...(storeFacts[point.id] || {}), ...(guide?.fields || {}),
+      ...(rule.fields || {}), ...(storeFacts[point.id] || {}), ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}),
       ...(valueConflicts[point.id] ? {'Divergência de valor':valueConflicts[point.id]} : {}),
       ...(rename?.conflict ? {'Divergência':rename.conflict} : {}),
       ...(fence?.note ? {'Local':fence.note} : {})
     };
     const refs = [...new Set([
-      ...(official?[rockstarPlaces]:[]), ...(guide?.refs||[]), ...(notes?.refs||[]), ...(rule.refs||[]),
+      ...(official?[rockstarPlaces]:[]), ...(guide?.refs||[]), ...(notes?.refs||[]), ...(operationFacts[point.id]?.refs||[]), ...(rule.refs||[]),
       ...(variant?[standoutIndex]:[]), ...(point.kind==='electronics'?['https://gamemaps.gg/game/grand-theft-auto-6/guides/electronics']:[])
     ])];
     return {...point, ...guide, guide, category, official, variant, excludedVehicle, series, name, region, refs, reward,

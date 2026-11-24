@@ -29,7 +29,8 @@ export const duplicateAliases = {
   L910:'fence-002',          // "Fence" a 0,00 de La Perle Pawn Shop
   L1117:'fence-004',         // "Fence" a 0,00 de Hamlet Pawn
   L1009:'fence-003',         // "Pawn Shop" a 0,10 de Salton Pawn Shop
-  'gang-compound-001':'gang-operation-039' // PTT Youngin$ Compound = Illegal Goods Store, a 0,5 unidade
+  'gang-compound-001':'gang-operation-039', // PTT Youngin$ Compound = Illegal Goods Store, a 0,5 unidade
+  L190:'nightclub-001', L629:'nightclub-002', L308:'gas-station-001' // mesmo nome, 0,5 unidade, snapshot de lugares
 };
 
 // Reclassificações. Chave: ID; valor: nova categoria.
@@ -109,7 +110,7 @@ export const fences = {
 export const fenceTypes = {stolen:'Bolsas: narcóticos, joias e notas marcadas', vehicles:'Veículos', collectibles:'Cartas, dobrões e meteoritos'};
 
 // Restaurantes de fast food que a PowerPyx lista como Stick Ups (lojas assaltáveis).
-export const fastFoodStickUps = new Set(['food-and-drink-011','food-and-drink-013','food-and-drink-017','food-and-drink-018','food-and-drink-019',
+export const fastFoodStickUps = new Set(['food-and-drink-001','food-and-drink-014','food-and-drink-011','food-and-drink-013','food-and-drink-017','food-and-drink-018','food-and-drink-019',
   'food-and-drink-020','food-and-drink-021','food-and-drink-022','food-and-drink-023','food-and-drink-024','food-and-drink-025',
   'food-and-drink-026','food-and-drink-027','food-and-drink-028','food-and-drink-029','food-and-drink-030','food-and-drink-031',
   'food-and-drink-032','food-and-drink-033']);
@@ -124,6 +125,59 @@ export const storeFacts = {
     'Cofre':'Meio do corredor longo dos fundos.', 'Entrada':'Porta dos fundos. A Snap Gun abre sem barulho.'},
   'smash-n-grab-034':{'Senha':'Aleatória por jogo. Relatos citam 5683 (PC Gamer) e 6499 (PowerPyx), o que confirma a variação.'}
 };
+// Operações ilegais e cofres com fatos publicados. Resumo da GTA6Wiki, que cita PC Gamer, GAMES.GG e XboxPlay.
+const gw = slug => 'https://gta6wiki.eu/map/gang-operation/' + slug + '/';
+export const operationFacts = {
+  'gang-operation-007':{refs:[gw('brooks-boatworks'),'https://www.pcgamer.com/games/grand-theft-auto/gta-6-brooks-boatworks-safe-code/'], fields:{
+    'Senha':'6823. O mapa na parede do prédio cinza também mostra as senhas da La Cascara (6969) e da Kingpin Bowling (0300).',
+    'Entrada':'Evite o portão vigiado. Use o portão destrancado à direita e a abertura na cerca. Suba ao telhado do galpão pelo elevador lateral.',
+    'Itens-chave':'Dois cofres, comprimidos e o caminhão Smuggler Caracara no pátio. Lança-foguetes, bombas adesivas e granadas no andar de cima.',
+    'Comprador':'Dunk'}},
+  'gang-operation-027':{refs:[gw('chatfield-storage-logistics')], fields:{
+    'Senha':'5800, no laptop dentro de um contêiner aberto.', 'Entrada':'Botão fora da cabine de segurança abre o portão.',
+    'Itens-chave':'Cofre do escritório, pistola Quarter Mile ES9 e o Progen Purple Drank Emerus em outro contêiner.',
+    'Veículo':'Emerus destrancado, sem alarme e sem rastreador. O cartão do jogo indica revenda de US$ 32.945 e registro de US$ 29.900.'}},
+  'gang-operation-041':{refs:[gw('criminals-mill-station-radar-base')], fields:{'Itens-chave':'Drogas e um item experimental que aumenta a saúde de Jason ou Lucia permanentemente.'}},
+  'gang-operation-033':{refs:[gw('criminals-walker-farm')], fields:{'Tipo':'Fazenda de cogumelos', 'Hostis':'Fortemente vigiada'}},
+  'gang-operation-012':{refs:[gw('farm-fix-meth-lab')], fields:{
+    'Senha':'2121, em uma anotação na bancada da sala de embalagem.', 'Cofre':'Escritório no fim do andar de cima.',
+    'Entrada':'Evite o portão principal. Entre pela cerca quebrada no canto sudeste e siga até a porta dos fundos.',
+    'Itens-chave':'Escopeta Throttler Verro no armário da sala de TV (dois guardas), cofre e moto Western Searing Zombie Bobber abaixo do escritório.'}},
+  'gang-operation-018':{refs:[gw('janjaks-garage')], fields:{
+    'Senha':'4444, na anotação da geladeira. Cerca de US$ 2.200 no cofre do escritório.',
+    'Entrada':'Pelo telhado: pilha de pneus e toldo azul ao lado da porta principal.',
+    'Itens-chave':'Fuzil KZ-59 no estojo ao lado da TV, cofre e o Declasse Pink Gin Tulip na oficina.', 'Procurado':'Um assalto barulhento sobe o nível de procurado rapidamente.'}},
+  'gang-operation-004':{refs:[gw('kingpin-bowling'),'https://www.powerpyx.com/gta-6-all-illegal-gang-operations-locations/'], fields:{
+    'Senha':'0300. Cerca de US$ 3.400 no cofre do escritório nordeste.',
+    'Itens-chave':'Cofre, escopeta Gutterball Moreland 850 na mesa de sinuca (canto nordeste) e relógio Crowex Octane ‘Orca’ na sala sudeste.',
+    'Procurado':'Duas estrelas ao terminar.', 'Missão':'Também é a missão opcional “Hit Kingpin Bowling”, depois de “Coffee Break”.'}},
+  'gang-operation-006':{refs:[gw('la-cascara-motel'),'https://www.pcgamer.com/games/grand-theft-auto/gta-6-brooks-boatworks-safe-code/'], fields:{
+    'Senha':'6969. Cofre no 4º andar, na sala seguinte à da submetralhadora.',
+    'Itens-chave':'Submetralhadora Scrapper VF5C (4º andar, primeiro quarto, dois guardas), cofre e o Vapid Firebug Dominator na frente.',
+    'Outros itens':'Maconha, comprimidos, dinheiro e bombas adesivas no 1º, 3º e 4º andares. Leve o parceiro: o saque passa de duas bolsas.',
+    'Comprador':'Dunk'}},
+  'gang-operation-009':{refs:[gw('m7-nova-auto-junkyard')], fields:{
+    'Senha':'7777, pintada na parede atrás do cofre.', 'Cofre':'Escritório de persiana branca, perto do ônibus escolar amarelo no canto sudeste.'}},
+  'gang-operation-015':{refs:[gw('sound4sond-studio')], fields:{
+    'Senha':'Sem código publicado. Use bomba adesiva no cofre da cabine de gravação.',
+    'Itens-chave':'Buckingham Bourbon Windsor no estúdio de fotos, dinheiro perto do fundo verde, Purple Drank no lounge e fuzil San4San K17 no depósito.',
+    'Veículo':'Windsor destrancado, sem alarme e sem rastreador.'}},
+  'gang-operation-002':{refs:[gw('sunrise-rv-park')], fields:{
+    'Senha':'6769 no cofre do prédio do cais (bloco de notas no local). O cofre do escritório não tem código publicado.',
+    'Comprador':'Brian no capítulo 1 ou Dunk depois.'}}
+};
+// Senhas repassadas aos cofres individuais do mesmo complexo.
+export const safeFacts = {
+  'safe-009':{'Senha':'6969', 'Local exato':'4º andar da La Cascara Motel'},
+  'safe-015':{'Senha':'0300', 'Local exato':'Escritório nordeste da Kingpin Bowling'},
+  'safe-036':{'Senha':'7777, pintada na parede atrás do cofre'},
+  'safe-022':{'Senha':'4444, anotação na geladeira'},
+  'safe-012':{'Senha':'2121, anotação na bancada da sala de embalagem'},
+  'safe-028':{'Senha':'5800, laptop no contêiner aberto'},
+  'safe-038':{'Senha':'Sem código publicado'},
+  'safe-017':{'Senha':'Sem código publicado. Bomba adesiva.'}
+};
+
 // Faixas divergentes entre fontes. O valor do catálogo continua como principal.
 export const valueConflicts = {
   'smash-n-grab-022':'GTA6Wiki (via GAMES.GG): US$ 14.000 – 35.000. PowerPyx e Open GTA 6 Map: US$ 14.000 – 25.000.',

@@ -1,0 +1,34 @@
+{
+  "checked": "2026-11-24",
+  "note": "Nomes, contagens, faixas e desbloqueios transcritos das listas públicas. Usados apenas para auditoria e comparação; nenhuma coordenada externa é importada daqui.",
+  "sources": {
+    "powerpyx": "https://www.powerpyx.com/gta-6-100-completion-checklist-guide/",
+    "powerpyxSmash": "https://www.powerpyx.com/gta-6-all-smash-n-grabs-locations/",
+    "powerpyxGang": "https://www.powerpyx.com/gta-6-all-illegal-gang-operations-locations/",
+    "powerpyxBank": "https://www.powerpyx.com/gta-6-all-bank-jobs-locations-bank-vaults/",
+    "powerpyxPayday": "https://www.powerpyx.com/gta-6-all-payday-loans-jobs-locations/",
+    "powerpyxFastFood": "https://www.powerpyx.com/gta-6-all-fast-food-stores-locations/",
+    "powerpyxLiquor": "https://www.powerpyx.com/gta-6-all-liquor-stores-locations/",
+    "powerpyxConvenience": "https://www.powerpyx.com/gta-6-all-convenience-stores-locations/",
+    "gta6wikiMap": "https://gta6wiki.eu/map/gang-operation/",
+    "gameta": "https://gameta.gg/pt-br/gta6/map/",
+    "viceCity": "https://vice-city.app/developers"
+  },
+  "lists": {
+    "jewelry": {"kind": "jewelry", "source": "powerpyxSmash", "names": ["The Siren's Chest", "Victoria Lee Jeweler", "Donovan Banks & Co.", "Plush", "Icegem Diamonds & Watches", "Richardson Jewelry & Diamonds", "All That Glitters", "Peacock", "The Jewelry Place", "Crown Jewels", "Blanc & Giroux", "Roval Jewelry", "Covgari", "Akoya Jewelers", "Marshal's", "Rococo Rich", "Legendary Custom Jewelry", "Brilliant Cuts", "Skala", "Kowalski"]},
+    "pawn": {"kind": "pawn", "source": "powerpyxSmash", "names": ["Timeless Peculiars", "Hamlet Pawn", "Joyeria Empenos", "Ernesto's Pawn", "Pawn City", "Fast Cash", "Dorado Pawn Shop", "White Sands Jewelry Pawn", "Down Town Pawn", "Vice City Pawn", "Pawn Stash", "Casa De Empeno", "Buck's Jewelry & Pawn", "Avery Pawn", "Florence & Co."]},
+    "bank": {"kind": "bank", "source": "powerpyxBank", "names": ["Fleeca - Key Lento", "Shorefront - Watson Bay", "Gibson Brothers Bank", "Lombank - Peacock Bay", "Fleeca - Peacock Bay", "Shorefront - Downtown", "Shorefront - Rockridge", "Lombank - Bayside", "Fleeca - Washington Beach", "Lombank - Ocean Beach", "Fleeca - Ocean Beach", "Shorefront - Ocean Beach", "Druthers State Bank", "Shorefront - Ambrosia"]},
+    "bigbank": {"kind": "bigbank", "source": "powerpyxBank", "names": ["Fleeca - VCIA", "Fleeca - Tequesta", "Lombank - Downtown", "Fleeca - Downtown", "Lombank - Ocean Beach", "Fleeca - Ocean Beach", "Lombank - Ocean Beach", "Shorefront - Ocean Beach"]},
+    "payday": {"kind": "payday", "source": "powerpyxPayday", "names": ["Quick Buck - Hamlet", "Payline Loans 247", "Payday Loans Store - Southside", "Payday Loans Store - Little Cuba", "Payday Loans Store - Rockridge", "Quick Buck - La Perle", "Cash Flow"]},
+    "gang": {"kind": "gang", "source": "powerpyxGang", "names": ["Fishing Shacks", "Sunrise RV Park", "Manatee Motel", "Kingpin Bowling", "June Warehouse", "La Cascara Motel", "Brooks Boatworks", "Stash House", "M7 Compound", "Weed Grow", "Palmer Fishing Warehouse", "Watson Bay Safehouse", "Farm Fix Meth Lab", "Biker Hideout", "Hog Stars Garage", "Irons Building Supply", "Sound4Sound Studio", "La Perle Trap House", "Illegal Sneaker Trade", "JanJak's Garage", "Parlor Apartments", "Southside Trap House", "Kamar Devon Community Center", "Saber Shipping Yard", "Casa Guardia", "Saber Shipping Facility", "Exotic Animals Front", "Mill Station Radar Base", "Industrial Weed Grow", "Slator Towing Inc", "Leonida Carrier Warehouse", "Cigar Import Front", "Chatfield Storage & Logistics", "Ocean Beach Lab", "Vespucci Mansion", "Gas Station Meth Front", "Walker Farm", "Backroom Weed Front", "Carter Mining Boathouse"], "extra": ["Illegal Goods Store"]},
+    "fastfood": {"kind": "store", "source": "powerpyxFastFood", "names": ["Marbles - Key Lento", "Pollo Diablo - Hamlet", "Chacey's - Southside", "Peewees - Southside", "Frank's Waffles", "Marbles - Salton", "Pollo Diablo - VCIA", "Chacey's - Salton", "Marbles - West Vice-Dale County", "Peewees - Rockridge", "Burger Shot - Ocean Beach", "Pollo Diablo - Ocean Beach", "Taco Bomb - Belville", "Peewees - Belville", "Taco Bomb - Waning Sands", "Pollo Diablo - Waning Sands", "Taco Bomb - Gellhorn", "Marbles - Ambrosia", "Hank's Waffles", "Taco Bomb - West Kalaga", "Pollo Diablo - Millport"]},
+    "liquor": {"kind": "store", "source": "powerpyxLiquor", "names": ["One Stop Liquor - Key Lento", "Three Sheets Liquor", "Discount Liquors", "Uncle Jack's Liquor - Tequesta", "Liquor Store", "Palmis Liquor", "Dutch Courage", "Uncle Jack's Liquor - Bayside", "Zak's Liquor", "One Stop Liquor - Ocean Beach", "Corked Wine Bank", "Ocean Beach Liquor", "Uncle Jack's Liquor - Port Gellhorn", "Ambrosia Liquors"]}
+  },
+  "counts": {
+    "powerpyxChecklist": {"gang": 39, "bankJobs": 22, "payday": 7, "smash": 35, "stickUps": 91, "vaults": 8, "underwater": 33, "magazinesAndBookSwaps": 34, "bookswap": 7, "meditation": 18, "flamingo": 125, "playlist": 2, "styles": 79, "uniqueRaces": 40, "raceChallenges": 13, "range": 42, "videoGames": 4, "pool": 7, "minigolf": 3, "hoop": 100, "drone": 42, "stunt": 130, "bridge": 202, "knife": 40, "basejump": 25, "challenges": 80, "bret": 15, "kentonSets": 7, "cardSets": 18, "waink": 100, "baseVehicles": 277, "standardWeapons": 66, "animals": 255},
+    "powerpyxStores": {"convenience": 72, "fastFood": 21, "liquor": 14, "kittyLitterLabs": 14},
+    "gta6wiki": {"gang": 44, "bank": 25, "payday": 7, "smash": 36, "safe": 42, "fence": 14, "towatm": 99, "stickUps": 107, "atm": 193, "standout": 86, "ammunation": 24, "paynspray": 19, "modShop": 16},
+    "gameta": {"gang": 43, "safe": 40, "bankRobbery": 34, "quickRobbery": 21, "atm": 292, "pawn": 16, "standout": 231, "ammunation": 26, "paynspray": 19, "workshop": 15, "electronics": 19, "kentonTreasure": 41, "magazine": 29},
+    "viceCityApi": {"pins": 6624, "codes": 27, "secrets": 41, "vehicles": 394, "plan": "Developer, 4,99 €/mês para /map e /export; plano gratuito: 5 requisições/dia sem mapa"}
+  }
+}
