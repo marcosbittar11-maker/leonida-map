@@ -1,5 +1,21 @@
 # Progresso da entrega
 
+## Versão 1.5.0 · 24/11/2026 · complemento MapGenie
+
+**Mudanças**
+- **Nenhum ponto foi importado do MapGenie.** Os termos da Ziff Davis vedam extração e reuso, e o IGN usa a mesma base. Foram usadas só as contagens públicas, para comparação, e uma consulta pontual pela busca da interface. Detalhes em [COVERAGE.md](COVERAGE.md).
+- **Saber Shipping resolvida.** `gang-operation-022` é a Yard, em Little Cuba, e `gang-operation-024` é a Facility, em Balsero. A senha 8046 do Leonida Lab foi associada ao cofre `safe-029`. A lista nominal de operações passou de 38/39 para 39/39 + 1 UE.
+- **Nova categoria "Caixas de paraquedas".** Fica em Itens e recursos, tem símbolo próprio e reúne 7 pontos. Ela separa as caixas dos BASE jumps, que agora são 25, como no checklist e no MapGenie. "Book: Killer Prom" foi para Livros e revistas, e as trocas de livros agora são 7.
+- **Auditoria.** `scripts/audit.mjs` ganhou a comparação com as contagens do MapGenie: 51 linhas, 27 iguais, 17 com mais pontos locais e 7 com mais pontos no MapGenie (rebocáveis, ATMs, carregadores, ônibus, garagens, contatos e lojas).
+- IDs, favoritos, progresso e marcadores pessoais não mudaram. As reclassificações só alteram a categoria, e os nomes antigos continuam pesquisáveis.
+
+**Lacunas mantidas.** Flamingos, descobertas subaquáticas, Kenton, Kitty Litter, tablets, alvos do Bret e os rebocáveis faltantes (94 locais, 99 na GTA6Wiki e 127 no MapGenie) continuam sem fonte aberta com posições.
+
+**Testes executados**
+- `npm test`: 19 aprovados. Um teste novo cobre a Saber, os paraquedas, a troca de livros e a senha do `safe-029`.
+- `npm run build`: 30 recursos no cache PWA, com a versão do service worker regenerada pelo hash.
+- Playwright em Chrome desktop e WebKit iPhone 15, só nos cenários afetados: filtros, contadores, busca, símbolos e galeria, favoritos e backup, preferências antigas e PWA offline. Foram 22 aprovados, mais o teste de contadores reexecutado com a nova categoria (2 aprovados). Antes da correção, esse teste falhou só pela versão fixa v1.4.0. Os cenários de veículos, rotas e pontos personalizados não foram afetados e não foram repetidos.
+
 ## Versão 1.4.0 · 24/11/2026
 
 **Mudanças**

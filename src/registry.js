@@ -44,6 +44,7 @@ export const categories = [
   c('drug','Drogas e contrabando','Itens e recursos','#abde8c'),
   c('watch','Relógios de luxo','Itens e recursos','#f4d077'),
   c('treasure','Tesouros','Itens e recursos','#e0a100'),
+  c('parachute','Caixas de paraquedas','Itens e recursos','#5aa9e6'),
   c('tablet','Tablets','Itens e recursos','#92afff',{pending:'Sem pontos posicionados'}),
 
   c('vehicle','Veículos variantes','Veículos','#f72585'),

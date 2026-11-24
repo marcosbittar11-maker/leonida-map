@@ -36,7 +36,13 @@ export const duplicateAliases = {
 // Reclassificações. Chave: ID; valor: nova categoria.
 export const reclassified = {
   'atm-194':'atm', 'atm-195':'atm', // caixas eletrônicos importados como banco
-  L415:'spray'                        // Pay 'n' Spray importado como receptador
+  L415:'spray',                       // Pay 'n' Spray importado como receptador
+  // Caixas de paraquedas (tipo "Parachuting" no snapshot) não são BASE jumps: com elas o catálogo
+  // tinha 32 saltos contra 25 no checklist da PowerPyx e no MapGenie. Revisado em 24/11/2026.
+  'parachuting-001':'parachute', 'parachuting-002':'parachute', 'parachuting-003':'parachute', 'parachuting-004':'parachute',
+  'parachuting-005':'parachute', 'parachuting-006':'parachute', 'parachuting-007':'parachute',
+  // Livro "Killer Prom", a 0,19 unidade da Book Swap 1. É o livro do ponto, não uma nova troca (7 trocas na PowerPyx e no MapGenie).
+  'book-swap-010':'magazine'
 };
 
 // Nomes corrigidos. O nome importado continua pesquisável.
@@ -47,8 +53,8 @@ export const renames = {
   'gang-operation-013':{name:'Biker Hideout', note:'Identificado pelo cofre vizinho Safe - Biker Hideout.'},
   'gang-operation-017':{name:'Illegal Sneaker Trade', note:'Identificado pelo cofre vizinho Safe - Illegal Sneaker Trade.'},
   'gang-operation-019':{name:'Parlor Apartments', note:'Identificado pelo cofre vizinho Safe - Parlor Apartments.'},
-  'gang-operation-022':{name:'Saber Shipping · Guardia Brothers (1)', conflict:'A PowerPyx lista Saber Shipping Yard e Saber Shipping Facility. Os dois cofres vizinhos se chamam Saber Shipping Facility. Correspondência entre nome e pino não resolvida. O Leonida Lab publica a senha 8046 para o cofre do Saber Shipping Yard, sem posição.'},
-  'gang-operation-024':{name:'Saber Shipping · Guardia Brothers (2)', conflict:'A PowerPyx lista Saber Shipping Yard e Saber Shipping Facility. Os dois cofres vizinhos se chamam Saber Shipping Facility. Correspondência entre nome e pino não resolvida. O Leonida Lab publica a senha 8046 para o cofre do Saber Shipping Yard, sem posição.'},
+  'gang-operation-022':{name:'Saber Shipping Yard', alias:'Saber Shipping · Guardia Brothers (1)', note:'Identificado em 24/11/2026. No MapGenie, a Yard fica na Northbrook Drive, em Little Cuba, e tem como itens-chave o Dundreary Cherry Bomb Chino, o cofre do escritório e a pistola Guardian. Os três estão a até 1,2 unidade deste pino no catálogo local. O cofre vizinho se chama "Office Safe - Saber Shipping Facility" na fonte importada.'},
+  'gang-operation-024':{name:'Saber Shipping Facility', alias:'Saber Shipping · Guardia Brothers (2)', note:'Identificado em 24/11/2026. No MapGenie, a Facility fica na Westbrook Drive, em Balsero, e tem como itens-chave o cofre do escritório de cima, o relógio B&G Ark Royal Ashore e a submetralhadora Guardia Brothers VF5. Os três estão a até 0,9 unidade deste pino no catálogo local.'},
   'gang-operation-033':{name:'Walker Farm'}, 'gang-operation-034':{name:'Hog Stars Garage'},
   'gang-operation-036':{name:'Vespucci Mansion'}, 'gang-operation-037':{name:'Ocean Beach Lab'},
   'gang-operation-038':{name:'Industrial Weed Grow'}, 'gang-operation-041':{name:'Mill Station Radar Base'},
@@ -66,7 +72,7 @@ export const renames = {
 export const regions = {
   'smash-n-grab-030':'Belville · Leonard County', 'bank-017':'Leonard County',
   'gang-operation-001':'Mariana County', 'gang-operation-002':'Pelican Valley', 'gang-operation-003':'Pelican Valley',
-  'gang-operation-010':'East Lummox County', 'gang-operation-012':'Leonard County', 'gang-operation-030':'Emerald Springs',
+  'gang-operation-010':'East Lummox County', 'gang-operation-022':'Little Cuba · Vice City', 'gang-operation-024':'Balsero · Vice City', 'gang-operation-012':'Leonard County', 'gang-operation-030':'Emerald Springs',
   'gang-operation-032':'Bonanza', 'gang-operation-036':'Rialto Islands', 'gang-operation-038':'Bobcat Key', 'gang-operation-041':'Grassrivers'
 };
 
@@ -126,6 +132,8 @@ export const storeFacts = {
   'smash-n-grab-034':{'Senha':'Aleatória por jogo. Relatos citam 5683 (PC Gamer) e 6499 (PowerPyx), o que confirma a variação.'}
 };
 // Operações ilegais e cofres com fatos publicados. Resumo da GTA6Wiki, que cita PC Gamer, GAMES.GG e XboxPlay.
+// MapGenie (Ziff Davis): consultado pela interface pública como referência pontual. Nenhuma coordenada copiada.
+const mg = 'https://mapgenie.io/grand-theft-auto-6/maps/leonida';
 const gw = slug => 'https://gta6wiki.eu/map/gang-operation/' + slug + '/';
 export const operationFacts = {
   'gang-operation-007':{refs:[gw('brooks-boatworks'),'https://www.pcgamer.com/games/grand-theft-auto/gta-6-brooks-boatworks-safe-code/'], fields:{
@@ -162,6 +170,13 @@ export const operationFacts = {
     'Senha':'Sem código publicado. Use bomba adesiva no cofre da cabine de gravação.',
     'Itens-chave':'Buckingham Bourbon Windsor no estúdio de fotos, dinheiro perto do fundo verde, Purple Drank no lounge e fuzil San4San K17 no depósito.',
     'Veículo':'Windsor destrancado, sem alarme e sem rastreador.'}},
+  'gang-operation-022':{refs:[mg, 'https://leonidalab.com/safe-codes/'], fields:{
+    'Itens-chave':'Dundreary Cherry Bomb Chino logo depois do portão da frente, cofre do escritório no prédio norte e pistola Guardian.',
+    'Senha':'8046 no cofre do escritório (Leonida Lab, "Saber Shipping Yard"). Associação ao cofre feita pela lista de itens do MapGenie.',
+    'Entrada':'Dá para subir até o escritório pela janela aberta dos fundos.'}},
+  'gang-operation-024':{refs:[mg], fields:{
+    'Itens-chave':'Cofre no escritório do andar de cima, relógio B&G Ark Royal Ashore e submetralhadora Guardia Brothers VF5.',
+    'Entrada':'A porta no alto do telhado leva direto ao escritório do cofre.', 'Senha':'Nenhuma senha publicada nas fontes consultadas.'}},
   'gang-operation-002':{refs:[gw('sunrise-rv-park')], fields:{
     'Senha':'6769 no cofre do prédio do cais (bloco de notas no local). O cofre do escritório não tem código publicado.',
     'Comprador':'Brian no capítulo 1 ou Dunk depois.'}}
@@ -175,7 +190,8 @@ export const safeFacts = {
   'safe-012':{'Senha':'2121, anotação na bancada da sala de embalagem'},
   'safe-028':{'Senha':'5800, laptop no contêiner aberto'},
   'safe-038':{'Senha':'Sem código publicado'},
-  'safe-017':{'Senha':'Sem código publicado. Bomba adesiva.'}
+  'safe-017':{'Senha':'Sem código publicado. Bomba adesiva.'},
+  'safe-029':{'Local exato':'Escritório do prédio norte da Saber Shipping Yard (MapGenie). Apesar do nome importado, pertence à Yard.'}
 };
 
 // Faixas divergentes entre fontes. O valor do catálogo continua como principal.

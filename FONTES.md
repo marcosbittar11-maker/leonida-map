@@ -73,4 +73,17 @@ Consultas de 24/11/2026. As listas nominais transcritas para a auditoria estão 
 - **Vice City API**. A camada de mapa (6.624 pinos), o feed de mudanças e as exportações exigem o plano Developer, de 4,99 € por mês. O plano gratuito tem 5 requisições por dia, sem mapa, e os termos vedam republicar as exportações como estão. Nada foi contratado nem cadastrado. Usamos apenas a chave pública de demonstração, que confirmou a senha 0212 já registrada. Conclusão detalhada em [COVERAGE.md](COVERAGE.md). [Documentação](https://vice-city.app/developers)
 - **Flashenem**. Mantido só como referência pública de cobertura, sem acesso a conteúdo restrito.
 
+## Complemento MapGenie da versão 1.5.0
+
+Consultas de 24/11/2026.
+
+- **MapGenie e IGN** (Ziff Davis). Os dois sites usam a mesma base de 2.690 marcadores, então não contam como fontes independentes.
+  - Os [termos de uso](https://www.ziffdavis.com/terms-of-use) proíbem copiar, extrair, raspar e usar o conteúdo para criar conjuntos de dados. Não há API ou exportação oficial. Por isso nenhuma coordenada, descrição, ícone ou imagem foi importada.
+  - Usamos só as contagens visíveis na barra lateral, como já tinha sido feito com Gameta e GTABase. Elas estão em `data/reference/external-2026-11-24.json`, e `scripts/audit.mjs` gera a comparação.
+  - Uma busca pela interface pública ("Saber") listou os itens-chave da Saber Shipping Yard e da Facility. Com isso foi possível identificar os dois pinos do Open GTA 6 Map, que já estavam no catálogo, e associar a senha 8046 do Leonida Lab ao cofre `safe-029`. As fichas resumem esses fatos em frases próprias e citam o MapGenie.
+  - [MapGenie](https://mapgenie.io/grand-theft-auto-6/maps/leonida) · [IGN](https://www.ign.com/maps/gta-6/leonida)
+- **GTADB**. Os dados são CC BY 4.0, com o código sob MIT. A versão consultada traz 4.195 marcos geográficos com correspondência no mundo real e nenhum colecionável (flamingos, descobertas subaquáticas, Kenton). Nenhum dado foi importado. [Dados](https://github.com/rolux/gtadb.org/tree/main/map/data) · [Licença dos dados](https://github.com/rolux/gtadb.org/blob/main/LICENSE-DATA)
+- **Open GTA 6 Map**. Não há revisão posterior à `d8609016` nem PRs ou issues abertos com novas categorias. O catálogo importado continua o mesmo.
+- **Leonida Lab**. O JSON público tem o mesmo SHA-256 da importação anterior. Ele traz 12 posições, todas de cofres e já usadas. Nesta versão só mudou o mapeamento `saber-shipping-yard` → `safe-029` em `scripts/import-safe-codes.mjs`.
+
 Estimativas e observações continuam separadas. Faixas de valor dos cartões do jogo aparecem como "valor da fonte". Revenda de veículos é estimativa WAiNK, e vendas a compradores específicos ficam como observações de exemplar. Senhas indicam se foram verificadas por duas fontes ou relatadas por uma só.

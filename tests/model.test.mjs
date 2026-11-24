@@ -8,6 +8,7 @@ import { duplicateAliases } from '../src/curation.js';
 import { configurableKeys, requirementState } from '../src/requirements.js';
 import { groups, categories, categoryByKey, symbolKey, inkFor } from '../src/registry.js';
 import { glyphs, glyphNames, glyphSvg } from '../src/symbols.js';
+import safeCodes from '../src/data/safe-codes.js';
 
 const catalog=JSON.parse(await readFile(new URL('../public/data/catalog.json',import.meta.url)));
 const data=applyGuides(catalog);
@@ -107,6 +108,21 @@ test('senhas importadas do Leonida Lab entram como fatos com proveniência',()=>
   assert.equal(dock.partOf,'gang-operation-002');
   assert.ok(dock.refs.includes('https://leonidalab.com/safe-codes/'));
   assert.match(byId.get('safe-070').fields['Confirmação'],/0072/);
+  // Saber Shipping Yard: senha 8046 associada ao cofre do escritório pela lista de itens do MapGenie.
+  assert.equal(safeCodes.records['safe-029'][0].code,'8046');
+  assert.ok(!safeCodes.pending.some(item=>item.slug==='saber-shipping-yard'));
+});
+test('complementação do MapGenie: Saber identificada, paraquedas e livro fora das contagens de salto e troca',()=>{
+  assert.equal(byId.get('gang-operation-022').name,'Saber Shipping Yard');
+  assert.equal(byId.get('gang-operation-024').name,'Saber Shipping Facility');
+  assert.equal(byId.get('safe-029').partOf,'gang-operation-022');
+  assert.equal(byId.get('safe-026').partOf,'gang-operation-024');
+  assert.ok(byId.get('gang-operation-022').refs.includes('https://mapgenie.io/grand-theft-auto-6/maps/leonida'));
+  const count=kind=>data.filter(p=>p.kind===kind).length;
+  assert.equal(count('basejump'),25);
+  assert.equal(count('parachute'),7);
+  assert.equal(count('bookswap'),7);
+  assert.equal(byId.get('book-swap-010').kind,'magazine');
 });
 test('vínculos de complexo e ranking sem dupla contagem',()=>{
   const boat=byId.get('gang-operation-007');

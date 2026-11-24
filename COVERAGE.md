@@ -1,4 +1,41 @@
-# Cobertura do Leonida Map · versão 1.3.0
+# Cobertura do Leonida Map · versão 1.3.0, com complemento da 1.5.0
+
+## Complemento MapGenie · versão 1.5.0 (24/11/2026)
+
+**Resultado: 0 pinos importados do MapGenie.** O MapGenie carrega no navegador os 2.690 marcadores com coordenadas e descrições. Os [termos da Ziff Davis](https://www.ziffdavis.com/terms-of-use), dona do MapGenie e do IGN, proíbem copiar, extrair, raspar e criar conjuntos de dados a partir do serviço. Por isso nada foi gravado: nem coordenadas, nem descrições, nem ícones. A validação de CRS e de resíduos não se aplicou, porque nenhum pino dessa fonte foi publicado. Não existe API ou exportação pública oficial.
+
+**IGN não é fonte independente.** O [mapa do IGN](https://www.ign.com/maps/gta-6/leonida) mostra a mesma base: 2.690 marcadores, as mesmas categorias e os mesmos números. As categorias do MapGenie também trazem campos `ign_enabled` e `ign_page_id`.
+
+**O que foi usado.** Em primeiro lugar, as contagens da barra lateral pública, como foi feito com Gameta e GTABase, em [data/reference/external-2026-11-24.json](data/reference/external-2026-11-24.json). Em segundo, uma consulta pontual pela busca da interface, para resolver a Saber Shipping. As fichas citam o MapGenie como referência, e nenhuma coordenada foi copiada.
+
+**Delta da versão 1.5.0**
+
+| Mudança | Antes | Depois | Evidência |
+|---|--:|--:|---|
+| Operações do checklist identificadas por nome | 38/39 | 39/39 + 1 UE | Saber Shipping Yard (`gang-operation-022`) e Facility (`-024`), identificadas pelos itens-chave da busca do MapGenie e confirmadas pela vizinhança local (Chino, cofre e pistola no 022; cofre, relógio e VF5 no 024) |
+| Senha 8046 do Leonida Lab com ponto local | pendente | `safe-029` | O cofre do escritório é o cofre da Yard, apesar do nome importado "Office Safe - Saber Shipping Facility" |
+| BASE jumps | 32 | 25 | Sete caixas de paraquedas (`parachuting-001…007`) foram para a nova categoria **Caixas de paraquedas**. Agora o número confere com PowerPyx e MapGenie |
+| Trocas de livros | 8 | 7 | "Book: Killer Prom" (`book-swap-010`), a 0,19 unidade da Book Swap 1, é o livro, não uma troca. Passou para Livros e revistas |
+| Fichas enriquecidas | — | 3 | Saber Yard, Saber Facility e `safe-029`: itens-chave, acesso e local exato, em frases próprias |
+| Duplicatas evitadas | — | 0 novas | Nenhum ponto novo entrou. Os IDs foram preservados, e os nomes antigos continuam pesquisáveis como alias |
+
+**Cobertura comparada.** A tabela completa sai de `node scripts/audit.mjs`, na seção "Comparação com as contagens do MapGenie" de [audit/AUDIT.md](audit/AUDIT.md). Das 51 linhas comparáveis, 27 conferem exatamente: joalherias 12+8, penhores 15, bancos 14+8, financeiras 7, academias, Ammu-Nation, oficinas, postos, estilo, eletrônicos, playlists, murais, cartas Jack of Hearts, basquete, sinuca, arcades, estandes, saltos, BASE jumps, voos de faca, pontes, drones, trocas de livros e outras. Em 17 linhas o catálogo local tem mais pontos, por exemplo cofres 96×40, revistas 93×29, cartas Delights 37×18 e WAiNK 101×89.
+
+**Onde o MapGenie tem mais pontos.** Não há fonte aberta com posições para nenhum destes casos. Eles ficaram sem pino:
+- **Caixas eletrônicos rebocáveis.** São 127 no MapGenie, 99 na GTA6Wiki e 94 no catálogo local. As três fontes divergem, então a falta não é de 5. Sem nomes, não há como saber quais pontos faltam.
+- **ATMs comuns.** 223 contra 160.
+- **Carregadores elétricos.** 126 contra 88.
+- **Pontos de ônibus.** 287 contra 276.
+- **Garagens compráveis.** 17 + 4 contra 14.
+- **Contatos.** 10 contra nenhuma categoria local.
+- **Lojas assaltáveis.** 107 contra 106. A Three Sheets fica no guia da arara.
+
+**Prioridades que o MapGenie não cobre.** O MapGenie não tem categoria para flamingos de cocaína, descobertas subaquáticas, tesouros do Kenton, laboratórios de Kitty Litter, tablets, meditação, alvos do Bret, meteoritos, mensagens na garrafa, armas, drogas nem eventos. Mesmo com permissão, ele não preencheria essas lacunas. As fontes abertas também foram conferidas:
+- O Open GTA 6 Map não tem revisão posterior à `d8609016` nem PRs abertos.
+- O GTADB (dados em CC BY 4.0) tem só marcos geográficos.
+- O Leonida Lab tem só 12 posições, todas de cofres e já usadas.
+
+As lacunas continuam registradas abaixo.
 
 Auditoria de 24/11/2026. Os números vêm de `node scripts/audit.mjs`, que grava o detalhe nominal em [audit/AUDIT.md](audit/AUDIT.md) e [audit/latest.json](audit/latest.json). A linha de base é a versão 1.2.0 (commit `a5aef22`). Ela foi congelada antes das mudanças em [audit/baseline-2026-11-24.json](audit/baseline-2026-11-24.json) com o script [audit/legacy-baseline.mjs](audit/legacy-baseline.mjs).
 
@@ -20,7 +57,7 @@ Auditoria de 24/11/2026. Os números vêm de `node scripts/audit.mjs`, que grava
 | Bancos (caixa e cofre pequeno) | 14 dentro de `bank` (24) | 14 | 14 | 0 | 14 PowerPyx | Completo |
 | Grandes bancos (cofre) | 8 dentro de `bank` | 0 (8 no cap. 5) | 8 | 8 | 8 PowerPyx | Completo |
 | Financeiras | 7 | 0 | 7 | 7 | 7 PowerPyx, GTA6Wiki | Completo |
-| Operações ilegais | 43 + 1 guia | 1 | 43 | 42 | 39 + 1 UE PowerPyx · 44 GTA6Wiki · 43 Gameta | 39/39 do checklist identificadas (ver pendência Saber) |
+| Operações ilegais | 43 + 1 guia | 1 | 43 | 42 | 39 + 1 UE PowerPyx · 40 MapGenie · 44 GTA6Wiki · 43 Gameta | 39/39 do checklist identificadas, com a Saber resolvida na 1.5.0 |
 | Cofres | 96 | 1 | 96 | 94 | 42 GTA6Wiki · 40 Gameta | O snapshot também tem cofres de casas e lojas. Um cofre novo foi importado |
 | Receptadores | 20 | 4 | 16 | 12 | 7 receptadores PowerPyx · 14 GTA6Wiki | 3 duplicatas e 1 oficina reclassificada |
 | Armas especiais (únicas) | 87 dentro de `weapon` (173) | 2 | 87 | 86 | — | Separadas das armas no chão |
@@ -29,7 +66,7 @@ Auditoria de 24/11/2026. Os números vêm de `node scripts/audit.mjs`, que grava
 | Drogas e contrabando | 71 | 0 | 71 | 71 | — | — |
 | Tablets | 0 | 0 | 0 | 0 | — | Sem posições publicadas. As 15 lojas de eletrônicos continuam como pista |
 | Lojas assaltáveis (Stick Ups) | 86 | 0 | 106 | 85 | 72 + 21 + 14 = 107 PowerPyx, 91 contam para o 100% | Os 21 fast food foram reclassificados. A Three Sheets fica no guia da arara |
-| Caixas eletrônicos rebocáveis | 94 | 0 | 94 | 94 | 99 GTA6Wiki | 5 sem posição local |
+| Caixas eletrônicos rebocáveis | 94 | 0 | 94 | 94 | 99 GTA6Wiki · 127 MapGenie | Fontes divergem; sem posições abertas para os faltantes |
 | Eventos aleatórios | 281 | 0 | 281 | 281 | — | — |
 | Veículos variantes | 262 na camada | 261 | 262 | 1 | 281 IDs GTABase · 231 Gameta | Pedidos e veículos de serviço fora da camada, como antes |
 | Oficinas e Pay ’n’ Spray | 33 | 33 | 34 | 1 | 19 Pay ’n’ Spray + 15–16 oficinas | +1 por reclassificação |
@@ -92,7 +129,7 @@ Todas ficam em [src/curation.js](src/curation.js), separadas do snapshot importa
 ## Pendências de pesquisa e localização
 
 **Operações**
-- **Saber Shipping Yard × Saber Shipping Facility.** Os dois pinos da Guardia Brothers (`gang-operation-022` e `-024`) ficam perto de cofres chamados "Saber Shipping Facility". O Leonida Lab dá a senha 8046 para o Yard, sem posição. Correspondência não resolvida.
+- **Saber Shipping Yard × Saber Shipping Facility.** Resolvido na 1.5.0. `gang-operation-022` é a Yard, em Little Cuba, e o cofre `safe-029` usa a senha 8046. `gang-operation-024` é a Facility, em Balsero. Detalhes no complemento MapGenie, no início deste arquivo.
 - **Final Chapter: Abandoned MC Warehouse.** A GTA6Wiki o lista em South Vice-Dale County. Não há ponto local equivalente confirmado. Pode corresponder ao Armazém Apollo Aggregates (`L2453`).
 - **Fora do checklist.** Drumboyz (`gang-compound-002`), Small Weed Farm (`gang-operation-046`) e Apollo Aggregates ficam fora das 39 operações. Estão marcados e não foram excluídos.
 
@@ -105,11 +142,11 @@ Todas ficam em [src/curation.js](src/curation.js), separadas do snapshot importa
 - Oito itens omitidos pela fonte como spoiler
 
 **Outras categorias**
-- **Caixas eletrônicos rebocáveis.** Faltam 5 em relação aos 99 da GTA6Wiki. Os nomes das fontes são numéricos e não permitem relação nominal.
-- **Laboratórios de Kitty Litter.** São 14 segundo a PowerPyx e não há nenhum pino local. A fonte descreve áreas de busca, sem coordenadas.
+- **Caixas eletrônicos rebocáveis.** São 94 pontos locais, 99 na GTA6Wiki e 127 no MapGenie e no IGN. Os nomes são numéricos nas três fontes, então não dá para saber quais faltam. Nenhuma fonte aberta publica as posições restantes.
+- **Laboratórios de Kitty Litter.** São 14 segundo a PowerPyx e não há nenhum pino local. A fonte descreve áreas de busca, sem coordenadas. O MapGenie também não tem essa categoria.
 - **Categorias do checklist sem pinos no snapshot.** Flamingos de cocaína (125), descobertas subaquáticas (33), tesouros do Kenton (41 no Gameta) e alvos do Bret (15).
 - **Meditação.** Há 10 locais contra 18 no checklist.
-- **BASE jumps.** Há 32 locais contra 25 no checklist. Pode haver pontos alternativos ou duplicatas.
+- **BASE jumps.** Resolvido na 1.5.0. Os 7 pontos a mais eram caixas de paraquedas, que agora têm categoria própria. O total é 25, igual ao checklist e ao MapGenie.
 - **Revisão manual.** Duas cartas Kalvyn (Standard) estão a 0,47 unidade. Prédios "Prison Building" têm o mesmo nome mas são estruturas diferentes e foram mantidos.
 - **Nomes sem atividade comprovada.** Little Gems Jewellery (`L2747`), Pawn & Gun e Gun & Pawn são Ammu-Nation. A Jewellery Lockbox é um pacote. Não entram nas contagens de Smash ’n’ Grab.
 

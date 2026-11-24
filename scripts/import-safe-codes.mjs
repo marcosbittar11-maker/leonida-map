@@ -15,6 +15,7 @@ const byId = new Map(catalog.points.map(p => [p.id, p]));
 const local = {
   'janjaks-garage':'safe-022', 'illegal-sneaker-trade':'safe-018', 'casa-guardia':'safe-027',
   'black-eagle-warehouse-safe':'weapon-spawn-050', 'marbelle-hotel':'easter-egg-010',
+  'saber-shipping-yard':'safe-029', // MapGenie lista o cofre do escritório como item da Yard (24/11/2026)
   'pelican-valley-password':'safe-070', 'pelican-valley-safe':'safe-070', 'pelican-valley-dock':'safe-070',
   'sunrise-rv-park-office':'safe-038', 'manatee-motel':'safe-037', 'kingpin-bowling':'safe-015',
   'brooks-boatworks':'safe-004', 'la-cascara-motel':'safe-009', 'brooks-boatworks-second-safe':'safe-006',

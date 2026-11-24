@@ -101,13 +101,24 @@ const practical = Object.fromEntries(priority.map(kind => {
     requisitosConhecidos:list.filter(p => ['met','unmet'].includes(availability(p, progress).state)).length}];
 }));
 
+// 7. Contagens públicas do MapGenie (barra lateral) contra as categorias locais. Só contagens: nenhuma posição externa.
+const mg = reference.counts.mapgenie;
+const selectorCount = sel => points.filter(p => {const [kind, type] = sel.split(':'); return p.kind === kind && (!type || p.type === type);}).length;
+const mapgenie = (reference.mapgenieCompare || []).map(([label, theirs, ours]) => {
+  const external = theirs.reduce((sum, name) => sum + (mg[name] ?? NaN), 0);
+  const local = ours.reduce((sum, sel) => sum + selectorCount(sel), 0);
+  return {label, mapgenie:external, local, diff:local - external, categories:theirs, selectors:ours};
+});
+const mapgenieSummary = {rows:mapgenie.length, equal:mapgenie.filter(r => r.diff === 0).length,
+  localMore:mapgenie.filter(r => r.diff > 0).length, mapgenieMore:mapgenie.filter(r => r.diff < 0).map(r => r.label + ' (' + r.diff + ')')};
+
 const report = {
   generated:new Date().toISOString().slice(0, 10), catalogRevision:catalog.metadata.revision,
   totals:{imported:catalog.stats.inputs, catalog:catalog.points.length, consultable:points.length,
     curatedAliases:Object.keys(duplicateAliases).length, reclassified:Object.keys(reclassified).length,
     hiddenBeforeChapter3:baseline.profiles.capitulo3.counts, hiddenBeforeChapter5:baseline.profiles.capitulo5.counts},
   lists, categories, rawKinds, before, beforeAll, recovered, duplicates, invalid, suspicious, practical,
-  externalCounts:reference.counts
+  externalCounts:reference.counts, mapgenie, mapgenieSummary
 };
 await mkdir(new URL('audit/', root), {recursive:true});
 await writeFile(new URL('audit/latest.json', root), JSON.stringify(report, null, 1));
@@ -134,6 +145,11 @@ for (const [kind, r] of Object.entries(practical)) md.push(line(kind, r.total, r
 md.push('', '## Duplicatas prováveis restantes', '', duplicates.length ? duplicates.map(d => '- ' + d.name + ' (' + d.kind + '): `' + d.a + '` e `' + d.b + '`, ' + d.distance + ' unidade').join('\n') : 'Nenhuma.',
   '', '## Coordenadas inválidas ou ausentes', '', invalid.length ? invalid.map(p => '- `' + p.id + '` ' + p.name).join('\n') : 'Nenhuma.',
   '', '## Nomes que sugerem roubo fora das categorias de roubo', '', suspicious.map(s => '- `' + s.id + '` ' + s.name + ' (' + s.kind + '): ' + s.verdict + (s.near.length ? ' · ' + s.near.join(', ') : '')).join('\n') || 'Nenhum.', '');
+md.push('## Comparação com as contagens do MapGenie', '',
+  'Contagens da barra lateral pública de ' + reference.sources.mapgenie + ' (a mesma base aparece no IGN). Só números: nenhuma posição ou descrição foi importada.', '',
+  line('Categoria', 'MapGenie', 'Local', 'Diferença'), line('---','--:','--:','--:'));
+for (const r of mapgenie) md.push(line(r.label, r.mapgenie, r.local, r.diff > 0 ? '+' + r.diff : r.diff));
+md.push('', 'Categorias do checklist ausentes no MapGenie: ' + (mg.absent || []).join(', ') + '.', '');
 await writeFile(new URL('audit/AUDIT.md', root), md.join('\n'));
 console.log(JSON.stringify({lists:Object.fromEntries(Object.entries(lists).map(([k, l]) => [k, l.matched + '/' + l.expected + (l.missing.length ? ' faltam ' + l.missing.join('; ') : '')])),
-  duplicates:duplicates.length, invalid:invalid.length, suspicious:suspicious.length}, null, 1));
+  duplicates:duplicates.length, invalid:invalid.length, suspicious:suspicious.length, mapgenie:mapgenieSummary}, null, 1));

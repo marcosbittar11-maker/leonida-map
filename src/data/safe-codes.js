@@ -102,6 +102,18 @@ export default {
     "source": "https://leonidalab.com/safe-codes/"
    }
   ],
+  "safe-029": [
+   {
+    "slug": "saber-shipping-yard",
+    "name": "Saber Shipping Yard",
+    "lock": "safe",
+    "kind": "fixed",
+    "code": "8046",
+    "where": "At the Saber Shipping Yard, a Guardia Brothers operation.",
+    "status": "checked",
+    "source": "https://leonidalab.com/safe-codes/"
+   }
+  ],
   "weapon-spawn-050": [
    {
     "slug": "black-eagle-warehouse-safe",
@@ -576,12 +588,6 @@ export default {
   ]
  },
  "pending": [
-  {
-   "slug": "saber-shipping-yard",
-   "name": "Saber Shipping Yard",
-   "code": "8046",
-   "reason": "Sem posição na fonte e sem ponto local equivalente."
-  },
   {
    "slug": "black-eagle-warehouse-door",
    "name": "Black Eagle Warehouse office door",

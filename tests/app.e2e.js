@@ -282,7 +282,7 @@ test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})
 
 test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.4.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.5.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
   await expect(map(page)).toHaveAttribute('data-points','0');
@@ -301,6 +301,13 @@ test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({
   await expect(page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).locator('.counter')).not.toHaveText('0/447');
   await page.getByRole('searchbox',{name:'Buscar categoria'}).fill('flamingo');
   await expect(page.locator('.category-row')).toHaveCount(1);
+  // Categoria nova da 1.5.0: caixas de paraquedas saíram dos BASE jumps (25 no checklist e no MapGenie).
+  await page.getByRole('searchbox',{name:'Buscar categoria'}).fill('caixas de paraquedas');
+  const parachute=page.locator('.category-row').filter({hasText:'Caixas de paraquedas'});
+  await expect(page.locator('.category-row')).toHaveCount(1);
+  await parachute.getByRole('checkbox').check();
+  await expect(parachute.locator('.counter')).toHaveText(/^\d+\/7$/);
+  await expect(parachute.locator('.counter')).not.toHaveText('0/7');
 });
 
 test('filtros preservam a navegação interna e só são memorizados quando a preferência está ativa',async({page})=>{

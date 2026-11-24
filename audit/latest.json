@@ -6,7 +6,7 @@
   "catalog": 5665,
   "consultable": 5533,
   "curatedAliases": 7,
-  "reclassified": 3,
+  "reclassified": 11,
   "hiddenBeforeChapter3": {
    "capituloDesconhecido": 2882,
    "capituloPosterior": 11,
@@ -79,26 +79,10 @@
    "extra": 1,
    "localKind": "gang",
    "localTotal": 43,
-   "matched": 38,
-   "missing": [
-    "Saber Shipping Yard"
-   ],
-   "misclassified": [
-    {
-     "name": "Saber Shipping Facility",
-     "id": "safe-026",
-     "kind": "safe"
-    }
-   ],
+   "matched": 40,
+   "missing": [],
+   "misclassified": [],
    "localNotInList": [
-    {
-     "id": "gang-operation-022",
-     "name": "Saber Shipping · Guardia Brothers (1)"
-    },
-    {
-     "id": "gang-operation-024",
-     "name": "Saber Shipping · Guardia Brothers (2)"
-    },
     {
      "id": "gang-compound-002",
      "name": "Drumboyz"
@@ -143,7 +127,7 @@
  "categories": {
   "clothes": {
    "name": "Lojas de roupas",
-   "group": "Estilo",
+   "group": "Locais e serviços",
    "total": 69,
    "withReward": 0,
    "withGuide": 0,
@@ -158,7 +142,7 @@
   },
   "style": {
    "name": "Estilo e personalização",
-   "group": "Estilo",
+   "group": "Locais e serviços",
    "total": 46,
    "withReward": 0,
    "withGuide": 0,
@@ -203,7 +187,7 @@
   },
   "building": {
    "name": "Edifícios e marcos",
-   "group": "Locais",
+   "group": "Locais e serviços",
    "total": 521,
    "withReward": 0,
    "withGuide": 0,
@@ -216,17 +200,32 @@
    "unknownSafeCode": 0,
    "linked": 0
   },
-  "food": {
-   "name": "Bares e restaurantes",
-   "group": "Comidas e bebidas",
-   "total": 439,
+  "bar": {
+   "name": "Bares e boates",
+   "group": "Locais e serviços",
+   "total": 143,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 439
+    "na": 143
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "food": {
+   "name": "Restaurantes e cafés",
+   "group": "Locais e serviços",
+   "total": 296,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 296
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -234,21 +233,21 @@
   "workshop": {
    "name": "Oficinas e preparação",
    "group": "Veículos",
-   "total": 34,
+   "total": 14,
    "withReward": 0,
-   "withGuide": 4,
+   "withGuide": 3,
    "states": {
     "met": 2,
     "unmet": 0,
     "unknown": 0,
-    "na": 32
+    "na": 12
    },
    "unknownSafeCode": 0,
    "linked": 0
   },
   "ammushop": {
    "name": "Ammu-Nation",
-   "group": "Armas",
+   "group": "Locais e serviços",
    "total": 24,
    "withReward": 0,
    "withGuide": 0,
@@ -263,7 +262,7 @@
   },
   "transport": {
    "name": "Transporte",
-   "group": "Transporte público",
+   "group": "Locais e serviços",
    "total": 488,
    "withReward": 0,
    "withGuide": 0,
@@ -278,7 +277,7 @@
   },
   "leisure": {
    "name": "Esportes e lazer",
-   "group": "Locais",
+   "group": "Locais e serviços",
    "total": 55,
    "withReward": 0,
    "withGuide": 0,
@@ -293,7 +292,7 @@
   },
   "civic": {
    "name": "Serviços públicos",
-   "group": "Locais",
+   "group": "Locais e serviços",
    "total": 123,
    "withReward": 0,
    "withGuide": 0,
@@ -337,8 +336,8 @@
    "linked": 0
   },
   "electronics": {
-   "name": "Eletrônicos e tablets",
-   "group": "Locais",
+   "name": "Eletrônicos",
+   "group": "Locais e serviços",
    "total": 15,
    "withReward": 0,
    "withGuide": 0,
@@ -351,17 +350,17 @@
    "unknownSafeCode": 0,
    "linked": 0
   },
-  "shop": {
-   "name": "Lojas e serviços",
-   "group": "Locais",
-   "total": 433,
+  "gas": {
+   "name": "Postos de combustível",
+   "group": "Locais e serviços",
+   "total": 57,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 433
+    "na": 57
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -397,7 +396,7 @@
    "linked": 0
   },
   "card": {
-   "name": "Cartas",
+   "name": "Cartas colecionáveis",
    "group": "Colecionáveis",
    "total": 447,
    "withReward": 0,
@@ -411,24 +410,39 @@
    "unknownSafeCode": 0,
    "linked": 0
   },
-  "package": {
-   "name": "Pacotes e contrabando",
-   "group": "Colecionáveis",
-   "total": 71,
+  "carservice": {
+   "name": "Outros serviços automotivos",
+   "group": "Veículos",
+   "total": 10,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
-    "unknown": 71,
-    "na": 0
+    "unknown": 0,
+    "na": 10
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "other": {
+   "name": "Pontos de interesse especiais",
+   "group": "Exploração",
+   "total": 388,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 388
    },
    "unknownSafeCode": 0,
    "linked": 0
   },
   "event": {
    "name": "Eventos aleatórios",
-   "group": "Atividades",
+   "group": "Exploração",
    "total": 281,
    "withReward": 0,
    "withGuide": 0,
@@ -467,6 +481,21 @@
     "unmet": 0,
     "unknown": 0,
     "na": 21
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "spray": {
+   "name": "Pay 'n' Spray",
+   "group": "Veículos",
+   "total": 20,
+   "withReward": 0,
+   "withGuide": 1,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 20
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -532,7 +561,7 @@
    "linked": 0
   },
   "arcade": {
-   "name": "Arcades e minigolfe",
+   "name": "Minijogos · arcades e minigolfe",
    "group": "Atividades",
    "total": 51,
    "withReward": 0,
@@ -548,7 +577,7 @@
   },
   "pickup": {
    "name": "Armas no chão",
-   "group": "Armas",
+   "group": "Itens e recursos",
    "total": 86,
    "withReward": 0,
    "withGuide": 1,
@@ -593,7 +622,7 @@
   },
   "safe": {
    "name": "Cofres",
-   "group": "Operações",
+   "group": "Itens e recursos",
    "total": 96,
    "withReward": 0,
    "withGuide": 1,
@@ -623,7 +652,7 @@
   },
   "treasure": {
    "name": "Tesouros",
-   "group": "Colecionáveis",
+   "group": "Itens e recursos",
    "total": 6,
    "withReward": 0,
    "withGuide": 0,
@@ -636,17 +665,32 @@
    "unknownSafeCode": 0,
    "linked": 0
   },
-  "basejump": {
-   "name": "Paraquedismo",
-   "group": "Atividades",
-   "total": 32,
+  "atm": {
+   "name": "Caixas eletrônicos (ATMs)",
+   "group": "Locais e serviços",
+   "total": 160,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 32
+    "na": 160
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "basejump": {
+   "name": "Paraquedismo",
+   "group": "Atividades",
+   "total": 25,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 25
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -669,14 +713,14 @@
   "bookswap": {
    "name": "Troca de livros",
    "group": "Colecionáveis",
-   "total": 8,
+   "total": 7,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 8
+    "na": 7
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -692,6 +736,21 @@
     "unmet": 0,
     "unknown": 0,
     "na": 42
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "ev": {
+   "name": "Carregadores elétricos",
+   "group": "Locais e serviços",
+   "total": 88,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 88
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -729,14 +788,14 @@
   "magazine": {
    "name": "Livros e revistas",
    "group": "Colecionáveis",
-   "total": 92,
+   "total": 93,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 92
+    "na": 93
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -833,7 +892,7 @@
   },
   "waink": {
    "name": "Escaneamentos WAiNK",
-   "group": "Exploração",
+   "group": "Colecionáveis",
    "total": 101,
    "withReward": 0,
    "withGuide": 0,
@@ -848,7 +907,7 @@
   },
   "drug": {
    "name": "Drogas e contrabando",
-   "group": "Operações",
+   "group": "Itens e recursos",
    "total": 71,
    "withReward": 0,
    "withGuide": 0,
@@ -857,6 +916,21 @@
     "unmet": 0,
     "unknown": 71,
     "na": 0
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "parachute": {
+   "name": "Caixas de paraquedas",
+   "group": "Itens e recursos",
+   "total": 7,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 7
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -872,21 +946,6 @@
     "unmet": 0,
     "unknown": 0,
     "na": 9
-   },
-   "unknownSafeCode": 0,
-   "linked": 0
-  },
-  "other": {
-   "name": "Outros locais",
-   "group": "Exploração",
-   "total": 317,
-   "withReward": 0,
-   "withGuide": 0,
-   "states": {
-    "met": 0,
-    "unmet": 0,
-    "unknown": 0,
-    "na": 317
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -923,7 +982,7 @@
   },
   "watch": {
    "name": "Relógios de luxo",
-   "group": "Operações",
+   "group": "Itens e recursos",
    "total": 23,
    "withReward": 0,
    "withGuide": 0,
@@ -938,7 +997,7 @@
   },
   "weapon": {
    "name": "Armas especiais",
-   "group": "Armas",
+   "group": "Itens e recursos",
    "total": 87,
    "withReward": 0,
    "withGuide": 1,
@@ -951,9 +1010,24 @@
    "unknownSafeCode": 0,
    "linked": 28
   },
+  "shop": {
+   "name": "Lojas e serviços",
+   "group": "Locais e serviços",
+   "total": 118,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 118
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
   "hotel": {
    "name": "Hotéis",
-   "group": "Locais",
+   "group": "Locais e serviços",
    "total": 30,
    "withReward": 0,
    "withGuide": 0,
@@ -1475,9 +1549,9 @@
    "capitulo3": 447,
    "mesmoNoCapitulo5": 447
   },
-  "package": {
-   "capitulo3": 71,
-   "mesmoNoCapitulo5": 71
+  "other": {
+   "capitulo3": 388,
+   "mesmoNoCapitulo5": 388
   },
   "event": {
    "capitulo3": 281,
@@ -1532,16 +1606,16 @@
    "mesmoNoCapitulo5": 6
   },
   "basejump": {
-   "capitulo3": 32,
-   "mesmoNoCapitulo5": 32
+   "capitulo3": 25,
+   "mesmoNoCapitulo5": 25
   },
   "hoop": {
    "capitulo3": 100,
    "mesmoNoCapitulo5": 100
   },
   "bookswap": {
-   "capitulo3": 8,
-   "mesmoNoCapitulo5": 8
+   "capitulo3": 7,
+   "mesmoNoCapitulo5": 7
   },
   "drone": {
    "capitulo3": 42,
@@ -1556,8 +1630,8 @@
    "mesmoNoCapitulo5": 40
   },
   "magazine": {
-   "capitulo3": 92,
-   "mesmoNoCapitulo5": 92
+   "capitulo3": 93,
+   "mesmoNoCapitulo5": 93
   },
   "mural": {
    "capitulo3": 5,
@@ -1587,13 +1661,13 @@
    "capitulo3": 71,
    "mesmoNoCapitulo5": 71
   },
+  "parachute": {
+   "capitulo3": 7,
+   "mesmoNoCapitulo5": 7
+  },
   "hunting": {
    "capitulo3": 9,
    "mesmoNoCapitulo5": 9
-  },
-  "other": {
-   "capitulo3": 317,
-   "mesmoNoCapitulo5": 317
   },
   "meditation": {
    "capitulo3": 10,
@@ -1611,7 +1685,7 @@
    "capitulo3": 86,
    "mesmoNoCapitulo5": 86
   },
-  "shop": {
+  "atm": {
    "capitulo3": 2,
    "mesmoNoCapitulo5": 2
   },
@@ -1623,7 +1697,7 @@
    "capitulo3": 1,
    "mesmoNoCapitulo5": 1
   },
-  "workshop": {
+  "spray": {
    "capitulo3": 1,
    "mesmoNoCapitulo5": 1
   }
@@ -1691,7 +1765,7 @@
   {
    "id": "hidden-package-015",
    "name": "Jewellery Lockbox ($300)",
-   "kind": "package",
+   "kind": "other",
    "near": [],
    "verdict": "nome sugere, sem evidência de atividade; não contabilizado"
   },
@@ -1773,7 +1847,7 @@
   "gang": {
    "total": 43,
    "valor": 17,
-   "senha": 10,
+   "senha": 12,
    "cofre": 3,
    "desbloqueio": 0,
    "alarme": 0,
@@ -1783,7 +1857,7 @@
   "safe": {
    "total": 96,
    "valor": 0,
-   "senha": 25,
+   "senha": 26,
    "cofre": 1,
    "desbloqueio": 0,
    "alarme": 0,
@@ -1929,6 +2003,761 @@
    "secrets": 41,
    "vehicles": 394,
    "plan": "Developer, 4,99 €/mês para /map e /export; plano gratuito: 5 requisições/dia sem mapa"
+  },
+  "mapgenie": {
+   "checked": "2026-11-24",
+   "note": "Contagens da barra lateral pública. IGN mostra a mesma base (2.690 marcadores, mesmas categorias e números). Termos da Ziff Davis vedam extração; nenhuma coordenada ou descrição foi importada.",
+   "total": 2690,
+   "ATM": 223,
+   "Gym": 9,
+   "Club": 5,
+   "Ammu-Nation": 24,
+   "Bank": 14,
+   "Big Bank": 8,
+   "Payday Loans": 7,
+   "Low-End Jewelry Store": 12,
+   "High-End Jewelry Store": 8,
+   "Pawn Shop": 15,
+   "ATM (Towable)": 127,
+   "Convenience Store": 72,
+   "Fast Food": 21,
+   "Liquor Store": 14,
+   "Contact": 10,
+   "Safe": 40,
+   "Pay 'N' Spray": 19,
+   "Mod Shop": 14,
+   "Gas Station": 57,
+   "Car Wash": 6,
+   "Electric Charger": 126,
+   "Bus Stop": 287,
+   "Train Station": 25,
+   "Ferry Terminal": 2,
+   "Rental Vehicle": 3,
+   "Purchasable Garage": 17,
+   "Garage": 4,
+   "Standout Vehicle": 85,
+   "Randy Vehicle": 9,
+   "Moses Vehicle": 7,
+   "Casual & Street": 17,
+   "Sportswear": 11,
+   "Formal": 10,
+   "Souvenir & Swimwear": 24,
+   "Thrift": 5,
+   "Footwear": 17,
+   "Hair & Beauty": 18,
+   "Tattoos": 11,
+   "Electronics": 15,
+   "Cafes & Takeout": 89,
+   "Bar": 122,
+   "Street Food": 119,
+   "Landmark": 31,
+   "Curiosity": 35,
+   "Sculpture": 23,
+   "Book Swap": 7,
+   "Magazine": 29,
+   "Unique Playlist": 7,
+   "1010 Mural": 5,
+   "Jack of Hearts": 36,
+   "Delights": 18,
+   "Nine1Nine": 36,
+   "Basketball Hoop": 100,
+   "Golf Course": 2,
+   "Mini-Golf Course": 3,
+   "Pool Table": 17,
+   "Shooting Range": 15,
+   "Arcade Machine": 31,
+   "Fishing Hotspot": 35,
+   "Stunt Jump": 130,
+   "Base Jump": 25,
+   "Knife Flight": 40,
+   "Under the Bridge": 202,
+   "Racing Introduction": 1,
+   "Racing Challenge": 13,
+   "Thrillbilly Mud Club": 8,
+   "Animal Crackers": 8,
+   "Hit 'n' Run VC": 9,
+   "Hamlet Boone Speedway": 2,
+   "Ambrosia Raceway": 2,
+   "Gellhorn Raceway": 10,
+   "Top Fun Drones": 42,
+   "Kingfishers": 3,
+   "Kolt & Associates": 5,
+   "M7": 2,
+   "La Polilla Negra": 2,
+   "Final Chapter": 4,
+   "San4San": 5,
+   "PTT Youngin$": 3,
+   "The Guardia Brothers": 3,
+   "Criminals": 13,
+   "absent": [
+    "Flamingos de cocaína",
+    "Descobertas subaquáticas",
+    "Tesouros/coleções de Kenton",
+    "Laboratórios de Kitty Litter",
+    "Tablets",
+    "Meditação",
+    "Alvos do Bret",
+    "Meteoritos",
+    "Mensagens na garrafa",
+    "Armas",
+    "Drogas",
+    "Eventos aleatórios"
+   ]
   }
+ },
+ "mapgenie": [
+  {
+   "label": "Joalherias",
+   "mapgenie": 20,
+   "local": 20,
+   "diff": 0,
+   "categories": [
+    "Low-End Jewelry Store",
+    "High-End Jewelry Store"
+   ],
+   "selectors": [
+    "jewelry"
+   ]
+  },
+  {
+   "label": "Casas de penhores",
+   "mapgenie": 15,
+   "local": 15,
+   "diff": 0,
+   "categories": [
+    "Pawn Shop"
+   ],
+   "selectors": [
+    "pawn"
+   ]
+  },
+  {
+   "label": "Bancos",
+   "mapgenie": 14,
+   "local": 14,
+   "diff": 0,
+   "categories": [
+    "Bank"
+   ],
+   "selectors": [
+    "bank"
+   ]
+  },
+  {
+   "label": "Grandes bancos",
+   "mapgenie": 8,
+   "local": 8,
+   "diff": 0,
+   "categories": [
+    "Big Bank"
+   ],
+   "selectors": [
+    "bigbank"
+   ]
+  },
+  {
+   "label": "Financeiras",
+   "mapgenie": 7,
+   "local": 7,
+   "diff": 0,
+   "categories": [
+    "Payday Loans"
+   ],
+   "selectors": [
+    "payday"
+   ]
+  },
+  {
+   "label": "Lojas assaltáveis",
+   "mapgenie": 107,
+   "local": 106,
+   "diff": -1,
+   "categories": [
+    "Convenience Store",
+    "Fast Food",
+    "Liquor Store"
+   ],
+   "selectors": [
+    "store"
+   ]
+  },
+  {
+   "label": "Caixas eletrônicos rebocáveis",
+   "mapgenie": 127,
+   "local": 94,
+   "diff": -33,
+   "categories": [
+    "ATM (Towable)"
+   ],
+   "selectors": [
+    "towatm"
+   ]
+  },
+  {
+   "label": "Operações ilegais",
+   "mapgenie": 40,
+   "local": 43,
+   "diff": 3,
+   "categories": [
+    "Kingfishers",
+    "Kolt & Associates",
+    "M7",
+    "La Polilla Negra",
+    "Final Chapter",
+    "San4San",
+    "PTT Youngin$",
+    "The Guardia Brothers",
+    "Criminals"
+   ],
+   "selectors": [
+    "gang"
+   ]
+  },
+  {
+   "label": "Cofres",
+   "mapgenie": 40,
+   "local": 96,
+   "diff": 56,
+   "categories": [
+    "Safe"
+   ],
+   "selectors": [
+    "safe"
+   ]
+  },
+  {
+   "label": "Contatos",
+   "mapgenie": 10,
+   "local": 0,
+   "diff": -10,
+   "categories": [
+    "Contact"
+   ],
+   "selectors": []
+  },
+  {
+   "label": "ATMs",
+   "mapgenie": 223,
+   "local": 160,
+   "diff": -63,
+   "categories": [
+    "ATM"
+   ],
+   "selectors": [
+    "atm"
+   ]
+  },
+  {
+   "label": "Academias",
+   "mapgenie": 9,
+   "local": 9,
+   "diff": 0,
+   "categories": [
+    "Gym"
+   ],
+   "selectors": [
+    "gym"
+   ]
+  },
+  {
+   "label": "Boates",
+   "mapgenie": 5,
+   "local": 5,
+   "diff": 0,
+   "categories": [
+    "Club"
+   ],
+   "selectors": [
+    "bar:Nightclub"
+   ]
+  },
+  {
+   "label": "Ammu-Nation",
+   "mapgenie": 24,
+   "local": 24,
+   "diff": 0,
+   "categories": [
+    "Ammu-Nation"
+   ],
+   "selectors": [
+    "ammushop"
+   ]
+  },
+  {
+   "label": "Pay 'n' Spray",
+   "mapgenie": 19,
+   "local": 20,
+   "diff": 1,
+   "categories": [
+    "Pay 'N' Spray"
+   ],
+   "selectors": [
+    "spray"
+   ]
+  },
+  {
+   "label": "Oficinas",
+   "mapgenie": 14,
+   "local": 14,
+   "diff": 0,
+   "categories": [
+    "Mod Shop"
+   ],
+   "selectors": [
+    "workshop"
+   ]
+  },
+  {
+   "label": "Postos",
+   "mapgenie": 57,
+   "local": 57,
+   "diff": 0,
+   "categories": [
+    "Gas Station"
+   ],
+   "selectors": [
+    "gas"
+   ]
+  },
+  {
+   "label": "Lava-rápidos e aluguel",
+   "mapgenie": 9,
+   "local": 10,
+   "diff": 1,
+   "categories": [
+    "Car Wash",
+    "Rental Vehicle"
+   ],
+   "selectors": [
+    "carservice"
+   ]
+  },
+  {
+   "label": "Carregadores elétricos",
+   "mapgenie": 126,
+   "local": 88,
+   "diff": -38,
+   "categories": [
+    "Electric Charger"
+   ],
+   "selectors": [
+    "ev"
+   ]
+  },
+  {
+   "label": "Pontos de ônibus",
+   "mapgenie": 287,
+   "local": 276,
+   "diff": -11,
+   "categories": [
+    "Bus Stop"
+   ],
+   "selectors": [
+    "transport:Bus stop"
+   ]
+  },
+  {
+   "label": "Estações",
+   "mapgenie": 25,
+   "local": 31,
+   "diff": 6,
+   "categories": [
+    "Train Station"
+   ],
+   "selectors": [
+    "transport:Station"
+   ]
+  },
+  {
+   "label": "Balsas",
+   "mapgenie": 2,
+   "local": 2,
+   "diff": 0,
+   "categories": [
+    "Ferry Terminal"
+   ],
+   "selectors": [
+    "transport:Ferry"
+   ]
+  },
+  {
+   "label": "Garagens",
+   "mapgenie": 21,
+   "local": 14,
+   "diff": -7,
+   "categories": [
+    "Purchasable Garage",
+    "Garage"
+   ],
+   "selectors": [
+    "safehouse:Garage"
+   ]
+  },
+  {
+   "label": "Veículos variantes",
+   "mapgenie": 85,
+   "local": 262,
+   "diff": 177,
+   "categories": [
+    "Standout Vehicle"
+   ],
+   "selectors": [
+    "vehicle"
+   ]
+  },
+  {
+   "label": "Lojas de roupas",
+   "mapgenie": 67,
+   "local": 69,
+   "diff": 2,
+   "categories": [
+    "Casual & Street",
+    "Sportswear",
+    "Formal",
+    "Souvenir & Swimwear",
+    "Thrift"
+   ],
+   "selectors": [
+    "clothes"
+   ]
+  },
+  {
+   "label": "Estilo",
+   "mapgenie": 46,
+   "local": 46,
+   "diff": 0,
+   "categories": [
+    "Footwear",
+    "Hair & Beauty",
+    "Tattoos"
+   ],
+   "selectors": [
+    "style"
+   ]
+  },
+  {
+   "label": "Eletrônicos",
+   "mapgenie": 15,
+   "local": 15,
+   "diff": 0,
+   "categories": [
+    "Electronics"
+   ],
+   "selectors": [
+    "electronics"
+   ]
+  },
+  {
+   "label": "Cafés e lanches",
+   "mapgenie": 89,
+   "local": 103,
+   "diff": 14,
+   "categories": [
+    "Cafes & Takeout"
+   ],
+   "selectors": [
+    "food:Café and takeout",
+    "food:Cafe Takeout"
+   ]
+  },
+  {
+   "label": "Bares",
+   "mapgenie": 122,
+   "local": 138,
+   "diff": 16,
+   "categories": [
+    "Bar"
+   ],
+   "selectors": [
+    "bar:Bar"
+   ]
+  },
+  {
+   "label": "Comida de rua",
+   "mapgenie": 119,
+   "local": 154,
+   "diff": 35,
+   "categories": [
+    "Street Food"
+   ],
+   "selectors": [
+    "food:Street food"
+   ]
+  },
+  {
+   "label": "WAiNK",
+   "mapgenie": 89,
+   "local": 101,
+   "diff": 12,
+   "categories": [
+    "Landmark",
+    "Curiosity",
+    "Sculpture"
+   ],
+   "selectors": [
+    "waink"
+   ]
+  },
+  {
+   "label": "Troca de livros",
+   "mapgenie": 7,
+   "local": 7,
+   "diff": 0,
+   "categories": [
+    "Book Swap"
+   ],
+   "selectors": [
+    "bookswap"
+   ]
+  },
+  {
+   "label": "Livros e revistas",
+   "mapgenie": 29,
+   "local": 93,
+   "diff": 64,
+   "categories": [
+    "Magazine"
+   ],
+   "selectors": [
+    "magazine"
+   ]
+  },
+  {
+   "label": "Playlists",
+   "mapgenie": 7,
+   "local": 7,
+   "diff": 0,
+   "categories": [
+    "Unique Playlist"
+   ],
+   "selectors": [
+    "playlist"
+   ]
+  },
+  {
+   "label": "Murais 1010",
+   "mapgenie": 5,
+   "local": 5,
+   "diff": 0,
+   "categories": [
+    "1010 Mural"
+   ],
+   "selectors": [
+    "mural"
+   ]
+  },
+  {
+   "label": "Cartas Jack of Hearts",
+   "mapgenie": 36,
+   "local": 36,
+   "diff": 0,
+   "categories": [
+    "Jack of Hearts"
+   ],
+   "selectors": [
+    "card:Jack Of Hearts card"
+   ]
+  },
+  {
+   "label": "Cartas Delights",
+   "mapgenie": 18,
+   "local": 37,
+   "diff": 19,
+   "categories": [
+    "Delights"
+   ],
+   "selectors": [
+    "card:Delights card"
+   ]
+  },
+  {
+   "label": "Cartas Nine1Nine",
+   "mapgenie": 36,
+   "local": 37,
+   "diff": 1,
+   "categories": [
+    "Nine1Nine"
+   ],
+   "selectors": [
+    "card:Nine1nine card"
+   ]
+  },
+  {
+   "label": "Basquete",
+   "mapgenie": 100,
+   "local": 100,
+   "diff": 0,
+   "categories": [
+    "Basketball Hoop"
+   ],
+   "selectors": [
+    "hoop"
+   ]
+  },
+  {
+   "label": "Golfe",
+   "mapgenie": 2,
+   "local": 3,
+   "diff": 1,
+   "categories": [
+    "Golf Course"
+   ],
+   "selectors": [
+    "leisure:Golf"
+   ]
+  },
+  {
+   "label": "Minigolfe",
+   "mapgenie": 3,
+   "local": 3,
+   "diff": 0,
+   "categories": [
+    "Mini-Golf Course"
+   ],
+   "selectors": [
+    "arcade:Mini golf"
+   ]
+  },
+  {
+   "label": "Sinuca",
+   "mapgenie": 17,
+   "local": 17,
+   "diff": 0,
+   "categories": [
+    "Pool Table"
+   ],
+   "selectors": [
+    "arcade:Pool"
+   ]
+  },
+  {
+   "label": "Arcades",
+   "mapgenie": 31,
+   "local": 31,
+   "diff": 0,
+   "categories": [
+    "Arcade Machine"
+   ],
+   "selectors": [
+    "arcade:Arcade"
+   ]
+  },
+  {
+   "label": "Estandes de tiro",
+   "mapgenie": 15,
+   "local": 15,
+   "diff": 0,
+   "categories": [
+    "Shooting Range"
+   ],
+   "selectors": [
+    "range"
+   ]
+  },
+  {
+   "label": "Pesca",
+   "mapgenie": 35,
+   "local": 36,
+   "diff": 1,
+   "categories": [
+    "Fishing Hotspot"
+   ],
+   "selectors": [
+    "fishing"
+   ]
+  },
+  {
+   "label": "Saltos acrobáticos",
+   "mapgenie": 130,
+   "local": 130,
+   "diff": 0,
+   "categories": [
+    "Stunt Jump"
+   ],
+   "selectors": [
+    "stunt"
+   ]
+  },
+  {
+   "label": "BASE jumps",
+   "mapgenie": 25,
+   "local": 25,
+   "diff": 0,
+   "categories": [
+    "Base Jump"
+   ],
+   "selectors": [
+    "basejump"
+   ]
+  },
+  {
+   "label": "Voos de faca",
+   "mapgenie": 40,
+   "local": 40,
+   "diff": 0,
+   "categories": [
+    "Knife Flight"
+   ],
+   "selectors": [
+    "knife"
+   ]
+  },
+  {
+   "label": "Voos sob pontes",
+   "mapgenie": 202,
+   "local": 202,
+   "diff": 0,
+   "categories": [
+    "Under the Bridge"
+   ],
+   "selectors": [
+    "bridge"
+   ]
+  },
+  {
+   "label": "Corridas",
+   "mapgenie": 53,
+   "local": 54,
+   "diff": 1,
+   "categories": [
+    "Racing Introduction",
+    "Racing Challenge",
+    "Thrillbilly Mud Club",
+    "Animal Crackers",
+    "Hit 'n' Run VC",
+    "Hamlet Boone Speedway",
+    "Ambrosia Raceway",
+    "Gellhorn Raceway"
+   ],
+   "selectors": [
+    "race"
+   ]
+  },
+  {
+   "label": "Corridas de drone",
+   "mapgenie": 42,
+   "local": 42,
+   "diff": 0,
+   "categories": [
+    "Top Fun Drones"
+   ],
+   "selectors": [
+    "drone"
+   ]
+  }
+ ],
+ "mapgenieSummary": {
+  "rows": 51,
+  "equal": 27,
+  "localMore": 17,
+  "mapgenieMore": [
+   "Lojas assaltáveis (-1)",
+   "Caixas eletrônicos rebocáveis (-33)",
+   "Contatos (-10)",
+   "ATMs (-63)",
+   "Carregadores elétricos (-38)",
+   "Pontos de ônibus (-11)",
+   "Garagens (-7)"
+  ]
  }
 }
