@@ -394,7 +394,17 @@ function clearFilter(key) {
 }
 
 async function init() {
-  if('serviceWorker' in navigator&&import.meta.env.PROD)navigator.serviceWorker.register(base+'sw.js').catch(()=>{});
+  if('serviceWorker' in navigator&&import.meta.env.PROD){
+    const hadController=!!navigator.serviceWorker.controller;
+    navigator.serviceWorker.register(base+'sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});
+    // Uma versão nova do catálogo assumiu o controle: avisa para recarregar em vez de manter dados antigos.
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(!hadController)return;
+      $('toast').innerHTML='Nova versão do catálogo disponível. <button type="button" class="toast-reload">Recarregar</button>';
+      $('toast').hidden=false;$('toast').style.pointerEvents='auto';
+      $('toast').querySelector('button').onclick=()=>location.reload();
+    });
+  }
   const response=await fetch(base+'data/catalog.json');
   if(!response.ok)throw new Error('Catálogo indisponível');
   catalog=await response.json();

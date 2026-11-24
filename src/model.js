@@ -108,7 +108,7 @@ export function applyGuides(catalog) {
       ...(security && !guide?.fields?.['Segurança'] ? {'Segurança':securityText[security] || security} : {}),
       ...(reward && !guide?.reward ? {'Valor da fonte':rangeText(reward)+' · faixa do cartão do jogo publicada pelo Open GTA 6 Map'} : {}),
       ...(rule.fields || {}), ...codeFields(point.facts || safeCodes.records[point.id], {...safeFacts[point.id], ...operationFacts[point.id]?.fields, ...guide?.fields}, !!guide?.fields && !guide.summary),
-      ...(storeFacts[point.id] || {}), ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}),
+      ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}), ...(storeFacts[point.id] || {}),
       ...(valueConflicts[point.id] ? {'Divergência de valor':valueConflicts[point.id]} : {}),
       ...(rename?.conflict ? {'Divergência':rename.conflict} : {}),
       ...(fence?.note ? {'Local':fence.note} : {})

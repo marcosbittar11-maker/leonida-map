@@ -5,14 +5,8 @@ const map = page => page.locator('#map');
 const detail = page => page.locator('#detail');
 const tap = (page,name) => page.getByRole('button',{name,exact:true});
 const query = page => page.getByRole('searchbox',{name:'Buscar em Leonida'});
-async function chooseChapter(page,chapter='3') {
-  const gate=page.locator('#chapter-gate');
-  await gate.getByLabel('Capítulo atual').selectOption(chapter);
-  await gate.getByRole('button',{name:'Abrir mapa'}).click();
-}
 async function ready(page) {
   await page.goto('/');
-  await chooseChapter(page);
   await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
 }
 async function filters(page) {
@@ -27,10 +21,10 @@ async function search(page,value) {
   await query(page).fill(value);
   await expect(page.getByRole('heading',{name:'Resultados'})).toBeVisible();
 }
-async function prefs(page, fn) {
+async function settings(page, fn) {
   await page.locator('.chapter').click();
   await fn(page.locator('#dialog'));
-  await tap(page,'Salvar preferências').click();
+  await tap(page,'Salvar configurações').click();
 }
 async function pick(page,text,id) {
   await search(page,text);
@@ -63,9 +57,9 @@ test('navegação, zoom, filtros de grupo e individuais, busca e seleção',asyn
   await page.getByRole('checkbox',{name:'Operações',exact:true}).uncheck();
   await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(full);
   await page.getByRole('checkbox',{name:'Operações',exact:true}).check();
-  await page.getByRole('checkbox',{name:/Bancos e cofres/}).uncheck();
+  await page.getByRole('checkbox',{name:/Bancos · caixa/}).uncheck();
   await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(full);
-  await page.getByRole('checkbox',{name:/Bancos e cofres/}).check();
+  await page.getByRole('checkbox',{name:/Bancos · caixa/}).check();
   await enableLayer(page,'Exploração');
   await pick(page,'caranguejo pelican','safe-070');
   await tap(page,'Fechar detalhes').click();
@@ -83,29 +77,58 @@ test('navegação, zoom, filtros de grupo e individuais, busca e seleção',asyn
   expect(errors).toEqual([]);
 });
 
-test('antisspoiler cobre pesquisa, mapa e detalhes; requisito é opt-in',async({page})=>{
+test('sem capítulo: joalherias, penhores e bancos consultáveis; cadeado e filtros de disponibilidade',async({page})=>{
   await ready(page);
-  await expect(page.locator('#chapter-label')).toHaveText('Capítulo 3');
+  await expect(page.locator('#chapter-gate')).toHaveCount(0);
+  await expect(page.locator('#settings-label')).toHaveText('Configurações');
   await search(page,'lombank downtown');
-  await expect(page.locator('[data-point="bank-021"]')).toHaveCount(0);
-  await prefs(page,d=>d.getByLabel('Capítulo atual').selectOption('4'));
   await expect(page.locator('[data-point="bank-021"]')).toBeVisible();
-  await prefs(page,d=>d.getByLabel('Capítulo atual').selectOption('3'));
-  await enableLayer(page,'Veículos');
-  await pick(page,'Big Cat Furia','standout-vehicle-101');
-  await prefs(page,d=>d.getByLabel('Capítulo atual').selectOption('2'));
-  await expect(detail(page)).toBeHidden();
-  await search(page,'Big Cat Furia');
-  await expect(page.getByText('Nenhum ponto corresponde aos filtros atuais.')).toBeVisible();
-  await prefs(page,async d=>{
-    await d.getByLabel('Capítulo atual').selectOption('3');
-    await d.getByLabel('Mostrar apenas pontos com requisitos atendidos').check();
+  await search(page,'avery pawn');
+  await expect(page.locator('[data-point="smash-n-grab-034"]')).toBeVisible();
+  await query(page).fill('');
+  const counters=page.locator('.category-row');
+  await expect(counters.filter({hasText:'Joalherias'}).locator('.counter')).toHaveText('20/20');
+  await expect(counters.filter({hasText:'Casas de penhores'}).locator('.counter')).toHaveText('15/15');
+  await expect(counters.filter({hasText:'Financeiras'}).locator('.counter')).toHaveText('7/7');
+  await page.locator('#availability-filter').selectOption('unmet');
+  await expect(counters.filter({hasText:'Joalherias'}).locator('.counter')).toHaveText('0/20');
+  await expect(counters.filter({hasText:'Grandes bancos'}).locator('.counter')).toHaveText('8/8');
+  await expect(map(page).locator('.map-pin.locked .pin-lock').first()).toBeAttached();
+  await settings(page,async d=>{
+    await d.getByRole('checkbox',{name:/Assaltos a caixas de bancos/}).check();
+    await d.getByRole('checkbox',{name:/Assaltos a cofres de bancos/}).check();
   });
-  await enableLayer(page,'Exploração');
-  await search(page,'caranguejo');
-  await expect(page.getByText('Nenhum ponto corresponde aos filtros atuais.')).toBeVisible();
-  await prefs(page,d=>d.getByLabel('Barco',{exact:true}).check());
-  await expect(page.locator('[data-point="safe-070"]')).toBeVisible();
+  await expect(page.locator('#settings-label')).toHaveText('Equipamentos 2/5');
+  await expect(counters.filter({hasText:'Grandes bancos'}).locator('.counter')).toHaveText('0/8');
+  await page.getByRole('button',{name:'Limpar filtros'}).first().click();
+  await page.locator('[data-equipment-filter="snapgun"]').click();
+  await expect(counters.filter({hasText:'Joalherias'}).locator('.counter')).toHaveText('20/20');
+  await expect(counters.filter({hasText:'Casas de penhores'}).locator('.counter')).toHaveText('0/15');
+  await page.locator('[data-clear="equipment:snapgun"]').click();
+  await expect(counters.filter({hasText:'Casas de penhores'}).locator('.counter')).toHaveText('15/15');
+  await pick(page,'donovan banks','smash-n-grab-007');
+  await expect(detail(page)).toContainText('0104');
+  await expect(detail(page)).toContainText('Snap Gun');
+  await expect(detail(page)).toContainText('informativo');
+});
+
+test('configurações cabem no celular com rolagem interna e áreas seguras',async({page},info)=>{
+  test.skip(info.project.name!=='iphone','Somente no perfil móvel');
+  await page.setViewportSize({width:375,height:520});
+  await ready(page);
+  await page.locator('.chapter').click();
+  const dialog=page.locator('#dialog');
+  await expect(dialog.getByRole('heading',{name:'Configurações'})).toBeVisible();
+  const box=await dialog.boundingBox();
+  expect(box.y).toBeGreaterThanOrEqual(0);
+  expect(box.y+box.height).toBeLessThanOrEqual(520);
+  const scroll=dialog.locator('.dialog-scroll');
+  expect(await scroll.evaluate(el=>el.scrollHeight>el.clientHeight)).toBe(true);
+  await expect(dialog.getByRole('button',{name:'Salvar configurações'})).toBeInViewport();
+  await dialog.getByRole('checkbox',{name:/Assaltos a cofres de bancos/}).scrollIntoViewIfNeeded();
+  await dialog.getByRole('checkbox',{name:/Assaltos a cofres de bancos/}).check();
+  await dialog.getByRole('button',{name:'Salvar configurações'}).click();
+  await expect(page.locator('#settings-label')).toHaveText('Equipamentos 1/5');
 });
 
 test('favorito, conclusão, checklist e round-trip de backup',async({page})=>{
@@ -126,7 +149,6 @@ test('favorito, conclusão, checklist e round-trip de backup',async({page})=>{
   expect(backup.completed.L2453).toBeTruthy();
   await page.evaluate(()=>localStorage.clear());
   await page.reload();
-  await chooseChapter(page);
   await tap(page,'Progresso').click();
   await page.locator('#backup-input').setInputFiles({name:'backup.json',mimeType:'application/json',buffer:content});
   await expect(page.getByRole('status')).toHaveText('Progresso importado.');
@@ -148,7 +170,6 @@ test('criação e edição de ponto personalizado',async({page})=>{
 
 test('catálogo completo de milhares, pinos independentes e busca responsiva',async({page},info)=>{
   await ready(page);
-  await prefs(page,d=>d.getByLabel('Proteger contra spoilers').uncheck());
   await filters(page);
   await tap(page,'Mostrar tudo').click();
   await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeGreaterThan(5000);
@@ -188,59 +209,45 @@ test('ranking de revenda abre ficha do catálogo consolidado',async({page})=>{
 });
 
 
-test('pergunta o capítulo antes de mostrar o mapa e lembra a resposta',async({page})=>{
-  await page.goto('/');
-  const gate=page.locator('#chapter-gate');
-  await expect(gate.getByRole('heading')).toHaveText('Em qual capítulo você está?');
-  await expect(gate.getByLabel('Capítulo atual')).toHaveValue('');
-  await expect(map(page)).toBeHidden();
-  await gate.getByRole('button',{name:'Abrir mapa'}).click();
-  await expect(gate).toBeVisible();
-  await chooseChapter(page,'2');
-  await expect(page.locator('#chapter-label')).toHaveText('Capítulo 2');
-  await expect(gate).toBeHidden();
-  await search(page,'Zorrusso entrega inicial');
-  await expect(page.locator('[data-point="vehicle-request-013"]')).toHaveCount(0);
-  await page.reload();
-  await expect(page.locator('#chapter-label')).toHaveText('Capítulo 2');
-  await expect(gate).toBeHidden();
-});
-
-test('dados anteriores recebem a seleção sem perder conclusões',async({page})=>{
+test('preferências antigas migram sem capítulo nem filtros removidos e sem perder conclusões',async({page})=>{
   await page.addInitScript(()=>{
     const key='leonida-map:progress:v1';
     if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify({
-      version:1,chapter:3,custom:[],favorites:['L2453'],completed:{L2453:'2026-11-24T12:00:00.000Z'},route:['L2453']
+      version:1,chapter:1,chapterSelected:true,spoilers:true,showUnknown:false,strictAccess:true,
+      equipment:['jewelry','randy','cloner'],custom:[],favorites:['L2453'],completed:{L2453:'2026-11-24T12:00:00.000Z'},route:['L2453']
     }));
   });
   await page.goto('/');
-  await expect(page.locator('#chapter-gate')).toBeVisible();
-  await chooseChapter(page,'1');
+  await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
+  await expect(page.locator('#settings-label')).toHaveText('Equipamentos 1/5');
+  await search(page,'richardson');
+  await expect(page.locator('[data-point="smash-n-grab-011"]')).toBeVisible();
   await tap(page,'Progresso').click();
   await expect(page.locator('#panel-content [data-point="L2453"]')).toBeVisible();
   const progress=await page.evaluate(()=>JSON.parse(localStorage.getItem('leonida-map:progress:v1')));
   expect(progress.favorites).toEqual(['L2453']);
-  expect(progress.vehicleFavorites).toEqual([]);
+  expect(progress.equipment).toEqual(['cloner']);
+  for(const key of ['chapter','chapterSelected','spoilers','showUnknown','strictAccess']) expect(progress).not.toHaveProperty(key);
 });
 
 test('Locais fica oculto até ativação e guarda os dois estados',async({page})=>{
   await ready(page);
   const places=page.getByRole('checkbox',{name:'Locais',exact:true});
   const pin=page.locator('[data-point="city-town-008"]');
-  await search(page,'Port Gellhorn');
+  await search(page,'Port Gellhorn city town');
   await expect(places).not.toBeChecked();
   await expect(pin).toHaveCount(0);
   await places.check();
   await expect(pin).toBeVisible();
   await page.reload();
-  await search(page,'Port Gellhorn');
+  await search(page,'Port Gellhorn city town');
   await expect(places).toBeChecked();
   await expect(pin).toBeVisible();
   await tap(page,'Restaurar').click();
   await expect(places).toBeChecked();
   await places.uncheck();
   await page.reload();
-  await search(page,'Port Gellhorn');
+  await search(page,'Port Gellhorn city town');
   await expect(places).not.toBeChecked();
   await expect(pin).toHaveCount(0);
 });
@@ -250,15 +257,15 @@ test('pinos, resultados, legenda e ficha usam símbolos vetoriais',async({page})
   await search(page,'fleeca washington beach');
   const result=page.locator('[data-point="bank-001"]');
   await expect(result.locator('.point-icon svg')).toBeVisible();
-  await expect(page.getByRole('checkbox',{name:/Bancos e cofres/}).locator('..').locator('.category-symbol svg')).toBeVisible();
+  await expect(page.getByRole('checkbox',{name:/Bancos · caixa/}).locator('..').locator('.category-symbol svg')).toBeVisible();
   await result.click();
   await expect(detail(page).locator('.point-icon svg')).toBeVisible();
-  await expect(map(page).getByRole('button',{name:'Fleeca - Washington Beach',exact:true}).locator('svg')).toBeVisible();
+  await expect(map(page).getByRole('button',{name:'Fleeca - Washington Beach (bloqueado)',exact:true}).locator('svg').first()).toBeVisible();
 });
 
 test('apenas Operações no início, com versão e variantes filtráveis',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.2.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.3.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(1);
   await expect(page.getByRole('checkbox',{name:'Operações',exact:true})).toBeChecked();

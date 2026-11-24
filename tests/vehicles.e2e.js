@@ -6,10 +6,8 @@ const dialog = page=>page.locator('#vehicle-dialog');
 const finderSearch = page=>page.getByRole('searchbox',{name:'Buscar veículos'});
 const tab = (page,name)=>page.getByRole('navigation',{name:'Navegação principal'}).getByRole('button',{name,exact:true});
 const card = (page,id)=>catalog(page).locator('[data-vehicle-detail="'+id+'"]');
-async function enter(page,chapter='3') {
+async function enter(page) {
   await page.goto('/');
-  await page.locator('#initial-chapter select').selectOption(chapter);
-  await page.getByRole('button',{name:'Abrir mapa'}).click();
   await tab(page,'Veículos').click();
   await expect(catalog(page).locator('.vf-count')).toHaveText(/\d+ veículos/);
 }
@@ -72,12 +70,12 @@ test('ficha de variante fixa abre mapa temporário e ponto relatado é opcional'
   await expect(page.locator('.car-finder-pin')).toHaveCount(0);
 });
 
-test('capítulo restringe a ficha e os pontos, e o catálogo funciona offline',async({page,context})=>{
-  await enter(page,'2');
+test('sem capítulo, a ficha mostra os pontos e o catálogo funciona offline',async({page,context})=>{
+  await enter(page);
   await finderSearch(page).fill('Big Cat Furia');
   await card(page,'variant-piccia-big-cat-furia').click();
-  await expect(dialog(page).getByRole('button',{name:'Mostrar no mapa',exact:true})).toHaveCount(0);
-  await expect(dialog(page)).not.toContainText('Starfish Island');
+  await expect(dialog(page).getByRole('button',{name:'Mostrar no mapa',exact:true})).toBeVisible();
+  await expect(dialog(page)).toContainText('Starfish Island');
   await dialog(page).getByRole('button',{name:'Fechar ficha'}).click();
   await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
   await finderSearch(page).fill('Grotti Cheetah');
@@ -93,7 +91,6 @@ test('capítulo restringe a ficha e os pontos, e o catálogo funciona offline',a
   await finderSearch(page).fill('Zorrusso');
   await card(page,'granforma-zorrusso').click();
   await expect(dialog(page)).toContainText('Revenda no modo livre');
-  await expect(dialog(page)).not.toContainText('Hathaway Apartments');
 });
 
 test('compatibilidade combina comprador, segurança e desbloqueios informados',async({page})=>{
@@ -107,13 +104,13 @@ test('compatibilidade combina comprador, segurança e desbloqueios informados',a
   await catalog(page).getByRole('combobox',{name:'Alarme',exact:true}).selectOption('true');
   await catalog(page).getByRole('combobox',{name:'Clonador de chaves',exact:true}).selectOption('true');
   await expect(car).toBeVisible();
-  await catalog(page).getByLabel('Apenas compatíveis com meu progresso').check();
+  await catalog(page).getByLabel('Apenas compatíveis com meus equipamentos').check();
   await expect(car).toHaveCount(0);
   await page.locator('.chapter').click();
   const settings=page.locator('#dialog');
-  await settings.getByLabel('Clonador de chaves',{exact:true}).check();
-  await settings.getByRole('checkbox',{name:'Oficina que aceita rastreador padrão'}).check();
-  await settings.getByRole('button',{name:'Salvar preferências'}).click();
+  await settings.getByRole('checkbox',{name:/Clonador de chaves/}).check();
+  await expect(settings.getByRole('checkbox',{name:/Oficina/})).toHaveCount(0);
+  await settings.getByRole('button',{name:'Salvar configurações'}).click();
   await expect(car).toBeVisible();
   await catalog(page).getByRole('combobox',{name:'Disponibilidade',exact:true}).selectOption('fixed');
   await expect(car).toHaveCount(0);
