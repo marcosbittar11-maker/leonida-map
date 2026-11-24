@@ -34,7 +34,7 @@ Nenhum ponto recebeu confirmação de coordenadas por inspeção independente no
 - O valor do laboratório difere por relato. O armazém que outra fonte situa ao norte de Hamlet permanece como pista sem pino próprio. Apollo Aggregates tem ficha, pino e evidência de reposição parcial.
 - As 15 lojas de eletrônicos são consultáveis. Posições de tablets coletáveis e estoque individual não tiveram evidência suficiente. As fotos de gameplay ficaram em links para as fontes por falta de autorização verificável para redistribuição da coleção.
 - As faixas de revenda são estimativas de modelo. Recompensas por encomenda ou missão aparecem no ranking de atividade. A malha comunitária de ruas serve para planejamento aproximado e pode omitir acessos ou restrições do jogo.
-- O mapa está pronto para publicação, ainda sem endereço público. O teste móvel ocorreu em WebKit com perfil de iPhone 15 emulado no Windows.
+- O mapa foi publicado no GitHub Pages. O teste móvel do endereço público verificou mapa, ficha e recarga offline em WebKit com perfil de iPhone 15 emulado no Windows. [Abrir o Leonida Map](https://marcosbittar11-maker.github.io/leonida-map/)
 
 ## Validação
 

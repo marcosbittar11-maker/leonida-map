@@ -2,6 +2,8 @@
 
 Aplicativo web em português brasileiro para consultar GTA VI no computador ou pelo celular enquanto joga no PS5. A versão inicial abre no Capítulo 3 com proteção contra spoilers.
 
+[Abrir o Leonida Map no GitHub Pages](https://marcosbittar11-maker.github.io/leonida-map/)
+
 ## Executar
 
 Requer Node.js 22.12 ou posterior compatível com Vite 8 e npm.
