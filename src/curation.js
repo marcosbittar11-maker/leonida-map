@@ -35,8 +35,8 @@ export const duplicateAliases = {
 
 // Reclassificações. Chave: ID; valor: nova categoria.
 export const reclassified = {
-  'atm-194':'shop', 'atm-195':'shop', // caixas eletrônicos importados como banco
-  L415:'workshop'                     // Pay 'n' Spray importado como receptador
+  'atm-194':'atm', 'atm-195':'atm', // caixas eletrônicos importados como banco
+  L415:'spray'                        // Pay 'n' Spray importado como receptador
 };
 
 // Nomes corrigidos. O nome importado continua pesquisável.

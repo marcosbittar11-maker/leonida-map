@@ -1,13 +1,13 @@
 import { createMap } from './map.js';
 import { installIcons, icon } from './icons.js';
-import { pointSymbol, lockSymbol } from './point-icons.js';
-import { layers } from './layers.js';
+import { glyph, installSprite } from './symbols.js';
+import { groups, categories as registry, categoryByKey, symbolKey } from './registry.js';
 import { registrationGuide } from './standout.js';
 import { version } from '../package.json';
 import { checked, leads } from './guides.js';
 import { curationChecked } from './curation.js';
 import { configurable, configurableKeys, availabilityLabels, requirementLabel, usesEquipment } from './requirements.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, normalize, visible, availableOnMap, matches, remaining, rangeText, catalogAliases, availability, categoryCounts } from './model.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, normalize, visible, availableOnMap, matches, onMap, remaining, rangeText, catalogAliases, availability, categoryCounts } from './model.js';
 import { createCarFinder } from './car-finder.js';
 import './style.css';
 import './car-finder.css';
@@ -18,11 +18,36 @@ const fmt = new Intl.NumberFormat('pt-BR');
 const base = import.meta.env.BASE_URL;
 const storageKey = 'leonida-map:progress:v1';
 const mobile = () => matchMedia('(max-width: 760px)').matches;
-const freshFilters = () => ({status:'all',series:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false,availability:'all',equipment:new Set()});
-const filters = freshFilters();
-let panel='map', selected=null, placeMode=false, progress, catalog, aliases, map, staticPoints, data, filtered, lookup;
+const freshFilters = () => ({status:'all',series:new Set(),words:[],repeat:false,peace:false,guides:false,availability:'all',equipment:new Set()});
+/** `show`: categorias com pinos visíveis (vazio ao abrir). `favoritePins`: exibe favoritos de qualquer categoria. */
+const filters = {...freshFilters(), show:new Set(), favoritePins:false};
+const prefsKey = 'leonida-map:prefs:v1';
+const pinSizes = {small:24, normal:30, large:38};
+const prefs = {remember:false, pinSize:'normal'};
+let temporary = new Set(), categoryQuery = '';
+function loadPrefs() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(prefsKey));
+    if (!saved || typeof saved !== 'object') return;
+    prefs.remember = saved.remember === true;
+    if (pinSizes[saved.pinSize]) prefs.pinSize = saved.pinSize;
+    if (prefs.remember) {
+      filters.show = new Set((Array.isArray(saved.visible) ? saved.visible : []).filter(key => categoryByKey.has(key)));
+      filters.favoritePins = saved.favorites === true;
+    }
+  } catch {}
+}
+function savePrefs() {
+  try {
+    localStorage.setItem(prefsKey, JSON.stringify({remember:prefs.remember, pinSize:prefs.pinSize,
+      visible:prefs.remember ? [...filters.show] : [], favorites:prefs.remember && filters.favoritePins}));
+  } catch {}
+}
+const pinGlyph = (point, completed = false) => glyph(completed ? 'check' : symbolKey(point));
+const symbolChip = (category, point) => '<span class="category-symbol" style="--pin:'+esc(category.colour)+';--ink:'+esc(category.ink)+'">'+glyph(point ? symbolKey(point) : category.symbol)+'</span>';
+let panel='map', selected=null, placeMode=false, progress, catalog, aliases, map, staticPoints, data, filtered, candidates, lookup;
 let seriesOpen=false, flashTimer, listLimit=50, carFinder, previewVehicle;
-const openGroups=new Set(['Operações']);
+const openGroups=new Set();
 const badge = (text,tone='') => '<span class="badge '+tone+'">'+esc(text)+'</span>';
 const button = (label, action, image, extra='') => '<button type="button" class="ui-button '+extra+'" data-action="'+action+'">'+(image?icon(image):'')+esc(label)+'</button>';
 const auditDate = date => date?.split('-').reverse().join('/') ?? '';
@@ -33,7 +58,7 @@ function sourceName(url,index) {
   catch {return 'Fonte '+(index+1);}
 }
 function pointButton(p,value='') {
-  return '<button class="point-row" data-point="'+esc(p.id)+'"><span class="point-icon" style="--pin:'+esc(p.category?.colour || '#be90ff')+'">'+pointSymbol(p)+'</span><span class="point-copy"><strong>'+esc(p.name)+'</strong><small>'+esc(value || p.region || p.category?.name || 'Ponto personalizado')+'</small></span>'+(progress.completed[p.id]?'<span class="mint">✓</span>':'')+icon('chevron-right')+'</button>';
+  return '<button class="point-row" data-point="'+esc(p.id)+'"><span class="point-icon" style="--pin:'+esc(p.category?.colour || '#be90ff')+';--ink:'+esc(p.category?.ink || '#10121d')+'">'+pinGlyph(p)+'</span><span class="point-copy"><strong>'+esc(p.name)+'</strong><small>'+esc(value || p.region || p.category?.name || 'Ponto personalizado')+'</small></span>'+(progress.completed[p.id]?'<span class="mint">✓</span>':'')+icon('chevron-right')+'</button>';
 }
 function toast(message) {
   clearTimeout(flashTimer);
@@ -45,27 +70,39 @@ function save() {
   catch {toast('Armazenamento indisponível. Exporte seu progresso para guardá-lo.');}
 }
 function customPoints() {
-  return progress.custom.map(p=>({...p,kind:'custom',category:{key:'custom',name:'Personalizado',group:'Pessoal',colour:'#eeb994',icon:'📍'},
+  return progress.custom.map(p=>({...p,kind:'custom',category:categoryByKey.get('custom'),
     evidence:'personal',neutral:true,search:normalize([p.name,p.region,p.description,'personalizado'].join(' '))}));
+}
+function applyMap() {
+  filtered=candidates.filter(p=>onMap(p,filters,progress,temporary));
+  map.update(filtered,progress,selected);
+  const pinCount=filtered.filter(p=>p.x!=null).length;
+  $('map-count').textContent=fmt.format(pinCount)+(pinCount===1?' pino':' pinos');
 }
 function refresh() {
   data=[...staticPoints,...customPoints()];
   lookup=new Map(data.map(p=>[p.id,p]));
   for (const p of data) p.locked=availability(p,progress).state==='unmet';
-  filtered=data.filter(p=>matches(p,filters,progress));
-  if (selected && !filtered.some(p=>p.id===selected)) selected=null;
-  map.update(filtered,progress,selected);
-  const pinCount=filtered.filter(p=>p.x!=null).length;
-  $('map-count').textContent=fmt.format(pinCount)+(pinCount===1?' pino':' pinos');
+  candidates=data.filter(p=>matches(p,filters,progress));
+  if (selected && !candidates.some(p=>p.id===selected)) {selected=null;temporary=new Set();}
+  applyMap();
   const owned=progress.equipment.length;
   $('settings-label').textContent=owned?'Equipamentos '+owned+'/'+configurableKeys.length:'Configurações';
   if (previewVehicle) clearVehicleMap();
   renderPanel(); renderDetail();
 }
+/** Visibilidade das categorias mudou: guarda a preferência (se ativada) e redesenha. */
+const allKinds = () => registry.filter(c => c.key==='custom' || data.some(p => p.kind===c.key && visible(p) && p.x!=null)).map(c => c.key);
+function changeVisibility() {savePrefs();refresh();}
+function deselect() {
+  selected=null;
+  if (temporary.size) {temporary=new Set();applyMap();} else map.highlight(null);
+  renderDetail();
+}
 const ratio = (shown,total) => '<small class="counter" title="Visíveis com os filtros atuais / total catalogado">'+fmt.format(shown)+'/'+fmt.format(total)+'</small>';
-function filterRow(key, name, shown, total, {enabled=true, on=true, attribute='kind', marker=''}={}) {
-  return '<label class="category-row"><input type="checkbox" data-'+attribute+'="'+esc(key)+'" '+(on?'checked ':'')+
-    (!enabled?'disabled ':'')+'>'+marker+'<span>'+esc(name)+'</span>'+ratio(shown,total)+'</label>';
+function filterRow(key, name, shown, total, {enabled=true, on=true, attribute='kind', marker='', note=''}={}) {
+  return '<label class="category-row'+(on&&enabled?' on':' off')+(total?'':' empty')+'"><input type="checkbox" data-'+attribute+'="'+esc(key)+'" '+(on?'checked ':'')+
+    (!enabled?'disabled ':'')+'>'+marker+'<span class="cat-name">'+esc(name)+(note?'<em>'+esc(note)+'</em>':'')+'</span>'+ratio(shown,total)+'</label>';
 }
 function activeFilters() {
   const list=[];
@@ -74,12 +111,11 @@ function activeFilters() {
   for(const key of ['guides','peace','repeat'])if(filters[key])list.push([{guides:'Com guia',peace:'Sem confronto',repeat:'Repetíveis'}[key],key]);
   if(filters.availability!=='all')list.push([availabilityLabels[filters.availability],'availability']);
   for(const key of filters.equipment)list.push(['Usa '+configurable[key].short,'equipment:'+key]);
-  if(filters.kinds.size)list.push([filters.kinds.size+(filters.kinds.size===1?' categoria oculta':' categorias ocultas'),'kinds']);
   if(filters.series.size)list.push([filters.series.size+' coleções ocultas','series']);
   return list;
 }
 function availabilityMarkup() {
-  const base=data.filter(p=>availableOnMap(p,progress));
+  const base=data.filter(p=>availableOnMap(p));
   const states={all:base.length,met:0,unmet:0,unknown:0};
   for(const p of base){const s=availability(p,progress).state;if(s in states)states[s]++;}
   const active=activeFilters();
@@ -93,35 +129,43 @@ function availabilityMarkup() {
     }).join('')+'</div>'+
     '<p class="muted small">'+icon('lock')+' Cadeado no pino: falta um equipamento ou desbloqueio marcado em Configurações.</p>';
 }
-function groupMarkup(allowed) {
-  const groups=new Map(layers.map(([label])=>[label,new Map()]));
-  const counts=categoryCounts(allowed,filtered);
-  for(const [kind,row] of counts) groups.get(row.category?.group)?.set(kind,row);
+const memberKinds = (group, counts) => registry.filter(c => c.group===group && (counts.get(c.key).total>0 || c.key==='custom')).map(c => c.key);
+function groupMarkup(counts, allowed) {
   const series=new Map();
   for(const p of allowed) if(p.variant){
     const row=series.get(p.series)||{shown:0,total:0};row.total++;series.set(p.series,row);
   }
   for(const p of filtered) if(p.variant&&series.has(p.series))series.get(p.series).shown++;
-  return '<div class="section-title"><h2>Categorias</h2></div><div class="layer-actions">'+
-    button('Mostrar tudo','layers-all','','text-button')+button('Ocultar tudo','layers-none','','text-button')+
-    button('Restaurar','reset-filters','','text-button')+'</div>'+layers.map(([group,glyph])=>{
-      const rows=[...groups.get(group).values()].sort((a,b)=>a.category.name.localeCompare(b.category.name,'pt-BR'));
-      const total=rows.reduce((sum,row)=>sum+row.total,0), shown=rows.reduce((sum,row)=>sum+row.shown,0);
-      const on=progress.enabledGroups.includes(group);
-      const expanded=openGroups.has(group);
-      const children=rows.map(({category:c,shown,total})=>filterRow(c.key,c.name,shown,total,{
-        enabled:on,on:on&&!filters.kinds.has(c.key),
-        marker:'<span class="category-symbol" style="--pin:'+esc(c.colour)+'">'+pointSymbol({kind:c.key})+'</span>'
-      })).join('');
-      const variants=group==='Veículos'&&series.size ? '<details class="series" '+(seriesOpen?'open':'')+'><summary>Coleções de variantes</summary>'+
-        [...series].sort(([a],[b])=>a.localeCompare(b,'pt-BR')).map(([key,{shown,total}])=>filterRow(key,key,shown,total,{
-          attribute:'series',enabled:on&&!filters.kinds.has('vehicle'),on:on&&!filters.kinds.has('vehicle')&&!filters.series.has(key)
-        })).join('')+'</details>' : '';
-      return '<section class="category-group"><div class="category-head"><input type="checkbox" aria-label="'+group+
-        '" data-group="'+group+'" '+(on?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+expanded+'">'+
-        icon(glyph)+'<strong>'+group+'</strong>'+ratio(shown,total)+icon('chevron-down')+'</button></div>'+
-        (expanded?children+variants:'')+'</section>';
-    }).join('');
+  const query=normalize(categoryQuery);
+  const sections=groups.map(({name:group,symbol})=>{
+    const all=registry.filter(c=>c.group===group);
+    const matching=query?(normalize(group).includes(query)?all:all.filter(c=>normalize(c.name).includes(query))):all;
+    if(!matching.length) return '';
+    const members=memberKinds(group,counts), active=members.filter(key=>filters.show.has(key)).length;
+    const total=all.reduce((sum,c)=>sum+counts.get(c.key).total,0), shown=all.reduce((sum,c)=>sum+counts.get(c.key).shown,0);
+    const partial=active>0&&active<members.length, expanded=openGroups.has(group)||!!query;
+    const rows=matching.map(c=>{
+      const row=counts.get(c.key), pending=!row.total&&c.key!=='custom';
+      return filterRow(c.key,c.name,row.shown,row.total,{enabled:!pending,on:filters.show.has(c.key),marker:symbolChip(c),
+        note:pending?c.pending||'Sem pontos posicionados':''});
+    });
+    if(group==='Pessoal'&&(!query||normalize('favoritos').includes(query))) {
+      const favorites=progress.favorites.length, shownFavorites=filtered.filter(p=>progress.favorites.includes(p.id)).length;
+      rows.push(filterRow('favorites','Favoritos (de qualquer categoria)',shownFavorites,favorites,{attribute:'favorites',on:filters.favoritePins,enabled:true,
+        marker:'<span class="category-symbol" style="--pin:#f4d077;--ink:#10121d">'+glyph('star')+'</span>'}));
+    }
+    const variants=group==='Veículos'&&series.size&&!query ? '<details class="series" '+(seriesOpen?'open':'')+'><summary>Coleções de variantes</summary>'+
+      [...series].sort(([a],[b])=>a.localeCompare(b,'pt-BR')).map(([key,{shown,total}])=>filterRow(key,key,shown,total,{
+        attribute:'series',enabled:filters.show.has('vehicle'),on:filters.show.has('vehicle')&&!filters.series.has(key)
+      })).join('')+'</details>' : '';
+    return '<section class="category-group'+(active?' has-active':'')+'"><div class="category-head"><input type="checkbox" aria-label="'+group+
+      '" data-group="'+group+'" data-partial="'+partial+'" '+(members.length&&active===members.length?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+expanded+'">'+
+      '<span class="group-symbol">'+glyph(symbol)+'</span><strong>'+group+'</strong>'+ratio(shown,total)+icon('chevron-down')+'</button></div>'+
+      (expanded?'<div class="group-actions"><button type="button" class="ui-button text-button" data-group-all="'+group+'">Mostrar todas</button><button type="button" class="ui-button text-button" data-group-none="'+group+'">Ocultar todas</button></div>'+
+        '<div class="category-list">'+rows.join('')+'</div>'+variants:'')+'</section>';
+  }).join('');
+  return '<div class="section-title"><h2>Categorias</h2>'+(filters.show.size||filters.favoritePins?'<span>'+fmt.format(filters.show.size)+' ativas</span>':'<span>nenhuma ativa</span>')+'</div>'+
+    (sections||'<p class="empty">Nenhuma categoria corresponde à busca.</p>');
 }
 function listMarkup(points) {
   if (!points.length) return '<p class="empty">Nenhum ponto corresponde aos filtros atuais.</p>';
@@ -140,25 +184,26 @@ function renderPanel() {
   $('panel-title').textContent=({map:'Explorar Leonida',rank:'Rankings',progress:'Seu progresso'})[panel];
   $('panel-caption').textContent=({map:'Pontos de interesse e guias de GTA VI',rank:'Compare as recompensas disponíveis',progress:'Checklist e histórico de exploração'})[panel];
   const entitled=data.filter(p=>visible(p));
-  const available=entitled.filter(p=>availableOnMap(p,progress)), completed=available.filter(p=>progress.completed[p.id]);
+  const available=entitled, completed=available.filter(p=>progress.completed[p.id]);
   const pct=available.length?Math.round(completed.length/available.length*100):0;
   const scroll=$('panel-content').scrollTop;
   if (panel==='map') {
     const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides || filters.availability!=='all' || filters.equipment.size;
-    const list=filtered;
-    const featured=['safe-070','L2453','liquor-store-002','standout-vehicle-101'].map(id=>lookup.get(id)).filter(p=>p && filtered.includes(p));
+    const list=candidates;
+    const featured=['safe-070','L2453','liquor-store-002','standout-vehicle-101'].map(id=>lookup.get(id)).filter(p=>p && candidates.includes(p));
     $('panel-content').innerHTML=(showingList?
       '<div class="section-title"><h2>Resultados</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
-      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+availabilityMarkup()+groupMarkup(entitled);
+      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+availabilityMarkup()+groupMarkup(categoryCounts(entitled,filtered),entitled);
   }
   if (panel==='rank') renderRank();
   if (panel==='progress') renderProgress(available,completed);
+  document.querySelectorAll('[data-group]').forEach(box=>{box.indeterminate=box.dataset.partial==='true';});
   $('panel-content').scrollTop=scroll;
   $('panel-footer').innerHTML='<div><strong>Progresso em Leonida</strong><b>'+pct+'%</b></div><progress value="'+completed.length+'" max="'+Math.max(available.length,1)+'"></progress><small>'+fmt.format(completed.length)+' / '+fmt.format(available.length)+' pontos visíveis</small>';
 }
 function renderRank() {
   const parentReward=p=>p.partOf&&lookup.get(p.partOf)?.reward;
-  const ranking=field=>filtered.filter(p=>p[field]&&!(field==='reward'&&parentReward(p))).sort((a,b)=>(b[field][0]+b[field][1])-(a[field][0]+a[field][1]))
+  const ranking=field=>candidates.filter(p=>p[field]&&!(field==='reward'&&parentReward(p))).sort((a,b)=>(b[field][0]+b[field][1])-(a[field][0]+a[field][1]))
     .map(p=>pointButton(p,rangeText(p[field])+(p.related?.length?' · '+p.related.length+' itens vinculados no local':''))).join('');
   $('panel-content').innerHTML='<div class="section-title"><h2>Atividades lucrativas</h2></div><p class="muted">Faixas do cartão do jogo ou de guias. Itens já incluídos no valor de um complexo não são somados de novo.</p>'+
     (ranking('reward')||'<p class="empty">Sem atividade com valor conhecido nos filtros atuais.</p>')+
@@ -186,7 +231,7 @@ function renderProgress(available,completed) {
 const unknown='Desconhecido';
 function renderDetail() {
   const p=selected?lookup.get(selected):null, d=$('detail');
-  if (!p || !availableOnMap(p,progress)) {d.hidden=true;d.innerHTML='';return;}
+  if (!p || !visible(p)) {d.hidden=true;d.innerHTML='';return;}
   const complete=!!progress.completed[p.id], favorite=progress.favorites.includes(p.id);
   const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto'}[p.evidence]);
   const fields={...(p.fields || {})};
@@ -226,7 +271,7 @@ function renderDetail() {
     (related.length&&p.reward?'<p class="muted small">O valor da operação e os valores individuais são exibidos separadamente e não são somados nos rankings.</p>':'')+'</section>':'';
   const sourceLinks=[...new Set([...(p.refs||[]),...(p.sources||[])])];
   d.hidden=false;
-  d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+'">'+pointSymbol(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
+  d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+';--ink:'+esc(p.category?.ink||'#10121d')+'">'+pinGlyph(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
     '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter+' · informativo'):'')+(p.gang?.edition==='ultimate'?badge('Ultimate Edition'):'')+(p.locked?badge('Bloqueado','locked'):'')+(complete?badge('Concluído','green'):'')+'</div>'+
     '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· posição da fonte</small>':'')+'</p>'+
     (p.intro||p.variantNote?'<p>'+esc(p.intro||p.variantNote)+'</p>':'')+
@@ -240,16 +285,20 @@ function renderDetail() {
       sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(p.collection==='gameta'?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
       (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
+      (p.x!=null&&!filters.show.has(p.kind)?button('Mostrar categoria','enable-kind','eye'):'')+
       (p.evidence==='personal'?button('Editar','edit','settings-2'):'')+'</div>';
 }
 function selectPoint(id,focus=false) {
   const p=lookup.get(id);
-  if (!p||!availableOnMap(p,progress)) return;
+  if (!p||!visible(p)) return;
   selected=id;
+  // Resultado de busca de categoria oculta: o pino aparece só enquanto o ponto estiver selecionado.
+  temporary=onMap(p,filters,progress,null)?new Set():new Set([id]);
+  applyMap();
   const raised=mobile();
   if (raised) $('workspace').classList.remove('panel-open');
   if (focus || raised) map.focus(p,{raised,zoomIn:focus});
-  map.highlight(id); renderDetail();
+  renderDetail();
 }
 function openSettings() {
   const dialog=$('dialog');
@@ -259,12 +308,18 @@ function openSettings() {
   dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>Configurações</h2><button class="icon-button" value="cancel" aria-label="Fechar configurações">'+icon('x')+'</button></div>'+
     '<div class="dialog-scroll"><p class="muted">Marque o que você já tem no seu jogo. Pontos que exigem um item desmarcado recebem um cadeado, mas continuam no mapa.</p>'+
     group('Equipamentos','equipment')+group('Desbloqueios','unlock')+
+    '<fieldset><legend>Mapa</legend><label class="check"><input type="checkbox" name="remember" '+(prefs.remember?'checked':'')+'><span>Memorizar filtros ao reabrir o mapa<small>Restaura as categorias ativas na próxima visita. Desativado: o mapa abre limpo.</small></span></label>'+
+    '<div class="pin-size" role="radiogroup" aria-label="Tamanho dos pinos">'+Object.entries({small:'Pequeno',normal:'Normal',large:'Grande'}).map(([key,label])=>
+      '<label class="chip-radio"><input type="radio" name="pinsize" value="'+key+'" '+(prefs.pinSize===key?'checked':'')+'><span>'+label+'</span></label>').join('')+'</div></fieldset>'+
     '<p class="muted small">Contatos, edições e outros requisitos aparecem nas fichas como informação e não bloqueiam pontos.</p></div>'+
     '<div class="dialog-actions"><button class="ui-button primary" value="save">Salvar configurações</button></div></form>';
   dialog.querySelector('form').onsubmit=event=>{
     if(event.submitter?.value!=='save') return;
     const form=new FormData(event.currentTarget);
     progress.equipment=form.getAll('equipment').filter(key=>configurableKeys.includes(key));
+    prefs.remember=form.get('remember')==='on';
+    prefs.pinSize=pinSizes[form.get('pinsize')]?form.get('pinsize'):'normal';
+    map.setPinSize(pinSizes[prefs.pinSize]);savePrefs();
     save();refresh();
   };
   dialog.showModal();
@@ -295,7 +350,7 @@ function openCustom(point) {
       const edited={id,name:f.get('name').trim(),region:f.get('region').trim(),description:f.get('description').trim(),x:Number(f.get('x')),y:Number(f.get('y'))};
       progress.custom=[...progress.custom.filter(p=>p.id!==id),edited];
     }
-    if(action!=='delete'&&!progress.enabledGroups.includes('Pessoal'))progress.enabledGroups.push('Pessoal');
+    if(action!=='delete'){filters.show.add('custom');savePrefs();}
     commit();if(action!=='delete')selectPoint(id,true);
   };
   dialog.showModal();
@@ -303,7 +358,7 @@ function openCustom(point) {
 function placement(value) {
   if (value) clearVehicleMap();
   placeMode=value;map.placing(value);$('placement').hidden=!value;
-  if(value){$('workspace').classList.remove('panel-open');selected=null;map.highlight(null);renderDetail();}
+  if(value){$('workspace').classList.remove('panel-open');deselect();}
 }
 function exportBackup() {
   const url=URL.createObjectURL(new Blob([JSON.stringify(progress,null,2)],{type:'application/json'}));
@@ -321,7 +376,7 @@ function clearVehicleMap() {
 function showVehicleMap(vehicle,spots) {
   openPanel('map');
   if (placeMode) placement(false);
-  selected=null;map.highlight(null);renderDetail();
+  deselect();
   previewVehicle=vehicle.id;
   $('vehicle-map-model').textContent=vehicle.name;
   $('vehicle-map-model').parentElement.setAttribute('aria-label','Voltar à ficha de '+vehicle.name);
@@ -335,7 +390,7 @@ function openPanel(name,reopenVehicle) {
   $('workspace').classList.toggle('panel-open',name!=='map');
   $('workspace').classList.toggle('panel-vehicles',name==='vehicles');
   $('workspace').classList.remove('panel-collapsed');
-  if(name==='vehicles'||mobile()&&name!=='map'){selected=null;map.highlight(null);renderDetail();}
+  if(name==='vehicles'||mobile()&&name!=='map'){deselect();}
   if(name!=='vehicles')carFinder.hide();
   renderPanel();
   if(reopenVehicle)carFinder.openDetail(reopenVehicle);
@@ -351,6 +406,11 @@ function handleClick(event) {
   if(d.filter){filters[d.filter]=!filters[d.filter];listLimit=50;refresh();return;}
   if(d.equipmentFilter){if(filters.equipment.has(d.equipmentFilter))filters.equipment.delete(d.equipmentFilter);else filters.equipment.add(d.equipmentFilter);listLimit=50;refresh();return;}
   if(d.clear){clearFilter(d.clear);return;}
+  if(d.groupAll||d.groupNone){
+    const keys=memberKinds(d.groupAll||d.groupNone,categoryCounts(data.filter(visible),filtered));
+    for(const key of keys)if(d.groupAll)filters.show.add(key);else filters.show.delete(key);
+    changeVisibility();return;
+  }
   if(d.toggleGroup){if(openGroups.has(d.toggleGroup))openGroups.delete(d.toggleGroup);else openGroups.add(d.toggleGroup);renderPanel();return;}
   switch(d.action) {
     case 'home':openPanel('map');map.home();break;
@@ -358,7 +418,7 @@ function handleClick(event) {
     case 'sidebar':
       if(mobile()) {
         if($('workspace').classList.contains('panel-open'))$('workspace').classList.remove('panel-open');
-        else {openPanel('map');$('workspace').classList.add('panel-open');selected=null;map.highlight(null);renderDetail();}
+        else {openPanel('map');$('workspace').classList.add('panel-open');deselect();}
       } else $('workspace').classList.toggle('panel-collapsed');
       break;
     case 'zoom-in':map.zoomIn();break;
@@ -367,10 +427,11 @@ function handleClick(event) {
     case 'place':placement(!placeMode);break;
     case 'cancel-place':placement(false);break;
     case 'list-more':listLimit+=50;renderPanel();break;
-    case 'close-detail':selected=null;map.highlight(null);renderDetail();break;
-    case 'layers-all':progress.enabledGroups=layers.map(([name])=>name);commit();break;
-    case 'layers-none':progress.enabledGroups=[];commit();break;
-    case 'reset-filters':case 'clear-filters':Object.assign(filters,freshFilters());$('query').value='';listLimit=50;commit();break;
+    case 'close-detail':deselect();break;
+    case 'layers-all':filters.show=new Set(allKinds());filters.favoritePins=true;changeVisibility();break;
+    case 'layers-none':filters.show=new Set();filters.favoritePins=false;changeVisibility();break;
+    case 'enable-kind':{const point=lookup.get(selected);if(point){filters.show.add(point.kind);temporary=new Set();changeVisibility();}break;}
+    case 'clear-filters':Object.assign(filters,freshFilters());$('query').value='';listLimit=50;refresh();break;
     case 'done':if(selected){if(progress.completed[selected])delete progress.completed[selected];else progress.completed[selected]=new Date().toISOString();commit();}break;
     case 'favorite':if(selected){progress.favorites=progress.favorites.includes(selected)?progress.favorites.filter(id=>id!==selected):[...progress.favorites,selected];commit();}break;
     case 'vehicle-rank':carFinder.sortByPrice();openPanel('vehicles');break;
@@ -386,7 +447,6 @@ function clearFilter(key) {
   if(key==='words'){filters.words=[];$('query').value='';}
   else if(key==='status')filters.status='all';
   else if(key==='availability')filters.availability='all';
-  else if(key==='kinds')filters.kinds=new Set();
   else if(key==='series')filters.series=new Set();
   else if(key.startsWith('equipment:'))filters.equipment.delete(key.slice(10));
   else filters[key]=false;
@@ -410,6 +470,7 @@ async function init() {
   catalog=await response.json();
   aliases=catalogAliases(catalog);
   progress=freshProgress();
+  loadPrefs();
   try {
     const old=localStorage.getItem(storageKey);
     if(old){progress=decodeProgress(JSON.parse(old),aliases);save();}
@@ -420,7 +481,8 @@ async function init() {
   staticPoints=applyGuides(catalog);
   map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
     onPlace:p=>{placement(false);openCustom(p);},
-    markerIcon:(p,done)=>pointSymbol(p,done)+(p.locked&&!done?'<i class="pin-lock" aria-hidden="true">'+lockSymbol+'</i>':'')});
+    markerIcon:(p,done)=>pinGlyph(p,done)+(p.locked&&!done?'<i class="pin-lock" aria-hidden="true">'+glyph('lock')+'</i>':'')});
+  map.setPinSize(pinSizes[prefs.pinSize]);
   carFinder=createCarFinder({root:$('vehicle-finder'),dialog:$('vehicle-dialog'),base,getProgress:()=>progress,showMap:showVehicleMap,
     toggleFavorite:id=>{
       progress.vehicleFavorites=progress.vehicleFavorites.includes(id)?progress.vehicleFavorites.filter(key=>key!==id):[...progress.vehicleFavorites,id];
@@ -431,27 +493,31 @@ async function init() {
     if(e.key==='/'&&!$('dialog').open&&!$('vehicle-dialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){
       e.preventDefault();if(panel==='vehicles'){carFinder.focusSearch();return;}openPanel('map');if(mobile())$('workspace').classList.add('panel-open');$('query').focus();
     }
-    if(e.key==='Escape'&&!$('dialog').open&&!$('vehicle-dialog').open){if(previewVehicle)clearVehicleMap();else if(placeMode)placement(false);else if(selected){selected=null;map.highlight(null);renderDetail();}}
+    if(e.key==='Escape'&&!$('dialog').open&&!$('vehicle-dialog').open){if(previewVehicle)clearVehicleMap();else if(placeMode)placement(false);else if(selected){deselect();}}
   });
   document.addEventListener('change',e=>{
     const {group,kind,series}=e.target.dataset;
+    if(e.target.id==='category-query')return;
     if(e.target.id==='availability-filter'){filters.availability=e.target.value;listLimit=50;refresh();return;}
     if(group){
-      progress.enabledGroups=progress.enabledGroups.filter(name=>name!==group);
-      if(e.target.checked){
-        progress.enabledGroups.push(group);
-        openGroups.add(group);
-      }
-      commit();
-    } else if(kind || series) {
-      const set=kind?filters.kinds:filters.series, key=kind||series;
-      if(e.target.checked)set.delete(key);else set.add(key);
+      const keys=memberKinds(group,categoryCounts(data.filter(visible),filtered));
+      for(const key of keys)if(e.target.checked)filters.show.add(key);else filters.show.delete(key);
+      if(e.target.checked)openGroups.add(group);
+      changeVisibility();
+    } else if(e.target.dataset.favorites!==undefined) {
+      filters.favoritePins=e.target.checked;changeVisibility();
+    } else if(kind) {
+      if(e.target.checked)filters.show.add(kind);else filters.show.delete(kind);
+      changeVisibility();
+    } else if(series) {
+      if(e.target.checked)filters.series.delete(series);else filters.series.add(series);
       refresh();
     }
   });
   $('panel-content').addEventListener('toggle',event=>{
     if(event.target.matches('.series'))seriesOpen=event.target.open;
   },true);
+  $('category-query').addEventListener('input',e=>{categoryQuery=e.target.value;renderPanel();});
   let searchTimer;
   $('query').addEventListener('input',e=>{
     clearTimeout(searchTimer);
@@ -477,7 +543,7 @@ async function init() {
   });
   document.addEventListener('pointerup',e=>{
     if(gripStart&&e.clientY-gripStart.y>35) {
-      if(gripStart.parent.id==='detail'){selected=null;map.highlight(null);renderDetail();}
+      if(gripStart.parent.id==='detail'){deselect();}
       else $('workspace').classList.remove('panel-open');
     }
     gripStart=null;
@@ -487,6 +553,7 @@ async function init() {
   refresh();
 }
 $('app-version').textContent='v'+version;
+installSprite();
 installIcons();
 init().catch(error=>{console.error(error);$('startup-error').hidden=false;});
 

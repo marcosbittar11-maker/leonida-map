@@ -1,5 +1,5 @@
 import { guides, bankSummary, officialPlaces, rockstarPlaces } from './guides.js';
-import { decodeLayers, defaultLayers, placeCategory, pointLayer, specializedCategories } from './layers.js';
+import { categories as registry, categoryByKey, fallbackCategory, placeCategory } from './registry.js';
 import { additionalVariants, isPersonalVariant, variantNotes, variantSeries, standoutIndex } from './standout.js';
 import { duplicateAliases, reclassified, renames, regions, gangOperations, fences, fenceTypes, fastFoodStickUps,
   storeFacts, operationFacts, safeFacts, valueConflicts, categoryRules } from './curation.js';
@@ -28,7 +28,7 @@ function codeFields(facts = [], curated = {}, guided = false) {
 }
 
 export const normalize = value => (value ?? '').toString().normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
-export const freshProgress = () => ({ version:1, enabledGroups:defaultLayers(), equipment:[], completed:{}, favorites:[], vehicleFavorites:[], custom:[] });
+export const freshProgress = () => ({ version:1, equipment:[], completed:{}, favorites:[], vehicleFavorites:[], custom:[] });
 
 export function resolveId(id, aliases) {
   const visited = new Set();
@@ -70,12 +70,7 @@ const complexItems = new Set(['safe','weapon','pickup','watch','drug','package',
 const shopItems = new Set(['safe','fence']);
 
 export function applyGuides(catalog) {
-  const merged = new Map(catalog.categories.map(category => [category.key, category]));
-  for (const special of specializedCategories) merged.set(special.key, {group:'Operações', ...merged.get(special.key), ...special});
-  const categories = new Map([...merged.values()].map(category=>{
-    const name=category.key==='vehicle'?'Veículos variantes':category.name;
-    return [category.key,{...category,name,group:pointLayer(category)}];
-  }));
+  const categories = categoryByKey;
   const points = [...catalog.points,...additionalVariants,...safeCodes.created].filter(point => !duplicateAliases[point.id]).map(point => {
     const kindKey = curatedKind(point);
     const rule = categoryRules[kindKey] || {};
@@ -85,7 +80,7 @@ export function applyGuides(catalog) {
     const notes = variantNotes[point.id];
     const series = variant ? variantSeries(point) : null;
     const official = officialPlaces.has(point.id);
-    const category = categories.get(guide?.kind || kindKey);
+    const category = categories.get(guide?.kind || kindKey) || fallbackCategory;
     const rename = renames[point.id];
     const gang = gangOperations[point.id] || (category?.key === 'gang' ? {gang:/Gang:\s*([^;]+)/i.exec(point.description)?.[1]?.trim(), checklist:false} : null);
     const fence = fences[point.id];
@@ -159,15 +154,26 @@ function linkComplexes(points) {
 export function visible(point) {
   return !point.excludedVehicle;
 }
-export function availableOnMap(point, progress) {
-  return progress.enabledGroups.includes(point.category?.group) && visible(point);
+/** Pontos consultáveis (todos, exceto pedidos de veículo). A visibilidade dos pinos é outro conceito: veja onMap. */
+export function availableOnMap(point) {
+  return visible(point);
+}
+/**
+ * Pino exibido no mapa: passa nos filtros e a categoria está ativa, ou os favoritos estão ativos,
+ * ou o ponto foi exibido temporariamente (resultado de busca selecionado).
+ */
+export function onMap(point, filters, progress, temporary) {
+  if (point.x == null) return false;
+  if (temporary?.has(point.id)) return true;
+  if (!matches(point, filters, progress)) return false;
+  return !!filters.show?.has(point.kind) || (!!filters.favoritePins && progress.favorites.includes(point.id));
 }
 export function availability(point, progress) {
   return requirementState(point, progress.equipment);
 }
 export function matches(point, filters, progress) {
-  if (!availableOnMap(point, progress)) return false;
-  if (filters.kinds?.has(point.kind) || (point.variant && filters.series?.has(point.series))) return false;
+  if (!visible(point)) return false;
+  if (point.variant && filters.series?.has(point.series)) return false;
   if (filters.status === 'done' && !progress.completed[point.id]) return false;
   if (filters.status === 'pending' && progress.completed[point.id]) return false;
   if (filters.status === 'favorite' && !progress.favorites.includes(point.id)) return false;
@@ -209,7 +215,6 @@ export function decodeProgress(payload, aliases = {}) {
   }
   return {
     ...defaults,
-    enabledGroups:decodeLayers(payload),
     equipment:Array.isArray(payload.equipment) ? [...new Set(payload.equipment.filter(key => configurableKeys.includes(key)))] : [],
     completed, favorites:ids(payload.favorites), custom:[...custom.values()],
     vehicleFavorites:Array.isArray(payload.vehicleFavorites) ? [...new Set(payload.vehicleFavorites.filter(safeId))] : []
@@ -231,15 +236,10 @@ export function remaining(points, completed) {
 export const moneyText = value => 'US$ ' + new Intl.NumberFormat('pt-BR', { maximumFractionDigits:0 }).format(value);
 export const rangeText = ([min,max]) => min === max ? moneyText(min) : moneyText(min) + ' – ' + moneyText(max);
 
-/** Contagem por categoria: pontos que passam nos filtros / total catalogado. */
-export function categoryCounts(all, shown) {
-  const counts = new Map();
-  for (const p of all) {
-    if (!visible(p)) continue;
-    const row = counts.get(p.kind) ?? {shown:0, total:0, category:p.category};
-    row.total++;
-    counts.set(p.kind, row);
-  }
-  for (const p of shown) if (counts.has(p.kind)) counts.get(p.kind).shown++;
+/** Contagem por categoria do registro (inclui as sem pontos): exibidos no mapa / total catalogado. */
+export function categoryCounts(all, onScreen) {
+  const counts = new Map(registry.map(category => [category.key, {shown:0, total:0, category}]));
+  for (const p of all) if (visible(p)) (counts.get(p.kind) ?? counts.get('other')).total++;
+  for (const p of onScreen) (counts.get(p.kind) ?? counts.get('other')).shown++;
   return counts;
 }

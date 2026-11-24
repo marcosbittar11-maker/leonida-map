@@ -15,7 +15,7 @@ self.addEventListener('fetch', event => {
   if(request.method!=='GET')return;
   const url=new URL(request.url);
   if(url.href.startsWith(scope)) {
-    if(request.mode==='navigate')event.respondWith(caches.open(shell).then(cache=>cache.match(toURL('./index.html'))).then(found=>found||fetch(request)));
+    if(request.mode==='navigate')event.respondWith(caches.open(shell).then(cache=>cache.match(toURL(url.pathname.endsWith('/icons.html')?'./icons.html':'./index.html'))).then(found=>found||fetch(request)));
     else if(url.href.startsWith(toURL('./vehicles/')))event.respondWith((async()=>{
       const cache=await caches.open(shell);
       const hit=await cache.match(request);

@@ -30,7 +30,7 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 
 ## Consultar
 
-- O mapa começa com **Operações**. Use **Filtros → Categorias** para ativar outros grupos e expandir suas linhas. O app guarda os grupos ativados no aparelho. Cada pino representa um ponto, com a busca disponível para locais sobrepostos.
+- O mapa abre **limpo**, sem nenhuma categoria ativa. Use **Mostrar tudo**, **Ocultar tudo**, a busca por categoria ou os oito grupos expansíveis (caixa de seleção com estado parcial e contador visíveis/total) para escolher o que aparece. A busca por pontos funciona com tudo oculto: o resultado selecionado ganha um pino temporário e a ficha oferece **Mostrar categoria**. Em **Configurações** há **Memorizar filtros ao reabrir o mapa** (desativado por padrão) e o tamanho dos pinos (Pequeno, Normal, Grande). Os símbolos podem ser conferidos em `icons.html`.
 - Abra a aba **Veículos** para buscar um modelo ou fabricante, alternar entre lista e galeria, selecionar filtros e abrir uma ficha. A ordem por revenda usa a maior estimativa WAiNK conhecida da faixa. Valores observados por comprador aparecem separados.
 - Na ficha, **Mostrar no mapa** centraliza um ponto fixo documentado. **Ver locais conhecidos no mapa** também inclui pontos comunitários com coordenadas. Essa visualização temporária é encerrada ao sair dela. Regiões e pontos de história sem local fixo comprovado ficam na ficha.
 - A camada do mapa **Veículos variantes**, em **Mapa → Filtros → Veículos**, continua disponível. Em **Coleções de variantes**, escolha famílias como Street Racer, Ultra-Luxe ou Girlypop.

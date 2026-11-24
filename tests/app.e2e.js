@@ -7,7 +7,7 @@ const tap = (page,name) => page.getByRole('button',{name,exact:true});
 const query = page => page.getByRole('searchbox',{name:'Buscar em Leonida'});
 async function ready(page) {
   await page.goto('/');
-  await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
+  await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
 }
 async function filters(page) {
   if(!await query(page).isVisible()) await tap(page,'Abrir filtros').click();
@@ -53,13 +53,18 @@ test('navegação, zoom, filtros de grupo e individuais, busca e seleção',asyn
   await tap(page,'Centralizar mapa').click();
   await expect(map(page).locator('.map-cluster')).toHaveCount(0);
   await filters(page);
-  const full=Number(await map(page).getAttribute('data-points'));
-  await page.getByRole('checkbox',{name:'Operações',exact:true}).uncheck();
-  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(full);
+  await expect(map(page)).toHaveAttribute('data-points','0');
   await page.getByRole('checkbox',{name:'Operações',exact:true}).check();
+  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeGreaterThan(300);
+  const full=Number(await map(page).getAttribute('data-points'));
   await page.getByRole('checkbox',{name:/Bancos · caixa/}).uncheck();
   await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(full);
+  await expect(page.getByRole('checkbox',{name:'Operações',exact:true})).toHaveJSProperty('indeterminate',true);
   await page.getByRole('checkbox',{name:/Bancos · caixa/}).check();
+  await expect(page.getByRole('checkbox',{name:'Operações',exact:true})).toHaveJSProperty('indeterminate',false);
+  await page.getByRole('checkbox',{name:'Operações',exact:true}).uncheck();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await page.getByRole('checkbox',{name:'Operações',exact:true}).check();
   await enableLayer(page,'Exploração');
   await pick(page,'caranguejo pelican','safe-070');
   await tap(page,'Fechar detalhes').click();
@@ -79,6 +84,7 @@ test('navegação, zoom, filtros de grupo e individuais, busca e seleção',asyn
 
 test('sem capítulo: joalherias, penhores e bancos consultáveis; cadeado e filtros de disponibilidade',async({page})=>{
   await ready(page);
+  await enableLayer(page,'Operações');
   await expect(page.locator('#chapter-gate')).toHaveCount(0);
   await expect(page.locator('#settings-label')).toHaveText('Configurações');
   await search(page,'lombank downtown');
@@ -178,7 +184,7 @@ test('catálogo completo de milhares, pinos independentes e busca responsiva',as
   await filters(page);
   const start=Date.now();
   await query(page).fill('vice city');
-  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(5665);
+  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeLessThan(5000);
   const elapsed=Date.now()-start;
   expect(elapsed).toBeLessThan(2500);
   await info.attach('medição de busca',{body:Buffer.from(elapsed+' ms para filtrar 5.665 pinos'),contentType:'text/plain'});
@@ -190,7 +196,7 @@ test('PWA carrega catálogo e mapa base com conexão bloqueada',async({page,cont
   await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
   await context.setOffline(true);
   await page.reload();
-  await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
+  await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
   await pick(page,'caranguejo','safe-070');
   await expect(detail(page)).toContainText('CLEAVES');
   const canvas=map(page).locator('canvas.leaflet-tile-loaded').first();
@@ -218,7 +224,7 @@ test('preferências antigas migram sem capítulo nem filtros removidos e sem per
     }));
   });
   await page.goto('/');
-  await expect(map(page)).toHaveAttribute('data-points',/^[1-9]\d+/);
+  await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
   await expect(page.locator('#settings-label')).toHaveText('Equipamentos 1/5');
   await search(page,'richardson');
   await expect(page.locator('[data-point="smash-n-grab-011"]')).toBeVisible();
@@ -230,46 +236,125 @@ test('preferências antigas migram sem capítulo nem filtros removidos e sem per
   for(const key of ['chapter','chapterSelected','spoilers','showUnknown','strictAccess']) expect(progress).not.toHaveProperty(key);
 });
 
-test('Locais fica oculto até ativação e guarda os dois estados',async({page})=>{
+test('busca com categorias ocultas: exibe o pino temporariamente e permite ativar a categoria',async({page})=>{
   await ready(page);
-  const places=page.getByRole('checkbox',{name:'Locais',exact:true});
-  const pin=page.locator('[data-point="city-town-008"]');
+  await filters(page);
+  await expect(page.getByRole('checkbox',{name:'Locais e serviços',exact:true})).not.toBeChecked();
   await search(page,'Port Gellhorn city town');
-  await expect(places).not.toBeChecked();
-  await expect(pin).toHaveCount(0);
-  await places.check();
-  await expect(pin).toBeVisible();
-  await page.reload();
-  await search(page,'Port Gellhorn city town');
-  await expect(places).toBeChecked();
-  await expect(pin).toBeVisible();
-  await tap(page,'Restaurar').click();
-  await expect(places).toBeChecked();
-  await places.uncheck();
-  await page.reload();
-  await search(page,'Port Gellhorn city town');
-  await expect(places).not.toBeChecked();
-  await expect(pin).toHaveCount(0);
+  const result=page.locator('[data-point="city-town-008"]');
+  await expect(result).toBeVisible();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await result.click();
+  await expect(detail(page).locator('h2')).toBeVisible();
+  await expect(map(page)).toHaveAttribute('data-points','1');
+  await expect(map(page).locator('.map-pin.active')).toHaveCount(1);
+  await tap(page,'Fechar detalhes').click();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await filters(page);
+  await result.click();
+  await tap(page,'Mostrar categoria').click();
+  await expect(tap(page,'Mostrar categoria')).toHaveCount(0);
+  await expect(map(page)).toHaveAttribute('data-points','1');
+  await page.waitForTimeout(400); // fim da animação do painel no celular
+  await filters(page);
+  await page.locator('[data-toggle-group="Locais e serviços"]').click();
+  await expect(page.getByRole('checkbox',{name:/Edifícios e marcos/})).toBeChecked();
+  await expect(page.getByRole('checkbox',{name:'Locais e serviços',exact:true})).toHaveJSProperty('indeterminate',true);
 });
 
-test('pinos, resultados, legenda e ficha usam símbolos vetoriais',async({page})=>{
+test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})=>{
   await ready(page);
   await search(page,'fleeca washington beach');
   const result=page.locator('[data-point="bank-001"]');
-  await expect(result.locator('.point-icon svg')).toBeVisible();
-  await expect(page.getByRole('checkbox',{name:/Bancos · caixa/}).locator('..').locator('.category-symbol svg')).toBeVisible();
+  const use=locator=>locator.locator('svg use').first().getAttribute('href');
+  expect(await use(result.locator('.point-icon'))).toBe('#g-bank');
+  await expect(page.getByRole('checkbox',{name:/Bancos · caixa/})).toHaveCount(0);
+  await page.locator('[data-toggle-group="Operações"]').click();
+  const row=page.getByRole('checkbox',{name:/Bancos · caixa/}).locator('..');
+  expect(await use(row.locator('.category-symbol'))).toBe('#g-bank');
   await result.click();
-  await expect(detail(page).locator('.point-icon svg')).toBeVisible();
-  await expect(map(page).getByRole('button',{name:'Fleeca - Washington Beach (bloqueado)',exact:true}).locator('svg').first()).toBeVisible();
+  expect(await use(detail(page).locator('.point-icon'))).toBe('#g-bank');
+  const pin=map(page).getByRole('button',{name:'Fleeca - Washington Beach (bloqueado)',exact:true});
+  expect(await use(pin)).toBe('#g-bank');
+  const colours=await pin.evaluate(el=>{const css=getComputedStyle(el);return [css.backgroundColor,css.color];});
+  expect(colours[0]).not.toBe(colours[1]);
 });
 
-test('apenas Operações no início, com versão e variantes filtráveis',async({page})=>{
+test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.3.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.4.0');
   await filters(page);
-  await expect(page.locator('[data-group]:checked')).toHaveCount(1);
-  await expect(page.getByRole('checkbox',{name:'Operações',exact:true})).toBeChecked();
-  await expect(map(page).locator('.map-cluster')).toHaveCount(0);
+  await expect(page.locator('[data-group]:checked')).toHaveCount(0);
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await expect(page.locator('#map-count')).toHaveText('0 pinos');
+  await tap(page,'Mostrar tudo').click();
+  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBeGreaterThan(5000);
+  await expect(page.locator('[data-group]:checked')).toHaveCount(8);
+  await tap(page,'Ocultar tudo').click();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await expect(page.locator('[data-group]:checked')).toHaveCount(0);
+  await page.getByRole('button',{name:/^Colecionáveis/}).click();
+  await expect(page.locator('.category-row').filter({hasText:'Flamingos de cocaína'}).locator('.counter')).toHaveText('0/0');
+  await expect(page.locator('.category-row').filter({hasText:'Flamingos de cocaína'}).getByRole('checkbox')).toBeDisabled();
+  await page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).getByRole('checkbox').check();
+  await expect(page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).locator('.counter')).toHaveText(/^\d+\/447$/);
+  await expect(page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).locator('.counter')).not.toHaveText('0/447');
+  await page.getByRole('searchbox',{name:'Buscar categoria'}).fill('flamingo');
+  await expect(page.locator('.category-row')).toHaveCount(1);
+});
+
+test('filtros preservam a navegação interna e só são memorizados quando a preferência está ativa',async({page})=>{
+  await ready(page);
+  await enableLayer(page,'Colecionáveis');
+  const cards=Number(await map(page).getAttribute('data-points'));
+  expect(cards).toBeGreaterThan(100);
+  await tap(page,'Rankings').click();
+  await tap(page,'Veículos').click();
+  await tap(page,'Mapa').click();
+  await expect(map(page)).toHaveAttribute('data-points',String(cards));
+  await page.reload();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  await settings(page,async d=>{await d.getByRole('checkbox',{name:/Memorizar filtros/}).check();});
+  await enableLayer(page,'Colecionáveis');
+  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBe(cards);
+  await page.reload();
+  await expect(map(page)).toHaveAttribute('data-points',String(cards));
+  await settings(page,async d=>{await d.getByRole('checkbox',{name:/Memorizar filtros/}).uncheck();});
+  await page.reload();
+  await expect(map(page)).toHaveAttribute('data-points','0');
+});
+
+test('tamanho dos pinos: Pequeno, Normal e Grande',async({page})=>{
+  await ready(page);
+  await enableLayer(page,'Atividades');
+  const pin=map(page).locator('.map-pin:not(.dot)').first();
+  const size=async()=>(await pin.boundingBox()).width;
+  await expect(pin).toBeVisible();
+  const normal=await size();
+  await settings(page,async d=>{await d.getByText('Grande',{exact:true}).click();});
+  await expect.poll(size).toBeGreaterThan(normal);
+  await settings(page,async d=>{await d.getByText('Pequeno',{exact:true}).click();});
+  await expect.poll(size).toBeLessThan(normal);
+  await page.reload();
+  await enableLayer(page,'Atividades');
+  await expect.poll(size).toBeLessThan(normal);
+});
+
+test('galeria de símbolos sem categorias ausentes ou repetidas, também offline',async({page,context})=>{
+  await page.goto('/icons.html');
+  await expect(page.getByRole('heading',{name:'Símbolos do Leonida Map'})).toBeVisible();
+  await expect(page.locator('.gallery-check')).toContainText('Categorias sem símbolo: nenhuma');
+  await expect(page.locator('.gallery-check')).toContainText('Símbolo repetido entre categorias: nenhum');
+  expect(await page.locator('.gallery-card').count()).toBeGreaterThan(150);
+  await page.goto('/');
+  await page.waitForFunction(()=>navigator.serviceWorker.controller!==null);
+  await context.setOffline(true);
+  await page.goto('/icons.html');
+  await expect(page.locator('.gallery-check')).toBeVisible();
+});
+
+test('variantes de veículos continuam filtráveis por coleção',async({page})=>{
+  await ready(page);
   await enableLayer(page,'Veículos');
   await page.getByText('Coleções de variantes',{exact:true}).click();
   await expect(page.getByRole('checkbox',{name:/Stock Car/})).toBeChecked();

@@ -3,17 +3,16 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { prepareCatalog } from '../scripts/normalize.mjs';
 import { guides } from '../src/guides.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, visible, matches, remaining, catalogAliases, availability, categoryCounts } from '../src/model.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, visible, matches, onMap, remaining, catalogAliases, availability, categoryCounts } from '../src/model.js';
 import { duplicateAliases } from '../src/curation.js';
 import { configurableKeys, requirementState } from '../src/requirements.js';
-import { layers } from '../src/layers.js';
-import { pointSymbol } from '../src/point-icons.js';
+import { groups, categories, categoryByKey, symbolKey, inkFor } from '../src/registry.js';
+import { glyphs, glyphNames, glyphSvg } from '../src/symbols.js';
 
 const catalog=JSON.parse(await readFile(new URL('../public/data/catalog.json',import.meta.url)));
 const data=applyGuides(catalog);
 const byId=new Map(data.map(p=>[p.id,p]));
-const allGroups=layers.map(([name])=>name);
-const everything={...freshProgress(),enabledGroups:allGroups};
+const everything=freshProgress();
 const kind=key=>data.filter(p=>p.kind===key);
 
 test('snapshot público mantém coordenadas, categorias e guias referenciáveis',()=>{
@@ -49,7 +48,7 @@ test('pontos sem capítulo ficam visíveis e não existe filtragem por capítulo
 });
 test('as 20 joalherias, 15 penhores, 22 bancos, 7 financeiras e 39 operações estão consultáveis',()=>{
   const ops={...freshProgress()};
-  assert.deepEqual(ops.enabledGroups,['Operações']);
+  assert.equal('enabledGroups' in ops,false);
   for(const [key,count] of [['jewelry',20],['pawn',15],['bank',14],['bigbank',8],['payday',7]]) {
     assert.equal(kind(key).length,count,key);
     assert.ok(kind(key).every(p=>matches(p,{},ops)),key);
@@ -65,6 +64,7 @@ test('preferências antigas não mantêm filtros removidos nem bloqueiam joalher
     equipment:['jewelry','randy','boat','cloner','standardShop'],enabledGroups:['Operações'],completed:{},favorites:['L910'],custom:[]};
   const decoded=decodeProgress(old,catalogAliases(catalog));
   for(const key of ['chapter','chapterSelected','spoilers','showUnknown','strictAccess']) assert.equal(key in decoded,false,key);
+  assert.equal('enabledGroups' in decoded,false);
   assert.deepEqual(decoded.equipment,['cloner']);
   assert.deepEqual(decoded.favorites,['fence-002']);
   const stores=[...kind('jewelry'),...kind('pawn')];
@@ -126,28 +126,72 @@ test('backup resolve aliases e valida pontos customizados',()=>{
   assert.deepEqual(merged.vehicleFavorites,['vehicle-vapid-stanier-98']);
   assert.throws(()=>decodeProgress({...raw,custom:[{id:'bad',name:'bad',x:5000,y:30}]}));
 });
-test('Locais começa desativado e só aparece após a ativação explícita',()=>{
+test('visibilidade: nada aparece sem categoria ativa, mas a busca e os dados continuam disponíveis',()=>{
   const place=byId.get('pay-n-spray-002');
   const progress=freshProgress();
-  assert.equal(matches(place,{},progress),false);
-  assert.equal(matches(place,{},decodeProgress({...progress,enabledGroups:['Veículos']})),true);
-  assert.equal(matches(place,{},decodeProgress({...progress,enabledGroups:['inventado']})),false);
-  assert.deepEqual(mergeProgress(progress,{...progress,enabledGroups:['Veículos']}).enabledGroups,['Operações']);
+  const filters={show:new Set()};
+  assert.equal(place.kind,'spray');
+  assert.equal(data.filter(p=>onMap(p,filters,progress)).length,0,'início limpo');
+  assert.equal(matches(place,{words:['pay']},progress),true,'a busca ignora a visibilidade');
+  filters.show.add('spray');
+  assert.equal(onMap(place,filters,progress),true);
+  assert.equal(onMap(byId.get('bank-001'),filters,progress),false);
+  const hidden=byId.get('bank-001');
+  assert.equal(onMap(hidden,filters,progress,new Set([hidden.id])),true,'exibição temporária do resultado');
+  const fav={...progress,favorites:[hidden.id]};
+  assert.equal(onMap(hidden,{...filters,favoritePins:true},fav),true,'favoritos independem da categoria');
+  assert.equal(onMap(hidden,{...filters,favoritePins:true},progress),false);
+  // O progresso preserva marcações mesmo com todas as categorias ocultas.
+  const saved=decodeProgress({version:1,custom:[],favorites:[hidden.id],completed:{[hidden.id]:'2026-01-01T00:00:00.000Z'},enabledGroups:['inventado']});
+  assert.deepEqual(saved.favorites,[hidden.id]);
+  assert.ok(saved.completed[hidden.id]);
+  assert.equal('enabledGroups' in saved,false);
 });
-test('todas as categorias do catálogo têm ícones vetoriais',()=>{
-  for(const {key} of [...catalog.categories,...['jewelry','pawn','bigbank','watch','pickup'].map(key=>({key}))]) {
-    const symbol=pointSymbol({kind:key});
-    assert.match(symbol,/<svg\b/,key);
-    if(key!=='other')assert.notEqual(symbol,pointSymbol({kind:'other'}),key);
+test('todo ponto pertence a uma categoria do registro e cada categoria tem símbolo próprio',()=>{
+  for(const p of data) assert.ok(categoryByKey.has(p.kind),p.id+' '+p.kind);
+  assert.equal(new Set(categories.map(c=>c.key)).size,categories.length);
+  assert.deepEqual([...new Set(categories.map(c=>c.group))].sort(),groups.map(g=>g.name).sort());
+  const seen=new Map();
+  for(const c of categories) {
+    assert.ok(glyphs[c.symbol],c.key+' sem símbolo');
+    assert.equal(seen.get(c.symbol),undefined,c.key+' repete o símbolo de '+seen.get(c.symbol));
+    seen.set(c.symbol,c.key);
+    assert.match(c.colour,/^#[0-9a-f]{6}$/i);
+    assert.match(c.ink,/^#(10121d|ffffff)$/);
   }
-  assert.notEqual(pointSymbol({kind:'shop',type:'Gas station'}),pointSymbol({kind:'shop',type:'ATM'}));
+  for(const g of groups) assert.ok(glyphs[g.symbol],g.name);
+  for(const name of glyphNames) {
+    assert.match(glyphSvg(name),/^<svg[^>]*>.+<\/svg>$/,name);
+    assert.ok(glyphs[name].length>30,name+' é simples demais');
+  }
+  assert.equal(new Set(glyphNames.map(n=>glyphs[n])).size,glyphNames.length,'desenhos idênticos');
+});
+test('categorias sem pontos posicionados continuam listadas com contador zero',()=>{
+  const counts=categoryCounts(data,[]);
+  for(const key of ['flamingo','underwater','kenton','bret','tablet']) {
+    assert.equal(counts.get(key).total,0,key);
+    assert.ok(categoryByKey.get(key).pending,key);
+  }
+  assert.equal(counts.size,categories.length);
+  assert.ok(kind('bank').length>0&&counts.get('bank').total===kind('bank').length);
+});
+test('subtipos de lugar têm símbolo específico e divisão em categorias',()=>{
+  const sym=(kind,type)=>symbolKey({kind,type});
+  assert.notEqual(sym('gas','Gas station'),sym('atm','ATM'));
+  assert.equal(kind('gas').length,57);
+  assert.equal(kind('atm').length,160);
+  assert.ok(kind('spray').length>=19&&kind('workshop').every(p=>!/pay 'n' spray/i.test(p.type)));
+  assert.ok(kind('bar').length>=143);
+  assert.equal(symbolKey({kind:'other',type:'Yellow loot box'}),'crate');
+  assert.equal(symbolKey({id:'liquor-store-002',kind:'easter'}),'flamingo');
+  assert.equal(inkFor('#ffffff'),'#10121d');
+  assert.equal(inkFor('#10121d'),'#ffffff');
 });
 test('Veículos inclui variantes terrestres e exclui pedidos para entrega',()=>{
-  const progress={...freshProgress(),enabledGroups:['Veículos']};
+  const progress=freshProgress();
   assert.equal(matches(byId.get('standout-vehicle-001'),{},progress),true);
   assert.equal(matches(byId.get('vehicle-request-013'),{},progress),false);
   assert.equal(matches(byId.get('standout-vehicle-286'),{},progress),false);
   assert.match(byId.get('standout-vehicle-101').name,/Big Cat Furia/);
   assert.equal(data.filter(p=>p.collection==='gameta'&&p.variant).length,2);
-  assert.deepEqual(decodeProgress({...progress,enabledGroups:undefined,placesEnabled:true}).enabledGroups,['Operações','Locais']);
 });

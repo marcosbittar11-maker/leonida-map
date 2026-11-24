@@ -4,7 +4,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { applyGuides, normalize, visible, availability, freshProgress } from '../src/model.js';
 import { duplicateAliases, reclassified, renames } from '../src/curation.js';
-import { layers } from '../src/layers.js';
+import { groups } from '../src/registry.js';
 
 const root = new URL('../', import.meta.url);
 const read = async path => JSON.parse(await readFile(new URL(path, root), 'utf8'));
@@ -13,7 +13,7 @@ const reference = await read(process.argv[2] || 'data/reference/external-2026-11
 const baseline = await read('audit/baseline-2026-11-24.json');
 const points = applyGuides(catalog).filter(visible);
 const byId = new Map(points.map(p => [p.id, p]));
-const progress = {...freshProgress(), enabledGroups:layers.map(([name]) => name)};
+const progress = {...freshProgress(), enabledGroups:groups.map(g => g.name)};
 
 const key = name => normalize(name).replace(/\b(the|co)\b/g, '').replace(/\s+/g, ' ').trim()
   .replace('sound4sond', 'sound4sound').replace('royal', 'roval').replace('ayoka', 'akoya').replace('white sand ', 'white sands ');

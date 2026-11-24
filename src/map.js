@@ -63,36 +63,45 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
   const rendered = new Map();
   const container = map.getContainer();
 
+  let pinSize = 30;
+  const dotThreshold = 900;
   function draw() {
     if (!currentProgress) return;
     const view = map.getBounds().pad(0.16);
     const live = new Set();
     const favorites = new Set(currentProgress.favorites);
-    for (const point of points) {
-      if (!view.contains(xy(point))) continue;
+    const inView = points.filter(point => view.contains(xy(point)));
+    // Com milhares de pinos na tela e pouco zoom, pontos coloridos substituem os símbolos para manter a fluidez.
+    const dots = inView.length > dotThreshold && map.getZoom() < 2.25;
+    for (const point of inView) {
       const key = point.id;
       const done = !!currentProgress.completed[key];
       const favorite = favorites.has(key);
       const active = key === selected;
       live.add(key);
       const old = rendered.get(key);
-      const variant = [done,favorite,active,!!point.locked,point.name,point.kind,point.x,point.y].join('/');
+      const size = dots && !active && !favorite ? Math.round(pinSize * 0.42) : pinSize;
+      const dot = size !== pinSize;
+      const variant = [done,favorite,active,!!point.locked,point.name,point.kind,point.x,point.y,size,dot].join('/');
       if (old?.variant === variant) continue;
       if (old) pins.removeLayer(old.marker);
       const html = document.createElement('span');
       html.setAttribute('aria-hidden','true');
-      html.innerHTML = markerIcon(point,done);
-      const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'') + (point.locked&&!done?' locked':'');
+      if (!dot) html.innerHTML = markerIcon(point,done);
+      const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'') + (point.locked&&!done?' locked':'') + (dot?' dot':'');
       const marker = L.marker(xy(point), {
         title:point.name, alt:point.name, zIndexOffset:active ? 1500 : 100,
-        icon:L.divIcon({html,className:type,iconSize:[29,29]})
+        icon:L.divIcon({html,className:type,iconSize:[size,size]})
       }).on('click', () => {
         if (placing) return place(marker.getLatLng());
         onSelect(key,false);
       }).addTo(pins);
       const element=marker.getElement();
       element?.setAttribute('aria-label',point.name+(point.locked&&!done?' (bloqueado)':''));
-      if(point.category?.colour) element?.style.setProperty('--pin',point.category.colour);
+      if(point.category?.colour) {
+        element?.style.setProperty('--pin',point.category.colour);
+        element?.style.setProperty('--ink',point.category.ink || '#10121d');
+      }
       rendered.set(key,{marker,variant});
     }
     for (const [key,item] of rendered) if (!live.has(key)) {
@@ -127,6 +136,12 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
       map.setView(map.unproject(projected,zoom),zoom,{animate:false});
     },
     highlight(id) { selected=id; draw(); },
+    setPinSize(size) {
+      if (size === pinSize) return;
+      pinSize = size;
+      container.style.setProperty('--pin-size', size + 'px');
+      pins.clearLayers(); rendered.clear(); draw();
+    },
     home, zoomIn:() => map.zoomIn(), zoomOut:() => map.zoomOut(),
     placing(value) { placing=value; container.classList.toggle('placing',value); },
     previewVehicles(spots, name) {

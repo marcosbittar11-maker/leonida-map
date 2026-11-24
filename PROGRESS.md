@@ -1,5 +1,26 @@
 # Progresso da entrega
 
+## Versão 1.4.0 · 24/11/2026
+
+**Mudanças**
+- **Símbolos próprios.** 90 desenhos vetoriais originais (`src/symbols.js`), um por categoria e por subtipo de lugar (posto, ATM, delegacia, marina, cinema…), em sprite SVG. Pino = círculo colorido com símbolo de contraste calculado. Os mesmos símbolos aparecem em pinos, filtros, resultados, fichas, rankings, favoritos e progresso.
+- **Registro único** (`src/registry.js`): 8 grupos e 67 categorias com nome em português, cor e símbolo. Substitui `layers.js`, `point-icons.js` e as listas duplicadas. Novas divisões: postos, ATMs, carregadores, bares, Pay 'n' Spray e outros serviços automotivos.
+- **Filtros por grupo.** Operações, Colecionáveis, Itens e recursos, Veículos, Atividades, Exploração, Locais e serviços e Pessoal. Cada grupo expande/recolhe, mostra seleção parcial, contador visível/total e Mostrar/Ocultar todas. Categorias sem pontos posicionados (flamingos, subaquáticas, Kenton, Bret, tablets) continuam listadas, desativadas e com a pendência indicada. Favoritos são um filtro de status independente, dentro de Pessoal.
+- **Início limpo.** Nenhuma categoria ativa ao abrir. A preferência opcional memoriza as categorias; a navegação entre Mapa, Veículos, Rankings e Progresso não as reinicia. Rankings e progresso consideram todos os pontos, não só os visíveis.
+- **Busca independente.** Funciona com tudo oculto; o ponto selecionado aparece temporariamente e pode ter a categoria ativada.
+- **Tamanho dos pinos** (24/30/38 px) e modo compacto (pontos coloridos) quando há mais de 900 pinos na tela com pouco zoom.
+- **Galeria** `icons.html`: todos os símbolos lado a lado, com verificação de ausentes e repetidos. Funciona offline.
+- O progresso deixou de guardar `enabledGroups` (ignorado ao importar). Coordenadas, IDs, favoritos, conclusões, Car Finder e equipamentos ficam como estavam.
+
+**Referência visual.** A inspeção do MapGenie no navegador não foi feita (a abertura foi interrompida) e nenhum recurso dele foi usado; a organização dos grupos segue a estrutura sugerida no pedido e o catálogo consolidado. Não houve comparação visual com o MapGenie.
+
+**Origem e licença dos símbolos.** Desenhos próprios, feitos para este projeto (mesma licença do repositório). Os ícones de navegação da interface continuam do Lucide (ISC, `public/icons/LICENSE-LUCIDE.txt`).
+
+**Testes executados**
+- `npm test`: 18 aprovados (visibilidade, registro, símbolos únicos, categorias sem pontos, subtipos).
+- Playwright em Chrome desktop e WebKit iPhone 15: suíte completa, inclusive Car Finder, com início limpo, Mostrar/Ocultar tudo, seleção parcial, busca com categorias ocultas, persistência opcional, navegação interna, tamanho dos pinos, galeria offline e PWA offline.
+- Inspeção visual por capturas desktop e celular; `npm run build`.
+
 ## Versão 1.3.0 · 24/11/2026
 
 **Mudanças**
