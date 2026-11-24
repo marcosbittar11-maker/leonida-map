@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import gameta from '../src/data/gameta.js';
+const added=prefix=>gameta.created.filter(p=>p.id.startsWith(prefix)).length;
 
 const map = page => page.locator('#map');
 const detail = page => page.locator('#detail');
@@ -295,7 +297,7 @@ test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})
 
 test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.7.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.8.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
   await expect(map(page)).toHaveAttribute('data-points','0');
@@ -306,9 +308,10 @@ test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({
   await tap(page,'Ocultar tudo').click();
   await expect(map(page)).toHaveAttribute('data-points','0');
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
+  await page.getByRole('button',{name:/^Atividades/}).click();
+  await expect(page.locator('.category-row').filter({hasText:'Alvos do Bret'}).locator('.counter')).toHaveText('0/0');
+  await expect(page.locator('.category-row').filter({hasText:'Alvos do Bret'}).getByRole('checkbox')).toBeDisabled();
   await page.getByRole('button',{name:/^Colecionáveis/}).click();
-  await expect(page.locator('.category-row').filter({hasText:'Flamingos de cocaína'}).locator('.counter')).toHaveText('0/0');
-  await expect(page.locator('.category-row').filter({hasText:'Flamingos de cocaína'}).getByRole('checkbox')).toBeDisabled();
   await page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).getByRole('checkbox').check();
   await expect(page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).locator('.counter')).toHaveText(/^\d+\/447$/);
   await expect(page.locator('.category-row').filter({hasText:'Cartas colecionáveis'}).locator('.counter')).not.toHaveText('0/447');
@@ -432,4 +435,79 @@ test.describe('falha do fornecedor de tiles',()=>{
     expect(hidden).toBeGreaterThan(0);
     await expect(map(page).locator('.tiles-overview img.leaflet-tile-loaded').first()).toBeVisible();
   });
+});
+
+// Versão 1.8.0: pontos do Gameta, flamingos reclassificados e pistas sem pino.
+test('Tesouros do Kenton: filtro, 41 pinos, conclusão individual persistente e fonte',async({page})=>{
+  await ready(page);
+  await filters(page);
+  await page.getByRole('button',{name:/^Colecionáveis/}).click();
+  const row=page.locator('.category-row').filter({hasText:'Tesouros do Kenton'});
+  await expect(row.locator('.counter')).toHaveText('0/41');
+  await row.getByRole('checkbox').check();
+  await expect(row.locator('.counter')).toHaveText('41/41');
+  await expect(map(page)).toHaveAttribute('data-points','41');
+  await search(page,'Golden Llama');
+  await page.locator('[data-point="gameta-kenton-2716"]').click();
+  await expect(detail(page).locator('h2')).toContainText('Golden Llama');
+  await expect(detail(page)).toContainText('Nuestra Señora Lujuriosa');
+  await expect(detail(page)).toContainText('Fonte única');
+  await expect(detail(page).locator('.point-icon use')).toHaveAttribute('href','#g-kenton');
+  await tap(page,'Concluir ponto').click();
+  await expect(tap(page,'Reabrir ponto')).toBeVisible();
+  await page.reload();
+  await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
+  await search(page,'Golden Llama');
+  await page.locator('[data-point="gameta-kenton-2716"]').click();
+  await expect(tap(page,'Reabrir ponto')).toBeVisible();
+});
+
+test('naufrágios aproximados e pistas dos laboratórios aparecem com todas as categorias desligadas',async({page})=>{
+  await ready(page);
+  await filters(page);
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  // Pista sem pino: encontrada pela busca global, sem nenhum filtro ativo e sem pino no mapa
+  await search(page,'Kitty Litter Balsero');
+  await expect(page.locator('[data-point="clue-kitty-balsero-2"]')).toBeVisible();
+  await page.locator('[data-point="clue-kitty-balsero-2"]').click();
+  await expect(detail(page)).toContainText('Sem coordenadas');
+  await expect(detail(page)).toContainText('Pista sem pino');
+  await expect(tap(page,'Mostrar categoria')).toHaveCount(0);
+  await expect(map(page)).toHaveAttribute('data-points','0');
+  // Naufrágio aproximado: não se apresenta como exato
+  await tap(page,'Fechar detalhes').click();
+  await page.waitForTimeout(400); // fim da animação do painel no celular
+  await search(page,'Nuestra Señora Lujuriosa');
+  await page.locator('[data-point="gameta-wreck-lujuriosa"]').click();
+  await expect(detail(page)).toContainText('posição aproximada');
+  await expect(detail(page)).toContainText('Precisão da posição');
+});
+
+test('flamingos de cocaína: 55 pinos que antes ficavam em Drogas',async({page})=>{
+  await ready(page);
+  await filters(page);
+  await query(page).fill('');
+  await page.getByRole('searchbox',{name:'Buscar categoria'}).fill('flamingos');
+  const row=page.locator('.category-row').filter({hasText:'Flamingos de cocaína'});
+  await expect(row.locator('.counter')).toHaveText('0/55');
+  await row.getByRole('checkbox').check();
+  await expect(map(page)).toHaveAttribute('data-points','55');
+});
+
+test('ATMs, carregadores e pontos de ônibus do Gameta usam as categorias e símbolos existentes',async({page})=>{
+  await ready(page);
+  await filters(page);
+  await page.getByRole('button',{name:/^Locais e serviços/}).click();
+  const ev=page.locator('.category-row').filter({hasText:'Carregadores elétricos'});
+  await expect(ev.locator('.counter')).toHaveText('0/'+(88+added('gameta-ev-')));
+  await ev.getByRole('checkbox').check();
+  await expect.poll(async()=>Number(await map(page).getAttribute('data-points'))).toBe(88+added('gameta-ev-'));
+  const atm=page.locator('.category-row').filter({hasText:'Caixas eletrônicos (ATMs)'});
+  await expect(atm.locator('.counter')).toHaveText('0/'+(160+added('gameta-atm-')));
+  await expect(page.locator('.category-row').filter({hasText:'Contatos'}).locator('.counter')).toHaveText('0/10');
+  // Pistas sem pino não impedem o botão do grupo de marcar tudo
+  await page.getByRole('button',{name:/^Operações/}).click();
+  const kitty=page.locator('.category-row').filter({hasText:'Kitty Litter'});
+  await expect(kitty.locator('.counter')).toHaveText('0/13');
+  await expect(kitty.getByRole('checkbox')).toBeDisabled();
 });

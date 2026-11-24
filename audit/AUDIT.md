@@ -41,6 +41,8 @@ Gerado por `node scripts/audit.mjs`. Revisão do catálogo: `d8609016b8a883988d7
 | Livros e revistas `magazine` | Colecionáveis | 0 | 93 | 93 | 0 | 0 | 0 | 0 |
 | Meteoritos `meteorite` | Colecionáveis | 0 | 78 | 78 | 0 | 0 | 0 | 0 |
 | Arte de rua `streetart` | Colecionáveis | 0 | 62 | 62 | 0 | 0 | 0 | 0 |
+| Flamingos de cocaína `flamingo` | Colecionáveis | — | 55 | 55 | 0 | 0 | 0 | 0 |
+| Tesouros do Kenton `kenton` | Colecionáveis | — | 41 | 0 | 0 | 0 | 0 | 0 |
 | Troca de livros `bookswap` | Colecionáveis | 0 | 7 | 7 | 0 | 0 | 0 | 0 |
 | Playlists `playlist` | Colecionáveis | 0 | 7 | 7 | 0 | 0 | 0 | 0 |
 | Mensagens na garrafa `bottle` | Colecionáveis | 0 | 6 | 6 | 0 | 0 | 0 | 0 |
@@ -49,21 +51,22 @@ Gerado por `node scripts/audit.mjs`. Revisão do catálogo: `d8609016b8a883988d7
 | Eventos aleatórios `event` | Exploração | 0 | 281 | 281 | 0 | 0 | 281 | 0 |
 | Paisagens naturais `nature` | Exploração | 52 | 52 | 0 | 0 | 0 | 0 | 0 |
 | Easter eggs `easter` | Exploração | 2 | 23 | 21 | 1 | 2 | 0 | 0 |
+| Descobertas subaquáticas `underwater` | Exploração | — | 6 | 0 | 0 | 0 | 0 | 0 |
 | Cofres `safe` | Itens e recursos | 1 | 96 | 94 | 0 | 0 | 96 | 42 |
 | Armas especiais `weapon` | Itens e recursos | 2 | 87 | 86 | 0 | 0 | 87 | 28 |
 | Armas no chão `pickup` | Itens e recursos | — | 86 | 85 | 0 | 0 | 0 | 13 |
-| Drogas e contrabando `drug` | Itens e recursos | 0 | 71 | 71 | 0 | 0 | 71 | 0 |
 | Relógios de luxo `watch` | Itens e recursos | — | 23 | 23 | 0 | 0 | 0 | 5 |
+| Drogas e contrabando `drug` | Itens e recursos | 0 | 16 | 16 | 0 | 0 | 16 | 0 |
 | Caixas de paraquedas `parachute` | Itens e recursos | — | 7 | 7 | 0 | 0 | 0 | 0 |
 | Tesouros `treasure` | Itens e recursos | 0 | 6 | 6 | 0 | 0 | 0 | 0 |
 | Edifícios e marcos `building` | Locais e serviços | 521 | 521 | 0 | 0 | 0 | 0 | 0 |
-| Transporte `transport` | Locais e serviços | 488 | 488 | 0 | 0 | 0 | 0 | 0 |
+| Transporte `transport` | Locais e serviços | 488 | 520 | 0 | 0 | 0 | 0 | 0 |
 | Restaurantes e cafés `food` | Locais e serviços | 462 | 296 | 0 | 0 | 0 | 0 | 0 |
-| Caixas eletrônicos (ATMs) `atm` | Locais e serviços | — | 160 | 2 | 0 | 0 | 0 | 0 |
+| Caixas eletrônicos (ATMs) `atm` | Locais e serviços | — | 181 | 2 | 0 | 0 | 0 | 0 |
 | Bares e boates `bar` | Locais e serviços | — | 143 | 0 | 0 | 0 | 0 | 0 |
+| Carregadores elétricos `ev` | Locais e serviços | — | 124 | 0 | 0 | 0 | 0 | 0 |
 | Serviços públicos `civic` | Locais e serviços | 123 | 123 | 0 | 0 | 0 | 0 | 0 |
 | Lojas e serviços `shop` | Locais e serviços | 432 | 118 | 0 | 0 | 0 | 0 | 0 |
-| Carregadores elétricos `ev` | Locais e serviços | — | 88 | 0 | 0 | 0 | 0 | 0 |
 | Lojas de roupas `clothes` | Locais e serviços | 69 | 69 | 0 | 0 | 0 | 0 | 0 |
 | Postos de combustível `gas` | Locais e serviços | — | 57 | 0 | 0 | 0 | 0 | 0 |
 | Esportes e lazer `leisure` | Locais e serviços | 55 | 55 | 0 | 0 | 0 | 0 | 0 |
@@ -71,13 +74,15 @@ Gerado por `node scripts/audit.mjs`. Revisão do catálogo: `d8609016b8a883988d7
 | Hotéis `hotel` | Locais e serviços | 30 | 30 | 0 | 0 | 0 | 0 | 0 |
 | Ammu-Nation `ammushop` | Locais e serviços | 24 | 24 | 0 | 0 | 0 | 0 | 0 |
 | Eletrônicos `electronics` | Locais e serviços | 15 | 15 | 0 | 0 | 0 | 0 | 0 |
+| Contatos `contact` | Locais e serviços | — | 10 | 0 | 0 | 0 | 0 | 0 |
 | Lojas assaltáveis (Stick Ups) `store` | Operações | 0 | 106 | 85 | 29 | 0 | 106 | 0 |
-| Caixas eletrônicos rebocáveis `towatm` | Operações | 0 | 94 | 94 | 0 | 94 | 0 | 0 |
+| Caixas eletrônicos rebocáveis `towatm` | Operações | 0 | 96 | 94 | 0 | 96 | 0 | 0 |
 | Operações ilegais `gang` | Operações | 1 | 43 | 42 | 17 | 1 | 42 | 40 |
 | Joalherias `jewelry` | Operações | — | 20 | 19 | 20 | 20 | 0 | 0 |
 | Receptadores `fence` | Operações | 4 | 16 | 12 | 0 | 4 | 12 | 6 |
 | Casas de penhores `pawn` | Operações | — | 15 | 14 | 15 | 15 | 0 | 6 |
 | Bancos · caixa e cofre pequeno `bank` | Operações | 14 | 14 | 0 | 14 | 14 | 0 | 0 |
+| Laboratórios de Kitty Litter `kitty` | Operações | — | 13 | 0 | 0 | 0 | 0 | 0 |
 | Grandes bancos · cofre `bigbank` | Operações | — | 8 | 8 | 8 | 8 | 0 | 0 |
 | Financeiras `payday` | Operações | 0 | 7 | 7 | 7 | 7 | 0 | 0 |
 | Esconderijos `safehouse` | Pessoal | 0 | 22 | 22 | 0 | 0 | 0 | 0 |
@@ -102,8 +107,8 @@ A coluna "Antes" usa a categoria da versão anterior quando o nome coincide; joa
 | fence | 16 | 0 | 0 | 0 | 0 | 7 | 4 | 4 |
 | weapon | 87 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | store | 106 | 29 | 0 | 0 | 0 | 0 | 0 | 0 |
-| towatm | 94 | 0 | 0 | 0 | 0 | 0 | 0 | 94 |
-| drug | 71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| towatm | 96 | 0 | 0 | 0 | 0 | 0 | 0 | 96 |
+| drug | 16 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | watch | 23 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ## Duplicatas prováveis restantes
@@ -115,7 +120,20 @@ A coluna "Antes" usa a categoria da versão anterior quando o nome coincide; joa
 
 ## Coordenadas inválidas ou ausentes
 
-Nenhuma.
+- `clue-kitty-historia` Kitty Litter · Laboratório da história
+- `clue-kitty-balsero-1` Kitty Litter · Balsero 1
+- `clue-kitty-balsero-2` Kitty Litter · Balsero 2
+- `clue-kitty-balsero-3` Kitty Litter · Balsero 3
+- `clue-kitty-central-rockridge-1` Kitty Litter · Central Rockridge 1
+- `clue-kitty-crosstown-1` Kitty Litter · Crosstown 1
+- `clue-kitty-crosstown-2` Kitty Litter · Crosstown 2
+- `clue-kitty-crosstown-3` Kitty Litter · Crosstown 3
+- `clue-kitty-decor-district-1` Kitty Litter · Decor District 1
+- `clue-kitty-little-cuba-1` Kitty Litter · Little Cuba 1
+- `clue-kitty-salton-1` Kitty Litter · Salton 1
+- `clue-kitty-tequesta-1` Kitty Litter · Tequesta 1
+- `clue-kitty-vice-dale-1` Kitty Litter · Vice-Dale 1
+- `clue-wreck-ocio` Nuestra Señora del Ocio
 
 ## Nomes que sugerem roubo fora das categorias de roubo
 
@@ -140,11 +158,11 @@ Contagens da barra lateral pública de https://mapgenie.io/grand-theft-auto-6/ma
 | Grandes bancos | 8 | 8 | 0 |
 | Financeiras | 7 | 7 | 0 |
 | Lojas assaltáveis | 107 | 106 | -1 |
-| Caixas eletrônicos rebocáveis | 127 | 94 | -33 |
+| Caixas eletrônicos rebocáveis | 127 | 96 | -31 |
 | Operações ilegais | 40 | 43 | +3 |
 | Cofres | 40 | 96 | +56 |
 | Contatos | 10 | 0 | -10 |
-| ATMs | 223 | 160 | -63 |
+| ATMs | 223 | 181 | -42 |
 | Academias | 9 | 9 | 0 |
 | Boates | 5 | 5 | 0 |
 | Ammu-Nation | 24 | 24 | 0 |
@@ -152,8 +170,8 @@ Contagens da barra lateral pública de https://mapgenie.io/grand-theft-auto-6/ma
 | Oficinas | 14 | 14 | 0 |
 | Postos | 57 | 57 | 0 |
 | Lava-rápidos e aluguel | 9 | 10 | +1 |
-| Carregadores elétricos | 126 | 88 | -38 |
-| Pontos de ônibus | 287 | 276 | -11 |
+| Carregadores elétricos | 126 | 124 | -2 |
+| Pontos de ônibus | 287 | 308 | +21 |
 | Estações | 25 | 31 | +6 |
 | Balsas | 2 | 2 | 0 |
 | Garagens | 21 | 14 | -7 |

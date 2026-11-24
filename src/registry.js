@@ -25,9 +25,10 @@ export const categories = [
   c('store','Lojas assaltáveis (Stick Ups)','Operações','#8ecae6'),
   c('towatm','Caixas eletrônicos rebocáveis','Operações','#2ec4b6'),
   c('fence','Receptadores','Operações','#9a8c98'),
+  c('kitty','Laboratórios de Kitty Litter','Operações','#e56b9f',{pending:'Só pistas por área, sem pino', cluesOnly:true}),
 
   c('card','Cartas colecionáveis','Colecionáveis','#ffd166'),
-  c('flamingo','Flamingos de cocaína','Colecionáveis','#ff6fae',{pending:'Sem coordenadas publicadas'}),
+  c('flamingo','Flamingos de cocaína','Colecionáveis','#ff6fae'),
   c('waink','Escaneamentos WAiNK','Colecionáveis','#7ae582'),
   c('magazine','Livros e revistas','Colecionáveis','#c77dff'),
   c('playlist','Playlists','Colecionáveis','#e76f51'),
@@ -36,7 +37,7 @@ export const categories = [
   c('meteorite','Meteoritos','Colecionáveis','#b5179e'),
   c('bottle','Mensagens na garrafa','Colecionáveis','#48cae4'),
   c('bookswap','Troca de livros','Colecionáveis','#9d4edd'),
-  c('kenton','Coleções de Kenton','Colecionáveis','#f4a261',{pending:'Sem coordenadas publicadas'}),
+  c('kenton','Tesouros do Kenton','Colecionáveis','#f4a261'),
 
   c('weapon','Armas especiais','Itens e recursos','#8d99ae'),
   c('pickup','Armas no chão','Itens e recursos','#adb5c7'),
@@ -69,7 +70,7 @@ export const categories = [
 
   c('easter','Easter eggs','Exploração','#ed9cf1'),
   c('event','Eventos aleatórios','Exploração','#ff006e'),
-  c('underwater','Descobertas subaquáticas','Exploração','#2a9df4',{pending:'Sem coordenadas publicadas'}),
+  c('underwater','Descobertas subaquáticas','Exploração','#2a9df4'),
   c('nature','Paisagens naturais','Exploração','#52b788'),
   c('other','Pontos de interesse especiais','Exploração','#e9ecef'),
 
@@ -86,6 +87,7 @@ export const categories = [
   c('shop','Lojas e serviços','Locais e serviços','#80ed99'),
   c('transport','Transporte','Locais e serviços','#00bbf9'),
   c('civic','Serviços públicos','Locais e serviços','#7aa0c4'),
+  c('contact','Contatos','Locais e serviços','#ffc971'),
   c('leisure','Esportes e lazer','Locais e serviços','#9b5de5'),
   c('building','Edifícios e marcos','Locais e serviços','#ced4da'),
 

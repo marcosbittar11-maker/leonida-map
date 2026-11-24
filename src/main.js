@@ -130,7 +130,7 @@ function availabilityMarkup() {
     }).join('')+'</div>'+
     '<p class="muted small">'+icon('lock')+' Cadeado no pino: falta um equipamento ou desbloqueio marcado em Configurações.</p>';
 }
-const memberKinds = (group, counts) => registry.filter(c => c.group===group && (counts.get(c.key).total>0 || c.key==='custom')).map(c => c.key);
+const memberKinds = (group, counts) => registry.filter(c => c.group===group && (counts.get(c.key).total>0&&!c.cluesOnly || c.key==='custom')).map(c => c.key);
 function groupMarkup(counts, allowed) {
   const series=new Map();
   for(const p of allowed) if(p.variant){
@@ -147,8 +147,8 @@ function groupMarkup(counts, allowed) {
     const partial=active>0&&active<members.length, expanded=openGroups.has(group)||!!query;
     const rows=matching.map(c=>{
       const row=counts.get(c.key), pending=!row.total&&c.key!=='custom';
-      return filterRow(c.key,c.name,row.shown,row.total,{enabled:!pending,on:filters.show.has(c.key),marker:symbolChip(c),
-        note:pending?c.pending||'Sem pontos posicionados':''});
+      return filterRow(c.key,c.name,row.shown,row.total,{enabled:!pending&&!c.cluesOnly,on:filters.show.has(c.key),marker:symbolChip(c),
+        note:pending?c.pending||'Sem pontos posicionados':c.cluesOnly?c.pending:''});
     });
     if(group==='Pessoal'&&(!query||normalize('favoritos').includes(query))) {
       const favorites=progress.favorites.length, shownFavorites=filtered.filter(p=>progress.favorites.includes(p.id)).length;
@@ -234,7 +234,7 @@ function renderDetail() {
   const p=selected?lookup.get(selected):null, d=$('detail');
   if (!p || !visible(p)) {d.hidden=true;d.innerHTML='';return;}
   const complete=!!progress.completed[p.id], favorite=progress.favorites.includes(p.id);
-  const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto'}[p.evidence]);
+  const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto',single:'Fonte única · posição calibrada',approximate:'Posição aproximada',clue:'Pista sem posição'}[p.evidence]);
   const fields={...(p.fields || {})};
   if(p.variant){
     fields['Coleção']=p.series;
@@ -274,7 +274,7 @@ function renderDetail() {
   d.hidden=false;
   d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+';--ink:'+esc(p.category?.ink||'#10121d')+'">'+pinGlyph(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
     '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter+' · informativo'):'')+(p.gang?.edition==='ultimate'?badge('Ultimate Edition'):'')+(p.locked?badge('Bloqueado','locked'):'')+(complete?badge('Concluído','green'):'')+'</div>'+
-    '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· posição da fonte</small>':'')+'</p>'+
+    '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· '+(p.approx?'posição aproximada':'posição da fonte')+'</small>':'')+'</p>'+
     (p.intro||p.variantNote?'<p>'+esc(p.intro||p.variantNote)+'</p>':'')+
     (p.description && p.description!==p.intro && (p.evidence==='personal'||!p.guide||p.guide.summary)?'<p>'+esc(p.description)+'</p>':'')+
     reqBlock+
@@ -283,7 +283,7 @@ function renderDetail() {
     (p.steps?.length?'<details class="note"><summary>Como fazer</summary><ol>'+p.steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol></details>':'')+
     linked+
     (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide&&!p.guide.summary?checked:curationChecked)+'</summary>'+
-      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(p.collection==='gameta'?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
+      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(['gameta','clue'].includes(p.collection)?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
       (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
       (p.x!=null&&!filters.show.has(p.kind)?button('Mostrar categoria','enable-kind','eye'):'')+

@@ -1,5 +1,26 @@
 # Progresso da entrega
 
+## Versão 1.8.0 · 24/11/2026 · colecionáveis e pontos ausentes
+
+**Mudanças**
+- **147 pinos novos** do Gameta: 41 Tesouros do Kenton, 21 ATMs, 2 ATMs rebocáveis, 36 carregadores, 32 pontos de ônibus, 10 contatos (categoria nova) e 5 naufrágios com posição aproximada. A leitura foi só textual, sem executar o JavaScript da página, e só de fatos. A calibração usou 873 pares e deu mediana de 0,075 unidade nos pares reservados. [COVERAGE.md](COVERAGE.md) · [audit/GAMETA.md](audit/GAMETA.md)
+- **55 flamingos de cocaína** reclassificados. Já estavam no snapshot como "Hidden package" em Drogas. IDs, favoritos e conclusões preservados. Drogas e contrabando passou de 71 para 16.
+- **14 pistas sem pino:** 13 laboratórios de Kitty Litter (áreas de busca, sem coordenadas) e o naufrágio Nuestra Señora del Ocio. Aparecem na busca global, e a categoria de Kitty Litter fica desabilitada nos filtros, com a nota "Só pistas por área, sem pino".
+- **Fichas.** Selo "Fonte única · posição calibrada" para os pinos do Gameta, "Posição aproximada" nos naufrágios (com o campo "Precisão da posição") e "Pista sem posição" nas pistas. O botão de grupo ignora categorias só de pistas.
+- **Categorias.** `kitty` e `contact` novas, com símbolos próprios. Kenton passou a se chamar "Tesouros do Kenton". Flamingos, Kenton e Subaquáticas deixaram de ser "pendentes".
+- **Importador incremental.** `node scripts/import-gameta.mjs` gera `src/data/gameta.js` e `audit/GAMETA.md`. É idempotente (mesmo hash em duas execuções), calcula e valida a transformação a cada execução e não toca o snapshot. Aceita `--from <pasta>` para repetir sem rede.
+- **Sem importação.** Alvos do Bret (PushSquare 403), tablets, garagens e os flamingos sem coordenadas da GTA6Wiki e da ViceCityDB.
+
+**Testes**
+- `npm test`: 28 de 28. Casos novos: transformação validada, deduplicação por tipo (nada novo a menos de 0,5 unidade de ponto existente nem de ATM sobre rebocável), IDs determinísticos e únicos, 41 tesouros em 7 locais, naufrágios aproximados, pistas sem pino, flamingos e IDs do snapshot preservados.
+- E2E (`tests/app.e2e.js`, Chrome desktop e WebKit iPhone 15): 43 de 43. Cobrem filtro e contador do Kenton, conclusão com persistência após recarregar, busca global com tudo desligado, pistas, naufrágio aproximado, flamingos, ATMs, carregadores, contatos e o PWA offline já existente.
+- Não repetidos: `tests/vehicles.e2e.js` e `vehicles.test.mjs` (veículos não mudaram). Não testado em iPhone físico.
+
+**Limitações**
+- Os 147 pinos têm fonte única. O Gameta não publica licença; ver [FONTES.md](FONTES.md).
+- Não há geometria de área no app: áreas de busca viram pistas.
+- Meditação tem 2 conflitos de posição com o Gameta (`meditation-009` a 4,3 unid. e `meditation-004` a 179 unid.). Nada foi alterado.
+
 ## Versão 1.7.0 · 24/11/2026 · cartografia, estradas e zoom
 
 **Mudanças**

@@ -9,6 +9,9 @@ import { configurableKeys, requirementState } from '../src/requirements.js';
 import { groups, categories, categoryByKey, symbolKey, inkFor } from '../src/registry.js';
 import { glyphs, glyphNames, glyphSvg } from '../src/symbols.js';
 import safeCodes from '../src/data/safe-codes.js';
+import gameta from '../src/data/gameta.js';
+import clues from '../src/data/clues.js';
+import { flamingoIds } from '../src/curation.js';
 
 const catalog=JSON.parse(await readFile(new URL('../public/data/catalog.json',import.meta.url)));
 const data=applyGuides(catalog);
@@ -184,7 +187,7 @@ test('todo ponto pertence a uma categoria do registro e cada categoria tem símb
 });
 test('categorias sem pontos posicionados continuam listadas com contador zero',()=>{
   const counts=categoryCounts(data,[]);
-  for(const key of ['flamingo','underwater','kenton','bret','tablet']) {
+  for(const key of ['bret','tablet']) {
     assert.equal(counts.get(key).total,0,key);
     assert.ok(categoryByKey.get(key).pending,key);
   }
@@ -195,7 +198,7 @@ test('subtipos de lugar têm símbolo específico e divisão em categorias',()=>
   const sym=(kind,type)=>symbolKey({kind,type});
   assert.notEqual(sym('gas','Gas station'),sym('atm','ATM'));
   assert.equal(kind('gas').length,57);
-  assert.equal(kind('atm').length,160);
+  assert.equal(kind('atm').length,160+gameta.created.filter(p=>p.id.startsWith('gameta-atm-')).length);
   assert.ok(kind('spray').length>=19&&kind('workshop').every(p=>!/pay 'n' spray/i.test(p.type)));
   assert.ok(kind('bar').length>=143);
   assert.equal(symbolKey({kind:'other',type:'Yellow loot box'}),'crate');
@@ -210,4 +213,78 @@ test('Veículos inclui variantes terrestres e exclui pedidos para entrega',()=>{
   assert.equal(matches(byId.get('standout-vehicle-286'),{},progress),false);
   assert.match(byId.get('standout-vehicle-101').name,/Big Cat Furia/);
   assert.equal(data.filter(p=>p.collection==='gameta'&&p.variant).length,2);
+});
+
+// Versão 1.8.0: pontos do Gameta, flamingos reclassificados e pistas sem pino.
+const near=(list,p,limit)=>list.some(q=>q!==p&&Math.hypot(p.x-q.x,p.y-q.y)<limit);
+test('importação do Gameta: IDs determinísticos, coordenadas válidas e transformação validada',()=>{
+  const created=gameta.created;
+  assert.equal(new Set(created.map(p=>p.id)).size,created.length);
+  assert.equal(new Set(data.map(p=>p.id)).size,data.length);
+  for(const p of created) {
+    assert.match(p.id,/^gameta-(atm|towatm|ev|bus|kenton|wreck|contact)-[a-z0-9-]+$/);
+    assert.ok(p.x>=249&&p.x<=612&&p.y>=245&&p.y<=757,p.id+' fora do domínio do mapa');
+    assert.equal(p.collection,'gameta');
+    assert.ok(p.sources.length&&p.fields);
+  }
+  assert.ok(gameta.validation.pairs>=300&&gameta.validation.heldOut>=100);
+  assert.ok(gameta.validation.heldOutMedian<0.2,'mediana dos pares reservados');
+});
+test('nenhum ponto novo duplica um ponto existente do mesmo tipo',()=>{
+  const tag=p=>(p.type||'').toLowerCase();
+  const types={'gameta-atm':p=>tag(p)==='atm',  'gameta-towatm':p=>p.kind==='towatm','gameta-ev':p=>tag(p)==='ev charger','gameta-bus':p=>tag(p)==='bus stop'};
+  for(const [prefix,same] of Object.entries(types)) {
+    const existing=catalog.points.filter(p=>p.x!=null&&same(p));
+    for(const p of gameta.created.filter(q=>q.id.startsWith(prefix+'-'))) {
+      const d=Math.min(...existing.map(q=>Math.hypot(p.x-q.x,p.y-q.y)));
+      assert.ok(d>=0.5,p.id+' a '+d.toFixed(2)+' de um ponto existente');
+    }
+    const mine=gameta.created.filter(q=>q.id.startsWith(prefix+'-'));
+    for(const p of mine) assert.ok(!near(mine,p,0.15),p.id+' repetido na fonte');
+  }
+  // ATM comum e rebocável coincidentes não viram dois objetos
+  const common=gameta.created.filter(p=>p.id.startsWith('gameta-atm-')),tow=catalog.points.filter(p=>p.kind==='towatm');
+  for(const p of common) assert.ok(tow.every(q=>Math.hypot(p.x-q.x,p.y-q.y)>0.3),p.id);
+});
+test('Tesouros do Kenton: 41 itens em 7 locais, marcáveis individualmente',()=>{
+  const items=kind('kenton');
+  assert.equal(items.length,41);
+  assert.equal(new Set(items.map(p=>p.fields['Local de mergulho'].replace(/ \(\d+ itens\)/,''))).size,7);
+  const p=items[0];
+  const progress=decodeProgress({version:1,custom:[],favorites:[],completed:{[p.id]:'2026-11-24T10:00:00.000Z'}});
+  assert.equal(matches(p,{status:'done'},progress),true);
+  assert.equal(matches(items[1],{status:'done'},progress),false);
+  assert.ok(categoryByKey.get('kenton').name.includes('Kenton'));
+});
+test('naufrágios aparecem como posição aproximada, sem se passar por exatos; pistas não têm pino',()=>{
+  const wrecks=kind('underwater').filter(p=>p.x!=null);
+  assert.equal(wrecks.length,5);
+  for(const p of wrecks) {
+    assert.equal(p.evidence,'approximate');
+    assert.equal(p.approx,true);
+    assert.match(p.fields['Precisão da posição'],/Aproximada/);
+  }
+  const ocio=byId.get('clue-wreck-ocio');
+  assert.equal(ocio.x,null);
+  assert.equal(onMap(ocio,{show:new Set(['underwater'])},freshProgress()),false);
+  const kitty=kind('kitty');
+  assert.equal(kitty.length,13);
+  for(const p of kitty) { assert.equal(p.x,null); assert.match(p.fields['Precisão da posição'],/sem pino/i); }
+  assert.ok(clues.created.every(p=>p.sources.every(s=>s.startsWith("https://"))));
+});
+test('flamingos reclassificados preservam IDs, conclusões e favoritos',()=>{
+  assert.equal(flamingoIds.length,55);
+  assert.equal(new Set(flamingoIds).size,55);
+  for(const id of flamingoIds) {
+    assert.equal(byId.get(id)?.kind,'flamingo',id);
+    assert.ok(catalog.points.some(p=>p.id===id),id+' veio do snapshot');
+  }
+  assert.equal(kind('drug').length,71-55);
+  const saved=decodeProgress({version:1,custom:[],favorites:[flamingoIds[0]],completed:{[flamingoIds[1]]:'2026-11-24T10:00:00.000Z'}},catalogAliases(catalog));
+  assert.deepEqual(saved.favorites,[flamingoIds[0]]);
+  assert.ok(saved.completed[flamingoIds[1]]);
+});
+test('IDs do snapshot continuam todos no catálogo consultável (nenhuma renumeração)',()=>{
+  const removed=new Set(Object.keys(catalogAliases(catalog)));
+  for(const p of catalog.points) assert.ok(byId.has(p.id)||removed.has(p.id),p.id);
 });

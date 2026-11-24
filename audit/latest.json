@@ -4,9 +4,9 @@
  "totals": {
   "imported": 5709,
   "catalog": 5665,
-  "consultable": 5533,
+  "consultable": 5694,
   "curatedAliases": 7,
-  "reclassified": 11,
+  "reclassified": 66,
   "hiddenBeforeChapter3": {
    "capituloDesconhecido": 2882,
    "capituloPosterior": 11,
@@ -263,14 +263,14 @@
   "transport": {
    "name": "Transporte",
    "group": "Locais e serviços",
-   "total": 488,
+   "total": 520,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 488
+    "na": 520
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -668,14 +668,14 @@
   "atm": {
    "name": "Caixas eletrônicos (ATMs)",
    "group": "Locais e serviços",
-   "total": 160,
+   "total": 181,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 160
+    "na": 181
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -743,14 +743,14 @@
   "ev": {
    "name": "Carregadores elétricos",
    "group": "Locais e serviços",
-   "total": 88,
+   "total": 124,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
     "unknown": 0,
-    "na": 88
+    "na": 124
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -863,11 +863,11 @@
   "towatm": {
    "name": "Caixas eletrônicos rebocáveis",
    "group": "Operações",
-   "total": 94,
+   "total": 96,
    "withReward": 0,
    "withGuide": 0,
    "states": {
-    "met": 94,
+    "met": 96,
     "unmet": 0,
     "unknown": 0,
     "na": 0
@@ -905,17 +905,17 @@
    "unknownSafeCode": 0,
    "linked": 0
   },
-  "drug": {
-   "name": "Drogas e contrabando",
-   "group": "Itens e recursos",
-   "total": 71,
+  "flamingo": {
+   "name": "Flamingos de cocaína",
+   "group": "Colecionáveis",
+   "total": 55,
    "withReward": 0,
    "withGuide": 0,
    "states": {
     "met": 0,
     "unmet": 0,
-    "unknown": 71,
-    "na": 0
+    "unknown": 0,
+    "na": 55
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -931,6 +931,21 @@
     "unmet": 0,
     "unknown": 0,
     "na": 7
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "drug": {
+   "name": "Drogas e contrabando",
+   "group": "Itens e recursos",
+   "total": 16,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 16,
+    "na": 0
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -1051,6 +1066,66 @@
     "unmet": 0,
     "unknown": 0,
     "na": 52
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "kenton": {
+   "name": "Tesouros do Kenton",
+   "group": "Colecionáveis",
+   "total": 41,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 41
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "underwater": {
+   "name": "Descobertas subaquáticas",
+   "group": "Exploração",
+   "total": 6,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 6
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "contact": {
+   "name": "Contatos",
+   "group": "Locais e serviços",
+   "total": 10,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 10
+   },
+   "unknownSafeCode": 0,
+   "linked": 0
+  },
+  "kitty": {
+   "name": "Laboratórios de Kitty Litter",
+   "group": "Operações",
+   "total": 13,
+   "withReward": 0,
+   "withGuide": 0,
+   "states": {
+    "met": 0,
+    "unmet": 0,
+    "unknown": 0,
+    "na": 13
    },
    "unknownSafeCode": 0,
    "linked": 0
@@ -1657,13 +1732,17 @@
    "capitulo3": 101,
    "mesmoNoCapitulo5": 101
   },
-  "drug": {
-   "capitulo3": 71,
-   "mesmoNoCapitulo5": 71
+  "flamingo": {
+   "capitulo3": 55,
+   "mesmoNoCapitulo5": 55
   },
   "parachute": {
    "capitulo3": 7,
    "mesmoNoCapitulo5": 7
+  },
+  "drug": {
+   "capitulo3": 16,
+   "mesmoNoCapitulo5": 16
   },
   "hunting": {
    "capitulo3": 9,
@@ -1732,7 +1811,78 @@
    "distance": 0.41
   }
  ],
- "invalid": [],
+ "invalid": [
+  {
+   "id": "clue-kitty-historia",
+   "name": "Kitty Litter · Laboratório da história",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-balsero-1",
+   "name": "Kitty Litter · Balsero 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-balsero-2",
+   "name": "Kitty Litter · Balsero 2",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-balsero-3",
+   "name": "Kitty Litter · Balsero 3",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-central-rockridge-1",
+   "name": "Kitty Litter · Central Rockridge 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-crosstown-1",
+   "name": "Kitty Litter · Crosstown 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-crosstown-2",
+   "name": "Kitty Litter · Crosstown 2",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-crosstown-3",
+   "name": "Kitty Litter · Crosstown 3",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-decor-district-1",
+   "name": "Kitty Litter · Decor District 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-little-cuba-1",
+   "name": "Kitty Litter · Little Cuba 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-salton-1",
+   "name": "Kitty Litter · Salton 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-tequesta-1",
+   "name": "Kitty Litter · Tequesta 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-kitty-vice-dale-1",
+   "name": "Kitty Litter · Vice-Dale 1",
+   "kind": "kitty"
+  },
+  {
+   "id": "clue-wreck-ocio",
+   "name": "Nuestra Señora del Ocio",
+   "kind": "underwater"
+  }
+ ],
  "suspicious": [
   {
    "id": "ammu-nation-002",
@@ -1895,17 +2045,17 @@
    "requisitosConhecidos": 0
   },
   "towatm": {
-   "total": 94,
+   "total": 96,
    "valor": 0,
    "senha": 0,
    "cofre": 0,
    "desbloqueio": 0,
    "alarme": 0,
    "guia": 0,
-   "requisitosConhecidos": 94
+   "requisitosConhecidos": 96
   },
   "drug": {
-   "total": 71,
+   "total": 16,
    "valor": 0,
    "senha": 0,
    "cofre": 0,
@@ -2184,8 +2334,8 @@
   {
    "label": "Caixas eletrônicos rebocáveis",
    "mapgenie": 127,
-   "local": 94,
-   "diff": -33,
+   "local": 96,
+   "diff": -31,
    "categories": [
     "ATM (Towable)"
    ],
@@ -2238,8 +2388,8 @@
   {
    "label": "ATMs",
    "mapgenie": 223,
-   "local": 160,
-   "diff": -63,
+   "local": 181,
+   "diff": -42,
    "categories": [
     "ATM"
    ],
@@ -2335,8 +2485,8 @@
   {
    "label": "Carregadores elétricos",
    "mapgenie": 126,
-   "local": 88,
-   "diff": -38,
+   "local": 124,
+   "diff": -2,
    "categories": [
     "Electric Charger"
    ],
@@ -2347,8 +2497,8 @@
   {
    "label": "Pontos de ônibus",
    "mapgenie": 287,
-   "local": 276,
-   "diff": -11,
+   "local": 308,
+   "diff": 21,
    "categories": [
     "Bus Stop"
    ],
@@ -2749,14 +2899,13 @@
  "mapgenieSummary": {
   "rows": 51,
   "equal": 27,
-  "localMore": 17,
+  "localMore": 18,
   "mapgenieMore": [
    "Lojas assaltáveis (-1)",
-   "Caixas eletrônicos rebocáveis (-33)",
+   "Caixas eletrônicos rebocáveis (-31)",
    "Contatos (-10)",
-   "ATMs (-63)",
-   "Carregadores elétricos (-38)",
-   "Pontos de ônibus (-11)",
+   "ATMs (-42)",
+   "Carregadores elétricos (-2)",
    "Garagens (-7)"
   ]
  }

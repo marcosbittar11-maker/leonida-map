@@ -2,9 +2,11 @@ import { guides, bankSummary, officialPlaces, rockstarPlaces } from './guides.js
 import { categories as registry, categoryByKey, fallbackCategory, placeCategory } from './registry.js';
 import { additionalVariants, isPersonalVariant, variantNotes, variantSeries, standoutIndex } from './standout.js';
 import { duplicateAliases, reclassified, renames, regions, gangOperations, fences, fenceTypes, fastFoodStickUps,
-  storeFacts, operationFacts, safeFacts, valueConflicts, categoryRules } from './curation.js';
+  storeFacts, operationFacts, safeFacts, pointFacts, valueConflicts, categoryRules } from './curation.js';
 import { configurableKeys, requirementState, usesEquipment } from './requirements.js';
 import safeCodes from './data/safe-codes.js';
+import gameta from './data/gameta.js';
+import clues from './data/clues.js';
 
 const lockNames = {safe:'Cofre', keypad:'Teclado', password:'Senha do computador'};
 const statusNames = {checked:'verificada (duas fontes ou teste)', reported:'relato de uma fonte'};
@@ -71,7 +73,7 @@ const shopItems = new Set(['safe','fence']);
 
 export function applyGuides(catalog) {
   const categories = categoryByKey;
-  const points = [...catalog.points,...additionalVariants,...safeCodes.created].filter(point => !duplicateAliases[point.id]).map(point => {
+  const points = [...catalog.points,...additionalVariants,...safeCodes.created,...gameta.created,...clues.created].filter(point => !duplicateAliases[point.id]).map(point => {
     const kindKey = curatedKind(point);
     const rule = categoryRules[kindKey] || {};
     const guide = guides[point.id] || bankSummary(point);
@@ -103,7 +105,7 @@ export function applyGuides(catalog) {
       ...(security && !guide?.fields?.['Segurança'] ? {'Segurança':securityText[security] || security} : {}),
       ...(reward && !guide?.reward ? {'Valor da fonte':rangeText(reward)+' · faixa do cartão do jogo publicada pelo Open GTA 6 Map'} : {}),
       ...(rule.fields || {}), ...codeFields(point.facts || safeCodes.records[point.id], {...safeFacts[point.id], ...operationFacts[point.id]?.fields, ...guide?.fields}, !!guide?.fields && !guide.summary),
-      ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(guide?.fields || {}), ...(storeFacts[point.id] || {}),
+      ...(operationFacts[point.id]?.fields || {}), ...(safeFacts[point.id] || {}), ...(pointFacts[point.id] || {}), ...(point.fields || {}), ...(guide?.fields || {}), ...(storeFacts[point.id] || {}),
       ...(valueConflicts[point.id] ? {'Divergência de valor':valueConflicts[point.id]} : {}),
       ...(rename?.conflict ? {'Divergência':rename.conflict} : {}),
       ...(fence?.note ? {'Local':fence.note} : {})

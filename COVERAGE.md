@@ -1,4 +1,78 @@
-# Cobertura do Leonida Map · versão 1.3.0, com complementos da 1.5.0 e da 1.6.0
+# Cobertura do Leonida Map · versão 1.3.0, com complementos da 1.5.0, 1.6.0 e 1.8.0
+
+## Complemento de colecionáveis e pontos ausentes · versão 1.8.0 (24/11/2026)
+
+Escopo: só as categorias abaixo. Nenhum ponto, ID, favorito ou conclusão existente foi apagado ou renumerado. O detalhe nominal (todos os novos IDs e todos os pontos em conflito) está em [audit/GAMETA.md](audit/GAMETA.md), gerado por `node scripts/import-gameta.mjs`.
+
+**Resultado.** Entraram **147 pinos novos** (Gameta), **55 pinos reclassificados** (flamingos que já estavam no snapshot como "Drogas") e **14 pistas sem pino**. Nada foi inventado: cada pino novo vem de uma coordenada publicada, convertida e validada. Sobra muito por fazer (tabela abaixo).
+
+### Por categoria
+
+| Categoria | Antes | Candidatos | Correspondências / duplicatas | Pinos adicionados | Pistas sem pino | Depois | Referência de cobertura | Limitação |
+|---|--:|--:|--:|--:|--:|--:|---|---|
+| Tesouros do Kenton `kenton` | 0 | 41 | 0 (os 5 pinos `treasure` do snapshot marcam os naufrágios, não os itens) | **41** | 0 | 41 | 41 no jogo (Gameta, 7 locais de mergulho) | Fonte única; 4 dos 7 locais conferem com pinos independentes (0,4–3 unid.) |
+| Flamingos de cocaína `flamingo` | 0 (55 em Drogas) | 55 no snapshot | 55 reclassificados, 0 importados | 0 | 0 | **55 pinos** | 125 no jogo; 22 flamingos em 20 pinos na GTA6Wiki; 30 descrições na ViceCityDB | 55 pinos cobrem mais de 55 flamingos, porque alguns pinos reúnem 2–3. GTA6Wiki e ViceCityDB não publicam coordenadas |
+| Descobertas subaquáticas `underwater` | 0 | 6 naufrágios | 0 | **5 aproximados** | 1 (Nuestra Señora del Ocio) | 5 + 1 pista | 33 no jogo; Dexerto lista 5 e Game Checklists lista 6 | Posição = centro dos tesouros do Kenton no naufrágio (raio 0,5–1,0 unid.). Profundidade não documentada |
+| Laboratórios de Kitty Litter `kitty` | 0 | 13 | 0 | 0 | **13** | 13 pistas | 14 declarados (a PowerPyx lista 13) | Só áreas de busca por distrito; o app não tem geometria de área |
+| Alvos do Bret `bret` | 0 | — | — | 0 | 0 | 0 | 15 | **Bloqueado**: o PushSquare respondeu 403. GTABase proíbe extração |
+| ATMs comuns `atm` | 160 | 193 | 158 pares, 14 em conflito | **21** | 0 | 181 | 193 Gameta · 190 GTA6GPS · 223 MapGenie | 14 candidatos a menos de 0,5 unid. de outro ponto não entraram |
+| ATMs rebocáveis `towatm` | 94 | 98 | 92 pares, 4 em conflito | **2** | 0 | 96 | 99 Wiki · 100 GTABase · 104 GPS · 127 MapGenie | Fontes divergem entre 96 e 127; a falta não é só de dados |
+| Carregadores elétricos `ev` | 88 | 125 | 87 pares, 2 em conflito | **36** | 0 | 124 | 126 (MapGenie e Gameta declarado) | Fonte única nos 36 |
+| Pontos de ônibus (nome "Bus Stop") | 310 (276 com tipo + 34 sem tipo) | 301 | 266 pares, 3 em conflito | **32** | 0 | 342 | 287 MapGenie · 301 Gameta | Os 34 sem tipo vêm de `places`, com nome "Bus Stop" e tipo vazio |
+| Contatos `contact` (nova) | 0 | 10 | 0 | **10** | 0 | 10 | 10 MapGenie e Gameta | Nome dos locais como publicado |
+| Meditação `meditation` | 10 | 8 | 6 conferem | 0 | 0 | 10 | 8 no Gameta, 18 conclusões (Jason e Lucia) | 2 conflitos de posição, abaixo |
+| Garagens | 14 | 17 | 12 pares nomeados | 0 | 0 | 14 | 17 + 4 MapGenie | Os 5 sem par vêm misturados com itens que não são garagens (ex.: "Collect your Dominator Buggy"); nada entrou |
+| Drogas e contrabando `drug` | 71 | — | — | 0 | 0 | 16 | — | Efeito da reclassificação dos 55 flamingos |
+
+**Notas de leitura.**
+- Ônibus: o "antes" de 276 do AUDIT conta só o tipo "Bus stop". O importador compara contra 310 pontos, porque 34 pontos de `places` chamados "Bus Stop" (categorias Transporte e Edifícios) têm tipo vazio. Antes 310, depois 342, e o AUDIT passa de 276 para 308 só pelo tipo.
+- Nenhuma categoria é declarada completa. Os números de referência são contagens de outras fontes, e elas divergem entre si.
+- Os pinos do Gameta são fonte única. Cada ficha diz isso ("Fonte única · posição calibrada") e mostra a conferência de calibração.
+
+### Flamingos de cocaína: conferência entre fontes
+
+A GTA6Wiki e a ViceCityDB não trazem coordenadas, então a conferência é **por descrição e área**, não espacial. Um pino é "corroborado" quando a descrição do snapshot bate com uma entrada de outra fonte. É julgamento editorial, e vale como indício, não como prova.
+
+| Pino local | Descrição no snapshot | Entrada em outra fonte |
+|---|---|---|
+| `hidden-package-073` | Quintal da Halloween House | GTA6Wiki "Capri Halloween House" · ViceCityDB "Capri, casa do Halloween" (5 fontes) |
+| `hidden-package-036` | Casa única de decoração estranha, Key Lento | GTA6Wiki "Key Lento eccentric house" · ViceCityDB "casa excêntrica" |
+| `hidden-package-042` | Entre duas árvores, Key Lento | ViceCityDB "Key Lento, entre duas árvores" (1 fonte) |
+| `hidden-package-044` | Montanha de lixo, Port Gellhorn | ViceCityDB "Port Gellhorn, montanha de lixo" (1 fonte) |
+| `hidden-package-020` | Festa na praia | ViceCityDB "Watson Bay, festa na praia" |
+| `hidden-package-024` | Entre velas, no mesmo prédio de outra cocaína | ViceCityDB "Watson Bay, sala cheia de velas" |
+| `hidden-package-041` | Sobre a mesa de um prédio pequeno | ViceCityDB "Watson Bay, mesa num pequeno prédio" |
+| `hidden-package-092` | Na casa, perto do radome de Riquezas Keys | GTA6Wiki "Riquezas Keys" · ViceCityDB "Riquezas Keys, ilha do radome" |
+| `hidden-package-051` e `-121` | Cais de Belpoint (o primeiro reúne 3 flamingos) | GTA6Wiki "Belpoint docks" · ViceCityDB "Cais de Belpoint" |
+| `hidden-package-071` | Contêineres junto à pilha em chamas | GTA6Wiki "Belpoint container" · ViceCityDB "contentor em chamas" |
+| `hidden-package-143`, `-137`, `-155`, `-156`, `-110` | Arredores do naufrágio Meerwunder | GTA6Wiki: 3 em "Meerwunder beach" mais 3 em Featherstone · ViceCityDB: 3 do Meerwunder e 3 em Featherstone (o Gameta põe o naufrágio nesta área) |
+
+**Resultado:** 16 pinos locais corroborados por descrição, de 55. Os outros 39 não têm entrada correspondente nas duas fontes, e muitos não têm descrição alguma no snapshot.
+
+**Entradas de outras fontes sem pino local identificável:** Belpoint (casa branca grande, junto à fogueira, casa branca pequena, contêiner amarelo), Capri (cais perto de um corpo, La Costa, a oeste da Volcano Coffee, perto do navio afundado), ilha de areia a sul de Cottonmouth Lake, Key Lento a sul, La Perle (prédio em C), Mile Zero Air Station (costa de Goose Key), Watson Bay (motel, extremo norte) e Abismo Key. **Decisão: nenhuma virou pista.** Sem coordenadas não dá para saber se são pinos novos ou os mesmos 41 pinos sem descrição, e criar pistas poderia inflar a contagem de flamingos. Elas ficam listadas aqui como lacuna.
+
+**Pinos que reúnem vários flamingos.** `hidden-package-051` (3), `-142` (2) e `-110` (2) só podem ser concluídos uma vez, como pino. As fichas dizem quantos flamingos o pino reúne.
+
+### Transformação e qualidade espacial
+- Pares por nome único nos dois lados: **873**. Ajuste em metade (437 pares, 389 inliers) e validação nos outros **436**.
+- Resíduo mediano: **0,075 unidade (≈2 m)** nos pares reservados; 387 de 436 a até 0,5 unid. P90 de 0,77 inclui nomes iguais com numeração diferente (cestas, trocas de livros).
+- A transformação antiga (÷32 e dois deslocamentos) dá mediana de 0,149 nos mesmos pares. Passou-se a usar a afim ajustada, que é praticamente ÷32 sem rotação. Nenhum pino já existente foi movido.
+- Nas quatro categorias comparadas ponto a ponto, os pares casam com mediana de 0,05–0,07 e P90 até 0,15. Daí o corte: um ponto a menos de 0,3 unid. é o mesmo objeto, e entre 0,3 e 0,5 é conflito. Só entra quem estiver a 0,5 unid. ou mais de qualquer ponto existente do mesmo tipo e de outros candidatos novos.
+- Correspondência um a um, gulosa por distância, com segunda passada até 1,0 apenas contra pontos locais ainda livres.
+- **ATM comum × rebocável.** Há 5 ATMs comuns do catálogo a 0,3 unid. ou menos de um rebocável (um deles a menos de 0,1). A coincidência já existia e não foi alterada: pode ser um mesmo objeto listado em duas categorias. Dois candidatos novos de ATM comum caíram sobre rebocáveis e ficaram em conflito, sem importação.
+
+### Pontos em conflito e conferência
+- **Meditação.** `meditation-009` (Seaside) está a 4,3 unid. do Gameta. `meditation-004` (Worn Stone) está a 179 unid.: o Gameta o põe perto de Watson Bay (390, 626) e o catálogo no norte (378, 448). Nada foi alterado.
+- **Naufrágio Nuestra Señora de la Noche.** O pino `treasure-001` do snapshot fica a 8,4 unid. do centro dos 7 itens do Gameta. A ficha registra a divergência.
+- **Tesouros do Kenton × `treasure`.** `treasure-002…005` coincidem com os naufrágios a 0,4–3,0 unid. e continuam como pinos de naufrágio. `treasure-006` (Gold Doubloon) está a 17 unid. do Bobcat Dive Site e não foi vinculado.
+- A lista nominal dos candidatos de ATM, rebocável, carregador e ônibus em conflito está em [audit/GAMETA.md](audit/GAMETA.md).
+
+### O que ficou sem pino e por quê
+- **Kitty Litter.** A PowerPyx descreve prédios e áreas de busca, sem coordenadas, e o Gameta não tem essa categoria. As 13 pistas estão na busca global, em "Laboratórios de Kitty Litter". O app ainda não tem geometria de área, e criar um pino pelo distrito seria uma posição fictícia.
+- **Nuestra Señora del Ocio.** Texto: a leste de Key Lento, depois da ilha a nordeste da loja do Kenton. Não está entre os tesouros do Kenton, então não há ponto de apoio.
+- **Flamingos além dos 55.** GTA6Wiki (20 pinos, "cada pino fica em seu distrito até o ponto exato ser verificado") e ViceCityDB (30 entradas, todas "sem marcador no mapa") não têm coordenadas. Não foram criadas pistas para elas, para não duplicar pinos que o snapshot já localiza.
+- **Alvos do Bret.** PushSquare bloqueou (403); uma busca por fonte aberta alternativa não achou lista dos 15 alvos com região.
+- **Tablets.** Sem mudança: nenhuma fonte consultada publica posições.
 
 ## Complemento de preços de revenda · versão 1.6.0 (24/11/2026)
 

@@ -45,6 +45,24 @@ export const reclassified = {
   'book-swap-010':'magazine'
 };
 
+// Flamingos de cocaína. O snapshot os guarda como "Hidden package" na categoria Drogas, com o nome
+// "Cocaine Flamingo…". São 55 pinos, e alguns reúnem vários flamingos (dock: 3; "(2)"). Reclassificados em 24/11/2026.
+export const flamingoIds = ['hidden-package-019','hidden-package-020','hidden-package-024','hidden-package-032','hidden-package-034','hidden-package-035','hidden-package-029','hidden-package-036','hidden-package-041','hidden-package-042','hidden-package-044','hidden-package-050','hidden-package-051','hidden-package-054','hidden-package-057','hidden-package-055','hidden-package-062','hidden-package-063','hidden-package-060','hidden-package-065','hidden-package-069','hidden-package-070','hidden-package-068','hidden-package-071','hidden-package-073','hidden-package-074','hidden-package-081','hidden-package-084','hidden-package-092','hidden-package-094','hidden-package-096','hidden-package-100','hidden-package-102','hidden-package-103','hidden-package-108','hidden-package-110','hidden-package-111','hidden-package-113','hidden-package-114','hidden-package-120','hidden-package-121','hidden-package-125','hidden-package-133','hidden-package-137','hidden-package-142','hidden-package-143','hidden-package-135','hidden-package-149','hidden-package-150','hidden-package-155','hidden-package-156','hidden-package-157','hidden-package-162','hidden-package-163','hidden-package-164'];
+for (const id of flamingoIds) reclassified[id] = 'flamingo';
+
+// Fatos extras por ponto, para pontos do snapshot afetados por novas importações.
+const kentonTreasure = 'Os itens individuais deste naufrágio estão em Tesouros do Kenton (Gameta). Este pino do snapshot marca o naufrágio.';
+export const pointFacts = {
+  'treasure-001':{'Relação':kentonTreasure, 'Divergência':'Este pino fica a 8,4 unidades (≈270 m) do centro dos 7 itens do Kenton neste naufrágio no Gameta. A posição exata do casco não está confirmada.'},
+  'hidden-package-051':{'Flamingos':'Este pino reúne 3 flamingos de cocaína (1 no cais e 2 mais perto da música). Só pode ser concluído uma vez.'},
+  'hidden-package-142':{'Flamingos':'Este pino reúne 2 flamingos de cocaína. Só pode ser concluído uma vez.'},
+  'hidden-package-110':{'Flamingos':'Este pino reúne 2 flamingos de cocaína (um na água e outro sobre um contêiner). Só pode ser concluído uma vez.'},
+  'treasure-002':{'Relação':kentonTreasure},
+  'treasure-003':{'Relação':kentonTreasure},
+  'treasure-004':{'Relação':kentonTreasure},
+  'treasure-005':{'Relação':kentonTreasure}
+};
+
 // Nomes corrigidos. O nome importado continua pesquisável.
 export const renames = {
   'gang-operation-008':{name:'Stash House', note:'Nome do menu do jogo. A fonte importada usa "Robbery Opportunity" e o cofre vizinho se chama Safe - Stash House.'},
