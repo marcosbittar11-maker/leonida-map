@@ -11,6 +11,8 @@
 - **Interface.** Contexto e crédito em cada cotação. Seção "Outras cotações (fora da faixa de revenda livre)". Variante sem preço próprio mostra "Referência do modelo base", rotulada e fora de filtros e ranking. Filtro "Apenas com valor de revenda conhecido".
 - **Não alterado.** IDs, favoritos, mapa e as demais categorias. O Riata do Moses (`vehicle-vapid-riata-celle-de-moses`) tem a mesma taxa de registro de `vapid-riata` e 1.980 = 1.800 × 1,10, mas continua separado para não perder favoritos.
 
+**Atenção.** O workflow de publicação roda `npm test` e `npm run build`, sem Playwright e sem `data:vehicles`. Um refresh completo por rede passa pelo `consolidate` completo, coberto pelos testes de merge. O ranking de revenda agora tem as variantes do Emerus (33.000) no topo; o teste de ranking passou em desktop e iPhone. Scans novos com exemplar destrancado fazem esses veículos passarem em "Apenas compatíveis" sem equipamento marcado (detalhes no COVERAGE).
+
 **Lacunas mantidas.** 108 modelos terrestres sem cotação e 105 variantes sem cotação própria cujo modelo base tem preço. Devil's Rope Gauntlet respondeu 404 no NiaDB e não foi tentado por palpite de endereço. Não há pedido enviado ao NiaDB: o rascunho está em `data/reference/niadb-pedido-acesso.md`.
 
 **Testes executados**

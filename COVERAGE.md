@@ -1,4 +1,4 @@
-# Cobertura do Leonida Map · versão 1.3.0, com complemento da 1.5.0
+# Cobertura do Leonida Map · versão 1.3.0, com complementos da 1.5.0 e da 1.6.0
 
 ## Complemento de preços de revenda · versão 1.6.0 (24/11/2026)
 
@@ -19,6 +19,10 @@ Por classe (modelos / variantes). Muscle 20 → 21 / 0. SUV 14 → 16 / 0 → 1.
 **Exclusões justificadas.** Comet S2 destruído do Jason (9.710), cartões de menu de carros próprios (Carbonizzare 14.150, SFB 1000 5.250, Tulip M-100 3.370, Rebel 3.330, Buffalo '07 2.150, Cavalcade XL 7.800) e valores descartados (12.320 atribuído ao Coquette atual, que é do '64). Todos seguem visíveis em "Outras cotações". O Ganado do Jason (1.980 na GTA6Wiki) não entrou: o valor é idêntico ao do Riata do Moses com GTA+ e o escopo é incerto.
 
 **GTA+ no GTAPedia.** Em 33 fichas com GTAPedia e outra fonte, 6 têm razão exata de 1,10 sobre a outra fonte. Growler, Coquette e o Riata do Moses mostram a mesma razão contra scans do Clutchbase e do NiaDB. Esses casos foram reclassificados. As demais diferenças variam de 0,34 a 1,86, o que aponta para condição e exemplar, não para uma regra. Por isso não houve conversão universal.
+
+**Suspeitas não corrigidas (padrão ×1,10).** Quase todos os valores da tabela do IGN e do GTAFinder são múltiplos de 55, enquanto os scans independentes (NiaDB, Clutchbase, Leonida Racing) são múltiplos de 25 ou 50. Isso combina com GTA+ aplicado a boa parte da tabela agregada, mas não está provado por veículo, então não houve conversão. Exemplos: '96 Infernus 17.160 = 15.600 × 1,10 (o 15.600 tem selo RK); Bobcat 500 com 4.400 no agregador contra 4.000 no Leonida Racing, que exclui GTA+; Charred Toros 23.045 do NiaDB = 20.950 × 1,10. As faixas de revenda do catálogo podem ficar até 10% acima de um scan sem GTA+. Para fechar a dúvida, basta um scan por veículo com a conta indicada.
+
+**Filtro de compatibilidade.** Os scans novos trazem acesso por exemplar. Como `compatible()` aceita um exemplar compatível por modelo, sem equipamento marcado agora passam em "Apenas compatíveis" Tempesta, as duas variantes do Emerus, Charred Toros, Truth & Justice Caracara, Cavalcade XL, Rebla GTS e Gauntlet Hellfire, todos com um exemplar destrancado observado.
 
 **Variantes.** 105 variantes sem preço próprio têm modelo base cotado. Nenhum valor foi copiado: `parentName` não prova identidade de preço. A ficha mostra o valor do modelo base como referência rotulada.
 
