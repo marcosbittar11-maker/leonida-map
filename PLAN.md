@@ -6,3 +6,10 @@
 4. Implementar painel de exploração, mapa, ficha enxuta, gestão de progresso, rotas, rankings e PWA. Guardar progresso local com esquema versionado.
 5. Verificar importação, dados, desktop, iPhone simulado, mais de mil registros, cenários de spoiler e recarga offline. Documentar os resultados e publicação gratuita.
 
+
+## Versão 1.2.0
+
+1. Consolidar os veículos em JSON local usando o Leonida Lab como base. Cruzar identidade, classes, scans, preços e posições com as fontes complementares.
+2. Guardar dados do modelo, observações de compra e aparecimentos em campos separados, com correções versionadas. Preservar IDs no atualizador incremental.
+3. Substituir Rotas por Veículos. Integrar favoritos ao backup, mostrar grupos por classe e conectar as fichas à visualização temporária do mapa.
+4. Validar integração, navegação responsiva e modo offline. Publicar no GitHub Pages.

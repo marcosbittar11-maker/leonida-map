@@ -13,7 +13,7 @@ const previous = await readFile(new URL('catalog.json', dir), 'utf8').then(JSON.
   if (error.code !== 'ENOENT') throw error;
   return { aliases: {} };
 });
-const names = ['locations', 'places', 'categories', 'labels', 'roads'];
+const names = ['locations', 'places', 'categories', 'labels'];
 const inputs = Object.fromEntries(await Promise.all(names.map(async name => {
   const content = await fetchBytes('data/' + name + '.json');
   hashes[name] = createHash('sha256').update(content).digest('hex');
@@ -29,7 +29,6 @@ await Promise.all(tiles.map(async ([z, y, x]) => {
   await mkdir(new URL('.', target), { recursive: true });
   await writeFile(target, await fetchBytes(path));
 }));
-await save('roads.json', inputs.roads);
 await save('catalog.json', catalog);
 console.log(JSON.stringify(catalog.stats));
 

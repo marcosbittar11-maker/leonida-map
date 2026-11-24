@@ -1,0 +1,658 @@
+{
+  "aliases": {
+    "benefactor-pubsta": "benefactor-dubsta",
+    "bravado-gauntlet-hell-fire": "bravado-gauntlet-hellfire",
+    "vapid-4x4-caracara": "vapid-caracara-4x4",
+    "ubermacht-rebla": "ubermacht-rebla-gts"
+  },
+  "overrides": {
+    "albany-emperor-85": {
+      "appendScans": [
+        {
+          "tracker": "none",
+          "source": "https://www.gtafinder.com/vehicles/albany-emperor-85"
+        }
+      ],
+      "addRefs": [
+        "https://www.gtafinder.com/vehicles/albany-emperor-85"
+      ]
+    },
+    "variant-piccia-big-cat-furia": {
+      "appendSpawns": [
+        {
+          "id": "standout-vehicle-101",
+          "type": "fixed",
+          "label": "Mansão no nordeste de Starfish Island",
+          "chapter": 3,
+          "requires": [
+            "waink",
+            "cloner"
+          ],
+          "tracker": "advanced",
+          "alarm": true,
+          "cloner": true,
+          "entry": "cloner",
+          "note": "Procure a pintura de leopardo e a placa POUNCE junto à entrada. Confira o scan do exemplar no seu save.",
+          "refs": [
+            "https://www.gtaboom.com/gta-6-starfish-island-mansion-garage-4cf3",
+            "https://www.gtafinder.com/gta-6/guides/supercar-locations",
+            "https://gameta.gg/pt-br/gta6/map/standout-vehicles/?pin=pl-1103"
+          ]
+        }
+      ],
+      "addRefs": [
+        "https://www.gtaboom.com/gta-6-starfish-island-mansion-garage-4cf3",
+        "https://www.gtafinder.com/gta-6/guides/supercar-locations",
+        "https://gta6wiki.eu/vehicles/big-cat-furia/"
+      ]
+    },
+    "vehicle-vapid-stanier-98": {
+      "appendQuotes": [
+        {
+          "value": [
+            550,
+            550
+          ],
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "label": "Exemplar escaneado no Capítulo 2",
+          "tracker": "none",
+          "entry": "slim",
+          "cloner": false,
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "addRefs": [
+        "https://gta6playertools.com/locations/sell-and-register-cars"
+      ],
+      "buyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            275,
+            285
+          ],
+          "chapter": 2,
+          "note": "Ofertas registradas em gameplay.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "bravado-dorado": {
+      "appendQuotes": [
+        {
+          "value": [
+            650,
+            650
+          ],
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "label": "Exemplar escaneado no Capítulo 2",
+          "tracker": "none",
+          "entry": "slim",
+          "cloner": false,
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "addRefs": [
+        "https://gta6playertools.com/locations/sell-and-register-cars"
+      ]
+    },
+    "karin-rebel-84": {
+      "appendQuotes": [
+        {
+          "value": [
+            1100,
+            1100
+          ],
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "label": "Exemplar escaneado no Capítulo 2",
+          "tracker": "none",
+          "entry": "slim",
+          "cloner": false,
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "addRefs": [
+        "https://gta6playertools.com/locations/sell-and-register-cars"
+      ]
+    },
+    "vapid-caracara-4x4": {
+      "appendQuotes": [
+        {
+          "value": [
+            2950,
+            2950
+          ],
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "label": "Exemplar escaneado no Capítulo 2",
+          "tracker": "standard",
+          "entry": "cloner",
+          "cloner": true,
+          "source": "https://gta6playertools.com/locations/sell-and-register-cars",
+          "alarm": true
+        }
+      ],
+      "addRefs": [
+        "https://gta6playertools.com/locations/sell-and-register-cars"
+      ],
+      "buyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            5245,
+            5245
+          ],
+          "chapter": 2,
+          "note": "Oferta registrada para um exemplar. Outro scan mostrou rastreador padrão, que Moses não aceita.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "vehicle-vapid-shuttle": {
+      "stats": {
+        "speed": 2.9,
+        "acceleration": 3.1,
+        "asphalt": 3.6,
+        "offroad": 3.1,
+        "strength": 3
+      },
+      "ratings": {
+        "road": 332,
+        "offroad": 181
+      },
+      "statsRefs": [
+        "https://meowdb.com/gta6/vehicles"
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles"
+      ],
+      "appendScans": [
+        {
+          "label": "Van azul escaneada em gameplay",
+          "tracker": "none",
+          "entry": "slim",
+          "alarm": true,
+          "cloner": false,
+          "source": "https://meowdb.com/gta6/vehicles"
+        }
+      ]
+    },
+    "declasse-bobcat-xl-84": {
+      "appendScans": [
+        {
+          "label": "Picape vista em gameplay",
+          "tracker": "none",
+          "alarm": false,
+          "source": "https://meowdb.com/gta6/vehicles"
+        }
+      ],
+      "addRefs": [
+        "https://meowdb.com/gta6/vehicles"
+      ]
+    },
+    "variant-vapid-red-hot-hustler": {
+      "appendSpawns": [
+        {
+          "id": "standout-vehicle-056",
+          "type": "fixed",
+          "label": "Estacionamento de hotel, Vela Rota Drive",
+          "note": "Verifique o estacionamento dos fundos do hotel em Capri.",
+          "refs": [
+            "https://gta6wiki.eu/guides/gta-6-standout-vehicles/",
+            "https://github.com/fbritoferreira/gta6"
+          ]
+        }
+      ],
+      "addRefs": [
+        "https://gta6wiki.eu/guides/gta-6-standout-vehicles/"
+      ]
+    },
+    "variant-invetero-oubliette-coquette": {
+      "appendSpawns": [
+        {
+          "id": "standout-vehicle-288",
+          "type": "fixed",
+          "label": "Contêiner no sul de La Perle",
+          "note": "O contêiner exige uma ferramenta de corte.",
+          "refs": [
+            "https://gta6wiki.eu/guides/gta-6-standout-vehicles/",
+            "https://github.com/fbritoferreira/gta6"
+          ]
+        }
+      ],
+      "addRefs": [
+        "https://gta6wiki.eu/guides/gta-6-standout-vehicles/"
+      ]
+    },
+    "variant-maibatsu-blue-drake-penumbra": {
+      "appendSpawns": [
+        {
+          "id": "standout-vehicle-172",
+          "type": "fixed",
+          "label": "Contêiner ao norte de Gellhorn Raceway",
+          "note": "O contêiner exige uma ferramenta de corte.",
+          "refs": [
+            "https://gta6wiki.eu/guides/gta-6-standout-vehicles/",
+            "https://github.com/fbritoferreira/gta6"
+          ]
+        }
+      ],
+      "addRefs": [
+        "https://gta6wiki.eu/guides/gta-6-standout-vehicles/"
+      ]
+    },
+    "variant-pegassi-lustrous-toros": {
+      "appendSpawns": [
+        {
+          "id": "standout-vehicle-140",
+          "type": "fixed",
+          "label": "Garagem residencial em Casanova Island",
+          "note": "O exemplar exige clonador de chaves.",
+          "refs": [
+            "https://gta6wiki.eu/guides/gta-6-standout-vehicles/",
+            "https://github.com/fbritoferreira/gta6"
+          ],
+          "cloner": true,
+          "entry": "cloner",
+          "requires": [
+            "cloner"
+          ]
+        }
+      ],
+      "addRefs": [
+        "https://gta6wiki.eu/guides/gta-6-standout-vehicles/"
+      ]
+    },
+    "vapid-stanier-55": {
+      "photo": {
+        "file": "vehicles/vapid-stanier-55.webp",
+        "small": "vehicles/vapid-stanier-55-360.webp",
+        "alt": "'55 Vapid Stanier",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/VINTAGE_VICE_CITY_PACK_VAPID_STANIER_01.004m_8d1~qngy.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 3,
+        "requires": [
+          "vintage"
+        ]
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-vapid-stanier-55",
+          "type": "edition",
+          "label": "Ocean Beach · Ocean View Hotel",
+          "note": "Procure a atividade do Stanier no Índice do mapa, em Exploração.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 3,
+          "requires": [
+            "vintage"
+          ]
+        }
+      ]
+    },
+    "grotti-cheetah-95": {
+      "photo": {
+        "file": "vehicles/grotti-cheetah-95.webp",
+        "small": "vehicles/grotti-cheetah-95-360.webp",
+        "alt": "'95 Grotti Cheetah · Ultimate Edition",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_GROTTI_CHEETAH_01.0a.wy3s_ogjey.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 5,
+        "requires": [
+          "ultimate"
+        ]
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-grotti-cheetah-95",
+          "type": "edition",
+          "label": "Pegassi Residences · garagem subterrânea",
+          "note": "Procure no piso B1 após a atividade da edição aparecer em Exploração.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 5,
+          "requires": [
+            "ultimate"
+          ]
+        }
+      ]
+    },
+    "vapid-dominator-buggy-67": {
+      "photo": {
+        "file": "vehicles/vapid-dominator-buggy-67.webp",
+        "small": "vehicles/vapid-dominator-buggy-67-360.webp",
+        "alt": "'67 Vapid Dominator Buggy · Ultimate Edition",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_VAPID_BUGGY_01.0jxfiql~371ik.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 2,
+        "requires": [
+          "ultimate",
+          "mudClub"
+        ]
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-vapid-dominator-buggy-67",
+          "type": "edition",
+          "label": "Watson Bay · Paradise Garage",
+          "note": "A atividade do buggy fica disponível após a corrida no Mud Club.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 2,
+          "requires": [
+            "ultimate",
+            "mudClub"
+          ]
+        }
+      ]
+    },
+    "shitzu-squalo": {
+      "photo": {
+        "file": "vehicles/shitzu-squalo.webp",
+        "small": "vehicles/shitzu-squalo-360.webp",
+        "alt": "Shitzu Squalo · pintura da Ultimate Edition",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_SQUALO_02.09qplkj.rjnk7.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 4,
+        "requires": [
+          "ultimate"
+        ]
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-shitzu-squalo",
+          "type": "edition",
+          "label": "Washington Beach · cais do canal",
+          "note": "O exemplar da Ultimate Edition aparece na seção Pessoal do Índice.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 4,
+          "requires": [
+            "ultimate"
+          ]
+        }
+      ]
+    },
+    "dinka-enduro": {
+      "photo": {
+        "file": "vehicles/dinka-enduro.webp",
+        "small": "vehicles/dinka-enduro-360.webp",
+        "alt": "Dinka Enduro · variante militar da Ultimate Edition",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_02.0-2n5rm9n8.rq.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 1,
+        "requires": [
+          "ultimate"
+        ],
+        "untilChapter": 1
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-dinka-enduro",
+          "type": "edition",
+          "label": "Leonida Keys · casa do Jason",
+          "note": "A variante militar fica na entrada da casa após a introdução.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 1,
+          "requires": [
+            "ultimate"
+          ],
+          "untilChapter": 1
+        }
+      ]
+    },
+    "crest-kayak": {
+      "photo": {
+        "file": "vehicles/crest-kayak.webp",
+        "small": "vehicles/crest-kayak-360.webp",
+        "alt": "Crest Kayak · Ultimate Edition",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_SAFEHOUSE_VEHICLES_03.0c9.qtpdi.tf..jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 1,
+        "requires": [
+          "ultimate"
+        ],
+        "untilChapter": 1
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-crest-kayak",
+          "type": "edition",
+          "label": "Leonida Keys · casa do Jason",
+          "note": "Procure o caiaque nos fundos após a introdução.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 1,
+          "requires": [
+            "ultimate"
+          ],
+          "untilChapter": 1
+        }
+      ]
+    },
+    "variant-vapid-ganado-retro-build": {
+      "photo": {
+        "file": "vehicles/variant-vapid-ganado-retro-build.webp",
+        "small": "vehicles/variant-vapid-ganado-retro-build-360.webp",
+        "alt": "Vapid Ganado · personalização Retro Build",
+        "source": "https://www.rockstargames.com/VI/_next/static/media/ULTIMATE_EDITION_VAPID_GANADO_RETRO_BUILD_01.062dgvkwdynw5.jpg"
+      },
+      "addRefs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "access": {
+        "chapter": 1,
+        "requires": [
+          "ultimate"
+        ],
+        "untilChapter": 1
+      },
+      "appendSpawns": [
+        {
+          "id": "edition-variant-vapid-ganado-retro-build",
+          "type": "edition",
+          "label": "Key Lento · Coastal Auto Care",
+          "note": "A personalização é aplicada ao Ganado na oficina.",
+          "refs": [
+            "https://www.shacknews.com/article/151407/find-ultimate-edition-vice-city-pack-bonuses-gta6",
+            "https://playtested.guide/gta-6/guides/ultimate-edition-bonuses/"
+          ],
+          "chapter": 1,
+          "requires": [
+            "ultimate"
+          ],
+          "untilChapter": 1
+        }
+      ]
+    },
+    "benefactor-schafter-s": {
+      "buyerPrices": [
+        {
+          "buyer": "pay",
+          "value": [
+            2475,
+            2475
+          ],
+          "chapter": 3,
+          "note": "Cotação registrada na oficina para um exemplar com rastreador padrão.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        },
+        {
+          "buyer": "randy",
+          "value": [
+            8357,
+            8357
+          ],
+          "chapter": 3,
+          "note": "Venda registrada em gameplay para um exemplar de Casa Guardia.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "label": "Exemplar aceito pelo Pay ’n’ Spray",
+          "tracker": "standard",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "bravado-bison": {
+      "buyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            1415,
+            1415
+          ],
+          "chapter": 2,
+          "note": "Venda registrada em gameplay; o WAiNK separadamente indicava US$ 1.450.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "declasse-rancher-86": {
+      "buyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            350,
+            350
+          ],
+          "chapter": 2,
+          "note": "Venda registrada em gameplay.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "dundreary-arcturus-93": {
+      "buyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            425,
+            425
+          ],
+          "chapter": 2,
+          "note": "Oferta registrada em gameplay.",
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ]
+    },
+    "piccia-furia": {
+      "appendQuotes": [
+        {
+          "value": [
+            20950,
+            20950
+          ],
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "tracker": "advanced",
+          "alarm": true,
+          "entry": "cloner",
+          "cloner": true,
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ],
+      "addRefs": [
+        "https://www.gta6heists.com/money/sell-stolen-cars"
+      ]
+    },
+    "vehicle-pegassi-gold-rush-tempesta": {
+      "appendQuotes": [
+        {
+          "value": [
+            7650,
+            7650
+          ],
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ],
+      "appendScans": [
+        {
+          "tracker": "advanced",
+          "alarm": true,
+          "entry": "cloner",
+          "cloner": true,
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        }
+      ],
+      "addRefs": [
+        "https://www.gta6heists.com/money/sell-stolen-cars"
+      ]
+    }
+  },
+  "additions": [
+    {
+      "id": "variant-vapid-ganado-retro-build",
+      "name": "Vapid Ganado Retro Build",
+      "maker": "Vapid",
+      "model": "Ganado Retro Build",
+      "level": "official",
+      "parentName": "Vapid Ganado",
+      "variant": true,
+      "rarity": "edition",
+      "availability": "edition",
+      "condition": "Personalização do Ganado incluída na Ultimate Edition.",
+      "refs": [
+        "https://www.rockstargames.com/VI"
+      ],
+      "class": "muscle"
+    }
+  ]
+}

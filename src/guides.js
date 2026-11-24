@@ -9,6 +9,7 @@ const stages = 'https://gta6collectiblesmap.com/articles/gta-6-collectibles-by-c
 export const checked = '2026-11-24';
 export const equipment = {
   cloner:'Clonador de chaves', randy:'Contato do Randy desbloqueado', moses:'Contato do Moses desbloqueado',
+  ultimate:'Ultimate Edition', vintage:'Pacote Vintage Vice City', mudClub:'Corrida do Mud Club concluída',
   brian:'Depósito do Brian desbloqueado', donnie:'Contato do Donnie disponível',
   boat:'Barco', cargo:'Veículo com espaço para bolsas', shirley:'Entrega do rum à Shirley concluída',
   bank:'Assaltos a caixas de banco desbloqueados', vault:'Assaltos a cofres grandes desbloqueados',

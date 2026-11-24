@@ -7,9 +7,10 @@ async function filenames(dir) {
   const children = await Promise.all(list.map(entry => entry.isDirectory() ? filenames(dir + entry.name + '/') : dir + entry.name));
   return children.flat();
 }
-const files=(await filenames('./')).filter(name=>name!=='./sw.js').sort();
+const assets=(await filenames('./')).filter(name=>name!=='./sw.js').sort();
+const files=assets.filter(name=>!name.startsWith('./vehicles/'));
 const hash=createHash('sha256');
-for (const name of files) hash.update(name).update(await readFile(new URL(name,dist)));
+for (const name of assets) hash.update(name).update(await readFile(new URL(name,dist)));
 const sw = await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
 const version=hash.update(sw).digest('hex').slice(0,14);
 await writeFile(new URL('sw.js',dist),'const VERSION = '+JSON.stringify(version)+';\nconst FILES = '+JSON.stringify(files)+';\n'+sw);

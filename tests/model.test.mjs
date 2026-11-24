@@ -5,7 +5,6 @@ import { prepareCatalog } from '../scripts/normalize.mjs';
 import { guides } from '../src/guides.js';
 import { applyGuides, decodeProgress, mergeProgress, freshProgress, visible, matches, remaining } from '../src/model.js';
 import { pointSymbol } from '../src/point-icons.js';
-import { graphFromRoads, routeLeg } from '../src/routes.js';
 
 const catalog=JSON.parse(await readFile(new URL('../public/data/catalog.json',import.meta.url)));
 const data=applyGuides(catalog);
@@ -48,7 +47,7 @@ test('capítulo, requisitos, busca normalizada e flags positivas',()=>{
   assert.deepEqual(remaining([byId.get('L2453'),p],{}),[12720,14400,1]);
 });
 test('backup resolve aliases, preserva capítulo atual e valida pontos customizados',()=>{
-  const raw={...freshProgress(),chapter:1,favorites:['before'],completed:{before:'2026-11-24'},route:['before']};
+  const raw={...freshProgress(),chapter:1,favorites:['before'],completed:{before:'2026-11-24'},vehicleFavorites:['vehicle-vapid-stanier-98']};
   const imported=decodeProgress(raw,{before:'after'});
   assert.deepEqual(imported.favorites,['after']);
   assert.deepEqual(imported.completed,{after:'2026-11-24T00:00:00.000Z'});
@@ -56,20 +55,9 @@ test('backup resolve aliases, preserva capítulo atual e valida pontos customiza
   const merged=mergeProgress({...freshProgress(),chapter:4,chapterSelected:true},imported);
   assert.equal(merged.chapter,4);
   assert.equal(decodeProgress(merged).chapter,4);
-  assert.deepEqual(merged.route,['after']);
+  assert.deepEqual(merged.vehicleFavorites,['vehicle-vapid-stanier-98']);
   assert.throws(()=>decodeProgress({...raw,custom:[{id:'bad',name:'bad',x:5000,y:30}]}));
 });
-test('trajeto viário usa segmentos conectados e separa lacunas',()=>{
-  const graph=graphFromRoads({features:[{geometry:{type:'LineString',coordinates:[[0,0],[0,5],[5,5]]}}]});
-  const a={x:0,y:0}, b={x:5,y:5};
-  const known=routeLeg(a,b,graph);
-  assert.equal(known.known,true);
-  assert.equal(known.length,320);
-  assert.ok(known.straight<known.length);
-  assert.equal(routeLeg(a,{x:50,y:50},graph).known,false);
-});
-
-
 test('Locais começa desativado e só aparece após a ativação explícita',()=>{
   const place=byId.get('pay-n-spray-002');
   const progress={...freshProgress(),chapter:3,chapterSelected:true};

@@ -1,6 +1,6 @@
 {
   "name": "leonida-map",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,8 +8,9 @@
     "build": "vite build && node scripts/offline.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "data:sync": "node scripts/import.mjs",
-    "test": "node --test tests/model.test.mjs",
-    "test:e2e": "playwright test"
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "data:vehicles": "node scripts/update-vehicles.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

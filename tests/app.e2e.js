@@ -29,7 +29,7 @@ async function search(page,value) {
 }
 async function prefs(page, fn) {
   await page.locator('.chapter').click();
-  await fn(page.locator('dialog'));
+  await fn(page.locator('#dialog'));
   await tap(page,'Salvar preferências').click();
 }
 async function pick(page,text,id) {
@@ -133,16 +133,8 @@ test('favorito, conclusão, checklist e round-trip de backup',async({page})=>{
   await expect(page.locator('#panel-content [data-point="L2453"]')).toBeVisible();
 });
 
-test('rota, ponto personalizado e edição',async({page})=>{
+test('criação e edição de ponto personalizado',async({page})=>{
   await ready(page);
-  await enableLayer(page,'Exploração');
-  await pick(page,'arara','liquor-store-002');
-  await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
-  await pick(page,'apollo','L2453');
-  await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
-  await tap(page,'Rotas').click();
-  await expect(page.getByText(/Linha reta ·/)).toBeVisible();
-  await tap(page,'Enquadrar rota').click();
   await tap(page,'Adicionar ponto personalizado').click();
   await map(page).click({position:{x:180,y:129}});
   await page.getByLabel('Nome',{exact:true}).fill('Meu teste');
@@ -185,23 +177,14 @@ test('PWA carrega catálogo e mapa base com conexão bloqueada',async({page,cont
 });
 
 
-test('trajeto viário e ranking de revenda usam dados do catálogo',async({page})=>{
+test('ranking de revenda abre ficha do catálogo consolidado',async({page})=>{
   await ready(page);
-  await pick(page,'Fleeca Key Lento','bank-006');
-  await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
-  await filters(page);
-  await enableLayer(page,'Veículos');
-  await pick(page,'spray Key Lento','pay-n-spray-002');
-  await detail(page).getByRole('button',{name:'Rota',exact:true}).click();
-  await tap(page,'Rotas').click();
-  await expect(page.getByText(/Vias mapeadas ·/)).toBeVisible();
-  await tap(page,'Mapa').click();
-  await filters(page);
-  await query(page).fill('');
-  await expect(page.getByRole('heading',{name:'Guias em destaque'})).toBeVisible();
   await tap(page,'Rankings').click();
   await expect(page.getByRole('heading',{name:'Revenda de veículos'})).toBeVisible();
-  await expect(page.locator('[data-point="standout-vehicle-087"]')).toBeVisible();
+  const entry=page.locator('#vehicle-ranking [data-rank-vehicle]').first();
+  await expect(entry).toBeVisible();
+  await entry.click();
+  await expect(page.locator('#vehicle-dialog')).toContainText('Revenda no modo livre');
 });
 
 
@@ -237,7 +220,7 @@ test('dados anteriores recebem a seleção sem perder conclusões',async({page})
   await expect(page.locator('#panel-content [data-point="L2453"]')).toBeVisible();
   const progress=await page.evaluate(()=>JSON.parse(localStorage.getItem('leonida-map:progress:v1')));
   expect(progress.favorites).toEqual(['L2453']);
-  expect(progress.route).toEqual(['L2453']);
+  expect(progress.vehicleFavorites).toEqual([]);
 });
 
 test('Locais fica oculto até ativação e guarda os dois estados',async({page})=>{
@@ -275,7 +258,7 @@ test('pinos, resultados, legenda e ficha usam símbolos vetoriais',async({page})
 
 test('apenas Operações no início, com versão e variantes filtráveis',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.1.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.2.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(1);
   await expect(page.getByRole('checkbox',{name:'Operações',exact:true})).toBeChecked();

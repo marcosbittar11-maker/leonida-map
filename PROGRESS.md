@@ -55,3 +55,12 @@ Nenhum ponto recebeu confirmação de coordenadas por inspeção independente no
 - 262 pontos de variantes terrestres na seleção editorial, incluindo dois aparecimentos adicionais do Gameta. Pedidos de entregas e aparecimentos genéricos ficaram fora da camada. Os IDs antigos continuam no catálogo para preservar o progresso.
 - A comparação de fontes e a transformação das duas coordenadas estão documentadas em [FONTES.md](FONTES.md).
 - Validação desta versão com oito testes unitários e 24 testes Playwright. A carga em navegador usou mais de 5.000 pontos sem agrupar.
+
+## Versão 1.2.0
+
+- A aba Veículos substituiu Rotas. O catálogo tem busca instantânea, lista e galeria, filtros, fichas e favoritos incluídos no backup. Ranking de revenda e visualização temporária de aparecimentos usam a mesma base.
+- A base local reúne 629 fichas, 263 marcadas como variante ou edição especial, 112 com estimativa normal de revenda, 136 com desempenho, 62 com rastreador observado e sete com foto oficial. Há cinco pontos fixos documentados. Coordenadas comunitárias adicionais aparecem na visualização temporária como relatos.
+- As vendas ou ofertas observadas para compradores específicos estão em seis fichas e têm o escopo do exemplar. Preços, classe, raridade por frequência, segurança, fotos e condições de aparecimento seguem incompletos quando as fontes não informam.
+- Atualização incremental validada com download direto e repetição do mesmo snapshot. Correções de identidade, regras, preços de comprador e fotos têm fonte no arquivo de overrides.
+- Testes de navegador cobrem catálogo, tamanhos móvel e desktop, filtros de compatibilidade, navegação entre ficha e mapa, persistência, catálogo e fotos previamente visualizadas offline. A verificação foi feita em Chrome desktop e WebKit com perfil iPhone 15, sem teste em aparelho físico.
+- Resultado final local de 10 testes unitários e 32 testes Playwright, com 16 execuções por navegador. O empacotamento estático e o cache offline também passaram.

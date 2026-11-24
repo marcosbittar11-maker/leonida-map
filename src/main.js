@@ -6,8 +6,9 @@ import { registrationGuide } from './standout.js';
 import { version } from '../package.json';
 import { checked, equipment, leads } from './guides.js';
 import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, normalize, visible, availableOnMap, matches, remaining, rangeText } from './model.js';
-import { graphFromRoads, routeLeg } from './routes.js';
+import { createCarFinder } from './car-finder.js';
 import './style.css';
+import './car-finder.css';
 
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -17,12 +18,11 @@ const storageKey = 'leonida-map:progress:v1';
 const mobile = () => matchMedia('(max-width: 760px)').matches;
 const filters = {status:'all',series:new Set(),kinds:new Set(),words:[]};
 let panel='map', selected=null, placeMode=false, progress, catalog, map, staticPoints, data, filtered, lookup;
-let seriesOpen=false, roadsPromise, graph=null, routeRevision=0, flashTimer, listLimit=50;
+let seriesOpen=false, flashTimer, listLimit=50, carFinder, previewVehicle;
 const openGroups=new Set(['Operações']);
 const badge = (text,tone='') => '<span class="badge '+tone+'">'+esc(text)+'</span>';
 const button = (label, action, image, extra='') => '<button type="button" class="ui-button '+extra+'" data-action="'+action+'">'+(image?icon(image):'')+esc(label)+'</button>';
 const auditDate = date => date?.split('-').reverse().join('/') ?? '';
-const routeDistance = units => fmt.format(Math.round(units))+' u';
 const external = (url, title) => /^https?:\/\//i.test(url) ? '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(title)+icon('arrow-up-right')+'</a>' : '';
 const sourceURL = (c,rev) => 'https://github.com/fbritoferreira/gta6/blob/'+rev+'/public/data/'+(c || 'locations')+'.json';
 function sourceName(url,index) {
@@ -54,7 +54,8 @@ function refresh() {
   const pinCount=filtered.filter(p=>p.x!=null).length;
   $('map-count').textContent=fmt.format(pinCount)+(pinCount===1?' pino':' pinos');
   $('chapter-label').textContent='Capítulo '+progress.chapter;
-  renderPanel(); renderDetail(); drawRoute();
+  if (previewVehicle) clearVehicleMap();
+  renderPanel(); renderDetail();
 }
 function filterRow(key, name, total, {enabled=true, on=true, attribute='kind', marker=''}={}) {
   return '<label class="category-row"><input type="checkbox" data-'+attribute+'="'+esc(key)+'" '+(on?'checked ':'')+
@@ -103,9 +104,10 @@ function renderPanel() {
   });
   document.querySelectorAll('[data-status]').forEach(b=>{const active=b.dataset.status===filters.status; b.classList.toggle('active',active); b.setAttribute('aria-pressed',active);});
   document.querySelectorAll('[data-filter]').forEach(b=>{const active=!!filters[b.dataset.filter]; b.classList.toggle('active',active); b.setAttribute('aria-pressed',active);});
+  if (panel==='vehicles') {carFinder.render();return;}
   $('search-tools').hidden=panel!=='map';
-  $('panel-title').textContent=({map:'Explorar Leonida',rank:'Rankings',route:'Planejar rotas',progress:'Seu progresso'})[panel];
-  $('panel-caption').textContent=({map:'Pontos de interesse e guias de GTA VI',rank:'Compare as recompensas disponíveis',route:'Monte um trajeto com pinos do mapa',progress:'Checklist e histórico de exploração'})[panel];
+  $('panel-title').textContent=({map:'Explorar Leonida',rank:'Rankings',progress:'Seu progresso'})[panel];
+  $('panel-caption').textContent=({map:'Pontos de interesse e guias de GTA VI',rank:'Compare as recompensas disponíveis',progress:'Checklist e histórico de exploração'})[panel];
   const entitled=data.filter(p=>visible(p,progress));
   const available=entitled.filter(p=>availableOnMap(p,progress)), completed=available.filter(p=>progress.completed[p.id]);
   const pct=available.length?Math.round(completed.length/available.length*100):0;
@@ -120,7 +122,6 @@ function renderPanel() {
   }
   if (panel==='rank') renderRank();
   if (panel==='progress') renderProgress(available,completed);
-  if (panel==='route') renderRoutePanel();
   $('panel-content').scrollTop=scroll;
   $('panel-footer').innerHTML='<div><strong>Progresso em Leonida</strong><b>'+pct+'%</b></div><progress value="'+completed.length+'" max="'+Math.max(available.length,1)+'"></progress><small>'+fmt.format(completed.length)+' / '+fmt.format(available.length)+' pontos visíveis</small>';
 }
@@ -128,10 +129,16 @@ function renderRank() {
   const ranking=field=>filtered.filter(p=>p[field]).sort((a,b)=>(b[field][0]+b[field][1])-(a[field][0]+a[field][1])).map(p=>pointButton(p,rangeText(p[field]))).join('');
   $('panel-content').innerHTML='<div class="section-title"><h2>Atividades lucrativas</h2></div><p class="muted">Faixas podem incluir loot bruto ou bônus.</p>'+
     (ranking('reward')||'<p class="empty">Sem atividade com valor conhecido nos filtros atuais.</p>')+
-    '<div class="section-title"><h2>Revenda de veículos</h2></div>'+(ranking('resale')||
-      '<p class="empty">Ainda não há preços individuais de revenda livre suficientemente documentados.</p>')+
+    '<div class="section-title"><h2>Revenda de veículos</h2></div>'+
+    '<div id="vehicle-ranking"></div>'+button('Ver catálogo por revenda','vehicle-rank','car','full')+
     '<div class="section-title"><h2>Pistas sem pino</h2></div>'+leads.filter(p=>!progress.spoilers||p.chapter<=progress.chapter).map(p=>
       '<details class="note"><summary>'+esc(p.name)+'</summary><p>'+esc(p.note)+'</p>'+p.refs.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+'</details>').join('');
+  const target=$('vehicle-ranking');
+  carFinder.ranking().then(rows=>{
+    if (!target.isConnected) return;
+    target.innerHTML=rows.map(v=>'<button class="point-row" data-rank-vehicle="'+esc(v.id)+'">'+icon('car')+
+      '<span class="point-copy"><strong>'+esc(v.name)+'</strong><small>'+esc(rangeText(v.resale.value))+'</small></span>'+icon('chevron-right')+'</button>').join('');
+  });
 }
 function renderProgress(available,completed) {
   const [min,max,n]=remaining(available,progress.completed);
@@ -185,7 +192,7 @@ function renderDetail() {
       sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(p.collection==='gameta'?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
       (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
-      (p.x!=null?button('Rota','route-add','route'):'')+(p.evidence==='personal'?button('Editar','edit','settings-2'):'')+'</div>';
+      (p.evidence==='personal'?button('Editar','edit','settings-2'):'')+'</div>';
 }
 function selectPoint(id,focus=false) {
   const p=lookup.get(id);
@@ -196,39 +203,6 @@ function selectPoint(id,focus=false) {
   if (focus || raised) map.focus(p,{raised,zoomIn:focus});
   map.highlight(id); renderDetail();
 }
-function routePoints() {
-  return progress.route.map(id=>lookup.get(id)).filter(p=>p?.x!=null&&availableOnMap(p,progress));
-}
-let legs=[];
-function renderRoutePanel() {
-  const list=routePoints();
-  const drawn=legs.length===Math.max(0,list.length-1) && legs.every((leg,i)=>leg.a.id===list[i].id&&leg.b.id===list[i+1].id);
-  $('panel-content').innerHTML=(list.length?list.map((p,i)=>
-    '<div class="route-row"><span class="step-number">'+(i+1)+'</span><button data-point="'+esc(p.id)+'">'+esc(p.name)+'</button>'+
-    '<button class="icon-button" data-route-up="'+esc(p.id)+'" aria-label="Subir parada" '+(i?'':'disabled')+'>'+icon('move-up')+'</button>'+
-    '<button class="icon-button" data-route-down="'+esc(p.id)+'" aria-label="Descer parada" '+(i<list.length-1?'':'disabled')+'>'+icon('move-down')+'</button>'+
-    '<button class="icon-button" data-route-remove="'+esc(p.id)+'" aria-label="Remover parada">'+icon('x')+'</button></div>'
-  ).join(''):'<p class="empty">Selecione um pino e toque em Rota para acrescentar uma parada.</p>')+
-    (list.length>1?button('Enquadrar rota','fit-route','locate-fixed','full'):'')+
-    (drawn&&legs.length?'<div class="section-title"><h2>Trechos</h2></div>'+legs.map((leg,i)=>
-      '<div class="metric segment"><strong>'+(i+1)+' → '+(i+2)+'</strong><p>Linha reta · '+routeDistance(leg.straight)+'</p>'+
-      '<p>'+(leg.known?'Vias mapeadas · '+routeDistance(leg.length)+' · acessos fora do cálculo ('+routeDistance(leg.access)+')':'Nenhuma conexão viária encontrada')+'</p></div>').join(''):'')+
-    '<p class="muted">Linha roxa tracejada indica linha reta. Linha verde segue a malha viária comunitária, sujeita a acessos, mão de direção e barreiras do jogo.</p>';
-}
-async function drawRoute(fit=false) {
-  const list=routePoints(), ticket=++routeRevision;
-  const display=() => {
-    legs=list.slice(1).map((p,i)=>routeLeg(list[i],p,graph));
-    map.route(list,legs,fit);
-    if (panel==='route') renderRoutePanel();
-  };
-  display();
-  if (list.length<2||graph) return;
-  roadsPromise ||= fetch(base+'data/roads.json').then(r=>{if(!r.ok) throw new Error('Mapa viário indisponível'); return r.json();}).then(graphFromRoads);
-  try {graph=await roadsPromise;if(ticket===routeRevision)display();}
-  catch {roadsPromise=null;}
-}
-
 function openSettings() {
   const dialog=$('dialog');
   dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>Capítulo e acesso</h2><button class="icon-button" value="cancel" aria-label="Fechar preferências">'+icon('x')+'</button></div>'+
@@ -267,7 +241,7 @@ function openCustom(point) {
     if(action==='delete') {
       if(!confirm('Excluir este ponto e as marcações associadas?')) {event.preventDefault();return;}
       progress.custom=progress.custom.filter(p=>p.id!==id);
-      progress.favorites=progress.favorites.filter(key=>key!==id);progress.route=progress.route.filter(key=>key!==id);
+      progress.favorites=progress.favorites.filter(key=>key!==id);
       delete progress.completed[id];
     } else {
       if(!f.get('name').trim()){event.preventDefault();toast('Informe um nome.');return;}
@@ -280,6 +254,7 @@ function openCustom(point) {
   dialog.showModal();
 }
 function placement(value) {
+  if (value) clearVehicleMap();
   placeMode=value;map.placing(value);$('placement').hidden=!value;
   if(value){$('workspace').classList.remove('panel-open');selected=null;map.highlight(null);renderDetail();}
 }
@@ -289,34 +264,45 @@ function exportBackup() {
   a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function commit() {save();refresh();}
-function changeRoute(id,direction) {
-  if(direction===0)progress.route=progress.route.filter(key=>key!==id);
-  else {
-    const visibleIds=routePoints().map(p=>p.id);
-    const i=progress.route.indexOf(id), j=progress.route.indexOf(visibleIds[visibleIds.indexOf(id)+direction]);
-    if(i>=0&&j>=0)[progress.route[i],progress.route[j]]=[progress.route[j],progress.route[i]];
-  }
-  commit();
+function clearVehicleMap() {
+  if (!previewVehicle) return;
+  previewVehicle=null;
+  map.previewVehicles([]);
+  $('vehicle-map-bar').hidden=true;
+  $('workspace').classList.remove('vehicle-preview');
 }
-function openPanel(name) {
+function showVehicleMap(vehicle,spots) {
+  openPanel('map');
+  if (placeMode) placement(false);
+  selected=null;map.highlight(null);renderDetail();
+  previewVehicle=vehicle.id;
+  $('vehicle-map-model').textContent=vehicle.name;
+  $('vehicle-map-model').parentElement.setAttribute('aria-label','Voltar à ficha de '+vehicle.name);
+  $('vehicle-map-bar').hidden=false;
+  $('workspace').classList.add('vehicle-preview');
+  map.previewVehicles(spots,vehicle.name);
+}
+function openPanel(name,reopenVehicle) {
+  clearVehicleMap();
   panel=name;$('panel-content').scrollTop=0;
   $('workspace').classList.toggle('panel-open',name!=='map');
+  $('workspace').classList.toggle('panel-vehicles',name==='vehicles');
   $('workspace').classList.remove('panel-collapsed');
-  if(mobile()&&name!=='map'){selected=null;map.highlight(null);renderDetail();}
+  if(name==='vehicles'||mobile()&&name!=='map'){selected=null;map.highlight(null);renderDetail();}
+  if(name!=='vehicles')carFinder.hide();
   renderPanel();
+  if(reopenVehicle)carFinder.openDetail(reopenVehicle);
 }
 function handleClick(event) {
   const target=event.target.closest('button');
   if(!target||target.closest('dialog'))return;
   const d=target.dataset;
+  if(d.rankVehicle)return openPanel('vehicles',d.rankVehicle);
   if(d.point)return selectPoint(d.point,true);
   if(d.panel)return openPanel(d.panel);
   if(d.status){filters.status=d.status;listLimit=50;refresh();return;}
   if(d.filter){filters[d.filter]=!filters[d.filter];listLimit=50;refresh();return;}
   if(d.toggleGroup){if(openGroups.has(d.toggleGroup))openGroups.delete(d.toggleGroup);else openGroups.add(d.toggleGroup);renderPanel();return;}
-  if(d.routeRemove)return changeRoute(d.routeRemove,0);
-  if(d.routeUp)return changeRoute(d.routeUp,-1);
-  if(d.routeDown)return changeRoute(d.routeDown,1);
   switch(d.action) {
     case 'home':openPanel('map');map.home();break;
     case 'settings':openSettings();break;
@@ -338,11 +324,9 @@ function handleClick(event) {
     case 'reset-filters':Object.assign(filters,{status:'all',series:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false});$('query').value='';commit();break;
     case 'done':if(selected){if(progress.completed[selected])delete progress.completed[selected];else progress.completed[selected]=new Date().toISOString();commit();}break;
     case 'favorite':if(selected){progress.favorites=progress.favorites.includes(selected)?progress.favorites.filter(id=>id!==selected):[...progress.favorites,selected];commit();}break;
-    case 'route-add':
-      if(selected&&!progress.route.includes(selected)&&progress.route.length<25){progress.route.push(selected);commit();toast('Parada adicionada à rota.');}
-      else toast('Ponto já incluído ou limite de 25 paradas.');
-      break;
-    case 'fit-route':drawRoute(true);if(mobile())$('workspace').classList.remove('panel-open');break;
+    case 'vehicle-rank':carFinder.sortByPrice();openPanel('vehicles');break;
+    case 'vehicle-map-back':openPanel('vehicles',previewVehicle);break;
+    case 'vehicle-map-clear':clearVehicleMap();break;
     case 'export':exportBackup();break;
     case 'import':$('backup-input').click();break;
     case 'edit':if(lookup.get(selected)?.evidence==='personal')openCustom(lookup.get(selected));break;
@@ -380,12 +364,17 @@ async function init() {
   staticPoints=applyGuides(catalog);
   map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
     onPlace:p=>{placement(false);openCustom(p);},markerIcon:pointSymbol});
+  carFinder=createCarFinder({root:$('vehicle-finder'),dialog:$('vehicle-dialog'),base,getProgress:()=>progress,showMap:showVehicleMap,
+    toggleFavorite:id=>{
+      progress.vehicleFavorites=progress.vehicleFavorites.includes(id)?progress.vehicleFavorites.filter(key=>key!==id):[...progress.vehicleFavorites,id];
+      save();
+    }});
   document.addEventListener('click',handleClick);
   document.addEventListener('keydown',e=>{
-    if(e.key==='/'&&!$('dialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){
-      e.preventDefault();openPanel('map');if(mobile())$('workspace').classList.add('panel-open');$('query').focus();
+    if(e.key==='/'&&!$('dialog').open&&!$('vehicle-dialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){
+      e.preventDefault();if(panel==='vehicles'){carFinder.focusSearch();return;}openPanel('map');if(mobile())$('workspace').classList.add('panel-open');$('query').focus();
     }
-    if(e.key==='Escape'&&!$('dialog').open){if(placeMode)placement(false);else if(selected){selected=null;map.highlight(null);renderDetail();}}
+    if(e.key==='Escape'&&!$('dialog').open&&!$('vehicle-dialog').open){if(previewVehicle)clearVehicleMap();else if(placeMode)placement(false);else if(selected){selected=null;map.highlight(null);renderDetail();}}
   });
   document.addEventListener('change',e=>{
     const {group,kind,series}=e.target.dataset;

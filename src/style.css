@@ -103,7 +103,6 @@ progress::-moz-progress-bar{background:var(--mint);border-radius:20px}
 .map-pin.done{background:#23513f;border-color:var(--mint);color:var(--mint)}
 .map-pin.favorite{border-color:#f4d077}
 .map-pin.active{outline:2px solid #ffe1ff;box-shadow:0 0 10px #eab1fd}
-.route-stop{background:transparent;border:0;box-shadow:none;color:#fff;font-size:10px;font-weight:800}
 
 .detail{position:absolute;right:17px;bottom:18px;z-index:550;width:min(385px,calc(100% - 34px));max-height:min(64%,600px);display:flex;flex-direction:column;background:#141626f7;border:1px solid #7856a0;border-radius:13px;box-shadow:0 16px 60px #030610ad;overflow:hidden}
 .detail-head{display:flex;align-items:flex-start;gap:9px;padding:13px 9px 11px 12px;border-bottom:1px solid var(--stroke)}
@@ -143,10 +142,6 @@ dd{margin:0;color:#ecebfa;overflow-wrap:anywhere}
 .metric small,.metric p{display:block;color:var(--soft);font-size:11px}
 .metric strong{display:block;color:#e5c6ff;font-size:17px;margin:4px 0}
 .metric p{line-height:1.45}
-.route-row{display:flex;align-items:center;gap:3px;min-height:43px;border-bottom:1px solid var(--stroke)}
-.route-row [data-point]{flex:1;text-align:left;min-width:0}
-.route-row .icon-button{width:25px;height:32px}
-.route-row .icon-button svg{width:14px}
 .step-number{display:grid;place-items:center;width:23px;height:23px;border-radius:50%;color:var(--mint);background:#263c42;font-weight:750;flex:none}
 .note{border-top:1px solid #343750;margin-top:7px;padding:8px 0 3px;color:#e1d2f1;font-size:12px}
 .note summary{cursor:pointer;font-weight:650}

@@ -6,7 +6,7 @@ export const normalize = value => (value ?? '').toString().normalize('NFD').repl
 const safeKinds = new Set(['shop','electronics','clothes','gym','food','hotel','transport','civic','leisure','nature','workshop','building']);
 const spoilerName = /\b(mission|story|heist|chapter|finale|epilogue|death|destroyed|safehouse|request|abandoned)\b/i;
 export const chapters = [1,2,3,4,5];
-export const freshProgress = () => ({ version:1, chapter:null, chapterSelected:false, enabledGroups:defaultLayers(), showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], custom:[], route:[] });
+export const freshProgress = () => ({ version:1, chapter:null, chapterSelected:false, enabledGroups:defaultLayers(), showUnknown:false, spoilers:true, strictAccess:false, equipment:[], completed:{}, favorites:[], vehicleFavorites:[], custom:[] });
 
 export function resolveId(id, aliases) {
   const visited = new Set();
@@ -103,7 +103,7 @@ export function decodeProgress(payload, aliases = {}) {
     enabledGroups:decodeLayers(payload), showUnknown:payload.showUnknown === true, spoilers:payload.spoilers !== false, strictAccess:payload.strictAccess === true,
     equipment:Array.isArray(payload.equipment) ? ids(payload.equipment) : [],
     completed, favorites:ids(payload.favorites), custom:[...custom.values()],
-    route:Array.isArray(payload.route) ? ids(payload.route).slice(0,25) : []
+    vehicleFavorites:Array.isArray(payload.vehicleFavorites) ? [...new Set(payload.vehicleFavorites.filter(safeId))] : []
   };
 }
 export function mergeProgress(current, imported) {
@@ -111,12 +111,11 @@ export function mergeProgress(current, imported) {
   for (const [id, value] of Object.entries(imported.completed)) if (!completed[id] || completed[id] < value) completed[id] = value;
   const custom = new Map([...current.custom, ...imported.custom].map(p => [p.id,p]));
   return {...current, completed, custom:[...custom.values()], favorites:[...new Set([...current.favorites,...imported.favorites])],
-    route:current.route.length ? current.route : imported.route };
+    vehicleFavorites:[...new Set([...current.vehicleFavorites,...imported.vehicleFavorites])] };
 }
 export function remaining(points, completed) {
   return points.filter(p => p.reward && !completed[p.id]).reduce(([lo,hi,n],{reward}) => [lo+reward[0],hi+reward[1],n+1],[0,0,0]);
 }
-export const gameDistance = (a,b) => Math.hypot(a.x-b.x,a.y-b.y)*32;
 export const moneyText = value => 'US$ ' + new Intl.NumberFormat('pt-BR', { maximumFractionDigits:0 }).format(value);
 export const rangeText = ([min,max]) => min === max ? moneyText(min) : moneyText(min) + ' – ' + moneyText(max);
 

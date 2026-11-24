@@ -58,7 +58,7 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
       icon:L.divIcon({ className:'map-label', html:text, iconSize:[128,22], iconAnchor:[64,11] }) }).addTo(labelsLayer);
   }
   const pins = L.layerGroup().addTo(map);
-  const line = L.layerGroup().addTo(map);
+  const vehicleLayer = L.layerGroup().addTo(map);
   let points = [], currentProgress, selected, placing = false;
   const rendered = new Map();
   const container = map.getContainer();
@@ -129,15 +129,26 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
     highlight(id) { selected=id; draw(); },
     home, zoomIn:() => map.zoomIn(), zoomOut:() => map.zoomOut(),
     placing(value) { placing=value; container.classList.toggle('placing',value); },
-    route(points, legs, fit = true) {
-      line.clearLayers();
-      const all = points.filter(p=>p.x!=null);
-      all.forEach((p,i) => L.circleMarker(xy(p),{radius:10,weight:2,color:'#7fe9ce',fillColor:'#192b39',fillOpacity:0.9,interactive:false})
-        .bindTooltip(String(i+1),{permanent:true,direction:'center',className:'route-stop'}).addTo(line));
-      legs.forEach(leg => {
-        L.polyline(leg.points.map(xy),{color:leg.known?'#7fe9ce':'#ce8dff',weight:3,dashArray:leg.known?null:'6 8',interactive:false}).addTo(line);
-      });
-      if (fit && all.length>1) map.fitBounds(L.latLngBounds(all.map(xy)),{padding:[50,60],maxZoom:4,animate:false});
+    previewVehicles(spots, name) {
+      vehicleLayer.clearLayers();
+      if (!spots.length) {pins.addTo(map);return;}
+      pins.remove();
+      for (const spot of spots) {
+        const title=spot.label+' · '+(spot.type==='fixed'?'ponto fixo':'ponto relatado');
+        const content=document.createElement('div');
+        const model=document.createElement('strong');
+        model.textContent=name;
+        const location=document.createElement('p');
+        location.textContent=title;
+        content.append(model,location);
+        L.marker(xy(spot),{title,zIndexOffset:1600,icon:L.divIcon({
+          html:markerIcon({kind:'vehicle'}),className:'map-pin car-finder-pin '+spot.type,
+          iconSize:[36,36]
+        })}).bindPopup(content,{className:'vehicle-map-popup'}).addTo(vehicleLayer)
+          .getElement()?.setAttribute('aria-label',title);
+      }
+      if (spots.length===1) map.setView(xy(spots[0]),4,{animate:false});
+      else map.fitBounds(L.latLngBounds(spots.map(xy)),{padding:[38,75],maxZoom:4,animate:false});
     }
   };
 }

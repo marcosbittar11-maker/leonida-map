@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#10121d"><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="description" content="Mapa interativo de Leonida com guias, rotas e progresso para GTA VI.">
+<meta name="description" content="Mapa interativo de Leonida com guias, catálogo de veículos e progresso para GTA VI.">
 <link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icons/icon-192.png"><link rel="icon" href="./icons/icon.svg">
 <title>Leonida Map · GTA VI</title></head>
 <body>
 <header class="topbar" id="topbar" hidden>
 <button class="brand" data-action="home" aria-label="Leonida Map, visão geral"><i class="brand-mark" data-icon="navigation"></i><span>Leonida<span class="brand-accent"> Map</span><small>GTA VI</small></span><span id="app-version" class="app-version" aria-label="Versão do aplicativo"></span></button>
-<nav aria-label="Navegação principal"><button class="nav-btn active" data-panel="map"><i data-icon="map"></i>Mapa</button><button class="nav-btn" data-panel="rank"><i data-icon="trophy"></i>Rankings</button><button class="nav-btn" data-panel="route"><i data-icon="route"></i>Rotas</button><button class="nav-btn" data-panel="progress"><i data-icon="chart-no-axes-column-increasing"></i>Progresso</button></nav>
+<nav aria-label="Navegação principal"><button class="nav-btn active" data-panel="map"><i data-icon="map"></i>Mapa</button><button class="nav-btn" data-panel="rank"><i data-icon="trophy"></i>Rankings</button><button class="nav-btn" data-panel="vehicles"><i data-icon="car"></i>Veículos</button><button class="nav-btn" data-panel="progress"><i data-icon="chart-no-axes-column-increasing"></i>Progresso</button></nav>
 <button class="chapter" data-action="settings"><i data-icon="shield-check"></i><span id="chapter-label">Capítulo</span><i data-icon="chevron-down"></i></button>
 </header>
 <main class="chapter-gate" id="chapter-gate" aria-labelledby="chapter-question" hidden>
@@ -39,11 +39,16 @@
 <section class="map-zone" aria-label="Mapa de Leonida">
 <div id="map" aria-label="Mapa interativo de Leonida"></div>
 <div class="map-hud"><button class="map-button" data-action="sidebar" aria-label="Abrir filtros"><i data-icon="sliders-horizontal"></i><span>Filtros</span></button><span class="map-count"><span class="count-light"></span><b id="map-count">Carregando…</b></span></div>
+<aside class="vehicle-map-bar" id="vehicle-map-bar" aria-label="Locais temporários de veículo" hidden>
+<button class="map-button vehicle-map-back" data-action="vehicle-map-back"><i data-icon="chevron-left"></i><span id="vehicle-map-model"></span></button>
+<button class="map-button" data-action="vehicle-map-clear" aria-label="Ocultar locais do veículo"><i data-icon="x"></i></button>
+</aside>
 <div class="map-controls" aria-label="Controles do mapa"><button class="icon-button" data-action="zoom-in" aria-label="Aproximar"><i data-icon="plus"></i></button><button class="icon-button" data-action="zoom-out" aria-label="Afastar"><i data-icon="minus"></i></button><button class="icon-button" data-action="reset-map" aria-label="Centralizar mapa"><i data-icon="locate-fixed"></i></button><button class="icon-button custom-add" data-action="place" aria-label="Adicionar ponto personalizado"><i data-icon="map-pin-plus"></i></button></div>
 <p class="placement" id="placement" hidden>Toque no mapa para criar um ponto <button data-action="cancel-place">Cancelar</button></p>
 <article class="detail" id="detail" aria-label="Detalhes do ponto" hidden></article><p class="toast" id="toast" role="status" hidden></p>
 </section>
+<section id="vehicle-finder" aria-label="Car Finder" hidden></section>
 </main>
-<dialog id="dialog"></dialog><input id="backup-input" type="file" accept=".json,application/json" hidden>
+<dialog id="dialog"></dialog><dialog id="vehicle-dialog" aria-labelledby="vehicle-heading"></dialog><input id="backup-input" type="file" accept=".json,application/json" hidden>
 <script type="module" src="/src/main.js"></script></body></html>
 

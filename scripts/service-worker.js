@@ -16,6 +16,14 @@ self.addEventListener('fetch', event => {
   const url=new URL(request.url);
   if(url.href.startsWith(scope)) {
     if(request.mode==='navigate')event.respondWith(caches.open(shell).then(cache=>cache.match(toURL('./index.html'))).then(found=>found||fetch(request)));
+    else if(url.href.startsWith(toURL('./vehicles/')))event.respondWith((async()=>{
+      const cache=await caches.open(shell);
+      const hit=await cache.match(request);
+      if(hit)return hit;
+      const response=await fetch(request);
+      if(response.ok)await cache.put(request,response.clone()).catch(()=>{});
+      return response;
+    })());
     else event.respondWith(caches.open(shell).then(cache=>cache.match(request,{ignoreVary:true})).then(found=>found||fetch(request)));
     return;
   }
