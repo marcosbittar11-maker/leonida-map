@@ -1,0 +1,23 @@
+{
+  "name": "leonida-map",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build && node scripts/offline.mjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "data:sync": "node scripts/import.mjs",
+    "test": "node --test tests/model.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "lucide-static": "^1.79.0",
+    "supercluster": "^9.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "vite": "^8.3.8"
+  }
+}
