@@ -66,10 +66,12 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 | `scripts/import.mjs`, `scripts/normalize.mjs` | Aquisição e deduplicação |
 | `scripts/update-vehicles.mjs`, `scripts/vehicles-normalize.mjs` | Atualização incremental dos veículos |
 | `scripts/vehicle-overrides.json` | Aliases, correções e fontes verificadas manualmente |
-| `scripts/offline.mjs`, `scripts/service-worker.js` | Empacotamento offline |
+| `src/tiles.js`, `scripts/import-tiles.mjs`, `public/tiles/game/` | Cartografia base GTADB (revisão fixa, sparse checkout); detalhes em CARTOGRAPHY.md |
+| `scripts/offline.mjs`, `scripts/service-worker.js` | Empacotamento offline (visão geral em precache, detalhes sob demanda) |
 
 ~~~sh
 npm run data:sync -- SHA_COMPLETO_DA_REVISAO
+npm run tiles:sync
 npm run data:vehicles
 node scripts/import-safe-codes.mjs
 node scripts/audit.mjs
@@ -82,5 +84,5 @@ npm run test:e2e
 
 O sincronizador mantém IDs e aliases observados. Para corrigir um veículo, edite `scripts/vehicle-overrides.json` e mantenha o ID que já foi publicado. As observações anteriores são preservadas se uma fonte complementar falhar. O JSON do Leonida Lab é necessário para executar a atualização. Os catálogos ficam no repositório e permitem executar o app sem rodar a importação. Os dados importados (`public/data/catalog.json`) e as correções manuais (`src/curation.js`) ficam separados. Uma nova importação não sobrescreve correções verificadas. A auditoria grava `audit/AUDIT.md` e `audit/latest.json` sem alterar dados. Consulte [FONTES.md](FONTES.md) para atribuições, [COVERAGE.md](COVERAGE.md) para a cobertura e [PROGRESS.md](PROGRESS.md) para testes.
 
-Projeto comunitário independente. A cartografia e os dados foram adaptados de [Open GTA 6 Map](https://github.com/fbritoferreira/gta6) sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Os ícones são do [Lucide](https://lucide.dev/license). A legenda segue a associação de categorias do Open GTA 6 Map, com ajustes para os serviços do Leonida Map.
+Projeto comunitário independente. Cartografia: GTA VI Map Tiles (CC BY 4.0), de [GTADB.ORG e contribuidores](https://map.gtadb.org), servidos sem alteração (a arte do mapa é da Rockstar Games; veja [CARTOGRAPHY.md](CARTOGRAPHY.md)). Locais e coordenadas adaptados de [Open GTA 6 Map](https://github.com/fbritoferreira/gta6) sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Os ícones são do [Lucide](https://lucide.dev/license). A legenda segue a associação de categorias do Open GTA 6 Map, com ajustes para os serviços do Leonida Map.
 

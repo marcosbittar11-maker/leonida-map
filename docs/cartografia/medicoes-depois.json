@@ -1,0 +1,726 @@
+{
+ "desktop": {
+  "vicebeach@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 30,
+   "loaded": 30,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 44,
+   "failed": 0,
+   "bytes": 319600,
+   "ms": 1743
+  },
+  "vicebeach@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 57,
+   "loaded": 57,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 48,
+   "failed": 0,
+   "bytes": 288018,
+   "ms": 1229
+  },
+  "vicebeach@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 26,
+   "loaded": 26,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 24,
+   "failed": 0,
+   "bytes": 139024,
+   "ms": 1236
+  },
+  "vicebeach@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 9,
+   "loaded": 9,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 8,
+   "failed": 0,
+   "bytes": 39020,
+   "ms": 1214
+  },
+  "vicecity@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 76898,
+   "ms": 1223
+  },
+  "vicecity@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 48,
+   "loaded": 48,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 27,
+   "failed": 0,
+   "bytes": 281004,
+   "ms": 1228
+  },
+  "vicecity@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 21,
+   "loaded": 21,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 160550,
+   "ms": 1224
+  },
+  "vicecity@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 10,
+   "loaded": 10,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 62161,
+   "ms": 1229
+  },
+  "capri@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 36,
+   "loaded": 36,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 30601,
+   "ms": 1217
+  },
+  "capri@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 48,
+   "loaded": 48,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 261429,
+   "ms": 1231
+  },
+  "capri@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 27,
+   "loaded": 27,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 25,
+   "failed": 0,
+   "bytes": 135486,
+   "ms": 1229
+  },
+  "capri@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 10,
+   "loaded": 10,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 51218,
+   "ms": 1209
+  },
+  "gellhorn@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 36,
+   "loaded": 36,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 66758,
+   "ms": 1233
+  },
+  "gellhorn@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 46,
+   "loaded": 46,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 319930,
+   "ms": 1229
+  },
+  "gellhorn@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 29,
+   "loaded": 29,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 25,
+   "failed": 0,
+   "bytes": 150607,
+   "ms": 1229
+  },
+  "gellhorn@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 10,
+   "loaded": 10,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 53540,
+   "ms": 1217
+  },
+  "hamlet@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 42033,
+   "ms": 1217
+  },
+  "hamlet@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 51,
+   "loaded": 51,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 409056,
+   "ms": 1226
+  },
+  "hamlet@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 26,
+   "loaded": 26,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 25,
+   "failed": 0,
+   "bytes": 181945,
+   "ms": 1229
+  },
+  "hamlet@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 10,
+   "loaded": 10,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 38174,
+   "ms": 1212
+  },
+  "bocamar@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 36,
+   "loaded": 36,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 33,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1227
+  },
+  "bocamar@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 48,
+   "loaded": 48,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 101219,
+   "ms": 1219
+  },
+  "bocamar@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 21,
+   "loaded": 21,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 86658,
+   "ms": 1219
+  },
+  "bocamar@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 10,
+   "loaded": 10,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 30169,
+   "ms": 1226
+  }
+ },
+ "iphone": {
+  "vicebeach@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 15,
+   "loaded": 15,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 59,
+   "failed": 0,
+   "bytes": 407670,
+   "ms": 1770
+  },
+  "vicebeach@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 50,
+   "loaded": 50,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 48,
+   "failed": 0,
+   "bytes": 284643,
+   "ms": 1232
+  },
+  "vicebeach@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 25,
+   "loaded": 25,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 24,
+   "failed": 0,
+   "bytes": 129654,
+   "ms": 1250
+  },
+  "vicebeach@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 5,
+   "loaded": 5,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1229
+  },
+  "vicecity@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 25,
+   "failed": 0,
+   "bytes": 330195,
+   "ms": 1280
+  },
+  "vicecity@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 37,
+   "loaded": 37,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 35,
+   "failed": 0,
+   "bytes": 278126,
+   "ms": 1225
+  },
+  "vicecity@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 26,
+   "loaded": 26,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 25,
+   "failed": 0,
+   "bytes": 164886,
+   "ms": 1241
+  },
+  "vicecity@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 3,
+   "loaded": 3,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1233
+  },
+  "capri@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 54,
+   "failed": 0,
+   "bytes": 417125,
+   "ms": 1285
+  },
+  "capri@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 44,
+   "loaded": 44,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 186017,
+   "ms": 1225
+  },
+  "capri@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 22,
+   "loaded": 22,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 99085,
+   "ms": 1256
+  },
+  "capri@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 5,
+   "loaded": 5,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1232
+  },
+  "gellhorn@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 21,
+   "failed": 0,
+   "bytes": 171090,
+   "ms": 1259
+  },
+  "gellhorn@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 39,
+   "loaded": 39,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 35,
+   "failed": 0,
+   "bytes": 202678,
+   "ms": 1226
+  },
+  "gellhorn@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 21,
+   "loaded": 21,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 118204,
+   "ms": 1238
+  },
+  "gellhorn@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 3,
+   "loaded": 3,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1236
+  },
+  "hamlet@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 30,
+   "failed": 0,
+   "bytes": 194809,
+   "ms": 1268
+  },
+  "hamlet@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 36,
+   "loaded": 36,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 35,
+   "failed": 0,
+   "bytes": 257742,
+   "ms": 1239
+  },
+  "hamlet@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 21,
+   "loaded": 21,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 91113,
+   "ms": 1238
+  },
+  "hamlet@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 5,
+   "loaded": 5,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1230
+  },
+  "bocamar@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 5,
+   "failed": 0,
+   "bytes": 23435,
+   "ms": 1260
+  },
+  "bocamar@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 37,
+   "loaded": 37,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 19,
+   "failed": 0,
+   "bytes": 110533,
+   "ms": 1231
+  },
+  "bocamar@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 21,
+   "loaded": 21,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 20,
+   "failed": 0,
+   "bytes": 66692,
+   "ms": 1245
+  },
+  "bocamar@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 3,
+   "loaded": 3,
+   "sizes": [
+    "img 256"
+   ],
+   "hd": 0,
+   "attribution": false,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1234
+  }
+ }
+}

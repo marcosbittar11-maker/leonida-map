@@ -1,54 +1,59 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { tileCover, tileSource } from './tiles.js';
 
 const base = import.meta.env.BASE_URL;
 const bounds = L.latLngBounds([-1024,0],[0,1024]);
 const domain = L.latLngBounds([-757,249],[-245,612]);
+const cover = L.latLngBounds([-tileCover.y1,tileCover.x0],[-tileCover.y0,tileCover.x1]);
 const xy = p => [-p.y,p.x];
-const remote = 'https://cdn.jsdelivr.net/gh/fbritoferreira/gta6@';
-const urlTile = (root,z,y,x) => root + 'tiles/night/' + z + '/' + [z,y,x].join(',') + '.webp';
 
-const image = url => new Promise((resolve,reject) => {
-  const img = new Image();
-  img.onload = () => resolve(img);
-  img.onerror = reject;
-  if (url.startsWith('https://')) img.crossOrigin = 'anonymous';
-  img.src = url;
+// Tiles nativos (<img>) com nova tentativa limitada. Um tile que continua falhando fica transparente
+// e deixa ver a camada de visão geral por baixo, em vez de um recorte ampliado silencioso.
+const GameTiles = L.TileLayer.extend({
+  createTile(coords, done) {
+    const tile = L.TileLayer.prototype.createTile.call(this, coords, done);
+    tile.dataset.key = this._tileCoordsToKey(coords);
+    return tile;
+  },
+  _tileOnError(done, tile, error) {
+    const tries = Number(tile.dataset.tries || 0);
+    const url = tile.dataset.src || tile.src;
+    if (tries < 2 && navigator.onLine !== false) {
+      tile.dataset.tries = tries + 1;
+      tile.dataset.src = url;
+      setTimeout(() => {
+        if (this._tiles[tile.dataset.key]?.el === tile) tile.src = url + '?retry=' + (tries + 1);
+      }, 700 * (tries + 1));
+      return;
+    }
+    tile.style.visibility = 'hidden';
+    done(error, tile);
+  }
 });
-const ancestorCache = new Map();
-function overviewTile(y,x) {
-  const key = y + ',' + x;
-  if (!ancestorCache.has(key)) ancestorCache.set(key,image(urlTile(base,0,y,x)));
-  return ancestorCache.get(key);
+
+function gameLayers(onDetailError) {
+  // Em telas de alta densidade, cada tile CSS de 128 px recebe a imagem de 256 px do nível seguinte.
+  const retina = window.devicePixelRatio >= 1.5 ? 1 : 0;
+  const url = base + 'tiles/game/{z}/{z},{y},{x}.jpg';
+  const common = { tileSize:256 >> retina, zoomOffset:retina, bounds:cover, maxZoom:7, updateWhenZooming:false };
+  const overview = new GameTiles(url, { ...common, className:'tiles-overview', minZoom:-1,
+    minNativeZoom:-retina, maxNativeZoom:tileSource.overviewMaxZoom - retina, keepBuffer:1 });
+  const firstDetail = tileSource.overviewMaxZoom + 1 - retina;
+  const detail = new GameTiles(url, { ...common, className:'tiles-detail', minZoom:firstDetail,
+    minNativeZoom:firstDetail, maxNativeZoom:tileSource.maxZoom - retina, keepBuffer:2 });
+  detail.on('tileerror', onDetailError);
+  return [overview, detail];
 }
 
-export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
+export function createMap({ labels, onSelect, onPlace, markerIcon, onDetailError = () => {} }) {
   const map = L.map('map', { crs:L.CRS.Simple, zoomControl:false, attributionControl:false, minZoom:-1, maxZoom:7,
     zoomSnap:0.25, zoomDelta:0.75, maxBounds:bounds.pad(0.25), maxBoundsViscosity:0.85, preferCanvas:true });
-  const tileLayer = L.gridLayer({ tileSize:256, minZoom:-1, maxZoom:7, minNativeZoom:0, maxNativeZoom:5, bounds, keepBuffer:2 });
-  tileLayer.createTile = (coords, done) => {
-    const {x,y,z} = coords;
-    const tile = document.createElement('canvas');
-    tile.width = tile.height = z === 0 ? 512 : Math.min(768,window.devicePixelRatio * 256);
-    const context = tile.getContext('2d');
-    const scale = 2 ** z;
-    overviewTile(Math.floor(y/scale),Math.floor(x/scale)).then(img => {
-      if (tile.dataset.hd) return;
-      const crop = img.width/scale;
-      context.drawImage(img,(x%scale)*crop,(y%scale)*crop,crop,crop,0,0,tile.width,tile.height);
-    }).catch(() => {}).finally(() => done(null,tile));
-    if (z > 0) {
-      const onlyRemote = remote + revision + '/public/';
-      image(urlTile(onlyRemote,z,y,x)).then(img => {
-        tile.dataset.hd = 'true';
-        context.drawImage(img,0,0,tile.width,tile.height);
-      }).catch(() => {});
-    }
-    return tile;
-  };
-  tileLayer.addTo(map);
-  const credits = L.control.attribution({ position:'bottomleft', prefix:false }).addTo(map);
-  credits.addAttribution('<a href="https://github.com/fbritoferreira/gta6" target="_blank" rel="noopener noreferrer">Open GTA 6 Map</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>');
+  let detailFailures = 0;
+  for (const layer of gameLayers(() => {
+    map.getContainer().dataset.detailFailures = ++detailFailures;
+    onDetailError();
+  })) layer.addTo(map);
   const labelsLayer = L.layerGroup().addTo(map);
   for (const label of labels) {
     const text = document.createElement('span');

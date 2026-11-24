@@ -26,6 +26,15 @@ async function settings(page, fn) {
   await fn(page.locator('#dialog'));
   await tap(page,'Salvar configurações').click();
 }
+async function zoomPast(page,target) {
+  // Um clique por vez: o Leaflet ignora cliques durante a animação de zoom.
+  for(let i=0;i<12&&Number(await map(page).getAttribute('data-zoom'))<=target;i++) {
+    const before=Number(await map(page).getAttribute('data-zoom'));
+    await tap(page,'Aproximar').click();
+    await expect.poll(async()=>Number(await map(page).getAttribute('data-zoom'))).toBeGreaterThan(before);
+  }
+  expect(Number(await map(page).getAttribute('data-zoom'))).toBeGreaterThan(target);
+}
 async function pick(page,text,id) {
   await search(page,text);
   await page.locator('[data-point="'+id+'"]').first().click();
@@ -35,7 +44,9 @@ async function pick(page,text,id) {
 test('navegação, zoom, filtros de grupo e individuais, busca e seleção',async({page},info)=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await ready(page);
-  await expect(map(page).locator('canvas.leaflet-tile-loaded').first()).toBeVisible();
+  await expect(map(page).locator('.tiles-overview img.leaflet-tile-loaded').first()).toBeVisible();
+  // Sem faixa de atribuição nem substituto sobre a cartografia.
+  await expect(page.locator('.leaflet-control-attribution, .leaflet-bottom.leaflet-left > *')).toHaveCount(0);
   if(info.project.name==='desktop') {
     const position=await map(page).boundingBox();
     const pane=map(page).locator('.leaflet-map-pane');
@@ -199,8 +210,10 @@ test('PWA carrega catálogo e mapa base com conexão bloqueada',async({page,cont
   await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
   await pick(page,'caranguejo','safe-070');
   await expect(detail(page)).toContainText('CLEAVES');
-  const canvas=map(page).locator('canvas.leaflet-tile-loaded').first();
-  await expect(canvas).toBeVisible();
+  // A visão geral (z0–z2) vem do precache; o mapa não fica vazio sem rede.
+  const overview=map(page).locator('.tiles-overview img.leaflet-tile-loaded');
+  await expect(overview.first()).toBeVisible();
+  expect(await overview.first().evaluate(img=>img.naturalWidth)).toBe(256);
 });
 
 
@@ -282,7 +295,7 @@ test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})
 
 test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.6.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.7.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
   await expect(map(page)).toHaveAttribute('data-points','0');
@@ -371,4 +384,42 @@ test('variantes de veículos continuam filtráveis por coleção',async({page})=
   await expect(page.locator('[data-point="gameta-standout-1105"]')).toHaveCount(0);
   await search(page,'Zorrusso entrega inicial');
   await expect(page.locator('[data-point="vehicle-request-013"]')).toHaveCount(0);
+});
+
+test('cartografia do jogo: tiles nativos no nível certo, detalhe ao aproximar e créditos nas configurações',async({page},info)=>{
+  const failed=[];page.on('requestfailed',r=>{if(r.url().includes('/tiles/')&&!/abort|cancel/i.test(r.failure()?.errorText||''))failed.push(r.url());});
+  page.on('response',r=>{if(r.url().includes('/tiles/')&&r.status()>=400)failed.push(r.status()+' '+r.url());});
+  await ready(page);
+  const retina=await page.evaluate(()=>devicePixelRatio>=1.5);
+  await zoomPast(page,4.5);
+  const detail=map(page).locator('.tiles-detail img.leaflet-tile-loaded');
+  await expect(detail.first()).toBeVisible();
+  const levels=await detail.evaluateAll(list=>[...new Set(list.map(img=>Number(new URL(img.src).pathname.split('/').at(-2))))]);
+  const zoom=Number(await map(page).getAttribute('data-zoom'));
+  // Nível pedido = zoom arredondado (+1 em telas de alta densidade), limitado ao nível 6 da fonte.
+  expect(levels).toEqual([Math.min(6,Math.round(zoom)+(retina?1:0))]);
+  const size=await detail.first().evaluate(img=>img.getBoundingClientRect().width);
+  expect(Math.round(size/2**(zoom-Math.round(zoom)))).toBe(retina?128:256);
+  await expect(page.locator('#map')).not.toHaveAttribute('data-detail-failures',/.+/);
+  expect(failed).toEqual([]);
+  await page.locator('.chapter').click();
+  const credits=page.locator('#dialog fieldset.credits');
+  await expect(credits).toContainText('GTA VI Map Tiles (CC BY 4.0)');
+  await expect(credits.getByRole('link',{name:/map\.gtadb\.org/})).toHaveAttribute('href','https://map.gtadb.org');
+  await expect(credits.getByRole('link',{name:/Open GTA 6 Map/})).toBeVisible();
+  await info.attach('níveis de tile',{body:Buffer.from(JSON.stringify({zoom,levels,size,retina})),contentType:'application/json'});
+});
+
+test.describe('falha do fornecedor de tiles',()=>{
+  test.use({serviceWorkers:'block'});
+  test('tile de detalhe que falha fica transparente sobre a visão geral e avisa uma vez',async({page})=>{
+    await page.route(/\/tiles\/game\/[3-6]\//,route=>route.abort());
+    await ready(page);
+    await zoomPast(page,4.5);
+    await expect(map(page)).toHaveAttribute('data-detail-failures',/^[1-9]/,{timeout:15000});
+    await expect(page.locator('#toast')).toContainText('mostrando a visão geral');
+    const hidden=await map(page).locator('.tiles-detail img').evaluateAll(list=>list.filter(img=>img.style.visibility==='hidden').length);
+    expect(hidden).toBeGreaterThan(0);
+    await expect(map(page).locator('.tiles-overview img.leaflet-tile-loaded').first()).toBeVisible();
+  });
 });

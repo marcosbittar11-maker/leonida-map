@@ -1,4 +1,5 @@
 import { createMap } from './map.js';
+import { tileSource } from './tiles.js';
 import { installIcons, icon } from './icons.js';
 import { glyph, installSprite } from './symbols.js';
 import { groups, categories as registry, categoryByKey, symbolKey } from './registry.js';
@@ -311,7 +312,11 @@ function openSettings() {
     '<fieldset><legend>Mapa</legend><label class="check"><input type="checkbox" name="remember" '+(prefs.remember?'checked':'')+'><span>Memorizar filtros ao reabrir o mapa<small>Restaura as categorias ativas na próxima visita. Desativado: o mapa abre limpo.</small></span></label>'+
     '<div class="pin-size" role="radiogroup" aria-label="Tamanho dos pinos">'+Object.entries({small:'Pequeno',normal:'Normal',large:'Grande'}).map(([key,label])=>
       '<label class="chip-radio"><input type="radio" name="pinsize" value="'+key+'" '+(prefs.pinSize===key?'checked':'')+'><span>'+label+'</span></label>').join('')+'</div></fieldset>'+
-    '<p class="muted small">Contatos, edições e outros requisitos aparecem nas fichas como informação e não bloqueiam pontos.</p></div>'+
+    '<p class="muted small">Contatos, edições e outros requisitos aparecem nas fichas como informação e não bloqueiam pontos.</p>'+
+    '<fieldset class="credits"><legend>Créditos do mapa</legend>'+
+    '<p class="muted small">Cartografia: GTA VI Map Tiles (CC BY 4.0), de GTADB.ORG e contribuidores, '+external('https://map.gtadb.org','map.gtadb.org')+'. Tiles “day” z0–6 da revisão '+tileSource.revision.slice(0,7)+', usados sem alteração e servidos por este site. A arte do mapa do jogo pertence à Rockstar Games.</p>'+
+    '<p class="muted small">Locais e coordenadas adaptados de '+external('https://github.com/fbritoferreira/gta6','Open GTA 6 Map')+', de fbritoferreira e contribuidores (CC BY 4.0). Ícones: '+external('https://lucide.dev/license','Lucide')+'.</p>'+
+    '<p class="muted small">'+external('https://creativecommons.org/licenses/by/4.0/','Licença CC BY 4.0')+'</p></fieldset></div>'+
     '<div class="dialog-actions"><button class="ui-button primary" value="save">Salvar configurações</button></div></form>';
   dialog.querySelector('form').onsubmit=event=>{
     if(event.submitter?.value!=='save') return;
@@ -479,7 +484,12 @@ async function init() {
   $('topbar').hidden=false;
   $('workspace').hidden=false;
   staticPoints=applyGuides(catalog);
-  map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
+  let detailWarned=false;
+  map=createMap({labels:catalog.labels,onSelect:selectPoint,
+    onDetailError:()=>{
+      if(detailWarned)return;detailWarned=true;
+      toast(navigator.onLine===false?'Sem conexão: áreas fora do cache aparecem em resolução reduzida.':'Alguns detalhes do mapa não carregaram; mostrando a visão geral nessas áreas.');
+    },
     onPlace:p=>{placement(false);openCustom(p);},
     markerIcon:(p,done)=>pinGlyph(p,done)+(p.locked&&!done?'<i class="pin-lock" aria-hidden="true">'+glyph('lock')+'</i>':'')});
   map.setPinSize(pinSizes[prefs.pinSize]);

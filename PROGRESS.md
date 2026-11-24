@@ -1,5 +1,53 @@
 # Progresso da entrega
 
+## Versão 1.7.0 · 24/11/2026 · cartografia, estradas e zoom
+
+**Mudanças**
+- **Base cartográfica nova.** O mapa agora usa a pirâmide "day" do GTADB, que é o mapa do jogo capturado: z0–z6, 2 px/m no z6, CC BY 4.0, revisão `b6334a3`. Ela substitui os tiles noturnos do Open GTA 6 Map. Trevos, alças, pontes, faixas, quadras e prédios seguem o jogo. Diagnóstico, fontes, calibração e limitações estão em [CARTOGRAPHY.md](CARTOGRAPHY.md), e as capturas antes/depois, em `docs/cartografia/`.
+- **O que era da fonte.** Pontas arredondadas soltas (inclusive nos acessos a pontes), ramais, cruzamentos confusos e traço largo já estavam nos tiles originais, desenhados a partir de linhas centrais vetorizadas, com uma largura por tipo e junções arredondadas.
+- **O que era do renderizador.**
+  - O canvas reduzia o tile de 1024 px.
+  - O overzoom de 4× (z5 → z7) inflava o traço.
+  - A conclusão do tile era sinalizada antes do HD.
+  - O jsDelivr recusava parte dos tiles frios com 403 "Package size exceeded… 50 MB" (3 de 25 na amostra), e o tile ficava para sempre como recorte ampliado do z0, sem aviso.
+- **Calibração sem mover pinos.** O GTADB usa a mesma grade do CRS, e a transformação adotada é a identidade. A costa difere em até 6 m (7 regiões). A rede viária do Open GTA 6 Map comparada com a pista do GTADB dá resíduo mediano de 6 m e máximo de 11 m (9 regiões). IDs, coordenadas e progresso foram preservados.
+- **Carregador.**
+  - `L.TileLayer` nativo com `<img>` em duas camadas: visão geral z0–z2 em precache e detalhe z3–z6 sob demanda.
+  - Nível +1 em telas com DPR ≥ 1,5 (tile CSS de 128 px com imagem de 256 px).
+  - Até duas novas tentativas por tile. Se continuar falhando, o tile fica transparente sobre a visão geral e o app avisa uma única vez.
+  - `maxNativeZoom` 6 e zoom máximo 7 (inalterado).
+- **Hospedagem.** Os 31.022 tiles (82,2 MB) foram obtidos por sparse checkout, como pede o GTADB, e são servidos pelo próprio Pages, sem jsDelivr. `npm run tiles:sync` refaz a cópia e confere a completude por nível. O `data:sync` não baixa mais tiles.
+- **PWA.**
+  - O precache tem 155 recursos, incluindo os 141 tiles de visão geral (~0,7 MB).
+  - Os detalhes vistos ficam em `leonida-tiles-<revisão>` (limite de 3.000 tiles, ~9 MB), que sobrevive a novas publicações do app.
+  - O cache antigo `leonida-hd-*` é removido na ativação.
+- **Atribuição.** A faixa sobre o canto inferior esquerdo do mapa foi removida, sem substituto. Os créditos (GTADB, Open GTA 6 Map, Lucide e licença) ficam em Configurações → Créditos do mapa.
+
+**Medições (build local, carregamento frio, trevo de Vice City em zoom 5)**
+- DPR 1, "4G lento":
+  - antes: detalhe em 11,7 s, 1,7 MB, 6 erros;
+  - depois: 1,3 s, 178 KB, 0 erros.
+- DPR 3, "4G lento": 3,7 s antes, 1,9 s depois.
+- Memória de tiles em DPR 3: ~28 MB antes, ~9 MB depois.
+- Captura de 6 regiões × 4 zooms × 2 perfis:
+  - antes: 49 de 819 requisições de tile com erro e 20,3 MB transferidos;
+  - depois: 0 de 1.127 e 6,5 MB.
+
+**Testes executados**
+- `npm test`: 22 aprovados.
+- `npm run build`: 155 recursos no precache (141 tiles de visão geral).
+- Playwright direcionado (`tests/app.e2e.js` e `tests/vehicles.e2e.js`) em Chrome desktop e WebKit iPhone 15.
+- Novos testes E2E:
+  - nível de tile por DPR, tamanho em CSS e ausência de falhas ao aproximar;
+  - créditos nas Configurações;
+  - ausência da faixa de atribuição e de qualquer controle no canto inferior esquerdo;
+  - falha do fornecedor (tiles z3–z6 abortados): o tile fica transparente sobre a visão geral e o aviso aparece uma vez.
+- O teste offline exige o tile de visão geral de 256 px vindo do precache.
+- Inspeção visual de pinos no zoom 6: `docs/cartografia/pinos-zoom6.webp`.
+- Não houve teste em iPhone físico. A pinça foi exercida só pela API de zoom do Leaflet.
+
+**Limitações mantidas.** O zoom 7 é ampliação do z6. O mapa do jogo não tem nomes de ruas. O mapa escuro antigo não ficou como alternativa (motivo em CARTOGRAPHY.md).
+
 ## Versão 1.6.0 · 24/11/2026 · preços de revenda dos veículos
 
 **Mudanças**

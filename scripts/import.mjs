@@ -21,14 +21,7 @@ const inputs = Object.fromEntries(await Promise.all(names.map(async name => {
 })));
 const metadata = { revision, verified: new Date().toISOString().slice(0, 10), hashes };
 const catalog = prepareCatalog(inputs, metadata, previous.aliases);
-const tiles = [];
-for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) tiles.push([0, y, x]);
-await Promise.all(tiles.map(async ([z, y, x]) => {
-  const path = 'tiles/night/' + z + '/' + [z, y, x].join(',') + '.webp';
-  const target = new URL('../public/' + path, import.meta.url);
-  await mkdir(new URL('.', target), { recursive: true });
-  await writeFile(target, await fetchBytes(path));
-}));
+// A cartografia base vem do GTADB: scripts/import-tiles.mjs.
 await save('catalog.json', catalog);
 console.log(JSON.stringify(catalog.stats));
 

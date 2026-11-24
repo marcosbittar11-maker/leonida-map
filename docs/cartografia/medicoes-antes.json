@@ -1,0 +1,726 @@
+{
+ "desktop": {
+  "vicebeach@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 35,
+   "loaded": 35,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 35,
+   "attribution": true,
+   "requests": 42,
+   "failed": 6,
+   "bytes": 1755079,
+   "ms": 2611
+  },
+  "vicebeach@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 48,
+   "loaded": 48,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 46,
+   "attribution": true,
+   "requests": 46,
+   "failed": 0,
+   "bytes": 1493487,
+   "ms": 1223
+  },
+  "vicebeach@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 24,
+   "loaded": 24,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 23,
+   "attribution": true,
+   "requests": 25,
+   "failed": 1,
+   "bytes": 497274,
+   "ms": 1231
+  },
+  "vicebeach@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 1,
+   "failed": 0,
+   "bytes": 28807,
+   "ms": 1215
+  },
+  "vicecity@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 42,
+   "attribution": true,
+   "requests": 42,
+   "failed": 0,
+   "bytes": 460764,
+   "ms": 1218
+  },
+  "vicecity@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 41,
+   "attribution": true,
+   "requests": 41,
+   "failed": 0,
+   "bytes": 1687896,
+   "ms": 1230
+  },
+  "vicecity@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 20,
+   "loaded": 20,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 16,
+   "attribution": true,
+   "requests": 17,
+   "failed": 0,
+   "bytes": 564313,
+   "ms": 1218
+  },
+  "vicecity@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 3,
+   "attribution": true,
+   "requests": 4,
+   "failed": 2,
+   "bytes": 71629,
+   "ms": 1219
+  },
+  "capri@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 36,
+   "attribution": true,
+   "requests": 42,
+   "failed": 6,
+   "bytes": 116598,
+   "ms": 1230
+  },
+  "capri@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 35,
+   "attribution": true,
+   "requests": 35,
+   "failed": 0,
+   "bytes": 1179423,
+   "ms": 1221
+  },
+  "capri@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 25,
+   "loaded": 25,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 22,
+   "attribution": true,
+   "requests": 29,
+   "failed": 3,
+   "bytes": 677299,
+   "ms": 1219
+  },
+  "capri@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 3,
+   "failed": 1,
+   "bytes": 43327,
+   "ms": 1208
+  },
+  "gellhorn@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 36,
+   "attribution": true,
+   "requests": 42,
+   "failed": 6,
+   "bytes": 280873,
+   "ms": 1227
+  },
+  "gellhorn@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 36,
+   "attribution": true,
+   "requests": 36,
+   "failed": 0,
+   "bytes": 1352405,
+   "ms": 1230
+  },
+  "gellhorn@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 25,
+   "loaded": 25,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 22,
+   "attribution": true,
+   "requests": 28,
+   "failed": 5,
+   "bytes": 503539,
+   "ms": 1230
+  },
+  "gellhorn@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 3,
+   "failed": 3,
+   "bytes": 552,
+   "ms": 1216
+  },
+  "hamlet@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 41,
+   "attribution": true,
+   "requests": 41,
+   "failed": 0,
+   "bytes": 167371,
+   "ms": 1231
+  },
+  "hamlet@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 41,
+   "attribution": true,
+   "requests": 42,
+   "failed": 1,
+   "bytes": 2105208,
+   "ms": 1234
+  },
+  "hamlet@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 25,
+   "loaded": 25,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 22,
+   "attribution": true,
+   "requests": 23,
+   "failed": 1,
+   "bytes": 610462,
+   "ms": 1222
+  },
+  "hamlet@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 3,
+   "failed": 2,
+   "bytes": 36941,
+   "ms": 1209
+  },
+  "bocamar@1.5": {
+   "dpr": 1,
+   "zoom": 1.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 36,
+   "attribution": true,
+   "requests": 42,
+   "failed": 6,
+   "bytes": -38566,
+   "ms": 1221
+  },
+  "bocamar@3.5": {
+   "dpr": 1,
+   "zoom": 3.5,
+   "tiles": 42,
+   "loaded": 42,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 38,
+   "attribution": true,
+   "requests": 38,
+   "failed": 0,
+   "bytes": 402815,
+   "ms": 1221
+  },
+  "bocamar@5": {
+   "dpr": 1,
+   "zoom": 5,
+   "tiles": 20,
+   "loaded": 20,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 19,
+   "attribution": true,
+   "requests": 23,
+   "failed": 1,
+   "bytes": 410962,
+   "ms": 1227
+  },
+  "bocamar@7": {
+   "dpr": 1,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 256"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 1,
+   "failed": 1,
+   "bytes": 184,
+   "ms": 1223
+  }
+ },
+ "iphone": {
+  "vicebeach@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 15,
+   "loaded": 15,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 15,
+   "attribution": true,
+   "requests": 15,
+   "failed": 0,
+   "bytes": 815228,
+   "ms": 1810
+  },
+  "vicebeach@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 16,
+   "loaded": 16,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 16,
+   "attribution": true,
+   "requests": 16,
+   "failed": 0,
+   "bytes": 573638,
+   "ms": 1219
+  },
+  "vicebeach@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 8,
+   "loaded": 8,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 8,
+   "attribution": true,
+   "requests": 8,
+   "failed": 0,
+   "bytes": 247434,
+   "ms": 1219
+  },
+  "vicebeach@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 4,
+   "loaded": 4,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 4,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1210
+  },
+  "vicecity@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 4,
+   "failed": 0,
+   "bytes": 342656,
+   "ms": 1224
+  },
+  "vicecity@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 731786,
+   "ms": 1231
+  },
+  "vicecity@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 9,
+   "loaded": 9,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 8,
+   "attribution": true,
+   "requests": 9,
+   "failed": 1,
+   "bytes": 280605,
+   "ms": 1224
+  },
+  "vicecity@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 2,
+   "loaded": 2,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 1,
+   "attribution": true,
+   "requests": 1,
+   "failed": 1,
+   "bytes": 147,
+   "ms": 1226
+  },
+  "capri@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 573784,
+   "ms": 1216
+  },
+  "capri@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 16,
+   "loaded": 16,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 16,
+   "attribution": true,
+   "requests": 16,
+   "failed": 0,
+   "bytes": 543904,
+   "ms": 1228
+  },
+  "capri@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 6,
+   "loaded": 6,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 6,
+   "attribution": true,
+   "requests": 6,
+   "failed": 0,
+   "bytes": 169054,
+   "ms": 1211
+  },
+  "capri@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 2,
+   "loaded": 2,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 2,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1217
+  },
+  "gellhorn@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 6,
+   "failed": 0,
+   "bytes": 250164,
+   "ms": 1227
+  },
+  "gellhorn@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 11,
+   "attribution": true,
+   "requests": 12,
+   "failed": 1,
+   "bytes": 418098,
+   "ms": 1219
+  },
+  "gellhorn@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 6,
+   "loaded": 6,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 5,
+   "attribution": true,
+   "requests": 6,
+   "failed": 1,
+   "bytes": 144704,
+   "ms": 1215
+  },
+  "gellhorn@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 1,
+   "loaded": 1,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 1,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1221
+  },
+  "hamlet@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 6,
+   "failed": 0,
+   "bytes": 251476,
+   "ms": 1225
+  },
+  "hamlet@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 12,
+   "failed": 0,
+   "bytes": 651084,
+   "ms": 1215
+  },
+  "hamlet@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 9,
+   "loaded": 9,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 9,
+   "attribution": true,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 221582,
+   "ms": 1224
+  },
+  "hamlet@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 1,
+   "loaded": 1,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 1,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1218
+  },
+  "bocamar@1.5": {
+   "dpr": 3,
+   "zoom": 1.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1221
+  },
+  "bocamar@3.5": {
+   "dpr": 3,
+   "zoom": 3.5,
+   "tiles": 12,
+   "loaded": 12,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 12,
+   "attribution": true,
+   "requests": 11,
+   "failed": 0,
+   "bytes": 440684,
+   "ms": 1225
+  },
+  "bocamar@5": {
+   "dpr": 3,
+   "zoom": 5,
+   "tiles": 9,
+   "loaded": 9,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 9,
+   "attribution": true,
+   "requests": 9,
+   "failed": 0,
+   "bytes": 160832,
+   "ms": 1230
+  },
+  "bocamar@7": {
+   "dpr": 3,
+   "zoom": 7,
+   "tiles": 2,
+   "loaded": 2,
+   "sizes": [
+    "canvas 768"
+   ],
+   "hd": 2,
+   "attribution": true,
+   "requests": 0,
+   "failed": 0,
+   "bytes": 0,
+   "ms": 1215
+  }
+ }
+}
