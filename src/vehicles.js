@@ -1,5 +1,6 @@
 
 import { normalize } from './model.js';
+import { configurableKeys } from './requirements.js';
 
 export const classes = {
   super:'Supercarros', sports:'Esportivos', classic:'Esportivos clássicos', muscle:'Muscle',
@@ -17,13 +18,13 @@ export const availability = {fixed:'Ponto fixo', reported:'Ponto relatado', stre
 export const confidence = {official:'Oficial', checked:'Verificado pela fonte', reported:'Relato documentado'};
 export const unknown = 'Não confirmado';
 
-export function revealVehicle(vehicle, progress) {
-  return !progress.spoilers || (!vehicle.spoilerChapter || vehicle.spoilerChapter <= progress.chapter) &&
-    (!vehicle.spoilerUnknown || progress.showUnknown);
+// O catálogo de veículos não depende de capítulo. Todos os modelos e aparecimentos ficam consultáveis.
+export function revealVehicle() {
+  return true;
 }
 
-export function visibleSpawns(vehicle, progress) {
-  return (vehicle.spawns || []).filter(spawn => !progress.spoilers || !spawn.chapter || spawn.chapter <= progress.chapter);
+export function visibleSpawns(vehicle) {
+  return vehicle.spawns || [];
 }
 
 const valueKey = values => {
@@ -31,36 +32,38 @@ const valueKey = values => {
   return keys.length > 1 ? 'mixed' : keys[0];
 };
 
-const samples = (vehicle,progress) => [...vehicle.scans ?? [], ...visibleSpawns(vehicle,progress)];
-export const observed = (vehicle,field,progress) => valueKey(samples(vehicle,progress).map(scan=>scan[field]));
+const samples = vehicle => [...vehicle.scans ?? [], ...visibleSpawns(vehicle)];
+export const observed = (vehicle,field) => valueKey(samples(vehicle).map(scan=>scan[field]));
 
 const someSell = (track, buyer) => buyer==='moses' ? track==='none' : track==='standard'||track==='advanced';
-export function buyerStatus(vehicle, buyer, progress) {
-  if (progress.spoilers && progress.chapter < (buyer==='moses'?2:3)) return null;
+export function buyerStatus(vehicle, buyer) {
   if (vehicle.buyerPrices?.some(offer=>offer.buyer===buyer)) return 'observed';
   if (buyer==='randy') return vehicle.randy ? 'request' : null;
-  const types = [...new Set(samples(vehicle,progress).map(s=>s.tracker).filter(Boolean))];
+  const types = [...new Set(samples(vehicle).map(s=>s.tracker).filter(Boolean))];
   if (!types.length) return null;
   if (types.every(type=>someSell(type,buyer))) return 'conditional';
   if (types.some(type=>someSell(type,buyer))) return 'mixed';
   return buyer==='pay' && types.includes('none') ? 'shop' : 'no';
 }
-const eligibleBuyer = (vehicle,buyer,progress) => ['request','conditional','mixed','observed'].includes(buyerStatus(vehicle,buyer,progress));
+const eligibleBuyer = (vehicle,buyer) => ['request','conditional','mixed','observed'].includes(buyerStatus(vehicle,buyer));
 
+/**
+ * Compatibilidade com os equipamentos configurados (Slim Jim e clonador de chaves).
+ * Compradores e oficinas não são configuráveis: a compatibilidade usa o rastreador observado,
+ * sem presumir que o contato esteja liberado no save.
+ */
 export function compatible(vehicle, progress, buyer) {
   const has = key => progress.equipment.includes(key);
-  const enough = record => (record.chapter ?? 1)<=progress.chapter && (record.untilChapter ?? 5)>=progress.chapter &&
-    (record.requires ?? []).every(has);
-  const spawns = visibleSpawns(vehicle,progress).filter(s=>s.type==='fixed'||s.type==='reported'||s.type==='street');
-  if (buyer==='randy') return progress.chapter>=3 && has('randy') && vehicle.randy===true && has('cloner');
+  // Requisitos não configuráveis (edição, contato, corrida) não são presumidos como atendidos.
+  const enough = record => (record.requires ?? []).every(key => configurableKeys.includes(key) && has(key));
+  const spawns = visibleSpawns(vehicle).filter(s=>s.type==='fixed'||s.type==='reported'||s.type==='street');
+  if (buyer==='randy') return vehicle.randy===true && has('cloner');
   if (!buyer && vehicle.access && enough(vehicle.access)) return true;
   return [...(vehicle.scans ?? []), ...spawns].some(scan=>{
     if (!enough(scan) || !scan.tracker || !scan.entry) return false;
     if ((scan.entry==='cloner' && !has('cloner')) || (scan.entry==='slim' && !has('slim'))) return false;
     const sell = buyer || (scan.tracker==='none' ? 'moses' : 'pay');
-    if (!someSell(scan.tracker,sell)) return false;
-    if (sell==='moses') return progress.chapter>=2 && has('moses');
-    return progress.chapter>=3 && has(scan.tracker==='advanced' ? 'advancedShop' : 'standardShop');
+    return someSell(scan.tracker,sell);
   });
 }
 
@@ -69,7 +72,7 @@ export function vehicleSearch(vehicle) {
 }
 
 export function exactMarkers(vehicle,progress,{reported=false}={}) {
-  return visibleSpawns(vehicle,progress).filter(s=>Number.isFinite(s.x) && Number.isFinite(s.y) &&
+  return visibleSpawns(vehicle).filter(s=>Number.isFinite(s.x) && Number.isFinite(s.y) &&
     (s.type==='fixed' || (reported && s.type==='reported')));
 }
 
@@ -82,15 +85,15 @@ export function selectVehicles(vehicles, filters, progress) {
   const words = normalize(filters.query).split(' ').filter(Boolean);
   const optional = (filter,value) => !filter || (filter==='unknown' ? value == null : filter===String(value));
   const chosen = vehicles.filter(v=>{
-    if (!revealVehicle(v,progress) || !words.every(word=>(v.search ?? vehicleSearch(v)).includes(word))) return false;
+    if (!words.every(word=>(v.search ?? vehicleSearch(v)).includes(word))) return false;
     if (filters.favorites && !progress.vehicleFavorites.includes(v.id)) return false;
     if (filters.class && v.class!==filters.class) return false;
-    if (filters.buyer && !eligibleBuyer(v,filters.buyer,progress)) return false;
+    if (filters.buyer && !eligibleBuyer(v,filters.buyer)) return false;
     if (filters.compatible && !compatible(v,progress,filters.buyer)) return false;
-    if (!optional(filters.rarity,v.rarity) || !optional(filters.tracker,observed(v,'tracker',progress)) ||
-        !optional(filters.alarm,observed(v,'alarm',progress)) || !optional(filters.cloner,observed(v,'cloner',progress))) return false;
+    if (!optional(filters.rarity,v.rarity) || !optional(filters.tracker,observed(v,'tracker')) ||
+        !optional(filters.alarm,observed(v,'alarm')) || !optional(filters.cloner,observed(v,'cloner'))) return false;
     if (filters.availability) {
-      const known = [...new Set([v.availability,...visibleSpawns(v,progress).map(s=>s.type)].filter(Boolean))];
+      const known = [...new Set([v.availability,...visibleSpawns(v).map(s=>s.type)].filter(Boolean))];
       if (filters.availability==='unknown' ? known.length : !known.includes(filters.availability)) return false;
     }
     const range = priceRange(v);

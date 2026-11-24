@@ -192,13 +192,6 @@ legend{color:var(--soft);font-size:12px}
 
 #map[data-zoom^='-'] .local-map-label{display:none}
 
-.chapter-gate{flex:1;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(ellipse at 50% 25%,#29213f 0%,var(--bg) 65%)}
-.chapter-gate form{width:min(100%,410px);padding:clamp(22px,6vw,34px);background:var(--panel);border:1px solid #514369;border-radius:16px;box-shadow:0 16px 48px #08061188}
-.chapter-gate .gate-brand{margin:14px 0 8px;color:var(--accent);font-weight:750}
-.chapter-gate h1{font-size:clamp(23px,6vw,30px);line-height:1.15;letter-spacing:-.025em}
-.chapter-gate h1+p{margin:10px 0 22px;color:var(--soft);line-height:1.45}
-.chapter-gate .form-row{margin-bottom:14px}
-.chapter-gate select,.chapter-gate .ui-button{min-height:44px}
 .startup-error{margin:auto;padding:24px;color:var(--fg);text-align:center}
 
 .point-icon svg,.category-symbol svg{width:17px;height:17px}
@@ -213,3 +206,51 @@ legend{color:var(--soft);font-size:12px}
 .series summary{cursor:pointer;padding:7px 0;color:#d7c6ee;font-size:12px}
 .series .category-row{padding-left:10px}
 @media(max-width:760px){.app-version{font-size:9px;padding:2px 4px}}
+
+/* Disponibilidade, contadores e cadeado (1.3.0) */
+.counter{font-variant-numeric:tabular-nums;white-space:nowrap}
+.category-row>.counter,.category-head .counter{flex:none}
+.map-pin{position:relative}
+.map-pin .pin-lock{position:absolute;right:-5px;bottom:-5px;display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#2a1830;border:1px solid #f2a9c4;color:#ffd5e5;pointer-events:none}
+.map-pin .pin-lock svg{width:9px;height:9px;stroke-width:2.6}
+.map-pin.locked{opacity:.82}
+.badge.locked{color:#ffd5e5;background:#3a1d33;border-color:#7d3b62}
+.active-filters{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px}
+.active-filters .chip{display:inline-flex;align-items:center;gap:4px;min-height:28px;font-size:11px}
+.active-filters .chip svg{width:12px;height:12px}
+.equipment-chips{margin-top:4px}
+.equipment-chips .chip small{opacity:.75;font-weight:600}
+.form-row.compact{margin:4px 0}
+.form-row.compact select{font-size:14px}
+.muted.small{font-size:11px;display:flex;gap:5px;align-items:flex-start}
+.muted.small svg{width:13px;height:13px;flex:none;margin-top:1px}
+.section-title .text-button{margin-left:auto}
+section.requirement{display:block;padding:8px 9px}
+section.requirement h3{display:flex;align-items:center;gap:6px;font-size:12px;margin:0 0 5px}
+section.requirement h3 svg{width:14px;height:14px}
+section.requirement ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+section.requirement li{display:flex;align-items:center;gap:6px;font-size:11px;line-height:1.35}
+section.requirement li svg{width:13px;height:13px;flex:none}
+section.requirement li small{color:var(--soft)}
+section.requirement.ok{background:#17302b;border-color:#2f6b58;color:#d7f7ea}
+section.requirement.missing{background:#33182b;border-color:#7d3b62;color:#ffe0ec}
+section.requirement.unknown{background:#202336;border-color:#454a68;color:#dfe2f3}
+section.requirement li.missing{color:#ffc6da}
+section.related{margin-top:10px}
+section.related h3{font-size:12px;color:var(--soft);margin:0 0 4px;font-weight:700}
+dialog.settings-dialog{padding:0;display:none;flex-direction:column;overflow:hidden;
+  max-height:min(640px,calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px))}
+dialog.settings-dialog[open]{display:flex}
+dialog.settings-dialog form{display:flex;flex-direction:column;min-height:0;max-height:inherit}
+dialog.settings-dialog .dialog-head{padding:14px 16px 6px;flex:none}
+dialog.settings-dialog .dialog-scroll{overflow:auto;overscroll-behavior:contain;padding:0 16px 6px;min-height:0;flex:1 1 auto}
+dialog.settings-dialog .dialog-actions{padding:10px 16px calc(12px + env(safe-area-inset-bottom));margin:0;border-top:1px solid #2f3350;flex:none;background:#181a2a}
+dialog.settings-dialog .check{align-items:flex-start;padding:6px 0;min-height:44px}
+dialog.settings-dialog .check input{margin-top:3px;width:18px;height:18px;flex:none}
+dialog.settings-dialog .check span{display:grid;gap:2px}
+dialog.settings-dialog .check small{color:var(--soft);font-size:11px;line-height:1.35}
+@media(max-width:760px){
+  dialog.settings-dialog{position:fixed;inset:calc(env(safe-area-inset-top) + 10px) 8px auto;margin:0 auto;width:calc(100% - 16px);
+    max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 72px)}
+  .settings-label-short{display:inline}
+}

@@ -22,7 +22,10 @@ export function normalizeText(value) {
     .replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 }
 
-const reviewedAliases = { L2375:'vehicle-mod-shop-001', 'marina-004':'landmark-002' };
+import { duplicateAliases } from '../src/curation.js';
+
+// Duplicatas revisadas manualmente. As de src/curation.js também são aplicadas pelo app.
+const reviewedAliases = { L2375:'vehicle-mod-shop-001', 'marina-004':'landmark-002', ...duplicateAliases };
 
 function category(record) {
   const type = normalizeText(record.type);

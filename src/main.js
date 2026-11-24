@@ -1,11 +1,13 @@
 import { createMap } from './map.js';
 import { installIcons, icon } from './icons.js';
-import { pointSymbol } from './point-icons.js';
+import { pointSymbol, lockSymbol } from './point-icons.js';
 import { layers } from './layers.js';
 import { registrationGuide } from './standout.js';
 import { version } from '../package.json';
-import { checked, equipment, leads } from './guides.js';
-import { applyGuides, decodeProgress, mergeProgress, freshProgress, chapters, normalize, visible, availableOnMap, matches, remaining, rangeText } from './model.js';
+import { checked, leads } from './guides.js';
+import { curationChecked } from './curation.js';
+import { configurable, configurableKeys, availabilityLabels, requirementLabel, usesEquipment } from './requirements.js';
+import { applyGuides, decodeProgress, mergeProgress, freshProgress, normalize, visible, availableOnMap, matches, remaining, rangeText, catalogAliases, availability, categoryCounts } from './model.js';
 import { createCarFinder } from './car-finder.js';
 import './style.css';
 import './car-finder.css';
@@ -16,8 +18,9 @@ const fmt = new Intl.NumberFormat('pt-BR');
 const base = import.meta.env.BASE_URL;
 const storageKey = 'leonida-map:progress:v1';
 const mobile = () => matchMedia('(max-width: 760px)').matches;
-const filters = {status:'all',series:new Set(),kinds:new Set(),words:[]};
-let panel='map', selected=null, placeMode=false, progress, catalog, map, staticPoints, data, filtered, lookup;
+const freshFilters = () => ({status:'all',series:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false,availability:'all',equipment:new Set()});
+const filters = freshFilters();
+let panel='map', selected=null, placeMode=false, progress, catalog, aliases, map, staticPoints, data, filtered, lookup;
 let seriesOpen=false, flashTimer, listLimit=50, carFinder, previewVehicle;
 const openGroups=new Set(['Operações']);
 const badge = (text,tone='') => '<span class="badge '+tone+'">'+esc(text)+'</span>';
@@ -48,47 +51,75 @@ function customPoints() {
 function refresh() {
   data=[...staticPoints,...customPoints()];
   lookup=new Map(data.map(p=>[p.id,p]));
+  for (const p of data) p.locked=availability(p,progress).state==='unmet';
   filtered=data.filter(p=>matches(p,filters,progress));
   if (selected && !filtered.some(p=>p.id===selected)) selected=null;
   map.update(filtered,progress,selected);
   const pinCount=filtered.filter(p=>p.x!=null).length;
   $('map-count').textContent=fmt.format(pinCount)+(pinCount===1?' pino':' pinos');
-  $('chapter-label').textContent='Capítulo '+progress.chapter;
+  const owned=progress.equipment.length;
+  $('settings-label').textContent=owned?'Equipamentos '+owned+'/'+configurableKeys.length:'Configurações';
   if (previewVehicle) clearVehicleMap();
   renderPanel(); renderDetail();
 }
-function filterRow(key, name, total, {enabled=true, on=true, attribute='kind', marker=''}={}) {
+const ratio = (shown,total) => '<small class="counter" title="Visíveis com os filtros atuais / total catalogado">'+fmt.format(shown)+'/'+fmt.format(total)+'</small>';
+function filterRow(key, name, shown, total, {enabled=true, on=true, attribute='kind', marker=''}={}) {
   return '<label class="category-row"><input type="checkbox" data-'+attribute+'="'+esc(key)+'" '+(on?'checked ':'')+
-    (!enabled?'disabled ':'')+'>'+marker+'<span>'+esc(name)+'</span><small>'+fmt.format(total)+'</small></label>';
+    (!enabled?'disabled ':'')+'>'+marker+'<span>'+esc(name)+'</span>'+ratio(shown,total)+'</label>';
+}
+function activeFilters() {
+  const list=[];
+  if(filters.words.length)list.push(['Busca: '+$('query').value.trim(),'words']);
+  if(filters.status!=='all')list.push([{pending:'Pendentes',done:'Concluídos',favorite:'Favoritos'}[filters.status],'status']);
+  for(const key of ['guides','peace','repeat'])if(filters[key])list.push([{guides:'Com guia',peace:'Sem confronto',repeat:'Repetíveis'}[key],key]);
+  if(filters.availability!=='all')list.push([availabilityLabels[filters.availability],'availability']);
+  for(const key of filters.equipment)list.push(['Usa '+configurable[key].short,'equipment:'+key]);
+  if(filters.kinds.size)list.push([filters.kinds.size+(filters.kinds.size===1?' categoria oculta':' categorias ocultas'),'kinds']);
+  if(filters.series.size)list.push([filters.series.size+' coleções ocultas','series']);
+  return list;
+}
+function availabilityMarkup() {
+  const base=data.filter(p=>availableOnMap(p,progress));
+  const states={all:base.length,met:0,unmet:0,unknown:0};
+  for(const p of base){const s=availability(p,progress).state;if(s in states)states[s]++;}
+  const active=activeFilters();
+  return '<div class="section-title"><h2>Disponibilidade</h2>'+(active.length?button('Limpar filtros','clear-filters','x','text-button'):'')+'</div>'+
+    (active.length?'<div class="active-filters" aria-label="Filtros ativos">'+active.map(([label,key])=>'<button type="button" class="chip active" data-clear="'+esc(key)+'" aria-label="Remover filtro '+esc(label)+'">'+esc(label)+icon('x')+'</button>').join('')+'</div>':'')+
+    '<label class="form-row compact">Mostrar<select id="availability-filter">'+Object.entries(availabilityLabels).map(([key,label])=>
+      '<option value="'+key+'" '+(filters.availability===key?'selected':'')+'>'+esc(label)+' ('+fmt.format(states[key])+')</option>').join('')+'</select></label>'+
+    '<div class="chips equipment-chips" role="group" aria-label="Filtrar por equipamento necessário">'+configurableKeys.map(key=>{
+      const total=base.filter(p=>usesEquipment(p,key)).length, on=filters.equipment.has(key);
+      return '<button type="button" class="chip '+(on?'active':'')+'" data-equipment-filter="'+key+'" aria-pressed="'+on+'">'+esc(configurable[key].short)+' <small>'+fmt.format(total)+'</small></button>';
+    }).join('')+'</div>'+
+    '<p class="muted small">'+icon('lock')+' Cadeado no pino: falta um equipamento ou desbloqueio marcado em Configurações.</p>';
 }
 function groupMarkup(allowed) {
   const groups=new Map(layers.map(([label])=>[label,new Map()]));
+  const counts=categoryCounts(allowed,filtered);
+  for(const [kind,row] of counts) groups.get(row.category?.group)?.set(kind,row);
   const series=new Map();
-  for(const p of allowed) {
-    const kinds=groups.get(p.category?.group);
-    if(!kinds) continue;
-    const row=kinds.get(p.kind);
-    kinds.set(p.kind,{category:p.category,count:(row?.count || 0)+1});
-    if(p.variant)series.set(p.series,(series.get(p.series)||0)+1);
+  for(const p of allowed) if(p.variant){
+    const row=series.get(p.series)||{shown:0,total:0};row.total++;series.set(p.series,row);
   }
+  for(const p of filtered) if(p.variant&&series.has(p.series))series.get(p.series).shown++;
   return '<div class="section-title"><h2>Categorias</h2></div><div class="layer-actions">'+
     button('Mostrar tudo','layers-all','','text-button')+button('Ocultar tudo','layers-none','','text-button')+
     button('Restaurar','reset-filters','','text-button')+'</div>'+layers.map(([group,glyph])=>{
-      const rows=[...groups.get(group).values()];
-      const total=rows.reduce((sum,row)=>sum+row.count,0);
+      const rows=[...groups.get(group).values()].sort((a,b)=>a.category.name.localeCompare(b.category.name,'pt-BR'));
+      const total=rows.reduce((sum,row)=>sum+row.total,0), shown=rows.reduce((sum,row)=>sum+row.shown,0);
       const on=progress.enabledGroups.includes(group);
       const expanded=openGroups.has(group);
-      const children=rows.map(({category:c,count})=>filterRow(c.key,c.name,count,{
+      const children=rows.map(({category:c,shown,total})=>filterRow(c.key,c.name,shown,total,{
         enabled:on,on:on&&!filters.kinds.has(c.key),
         marker:'<span class="category-symbol" style="--pin:'+esc(c.colour)+'">'+pointSymbol({kind:c.key})+'</span>'
       })).join('');
       const variants=group==='Veículos'&&series.size ? '<details class="series" '+(seriesOpen?'open':'')+'><summary>Coleções de variantes</summary>'+
-        [...series].sort(([a],[b])=>a.localeCompare(b,'pt-BR')).map(([key,count])=>filterRow(key,key,count,{
+        [...series].sort(([a],[b])=>a.localeCompare(b,'pt-BR')).map(([key,{shown,total}])=>filterRow(key,key,shown,total,{
           attribute:'series',enabled:on&&!filters.kinds.has('vehicle'),on:on&&!filters.kinds.has('vehicle')&&!filters.series.has(key)
         })).join('')+'</details>' : '';
       return '<section class="category-group"><div class="category-head"><input type="checkbox" aria-label="'+group+
         '" data-group="'+group+'" '+(on?'checked':'')+'><button data-toggle-group="'+group+'" aria-expanded="'+expanded+'">'+
-        icon(glyph)+'<strong>'+group+'</strong><small>'+fmt.format(total)+'</small>'+icon('chevron-down')+'</button></div>'+
+        icon(glyph)+'<strong>'+group+'</strong>'+ratio(shown,total)+icon('chevron-down')+'</button></div>'+
         (expanded?children+variants:'')+'</section>';
     }).join('');
 }
@@ -108,17 +139,17 @@ function renderPanel() {
   $('search-tools').hidden=panel!=='map';
   $('panel-title').textContent=({map:'Explorar Leonida',rank:'Rankings',progress:'Seu progresso'})[panel];
   $('panel-caption').textContent=({map:'Pontos de interesse e guias de GTA VI',rank:'Compare as recompensas disponíveis',progress:'Checklist e histórico de exploração'})[panel];
-  const entitled=data.filter(p=>visible(p,progress));
+  const entitled=data.filter(p=>visible(p));
   const available=entitled.filter(p=>availableOnMap(p,progress)), completed=available.filter(p=>progress.completed[p.id]);
   const pct=available.length?Math.round(completed.length/available.length*100):0;
   const scroll=$('panel-content').scrollTop;
   if (panel==='map') {
-    const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides;
+    const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides || filters.availability!=='all' || filters.equipment.size;
     const list=filtered;
     const featured=['safe-070','L2453','liquor-store-002','standout-vehicle-101'].map(id=>lookup.get(id)).filter(p=>p && filtered.includes(p));
     $('panel-content').innerHTML=(showingList?
       '<div class="section-title"><h2>Resultados</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
-      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+groupMarkup(entitled);
+      : (featured.length?'<div class="section-title"><h2>Guias em destaque</h2></div>'+featured.map(p=>pointButton(p)).join(''):''))+availabilityMarkup()+groupMarkup(entitled);
   }
   if (panel==='rank') renderRank();
   if (panel==='progress') renderProgress(available,completed);
@@ -126,12 +157,14 @@ function renderPanel() {
   $('panel-footer').innerHTML='<div><strong>Progresso em Leonida</strong><b>'+pct+'%</b></div><progress value="'+completed.length+'" max="'+Math.max(available.length,1)+'"></progress><small>'+fmt.format(completed.length)+' / '+fmt.format(available.length)+' pontos visíveis</small>';
 }
 function renderRank() {
-  const ranking=field=>filtered.filter(p=>p[field]).sort((a,b)=>(b[field][0]+b[field][1])-(a[field][0]+a[field][1])).map(p=>pointButton(p,rangeText(p[field]))).join('');
-  $('panel-content').innerHTML='<div class="section-title"><h2>Atividades lucrativas</h2></div><p class="muted">Faixas podem incluir loot bruto ou bônus.</p>'+
+  const parentReward=p=>p.partOf&&lookup.get(p.partOf)?.reward;
+  const ranking=field=>filtered.filter(p=>p[field]&&!(field==='reward'&&parentReward(p))).sort((a,b)=>(b[field][0]+b[field][1])-(a[field][0]+a[field][1]))
+    .map(p=>pointButton(p,rangeText(p[field])+(p.related?.length?' · '+p.related.length+' itens vinculados no local':''))).join('');
+  $('panel-content').innerHTML='<div class="section-title"><h2>Atividades lucrativas</h2></div><p class="muted">Faixas do cartão do jogo ou de guias. Itens já incluídos no valor de um complexo não são somados de novo.</p>'+
     (ranking('reward')||'<p class="empty">Sem atividade com valor conhecido nos filtros atuais.</p>')+
     '<div class="section-title"><h2>Revenda de veículos</h2></div>'+
     '<div id="vehicle-ranking"></div>'+button('Ver catálogo por revenda','vehicle-rank','car','full')+
-    '<div class="section-title"><h2>Pistas sem pino</h2></div>'+leads.filter(p=>!progress.spoilers||p.chapter<=progress.chapter).map(p=>
+    '<div class="section-title"><h2>Pistas sem pino</h2></div>'+leads.map(p=>
       '<details class="note"><summary>'+esc(p.name)+'</summary><p>'+esc(p.note)+'</p>'+p.refs.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+'</details>').join('');
   const target=$('vehicle-ranking');
   carFinder.ranking().then(rows=>{
@@ -156,39 +189,54 @@ function renderDetail() {
   if (!p || !availableOnMap(p,progress)) {d.hidden=true;d.innerHTML='';return;}
   const complete=!!progress.completed[p.id], favorite=progress.favorites.includes(p.id);
   const level=p.official?'Local oficial · posição comunitária':p.guide&&!p.guide.summary?'Guia com fontes':({community:'Relato público',confirmed:'Confirmação da fonte',unknown:'Evidência incompleta',personal:'Seu ponto'}[p.evidence]);
-  const fields={...(p.guide?.fields || {})};
+  const fields={...(p.fields || {})};
   if(p.variant){
     fields['Coleção']=p.series;
     fields['Registro']='Consulte a taxa e o rastreador no WAiNK. A oficina precisa aceitar o veículo.';
   }
+  if (['bank','bigbank','jewelry','pawn','gang','payday','store','safe'].includes(p.kind)) {
+    if(!fields['Alarme'])fields['Câmeras e alarmes']??=unknown;
+    fields['Cofre']??=unknown;
+    fields['Senha']??=unknown;
+    if (!fields['Hostis']) fields['Guardas']??=unknown;
+    fields['Repetição']??=p.repeatable===true?'Relatada':p.repeatable===false?'Atividade única':unknown;
+  }
   if (p.guide) {
-    if (['bank','smash','gang','payday','store','safe'].includes(p.kind)) {
-      fields['Câmeras e alarmes']??=unknown;
-      fields['Cofre']??=unknown;
-      fields['Senha']??=unknown;
-      if (!fields['Hostis']) fields['Guardas']??=unknown;
-    }
     if (p.kind==='vehicle') {
       fields['Revenda livre']??=p.resale?rangeText(p.resale):unknown;
       fields['Alarme']??=unknown;
       fields['NPCs e horários']??=unknown;
     }
-    fields['Repetição']=p.repeatable===true?'Relatada':p.repeatable===false?'Atividade única':unknown;
+    fields['Repetição']??=p.repeatable===true?'Relatada':p.repeatable===false?'Atividade única':unknown;
   }
   const coord=p.x!=null?'X '+fmt.format(p.x*32-16384)+' · Y '+fmt.format(16384-p.y*32):'Sem coordenadas';
-  const gate=(p.requires||[]).map(key=>equipment[key]).join(' · ');
-  const sourceLinks=[...new Set([...(p.refs||[]),...(!p.neutral||p.variant?p.sources||[]:[])])];
+  const req=availability(p,progress);
+  const reqStatus={met:['Requisitos configuráveis atendidos','check','ok'],unmet:['Falta '+req.missing.map(key=>configurable[key].short).join(' e '),'lock','missing'],
+    unknown:[req.partial?'Requisitos parcialmente documentados':'Requisitos não documentados','circle-help','unknown']}[req.state];
+  const reqBlock=reqStatus||req.info.length||req.optional.length?'<section class="requirement '+(reqStatus?.[2]||'')+'"><h3>'+icon(reqStatus?.[1]||'shield')+esc(reqStatus?.[0]||'Requisitos informativos')+'</h3><ul>'+
+    req.required.map(key=>'<li class="'+(progress.equipment.includes(key)?'ok':'missing')+'">'+icon(progress.equipment.includes(key)?'check':'lock')+esc(configurable[key].label)+'</li>').join('')+
+    req.optional.map(key=>'<li class="optional">'+icon(progress.equipment.includes(key)?'check':'circle-help')+esc(configurable[key].label)+' <small>opcional, recomendada</small></li>').join('')+
+    req.info.map(key=>'<li class="info">'+icon('info')+esc(requirementLabel(key))+' <small>informativo, não verificado pelo app</small></li>').join('')+
+    '</ul>'+(req.state==='unmet'?'<p class="muted small">Marque o item em Configurações quando tiver o equipamento ou desbloqueio.</p>':'')+'</section>':'';
+  const parent=p.partOf?lookup.get(p.partOf):null;
+  const related=(p.related||[]).map(id=>lookup.get(id)).filter(Boolean);
+  const linked=parent||related.length?'<section class="related"><h3>'+(parent?'Faz parte de':'Outros itens no local')+'</h3>'+
+    (parent?pointButton(parent,parent.reward?'Valor da operação: '+rangeText(parent.reward):parent.category?.name):'')+
+    related.map(r=>pointButton(r,r.category?.name)).join('')+
+    (related.length&&p.reward?'<p class="muted small">O valor da operação e os valores individuais são exibidos separadamente e não são somados nos rankings.</p>':'')+'</section>':'';
+  const sourceLinks=[...new Set([...(p.refs||[]),...(p.sources||[])])];
   d.hidden=false;
   d.innerHTML='<div class="mobile-grip" aria-hidden="true"></div><div class="detail-head"><span class="point-icon large" style="--pin:'+esc(p.category?.colour||'#bd94ff')+'">'+pointSymbol(p)+'</span><div><h2>'+esc(p.name)+'</h2><p>'+esc([p.category?.name,p.region].filter(Boolean).join(' · '))+'</p></div><button class="icon-button '+(favorite?'is-fave':'')+'" data-action="favorite" aria-label="Favoritar ponto" aria-pressed="'+favorite+'">'+icon('star')+'</button><button class="icon-button" data-action="close-detail" aria-label="Fechar detalhes">'+icon('x')+'</button></div>'+
-    '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter):'')+(complete?badge('Concluído','green'):'')+'</div>'+
+    '<div class="detail-body"><div class="badges">'+badge(level,p.evidence==='community'?'purple':'')+(p.chapter?badge('Capítulo '+p.chapter+' · informativo'):'')+(p.gang?.edition==='ultimate'?badge('Ultimate Edition'):'')+(p.locked?badge('Bloqueado','locked'):'')+(complete?badge('Concluído','green'):'')+'</div>'+
     '<p class="coordinates" title="Sistema da base cartográfica. A origem pode ser aproximada">'+icon('locate-fixed')+esc(coord)+(p.x!=null?' <small>· posição da fonte</small>':'')+'</p>'+
     (p.intro||p.variantNote?'<p>'+esc(p.intro||p.variantNote)+'</p>':'')+
-    (p.description && (p.evidence==='personal'||(!p.guide && !p.variantNote && (p.variantDescription || !progress.spoilers||progress.showUnknown)))?'<p>'+esc(p.description)+'</p>':'')+
-    (gate?'<div class="requirement">'+icon('shield')+'<span>'+esc(gate)+'</span></div>':'')+
+    (p.description && p.description!==p.intro && (p.evidence==='personal'||!p.guide||p.guide.summary)?'<p>'+esc(p.description)+'</p>':'')+
+    reqBlock+
     (p.guide?.image?'<img class="location-photo" src="'+esc(base+p.guide.image.file)+'" alt="'+esc(p.guide.image.alt)+'" loading="lazy"><small>'+esc(p.guide.image.credit)+'</small>':'')+
     (Object.keys(fields).length?'<dl>'+Object.entries(fields).map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>':'')+
     (p.steps?.length?'<details class="note"><summary>Como fazer</summary><ol>'+p.steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol></details>':'')+
-    (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide?checked:catalog.metadata.verified)+'</summary>'+
+    linked+
+    (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide&&!p.guide.summary?checked:curationChecked)+'</summary>'+
       sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(p.collection==='gameta'?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
       (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
@@ -205,26 +253,25 @@ function selectPoint(id,focus=false) {
 }
 function openSettings() {
   const dialog=$('dialog');
-  dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>Capítulo e acesso</h2><button class="icon-button" value="cancel" aria-label="Fechar preferências">'+icon('x')+'</button></div>'+
-    '<label class="form-row">Capítulo atual<select name="chapter">'+chapters.map(n=>'<option '+(progress.chapter===n?'selected':'')+' value="'+n+'">Capítulo '+n+'</option>').join('')+'</select></label>'+
-    '<label class="check"><input type="checkbox" name="spoilers" '+(progress.spoilers?'checked':'')+'> Proteger contra spoilers</label>'+
-    '<label class="check"><input type="checkbox" name="showUnknown" '+(progress.showUnknown?'checked':'')+'> Mostrar atividades sem capítulo verificado</label>'+
-    '<p class="muted">Atividades sem capítulo conhecido e links externos podem conter spoilers.</p>'+
-    '<label class="check"><input type="checkbox" name="strictAccess" '+(progress.strictAccess?'checked':'')+'> Mostrar apenas pontos com requisitos atendidos</label>'+
-    '<fieldset><legend>Equipamentos e desbloqueios</legend>'+Object.entries(equipment).map(([id,name])=>
-      '<label class="check"><input type="checkbox" name="equipment" value="'+id+'" '+(progress.equipment.includes(id)?'checked':'')+'> '+esc(name)+'</label>').join('')+
-    '</fieldset><div class="dialog-actions"><button class="ui-button primary" value="save">Salvar preferências</button></div></form>';
+  const group=(name,kind)=>'<fieldset><legend>'+name+'</legend>'+Object.entries(configurable).filter(([,item])=>item.group===kind).map(([id,item])=>
+    '<label class="check"><input type="checkbox" name="equipment" value="'+id+'" '+(progress.equipment.includes(id)?'checked':'')+'><span>'+esc(item.label)+'<small>'+esc(item.unlock)+'</small></span></label>').join('')+'</fieldset>';
+  dialog.className='settings-dialog';
+  dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>Configurações</h2><button class="icon-button" value="cancel" aria-label="Fechar configurações">'+icon('x')+'</button></div>'+
+    '<div class="dialog-scroll"><p class="muted">Marque o que você já tem no seu jogo. Pontos que exigem um item desmarcado recebem um cadeado, mas continuam no mapa.</p>'+
+    group('Equipamentos','equipment')+group('Desbloqueios','unlock')+
+    '<p class="muted small">Contatos, edições e outros requisitos aparecem nas fichas como informação e não bloqueiam pontos.</p></div>'+
+    '<div class="dialog-actions"><button class="ui-button primary" value="save">Salvar configurações</button></div></form>';
   dialog.querySelector('form').onsubmit=event=>{
     if(event.submitter?.value!=='save') return;
     const form=new FormData(event.currentTarget);
-    Object.assign(progress,{chapter:Number(form.get('chapter')),spoilers:form.has('spoilers'),showUnknown:form.has('showUnknown'),
-      strictAccess:form.has('strictAccess'),equipment:form.getAll('equipment')});
+    progress.equipment=form.getAll('equipment').filter(key=>configurableKeys.includes(key));
     save();refresh();
   };
   dialog.showModal();
 }
 function openCustom(point) {
   const dialog=$('dialog');
+  dialog.className='';
   dialog.innerHTML='<form method="dialog"><div class="dialog-head"><h2>'+(point.id?'Editar ponto':'Novo ponto')+'</h2><button formnovalidate value="cancel" class="icon-button" aria-label="Fechar">'+icon('x')+'</button></div>'+
     '<label class="form-row">Nome<input name="name" required maxlength="90" value="'+esc(point.name)+'"></label>'+
     '<label class="form-row">Região<input name="region" maxlength="90" value="'+esc(point.region)+'"></label>'+
@@ -302,6 +349,8 @@ function handleClick(event) {
   if(d.panel)return openPanel(d.panel);
   if(d.status){filters.status=d.status;listLimit=50;refresh();return;}
   if(d.filter){filters[d.filter]=!filters[d.filter];listLimit=50;refresh();return;}
+  if(d.equipmentFilter){if(filters.equipment.has(d.equipmentFilter))filters.equipment.delete(d.equipmentFilter);else filters.equipment.add(d.equipmentFilter);listLimit=50;refresh();return;}
+  if(d.clear){clearFilter(d.clear);return;}
   if(d.toggleGroup){if(openGroups.has(d.toggleGroup))openGroups.delete(d.toggleGroup);else openGroups.add(d.toggleGroup);renderPanel();return;}
   switch(d.action) {
     case 'home':openPanel('map');map.home();break;
@@ -321,7 +370,7 @@ function handleClick(event) {
     case 'close-detail':selected=null;map.highlight(null);renderDetail();break;
     case 'layers-all':progress.enabledGroups=layers.map(([name])=>name);commit();break;
     case 'layers-none':progress.enabledGroups=[];commit();break;
-    case 'reset-filters':Object.assign(filters,{status:'all',series:new Set(),kinds:new Set(),words:[],repeat:false,peace:false,guides:false});$('query').value='';commit();break;
+    case 'reset-filters':case 'clear-filters':Object.assign(filters,freshFilters());$('query').value='';listLimit=50;commit();break;
     case 'done':if(selected){if(progress.completed[selected])delete progress.completed[selected];else progress.completed[selected]=new Date().toISOString();commit();}break;
     case 'favorite':if(selected){progress.favorites=progress.favorites.includes(selected)?progress.favorites.filter(id=>id!==selected):[...progress.favorites,selected];commit();}break;
     case 'vehicle-rank':carFinder.sortByPrice();openPanel('vehicles');break;
@@ -333,21 +382,15 @@ function handleClick(event) {
   }
 }
 
-function selectInitialChapter() {
-  const gate=$('chapter-gate'), form=$('initial-chapter');
-  const select=form.elements.chapter;
-  for (const chapter of chapters) select.add(new Option('Capítulo '+chapter,chapter));
-  gate.hidden=false;
-  return new Promise(resolve=>{
-    form.addEventListener('submit',event=>{
-      event.preventDefault();
-      progress.chapter=Number(select.value);
-      progress.chapterSelected=true;
-      save();
-      gate.hidden=true;
-      resolve();
-    },{once:true});
-  });
+function clearFilter(key) {
+  if(key==='words'){filters.words=[];$('query').value='';}
+  else if(key==='status')filters.status='all';
+  else if(key==='availability')filters.availability='all';
+  else if(key==='kinds')filters.kinds=new Set();
+  else if(key==='series')filters.series=new Set();
+  else if(key.startsWith('equipment:'))filters.equipment.delete(key.slice(10));
+  else filters[key]=false;
+  listLimit=50;refresh();
 }
 
 async function init() {
@@ -355,15 +398,19 @@ async function init() {
   const response=await fetch(base+'data/catalog.json');
   if(!response.ok)throw new Error('Catálogo indisponível');
   catalog=await response.json();
+  aliases=catalogAliases(catalog);
   progress=freshProgress();
-  try {const old=localStorage.getItem(storageKey);if(old)progress=decodeProgress(JSON.parse(old),catalog.aliases);}
+  try {
+    const old=localStorage.getItem(storageKey);
+    if(old){progress=decodeProgress(JSON.parse(old),aliases);save();}
+  }
   catch {toast('O progresso salvo não pôde ser lido.');}
-  if(progress.chapter===null)await selectInitialChapter();
   $('topbar').hidden=false;
   $('workspace').hidden=false;
   staticPoints=applyGuides(catalog);
   map=createMap({revision:catalog.metadata.revision,labels:catalog.labels,onSelect:selectPoint,
-    onPlace:p=>{placement(false);openCustom(p);},markerIcon:pointSymbol});
+    onPlace:p=>{placement(false);openCustom(p);},
+    markerIcon:(p,done)=>pointSymbol(p,done)+(p.locked&&!done?'<i class="pin-lock" aria-hidden="true">'+lockSymbol+'</i>':'')});
   carFinder=createCarFinder({root:$('vehicle-finder'),dialog:$('vehicle-dialog'),base,getProgress:()=>progress,showMap:showVehicleMap,
     toggleFavorite:id=>{
       progress.vehicleFavorites=progress.vehicleFavorites.includes(id)?progress.vehicleFavorites.filter(key=>key!==id):[...progress.vehicleFavorites,id];
@@ -378,6 +425,7 @@ async function init() {
   });
   document.addEventListener('change',e=>{
     const {group,kind,series}=e.target.dataset;
+    if(e.target.id==='availability-filter'){filters.availability=e.target.value;listLimit=50;refresh();return;}
     if(group){
       progress.enabledGroups=progress.enabledGroups.filter(name=>name!==group);
       if(e.target.checked){
@@ -406,7 +454,7 @@ async function init() {
     const f=e.target.files[0];if(!f)return;
     try {
       if(f.size>4_000_000)throw new Error('O arquivo excede 4 MB.');
-      progress=mergeProgress(progress,decodeProgress(JSON.parse(await f.text()),catalog.aliases));
+      progress=mergeProgress(progress,decodeProgress(JSON.parse(await f.text()),aliases));
       commit();toast('Progresso importado.');
     } catch {toast('Arquivo de progresso inválido ou incompatível.');}
     finally {e.target.value='';}

@@ -5,7 +5,7 @@ import {
   Fuel, Gamepad2, Gem, HandCoins, Handshake, Headphones, House, Landmark, MapPin, Martini, Motorbike,
   Music2, Orbit, Package, Palette, PillBottle, Plane, PlaneTakeoff, Rabbit, ScanEye, Scissors, ScrollText,
   Shell, Shield, Shirt, ShoppingBag, Skull, Smartphone, Spade, SprayCan, Store, Target, TrainFront,
-  TreePalm, Truck, Utensils, Vault, Volleyball, WalletCards, Waves, Wrench, Zap
+  TreePalm, Truck, Utensils, Vault, Volleyball, WalletCards, Waves, Wrench, Zap, Diamond, Watch, BadgeDollarSign, Banknote, LockKeyhole
 } from 'lucide-static';
 
 const categorySymbols = {
@@ -19,7 +19,8 @@ const categorySymbols = {
   smash:Gem, store:Store, stunt:Motorbike, towatm:Truck, transport:Bus, treasure:Coins,
   underwater:Shell, vehicle:Car, waink:ScanEye, weapon:Bomb, streetart:SprayCan,
   workshop:Wrench, ammushop:Crosshair, style:Scissors, clothes:Shirt, gym:Dumbbell, easter:Egg, electronics:Headphones,
-  tablet:Smartphone, drug:PillBottle, custom:MapPin
+  tablet:Smartphone, drug:PillBottle, custom:MapPin,
+  jewelry:Diamond, pawn:BadgeDollarSign, bigbank:Banknote, watch:Watch, pickup:Crosshair
 };
 
 const placeSymbols = {
@@ -37,3 +38,5 @@ export function pointSymbol(point, completed=false) {
   const type=placeKinds.has(point.kind) ? point.type?.toLowerCase() : null;
   return (type && Object.hasOwn(placeSymbols,type) ? placeSymbols[type] : categorySymbols[point.kind]) || MapPin;
 }
+
+export const lockSymbol = LockKeyhole;

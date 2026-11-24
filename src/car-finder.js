@@ -1,9 +1,9 @@
 
 import { icon, installIcons } from './icons.js';
 import { rangeText, moneyText } from './model.js';
-import { equipment } from './guides.js';
+import { requirementLabel, configurable } from './requirements.js';
 import { classes, buyers, trackers, rarity, availability, confidence, unknown, selectVehicles, vehicleSearch,
-  exactMarkers, visibleSpawns, observed, buyerStatus, priceRange, revealVehicle } from './vehicles.js';
+  exactMarkers, visibleSpawns, observed, buyerStatus, priceRange } from './vehicles.js';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const fmt = new Intl.NumberFormat('pt-BR');
@@ -47,8 +47,8 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
     select('Rastreador','tracker',{...trackers,unknown})+select('Alarme','alarm',{...ternary,unknown})+
     select('Clonador de chaves','cloner',{...ternary,unknown})+select('Raridade','rarity',{...rarity,unknown})+
     select('Disponibilidade','availability',{...availability,unknown},'Todas')+
-    '<label class="check vf-compatible"><input name="compatible" type="checkbox"> Apenas compatíveis com meu progresso</label>'+
-    '<small class="vf-help">A compatibilidade exige acesso documentado e usa os desbloqueios do capítulo atual. A raridade indica variantes e edições especiais.</small>'+
+    '<label class="check vf-compatible"><input name="compatible" type="checkbox"> Apenas compatíveis com meus equipamentos</label>'+
+    '<small class="vf-help">Usa o Slim Jim e o clonador de chaves marcados em Configurações e o rastreador observado nos scans. Compradores precisam estar liberados no seu jogo. A raridade indica variantes e edições especiais.</small>'+
     action('Limpar filtros','vehicle-reset')+'</form></details></header>'+
     '<div class="vf-content"><p class="vf-count" role="status"></p><div class="vf-results"></div></div></div>';
   const result=root.querySelector('.vf-results');
@@ -125,14 +125,14 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
   const vehicle = id => catalog?.vehicles.find(v=>v.id===id);
   function openDetail(id,origin) {
     const v=vehicle(id), progress=getProgress();
-    if (!v || !revealVehicle(v,progress)) return;
+    if (!v) return;
     detailId=id;
     dialogReturn=origin || root.querySelector('[name="query"]');
     renderDetail(v,progress);
     if (!dialog.open) dialog.showModal();
   }
   function renderDetail(v,progress) {
-    const spawns=visibleSpawns(v,progress);
+    const spawns=visibleSpawns(v);
     const fixed=exactMarkers(v,progress);
     const all=exactMarkers(v,progress,{reported:true});
     const value=priceRange(v);
@@ -143,11 +143,11 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
     if (v.ratings?.road!=null) specs.push(['Índice em pista',fmt.format(v.ratings.road)]);
     if (v.ratings?.offroad!=null) specs.push(['Índice fora de estrada',fmt.format(v.ratings.offroad)]);
     const buyerRows = Object.entries(buyers).map(([key,label])=>{
-      const status=buyerStatus(v,key,progress);
+      const status=buyerStatus(v,key);
       return [label,conditional[status] ?? unknown];
     });
-    const documentedOffers=(v.buyerPrices ?? []).filter(offer=>!progress.spoilers || !offer.chapter || offer.chapter<=progress.chapter);
-    const requires=items=>items?.map(key=>equipment[key]).filter(Boolean).join(' · ');
+    const documentedOffers=v.buyerPrices ?? [];
+    const requires=items=>items?.map(requirementLabel).filter(Boolean).join(' · ');
     const favoriteActive=dialog.querySelector('[data-vehicle-favorite]')===document.activeElement;
     const section = (name,body) => '<section class="vf-detail-section"><h3>'+esc(name)+'</h3>'+body+'</section>';
     dialog.innerHTML='<div class="dialog-head"><div><h2 id="vehicle-heading">'+esc(v.name)+'</h2><p>'+esc((v.maker || unknown)+' · '+className(v))+'</p></div>'+
@@ -165,12 +165,12 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
         documentedOffers.map(o=>'<p>'+esc(buyers[o.buyer]+' · '+rangeText(o.value)+' · '+o.note)+' '+source(o.source,'Ver registro')+'</p>').join('')+
         '<p class="muted">Consulte o WAiNK e a oficina para o exemplar encontrado.</p>')+
       section('Segurança observada',fields([
-        ['Rastreador',trackers[observed(v,'tracker',progress)]],
-        ['Alarme',ternary[observed(v,'alarm',progress)]],
-        ['Clonador de chaves',ternary[observed(v,'cloner',progress)]]])+
+        ['Rastreador',trackers[observed(v,'tracker')]],
+        ['Alarme',ternary[observed(v,'alarm')]],
+        ['Clonador de chaves',ternary[observed(v,'cloner')]]])+
         (v.scans?.length?'<details class="note"><summary>Exemplares escaneados</summary>'+v.scans.map(s=>'<div>'+esc([s.label,trackers[s.tracker],s.entry?entryLabels[s.entry]:null,s.alarm!=null?'Alarme: '+ternary[s.alarm]:null].filter(Boolean).join(' · '))+' '+source(s.source)+'</div>').join('')+'</details>':''))+
       section('Onde encontrar',(v.condition?'<p>'+esc(v.condition)+'</p>':'')+
-        (spawns.length?spawns.map(s=>'<div class="vf-spawn"><strong>'+esc(s.label)+'</strong><small>'+esc(availability[s.type]+(s.chapter?' · Capítulo '+s.chapter:''))+'</small>'+
+        (spawns.length?spawns.map(s=>'<div class="vf-spawn"><strong>'+esc(s.label)+'</strong><small>'+esc(availability[s.type]+(s.chapter?' · capítulo '+s.chapter+' (informativo)':''))+'</small>'+
           (s.note?'<p>'+esc(s.note)+'</p>':'')+fields([['Segurança no local',s.hostile],...(requires(s.requires)?[['Requisitos',requires(s.requires)]]:[]),...(s.tracker?[['Rastreador do exemplar',trackers[s.tracker]]]:[]),
             ...(s.alarm!=null?[['Alarme do exemplar',ternary[s.alarm]]]:[]),...(s.entry?[['Acesso',entryLabels[s.entry]]]:[])])+
           (fixed.includes(s)?action('Mostrar no mapa','vehicle-map',s.id,'map-pin','primary'):'')+'</div>').join(''):'<p class="muted">'+unknown+'</p>')+

@@ -7,14 +7,6 @@ const cars = 'https://www.pcgamer.com/games/grand-theft-auto/gta-6-how-to-steal-
 const stages = 'https://gta6collectiblesmap.com/articles/gta-6-collectibles-by-chapter';
 
 export const checked = '2026-11-24';
-export const equipment = {
-  cloner:'Clonador de chaves', randy:'Contato do Randy desbloqueado', moses:'Contato do Moses desbloqueado',
-  ultimate:'Ultimate Edition', vintage:'Pacote Vintage Vice City', mudClub:'Corrida do Mud Club concluída',
-  brian:'Depósito do Brian desbloqueado', donnie:'Contato do Donnie disponível',
-  boat:'Barco', cargo:'Veículo com espaço para bolsas', shirley:'Entrega do rum à Shirley concluída',
-  bank:'Assaltos a caixas de banco desbloqueados', vault:'Assaltos a cofres grandes desbloqueados',
-  jewelry:'Assaltos a joalherias desbloqueados', waink:'WAiNK', slim:'Slim Jim'
-};
 
 export const guides = {
   'safe-070': {
@@ -46,7 +38,7 @@ export const guides = {
   },
   'weapon-spawn-013':{
     name:'Kingfishers Laird 350', chapter:3, region:'Manatee Motel · Pelican Valley',
-    intro:'Fuzil de precisão especial com acessórios no motel abandonado. Capítulo 3 é a janela conservadora de exibição do guia.',
+    intro:'Fuzil de precisão especial com acessórios no motel abandonado.',
     fields:{'Item':'Kingfishers Laird 350', 'Local exato':'Estojo no quarto seguinte ao do animal', 'Hostis':'Tigre relatado no local'},
     steps:['Localize o quarto do ataque.', 'Siga com a parede à direita até a porta aberta seguinte e procure o estojo.'],
     refs:['https://clutchbase.app/gta6/guides/gta-6-secrets-easter-eggs']
@@ -59,7 +51,7 @@ export const guides = {
     refs:[boatworks]
   },
   'bank-001':{
-    chapter:3, requires:['bank'], intro:'Agência na SW 4th Street, Vice Beach. Assalto ao caixa, modalidade liberada no capítulo 3 segundo os guias.',
+    chapter:3, requires:['bank'], intro:'Agência na SW 4th Street, Vice Beach. Assalto ao caixa e ao cofre pequeno.',
     fields:{'Entrada':'Entrada da agência para acessar o caixa', 'Equipamentos':'Arma para a abordagem ao caixa', 'Valor bruto comunitário':'US$ 10.000 a 30.000. Venda de itens e custos podem alterar o resultado.'},
     reward:[10000,30000], refs:[stages,money]
   },
@@ -181,11 +173,10 @@ export function bankSummary(point) {
   const vault = mode === 'Vault';
   const amount = new Intl.NumberFormat('pt-BR');
   return {
-    summary:true, chapter:vault?4:3, requires:[vault?'vault':'bank'], reward,
-    intro:vault?'O catálogo indica assalto ao cofre. Disponibilidade a partir do fim do capítulo 4 segundo os guias.':
-      'O catálogo indica assalto ao caixa. Disponibilidade a partir do capítulo 3 segundo os guias.',
-    fields:{'Modalidade':vault?'Cofre':'Caixa', 'Valor bruto comunitário':'US$ '+amount.format(reward[0])+' a '+amount.format(reward[1]),
-      'Equipamentos':'Bloqueador de tinta citado no catálogo', 'Segurança':({'low':'Baixa','medium':'Média','high':'Alta'})[/Security:\s*(\w+)/i.exec(point.description)?.[1]?.toLowerCase()]||'Desconhecida'},
+    summary:true, reward,
+    intro:vault?'Grande banco: cofre grande, gaveta do caixa e cofre pequeno.':'Banco pequeno: gaveta do caixa e cofre pequeno.',
+    fields:{'Modalidade':vault?'Cofre grande':'Caixa', 'Valor bruto comunitário':'US$ '+amount.format(reward[0])+' a '+amount.format(reward[1]),
+      'Equipamentos':'Dye Pack Jammer para vender as notas marcadas', 'Segurança':({'low':'Baixa','medium':'Média','high':'Alta'})[/Security:\s*(\w+)/i.exec(point.description)?.[1]?.toLowerCase()]||'Desconhecida'},
     refs:[stages,'https://as.com/meristation/guia_pagina/como-ganar-dinero-rapido-en-gta-6-y-cuales-son-las-mejores-actividades-para-conseguirlo_n/']
   };
 }
@@ -210,8 +201,6 @@ guides['unique-weapon-036'] = {
 export const officialPlaces = new Set(['city-town-001','city-town-008','city-town-009','landmark-008','landmark-019','landmark-020']);
 export const rockstarPlaces = 'https://www.rockstargames.com/VI';
 
-equipment.standardShop='Oficina que aceita rastreador padrão';
-equipment.advancedShop='Oficina que aceita rastreador avançado';
 
 function trackedResale(place,price,advanced) {
   return {
@@ -220,8 +209,7 @@ function trackedResale(place,price,advanced) {
     fields:{
       'Aparecimento':place, 'Rastreador relatado':advanced?'Avançado':'Padrão',
       'Comprador':'Pay ’n’ Spray habilitada para o tipo de rastreador',
-      'Valor aproximado':'US$ '+new Intl.NumberFormat('pt-BR').format(price),
-      'Capítulo 3':'Janela do guia de venda. Aparecimento do carro pode ter outros requisitos.'
+      'Valor aproximado':'US$ '+new Intl.NumberFormat('pt-BR').format(price)
     },
     steps:['Use o WAiNK para conferir o rastreador e a cotação do carro encontrado.'],
     resale:[price,price],refs:[resaleSource,cars]
@@ -232,7 +220,6 @@ guides['standout-vehicle-123']=trackedResale('Garagem em um beco de Ocean Beach,
 
 const ultimateURL='https://www.rockstargames.com/VI/add-ons/ultimate-edition';
 const modsURL='https://www.gamesradar.com/games/grand-theft-auto/gta-6-ultimate-edition-pre-order-bonuses/';
-equipment.ultimate='Ultimate Edition';
 Object.assign(guides,{
   'vehicle-mod-shop-001':{
     chapter:1, requires:['ultimate'], noGunfire:true, region:'Crosstown · Vice City',

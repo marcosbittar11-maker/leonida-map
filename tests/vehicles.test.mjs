@@ -3,12 +3,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { freshProgress } from '../src/model.js';
+import { configurableKeys } from '../src/requirements.js';
 import { compatible, exactMarkers, observed, selectVehicles } from '../src/vehicles.js';
 import { consolidate, readFinderPrices } from '../scripts/vehicles-normalize.mjs';
 
 const snapshot = JSON.parse(await readFile(new URL('../public/data/vehicles.json',import.meta.url),'utf8'));
 const byId = new Map(snapshot.vehicles.map(v=>[v.id,v]));
-const progress = {...freshProgress(),chapter:3,chapterSelected:true};
+const progress = freshProgress();
 
 test('catálogo sem IDs duplicados mantém preços livres, compradores e pontos em campos próprios',async()=>{
   assert.ok(snapshot.vehicles.length>500);
@@ -38,14 +39,16 @@ test('busca parcial, faixa de revenda, comprador, filtros de segurança e acesso
   const caracara=byId.get('vapid-caracara-4x4');
   assert.equal(observed(caracara,'alarm',progress),true);
   assert.equal(compatible(caracara,progress,'pay'),false);
-  assert.equal(compatible(caracara,{...progress,equipment:['cloner','standardShop']},'pay'),true);
+  assert.equal(compatible(caracara,{...progress,equipment:['cloner']},'pay'),true);
   const stanier=byId.get('vapid-stanier-55');
-  assert.equal(compatible(stanier,{...progress,chapter:2,equipment:['vintage']}),false);
-  assert.equal(compatible(stanier,{...progress,equipment:['vintage']}),true);
+  // Edições e pacotes não são configuráveis: não são presumidos como atendidos.
+  assert.equal(compatible(stanier,{...progress,equipment:['vintage']}),false);
+  assert.equal(compatible(stanier,{...progress,equipment:configurableKeys}),false);
   assert.ok(selectVehicles(models,{query:'caracara 4x4',tracker:'standard',cloner:'true',buyer:'pay'},progress).includes(caracara));
   const big=byId.get('variant-piccia-big-cat-furia');
   assert.equal(exactMarkers(big,progress)[0].id,'standout-vehicle-101');
-  assert.equal(exactMarkers(big,{...progress,chapter:2}).length,0);
+  // Sem filtragem por capítulo: o ponto fixo continua disponível com qualquer configuração.
+  assert.equal(exactMarkers(big,{...progress,chapter:1,spoilers:true}).length,1);
   const picador=byId.get('variant-declasse-battler-picador');
   assert.equal(exactMarkers(picador,progress).length,0);
   assert.equal(exactMarkers(picador,progress,{reported:true}).length,2);

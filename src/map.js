@@ -76,13 +76,13 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
       const active = key === selected;
       live.add(key);
       const old = rendered.get(key);
-      const variant = [done,favorite,active,point.name,point.kind,point.x,point.y].join('/');
+      const variant = [done,favorite,active,!!point.locked,point.name,point.kind,point.x,point.y].join('/');
       if (old?.variant === variant) continue;
       if (old) pins.removeLayer(old.marker);
       const html = document.createElement('span');
       html.setAttribute('aria-hidden','true');
       html.innerHTML = markerIcon(point,done);
-      const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'');
+      const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'') + (point.locked&&!done?' locked':'');
       const marker = L.marker(xy(point), {
         title:point.name, alt:point.name, zIndexOffset:active ? 1500 : 100,
         icon:L.divIcon({html,className:type,iconSize:[29,29]})
@@ -91,7 +91,7 @@ export function createMap({ revision, labels, onSelect, onPlace, markerIcon }) {
         onSelect(key,false);
       }).addTo(pins);
       const element=marker.getElement();
-      element?.setAttribute('aria-label',point.name);
+      element?.setAttribute('aria-label',point.name+(point.locked&&!done?' (bloqueado)':''));
       if(point.category?.colour) element?.style.setProperty('--pin',point.category.colour);
       rendered.set(key,{marker,variant});
     }
