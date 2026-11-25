@@ -77,7 +77,18 @@ Linha de base, antes do deploy, medida em 24/11/2026 contra a 1.8.0 publicada (5
 
 A rede desta máquina é rápida e o Pages serve por HTTP/2, então o cenário real é parecido com a "rede rápida" local. Veja abaixo os números depois do deploy.
 
-<!-- PAGES-DEPOIS -->
+Depois do deploy da 1.9.0 (commit `838c73eb`, workflow concluído com sucesso e `sw.js` novo no ar), mesmo protocolo, 5 execuções, 24/11/2026:
+
+| | Chrome antes → depois | WebKit antes → depois |
+|---|---|---|
+| Frio: primeiro tile | 311 → 297 ms | 261 → 237 ms |
+| Frio: **mapa pronto** | 325 ms (321 ms–2,22 s) → 297 ms (294 ms–1,20 s) | 261 → 237 ms |
+| Frio: catálogo interativo | 305 → 292 ms | 248 → 216 ms |
+| Frio: offline pronto (SW ativo) | 721 → 820 ms | 337 → 836 ms |
+| Quente: **mapa pronto** | 167 → **47 ms** (−72%) | 188 → **89 ms** (−53%) |
+| Quente: catálogo interativo | 158 → 165 ms | 187 → 179 ms |
+
+Em rede real rápida e com CDN quente o ganho a frio é pequeno (−9% no Chrome, −9% no WebKit) e o ganho com cache quente é grande. As máximas de 1,2 a 2,2 s são execuções isoladas com a CDN fria. Os números do WebKit nessa tabela vêm só da página (o Playwright não vê as requisições do service worker no WebKit), então não há bytes comparáveis. Esta máquina não tem um enlace lento real; a rede lenta fica nas medições moldadas acima.
 
 ## Gargalos confirmados (com a evidência)
 

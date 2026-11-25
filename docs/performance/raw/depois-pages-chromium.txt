@@ -1,0 +1,32 @@
+Gravado em docs/performance/raw/depois-pages-chromium.json
+
+== cold
+fcp                           med      112ms  min      108  max      544  n=5
+firstTile                     med      297ms  min      294  max      587  n=5
+mapReady                      med      297ms  min      294  max     1199  n=5
+catalogHeaders                med      145ms  min      139  max      606  n=5
+catalogParsed                 med      159ms  min      152  max      628  n=5
+guides                        med      269ms  min      262  max      740  n=5
+mapCreated                    med      135ms  min      133  max      436  n=5
+interactive                   med      292ms  min      286  max      767  n=5
+swActive                      med      820ms  min      803  max     7443  n=5
+longTaskMs                    med      133ms  min      133  max      196  n=5
+bytes até mapa pronto         med   533781B  min   486296  max   536214  n=5
+req até mapa pronto           med       45  min       36  max       48  n=5
+bytes total (c/ SW)           med  1163910B  min  1163876  max  1164409  n=5
+req total                     med      193  min      193  max      193  n=5
+
+== warm
+fcp                           med       24ms  min       24  max       32  n=5
+firstTile                     med       40ms  min       40  max       50  n=5
+mapReady                      med       47ms  min       43  max       50  n=5
+catalogHeaders                med       36ms  min       35  max       45  n=5
+catalogParsed                 med       49ms  min       47  max       58  n=5
+guides                        med      156ms  min      153  max      183  n=5
+mapCreated                    med       29ms  min       28  max       35  n=5
+interactive                   med      165ms  min      161  max      195  n=5
+longTaskMs                    med      114ms  min      113  max      136  n=5
+bytes até mapa pronto         med        0B  min        0  max        0  n=5
+req até mapa pronto           med       36  min       36  max       36  n=5
+bytes total (c/ SW)           med        0B  min        0  max        0  n=5
+req total                     med       37  min       37  max       37  n=5

@@ -1,0 +1,2864 @@
+{
+ "meta": {
+  "browser": "chromium",
+  "profile": "fast",
+  "shape": "rede real",
+  "dpr": 1,
+  "cpu": 1,
+  "runs": 5,
+  "url": "https://marcosbittar11-maker.github.io/leonida-map/",
+  "when": "2026-11-25T00:55:49.741Z",
+  "engine": "158.0.8127.88",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "cold": [
+   {
+    "fcp": 544,
+    "firstTile": 586.7999999523163,
+    "mapReady": 1198.5999999046326,
+    "catalogHeaders": 605.7999999523163,
+    "catalogParsed": 628,
+    "guides": 740.3999998569489,
+    "mapCreated": 435.7000000476837,
+    "interactive": 766.8999998569489,
+    "dataPoints": 770,
+    "tilesOverviewLoad": 1196.5999999046326,
+    "tilesDetailLoad": null,
+    "responseStart": 202.29999995231628,
+    "domContentLoaded": 438.7000000476837,
+    "longTasks": 1,
+    "longTaskMs": 138,
+    "longMax": 138,
+    "pageRequests": 35,
+    "pageTileRequests": 30,
+    "heap": 13792555,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      206,
+      395,
+      96058,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      206,
+      360,
+      8617,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      206,
+      370,
+      6695,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      206,
+      351,
+      8700,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      425,
+      617,
+      197815,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      437,
+      616,
+      16344,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      437,
+      597,
+      15880,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      437,
+      602,
+      14556,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      437,
+      620,
+      11252,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      437,
+      626,
+      9160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      437,
+      629,
+      15747,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      437,
+      1196,
+      6732,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      437,
+      596,
+      8160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      437,
+      583,
+      12791,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      437,
+      590,
+      8644,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      437,
+      616,
+      2167,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      437,
+      662,
+      4007,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      438,
+      619,
+      4428,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      438,
+      602,
+      2710,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      438,
+      632,
+      1980,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      438,
+      641,
+      1976,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      438,
+      591,
+      4174,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      438,
+      617,
+      2764,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      438,
+      617,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      438,
+      586,
+      2676,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      438,
+      615,
+      2144,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      438,
+      616,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      438,
+      620,
+      2026,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      438,
+      627,
+      3212,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      438,
+      616,
+      2215,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      438,
+      591,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      438,
+      645,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      438,
+      664,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      438,
+      666,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      438,
+      630,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 486497
+    },
+    "atReadyTiles": null,
+    "swReady": 7442.5,
+    "swActive": 7443.399999856949,
+    "total": {
+     "requests": 193,
+     "bytes": 1164409
+    },
+    "catalogHits": null
+   },
+   {
+    "fcp": 108,
+    "firstTile": 303.7999999523163,
+    "mapReady": 303.7999999523163,
+    "catalogHeaders": 145.5,
+    "catalogParsed": 168,
+    "guides": 276.89999985694885,
+    "mapCreated": 134.5,
+    "interactive": 301.59999990463257,
+    "dataPoints": 303.7999999523163,
+    "tilesOverviewLoad": 167.59999990463257,
+    "tilesDetailLoad": null,
+    "responseStart": 38.89999985694885,
+    "domContentLoaded": 136.79999995231628,
+    "longTasks": 1,
+    "longTaskMs": 133,
+    "longMax": 133,
+    "pageRequests": 35,
+    "pageTileRequests": 30,
+    "heap": 11785528,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      42,
+      74,
+      96058,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      42,
+      68,
+      8617,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      43,
+      73,
+      8700,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      43,
+      72,
+      6695,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      124,
+      151,
+      197815,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      136,
+      149,
+      9160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      136,
+      149,
+      16344,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      136,
+      149,
+      15880,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      136,
+      150,
+      11252,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      136,
+      150,
+      14556,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      136,
+      151,
+      8160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      136,
+      150,
+      6732,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      136,
+      150,
+      15747,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      136,
+      151,
+      4007,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      136,
+      151,
+      8644,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      136,
+      151,
+      2167,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      136,
+      150,
+      12791,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      136,
+      151,
+      1980,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      136,
+      152,
+      2710,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      136,
+      152,
+      4428,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      136,
+      152,
+      1976,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      136,
+      152,
+      2764,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      136,
+      152,
+      4174,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      136,
+      152,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      136,
+      153,
+      2676,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      136,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      136,
+      153,
+      2144,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      136,
+      153,
+      3212,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      136,
+      153,
+      2215,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      136,
+      153,
+      2026,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      136,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      136,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      137,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      137,
+      155,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      137,
+      156,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 486296
+    },
+    "atReadyTiles": null,
+    "swReady": 820.5999999046326,
+    "swActive": 821.2000000476837,
+    "total": {
+     "requests": 193,
+     "bytes": 1163876
+    },
+    "catalogHits": null
+   },
+   {
+    "fcp": 152,
+    "firstTile": 294.80000019073486,
+    "mapReady": 294.80000019073486,
+    "catalogHeaders": 144.5,
+    "catalogParsed": 151.5,
+    "guides": 262,
+    "mapCreated": 138.70000004768372,
+    "interactive": 286.2000000476837,
+    "dataPoints": 292.10000014305115,
+    "tilesOverviewLoad": 294.30000019073486,
+    "tilesDetailLoad": null,
+    "responseStart": 44.5,
+    "domContentLoaded": 141,
+    "longTasks": 2,
+    "longTaskMs": 196,
+    "longMax": 134,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 11433372,
+    "waterfall": [
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      48,
+      74,
+      8617,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      48,
+      74,
+      96058,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      48,
+      79,
+      6695,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      48,
+      79,
+      8700,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      102,
+      125,
+      197815,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      140,
+      152,
+      15880,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      140,
+      153,
+      16344,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      140,
+      152,
+      9160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      140,
+      153,
+      14556,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      140,
+      155,
+      11252,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      140,
+      155,
+      8160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      140,
+      155,
+      12791,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      140,
+      155,
+      6732,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      140,
+      157,
+      4007,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      140,
+      157,
+      15747,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      140,
+      157,
+      4428,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      140,
+      157,
+      2167,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      140,
+      158,
+      8644,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      140,
+      157,
+      1980,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      140,
+      158,
+      4174,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      140,
+      158,
+      1976,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      140,
+      158,
+      2710,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      140,
+      159,
+      2764,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      141,
+      158,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      141,
+      157,
+      2676,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      141,
+      159,
+      2144,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      141,
+      159,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      141,
+      159,
+      3212,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      141,
+      159,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      141,
+      159,
+      2026,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      141,
+      159,
+      2215,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      141,
+      160,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      141,
+      160,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      141,
+      160,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      141,
+      160,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      296,
+      307,
+      555,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 45,
+     "bytes": 533781
+    },
+    "atReadyTiles": null,
+    "swReady": 812,
+    "swActive": 812.6000001430511,
+    "total": {
+     "requests": 193,
+     "bytes": 1163910
+    },
+    "catalogHits": null
+   },
+   {
+    "fcp": 112,
+    "firstTile": 296.7000000476837,
+    "mapReady": 296.7000000476837,
+    "catalogHeaders": 140,
+    "catalogParsed": 158.59999990463257,
+    "guides": 268.7999999523163,
+    "mapCreated": 134.89999985694885,
+    "interactive": 292.09999990463257,
+    "dataPoints": 293.89999985694885,
+    "tilesOverviewLoad": 296,
+    "tilesDetailLoad": null,
+    "responseStart": 40.39999985694885,
+    "domContentLoaded": 137.20000004768372,
+    "longTasks": 1,
+    "longTaskMs": 133,
+    "longMax": 133,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 11627868,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      44,
+      70,
+      96058,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      44,
+      74,
+      8617,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      44,
+      69,
+      8700,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      44,
+      75,
+      6695,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      125,
+      145,
+      197815,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      136,
+      147,
+      16344,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      136,
+      148,
+      15880,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      136,
+      149,
+      14556,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      136,
+      148,
+      9160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      136,
+      149,
+      11252,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      136,
+      150,
+      6732,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      136,
+      149,
+      8160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      136,
+      150,
+      15747,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      136,
+      150,
+      12791,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      136,
+      151,
+      4007,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      136,
+      151,
+      8644,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      137,
+      150,
+      2167,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      137,
+      151,
+      4428,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      137,
+      151,
+      1980,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      137,
+      152,
+      1976,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      137,
+      153,
+      2710,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      137,
+      151,
+      4174,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      137,
+      152,
+      2764,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      137,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      137,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      137,
+      152,
+      2676,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      137,
+      153,
+      2144,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      137,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      137,
+      154,
+      2026,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      137,
+      154,
+      3212,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      137,
+      154,
+      2215,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      137,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      137,
+      155,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      137,
+      155,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      137,
+      156,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      298,
+      309,
+      555,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 48,
+     "bytes": 536161
+    },
+    "atReadyTiles": null,
+    "swReady": 819.7000000476837,
+    "swActive": 820.2999999523163,
+    "total": {
+     "requests": 193,
+     "bytes": 1163945
+    },
+    "catalogHits": null
+   },
+   {
+    "fcp": 112,
+    "firstTile": 294.2999999523163,
+    "mapReady": 294.2999999523163,
+    "catalogHeaders": 138.5,
+    "catalogParsed": 154.09999990463257,
+    "guides": 263.5,
+    "mapCreated": 133.39999985694885,
+    "interactive": 287.2000000476837,
+    "dataPoints": 291.59999990463257,
+    "tilesOverviewLoad": 293.89999985694885,
+    "tilesDetailLoad": null,
+    "responseStart": 42.799999952316284,
+    "domContentLoaded": 135.79999995231628,
+    "longTasks": 1,
+    "longTaskMs": 133,
+    "longMax": 133,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 11875252,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      46,
+      77,
+      96058,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      46,
+      77,
+      8617,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      46,
+      61,
+      6695,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      46,
+      72,
+      8700,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      123,
+      143,
+      197815,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      135,
+      147,
+      16344,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      135,
+      147,
+      15880,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      135,
+      146,
+      9160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      135,
+      147,
+      14556,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      135,
+      147,
+      11252,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      135,
+      147,
+      15747,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      135,
+      151,
+      6732,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      135,
+      147,
+      8160,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      135,
+      148,
+      4007,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      135,
+      149,
+      12791,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      135,
+      150,
+      8644,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      135,
+      150,
+      1980,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      135,
+      150,
+      2167,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      135,
+      150,
+      4428,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      135,
+      150,
+      1976,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      135,
+      151,
+      4174,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      135,
+      151,
+      2710,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      135,
+      152,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      135,
+      152,
+      2764,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      135,
+      152,
+      2144,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      135,
+      152,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      135,
+      152,
+      2676,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      135,
+      152,
+      3212,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      135,
+      153,
+      2215,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      135,
+      154,
+      2026,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      135,
+      152,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      135,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      136,
+      153,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      136,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      136,
+      154,
+      1952,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      296,
+      307,
+      555,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 48,
+     "bytes": 536214
+    },
+    "atReadyTiles": null,
+    "swReady": 802.8999998569489,
+    "swActive": 803.3999998569489,
+    "total": {
+     "requests": 193,
+     "bytes": 1163909
+    },
+    "catalogHits": null
+   }
+  ],
+  "warm": [
+   {
+    "fcp": 32,
+    "firstTile": 50.40000009536743,
+    "mapReady": 50.40000009536743,
+    "catalogHeaders": 44.60000014305115,
+    "catalogParsed": 58.40000009536743,
+    "guides": 182.5,
+    "mapCreated": 34.60000014305115,
+    "interactive": 194.60000014305115,
+    "dataPoints": 195,
+    "tilesOverviewLoad": 49.90000009536743,
+    "tilesDetailLoad": null,
+    "responseStart": 1.2000000476837158,
+    "domContentLoaded": 37.700000047683716,
+    "longTasks": 1,
+    "longTaskMs": 136,
+    "longMax": 136,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 31965745,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      11,
+      12,
+      0,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      11,
+      12,
+      0,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      11,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      11,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      31,
+      32,
+      0,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      35,
+      37,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      35,
+      38,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      35,
+      39,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      35,
+      40,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      35,
+      40,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      36,
+      40,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      36,
+      41,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      36,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      37,
+      42,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      197,
+      198,
+      0,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 0
+    },
+    "atReadyTiles": null,
+    "controlled": true,
+    "wall": 204,
+    "net": {
+     "requests": 37,
+     "bytes": 0
+    }
+   },
+   {
+    "fcp": 24,
+    "firstTile": 40,
+    "mapReady": 47.09999990463257,
+    "catalogHeaders": 35.59999990463257,
+    "catalogParsed": 47.69999980926514,
+    "guides": 153.39999985694885,
+    "mapCreated": 28.699999809265137,
+    "interactive": 161.79999995231628,
+    "dataPoints": 162.19999980926514,
+    "tilesOverviewLoad": 40.799999952316284,
+    "tilesDetailLoad": null,
+    "responseStart": 1.5999999046325684,
+    "domContentLoaded": 30.899999856948853,
+    "longTasks": 1,
+    "longTaskMs": 114,
+    "longMax": 114,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 29154968,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      10,
+      10,
+      0,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      10,
+      11,
+      0,
+      "other"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      25,
+      27,
+      0,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      29,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      29,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      164,
+      165,
+      0,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 0
+    },
+    "atReadyTiles": null,
+    "controlled": true,
+    "wall": 172,
+    "net": {
+     "requests": 37,
+     "bytes": 0
+    }
+   },
+   {
+    "fcp": 24,
+    "firstTile": 40.40000009536743,
+    "mapReady": 48.200000047683716,
+    "catalogHeaders": 35.200000047683716,
+    "catalogParsed": 48.799999952316284,
+    "guides": 156,
+    "mapCreated": 29.100000143051147,
+    "interactive": 164.5,
+    "dataPoints": 164.79999995231628,
+    "tilesOverviewLoad": 47.799999952316284,
+    "tilesDetailLoad": null,
+    "responseStart": 1.5,
+    "domContentLoaded": 31.200000047683716,
+    "longTasks": 1,
+    "longTaskMs": 115,
+    "longMax": 115,
+    "pageRequests": 35,
+    "pageTileRequests": 30,
+    "heap": 30159184,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      10,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      10,
+      11,
+      0,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      26,
+      27,
+      0,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      30,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      30,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      30,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      30,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      30,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      31,
+      36,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 0
+    },
+    "atReadyTiles": null,
+    "controlled": true,
+    "wall": 175,
+    "net": {
+     "requests": 37,
+     "bytes": 0
+    }
+   },
+   {
+    "fcp": 28,
+    "firstTile": 42.700000047683716,
+    "mapReady": 42.700000047683716,
+    "catalogHeaders": 37.700000047683716,
+    "catalogParsed": 50,
+    "guides": 156.39999985694885,
+    "mapCreated": 29.200000047683716,
+    "interactive": 164.89999985694885,
+    "dataPoints": 165.20000004768372,
+    "tilesOverviewLoad": 42.299999952316284,
+    "tilesDetailLoad": null,
+    "responseStart": 2,
+    "domContentLoaded": 31.700000047683716,
+    "longTasks": 1,
+    "longTaskMs": 114,
+    "longMax": 114,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 29160820,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      10,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      10,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      10,
+      12,
+      0,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      11,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      26,
+      27,
+      0,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      30,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      30,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      30,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      30,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      31,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      31,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      31,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      31,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      31,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      32,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      32,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      32,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      32,
+      35,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      167,
+      168,
+      0,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 0
+    },
+    "atReadyTiles": null,
+    "controlled": true,
+    "wall": 175,
+    "net": {
+     "requests": 37,
+     "bytes": 0
+    }
+   },
+   {
+    "fcp": 24,
+    "firstTile": 40.09999990463257,
+    "mapReady": 46.799999952316284,
+    "catalogHeaders": 35.200000047683716,
+    "catalogParsed": 47.40000009536743,
+    "guides": 152.79999995231628,
+    "mapCreated": 27.799999952316284,
+    "interactive": 161.09999990463257,
+    "dataPoints": 161.59999990463257,
+    "tilesOverviewLoad": 40.799999952316284,
+    "tilesDetailLoad": null,
+    "responseStart": 1.2000000476837158,
+    "domContentLoaded": 30.200000047683716,
+    "longTasks": 1,
+    "longTaskMs": 113,
+    "longMax": 113,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": 29425732,
+    "waterfall": [
+     [
+      "/leonida-map/assets/main-HeP9GBvb.js",
+      9,
+      10,
+      0,
+      "script"
+     ],
+     [
+      "/leonida-map/assets/style-CEJcFtFt.js",
+      10,
+      11,
+      0,
+      "other"
+     ],
+     [
+      "/leonida-map/assets/style-DnZnC3Wv.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/assets/main-DPUtelSH.css",
+      10,
+      11,
+      0,
+      "link"
+     ],
+     [
+      "/leonida-map/data/catalog.json",
+      25,
+      26,
+      0,
+      "fetch"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,3.jpg",
+      29,
+      30,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,3.jpg",
+      29,
+      30,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,2.jpg",
+      29,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,4.jpg",
+      29,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,2.jpg",
+      29,
+      31,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,4.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,3.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,3.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,2.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,4.jpg",
+      29,
+      32,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,2.jpg",
+      29,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,4.jpg",
+      29,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,1.jpg",
+      29,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,3,5.jpg",
+      29,
+      33,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,1.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,4,5.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,3.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,1.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,2,5.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,1.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,5,5.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,3.jpg",
+      29,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,2.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,2.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,4.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,1.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,1,5.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,1.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/tiles/game/1/1,6,5.jpg",
+      30,
+      34,
+      0,
+      "img"
+     ],
+     [
+      "/leonida-map/icons/icon.svg",
+      164,
+      165,
+      0,
+      "other"
+     ]
+    ],
+    "atReady": {
+     "requests": 36,
+     "bytes": 0
+    },
+    "atReadyTiles": null,
+    "controlled": true,
+    "wall": 170,
+    "net": {
+     "requests": 37,
+     "bytes": 0
+    }
+   }
+  ]
+ }
+}
