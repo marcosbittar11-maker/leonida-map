@@ -1,0 +1,21 @@
+{
+ "browser": "chromium",
+ "from": "dist-baseline",
+ "to": "dist-E2",
+ "hdTilesBefore": 26,
+ "cachesBefore": {
+  "leonida-shell-c91bb9bd568c27": 155,
+  "leonida-tiles-b6334a3e3386": 24
+ },
+ "toastShown": true,
+ "cachesAfter": {
+  "leonida-tiles-b6334a3e3386": 24,
+  "leonida-shell-f14b398d534d22": 155
+ },
+ "progressPreserved": true,
+ "newVersionServed": true,
+ "hdTilesAfter": 26,
+ "tileRequestsOnRevisit": 0,
+ "offlineHdTiles": 26,
+ "offlineDetailFailed": 0
+}

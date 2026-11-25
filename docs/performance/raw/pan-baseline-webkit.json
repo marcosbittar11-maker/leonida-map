@@ -1,0 +1,276 @@
+{
+ "meta": {
+  "browser": "webkit",
+  "profile": "fast",
+  "shape": {
+   "latency": 0,
+   "kbps": 0
+  },
+  "dpr": 3,
+  "cpu": 1,
+  "runs": 5,
+  "url": "local:dist-baseline",
+  "when": "2026-11-25T00:07:39.864Z",
+  "engine": "27.2",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "interact": [
+   {
+    "hideAll": {
+     "handler": 14,
+     "paint": 25
+    },
+    "showAll": {
+     "handler": 485,
+     "paint": 609
+    },
+    "count": "5.680 pinos",
+    "showAllAgain": {
+     "handler": 19,
+     "paint": 317
+    },
+    "pan@1.25": {
+     "median": 16,
+     "max": 343,
+     "drawn": "0"
+    },
+    "pan@2": {
+     "median": 16,
+     "max": 89,
+     "drawn": "0"
+    },
+    "pan@3": {
+     "median": 15,
+     "max": 42,
+     "drawn": "0"
+    },
+    "hideAll2": {
+     "handler": 127,
+     "paint": 234
+    },
+    "search": {
+     "perceived": 138,
+     "results": "32"
+    },
+    "clearSearch": {
+     "handler": 0,
+     "paint": 124
+    },
+    "chip": {
+     "handler": 15,
+     "paint": 45
+    },
+    "chipOff": {
+     "handler": 12,
+     "paint": 31
+    },
+    "longTasks": 0
+   },
+   {
+    "hideAll": {
+     "handler": 14,
+     "paint": 25
+    },
+    "showAll": {
+     "handler": 469,
+     "paint": 608
+    },
+    "count": "5.680 pinos",
+    "showAllAgain": {
+     "handler": 19,
+     "paint": 299
+    },
+    "pan@1.25": {
+     "median": 30,
+     "max": 333,
+     "drawn": "0"
+    },
+    "pan@2": {
+     "median": 16,
+     "max": 90,
+     "drawn": "0"
+    },
+    "pan@3": {
+     "median": 15,
+     "max": 42,
+     "drawn": "0"
+    },
+    "hideAll2": {
+     "handler": 143,
+     "paint": 245
+    },
+    "search": {
+     "perceived": 139,
+     "results": "32"
+    },
+    "clearSearch": {
+     "handler": 0,
+     "paint": 123
+    },
+    "chip": {
+     "handler": 16,
+     "paint": 46
+    },
+    "chipOff": {
+     "handler": 11,
+     "paint": 31
+    },
+    "longTasks": 0
+   },
+   {
+    "hideAll": {
+     "handler": 14,
+     "paint": 26
+    },
+    "showAll": {
+     "handler": 461,
+     "paint": 599
+    },
+    "count": "5.680 pinos",
+    "showAllAgain": {
+     "handler": 17,
+     "paint": 301
+    },
+    "pan@1.25": {
+     "median": 17,
+     "max": 330,
+     "drawn": "0"
+    },
+    "pan@2": {
+     "median": 16,
+     "max": 94,
+     "drawn": "0"
+    },
+    "pan@3": {
+     "median": 16,
+     "max": 59,
+     "drawn": "0"
+    },
+    "hideAll2": {
+     "handler": 133,
+     "paint": 248
+    },
+    "search": {
+     "perceived": 138,
+     "results": "32"
+    },
+    "clearSearch": {
+     "handler": 0,
+     "paint": 121
+    },
+    "chip": {
+     "handler": 15,
+     "paint": 44
+    },
+    "chipOff": {
+     "handler": 12,
+     "paint": 31
+    },
+    "longTasks": 0
+   },
+   {
+    "hideAll": {
+     "handler": 14,
+     "paint": 26
+    },
+    "showAll": {
+     "handler": 472,
+     "paint": 602
+    },
+    "count": "5.680 pinos",
+    "showAllAgain": {
+     "handler": 17,
+     "paint": 300
+    },
+    "pan@1.25": {
+     "median": 17,
+     "max": 334,
+     "drawn": "0"
+    },
+    "pan@2": {
+     "median": 16,
+     "max": 90,
+     "drawn": "0"
+    },
+    "pan@3": {
+     "median": 15,
+     "max": 60,
+     "drawn": "0"
+    },
+    "hideAll2": {
+     "handler": 103,
+     "paint": 197
+    },
+    "search": {
+     "perceived": 138,
+     "results": "32"
+    },
+    "clearSearch": {
+     "handler": 0,
+     "paint": 122
+    },
+    "chip": {
+     "handler": 16,
+     "paint": 46
+    },
+    "chipOff": {
+     "handler": 11,
+     "paint": 30
+    },
+    "longTasks": 0
+   },
+   {
+    "hideAll": {
+     "handler": 13,
+     "paint": 25
+    },
+    "showAll": {
+     "handler": 468,
+     "paint": 601
+    },
+    "count": "5.680 pinos",
+    "showAllAgain": {
+     "handler": 17,
+     "paint": 300
+    },
+    "pan@1.25": {
+     "median": 17,
+     "max": 332,
+     "drawn": "0"
+    },
+    "pan@2": {
+     "median": 16,
+     "max": 94,
+     "drawn": "0"
+    },
+    "pan@3": {
+     "median": 16,
+     "max": 42,
+     "drawn": "0"
+    },
+    "hideAll2": {
+     "handler": 98,
+     "paint": 198
+    },
+    "search": {
+     "perceived": 142,
+     "results": "32"
+    },
+    "clearSearch": {
+     "handler": 0,
+     "paint": 122
+    },
+    "chip": {
+     "handler": 16,
+     "paint": 45
+    },
+    "chipOff": {
+     "handler": 11,
+     "paint": 30
+    },
+    "longTasks": 0
+   }
+  ]
+ }
+}

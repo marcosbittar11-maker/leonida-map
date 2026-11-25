@@ -1,0 +1,2 @@
+controle  pan 400 px até tiles prontos: mediana 271 ms ( 267 – 282 ) | bytes no pan 22861 | requisições no pan 4 
+prefetch  pan 400 px até tiles prontos: mediana 0 ms ( 0 – 0 ) | bytes no pan 0 | requisições no pan 0 | anel: 24 tiles, 161517 B, 2818 ms

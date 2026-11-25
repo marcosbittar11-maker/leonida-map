@@ -1,0 +1,82 @@
+Gravado em docs/performance/raw/baseline-webkit-fast-cold+warm+region+int.json
+
+== cold
+fcp                           med       46ms  min       43  max       60  n=5
+firstTile                     med      262ms  min      247  max      279  n=5
+mapReady                      med      262ms  min      247  max      279  n=5
+catalogHeaders                med      104ms  min      104  max      109  n=5
+catalogParsed                 med      109ms  min      108  max      124  n=5
+guides                        med      193ms  min      191  max      207  n=5
+mapCreated                    med      209ms  min      208  max      224  n=5
+interactive                   med      229ms  min      228  max      245  n=5
+swActive                      med      550ms  min      509  max      572  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med   917180B  min   876755  max   948825  n=5
+req até mapa pronto           med       69  min       57  max       75  n=5
+GET catalog.json (servidor)   med        2  min        2  max        2  n=5
+bytes total (c/ SW)           med  1594370B  min  1592625  max  1594370  n=5
+req total                     med      195  min      194  max      195  n=5
+
+== region:vicecity
+fresh ms                      med       45ms  min       43  max       59  n=5
+fresh tiles                   med       21  min       21  max       21  n=5
+again ms                      med       28ms  min       27  max       69  n=5
+again tiles                   med       21  min       21  max       21  n=5
+afterReload ms                med       46ms  min       45  max       46  n=5
+afterReload tiles             med       21  min       21  max       21  n=5
+bytes inédita                 med    96019B  min    96019  max    97764  n=5
+req inédita                   med       20  min       20  max       21  n=5
+req revisita                  med        0  min        0  max        0  n=5
+req após reload               med        0  min        0  max        0  n=5
+
+== zoomsteps
+z2 ms                         med       47ms  min       46  max       88  n=5
+z2 bytes                      med   262033B  min   262033  max   262033  n=5
+z3 ms                         med       65ms  min       62  max       78  n=5
+z3 bytes                      med   201594B  min   201594  max   201594  n=5
+z4 ms                         med       41ms  min       39  max       69  n=5
+z4 bytes                      med   144106B  min   144106  max   144106  n=5
+z5 ms                         med       40ms  min       39  max       68  n=5
+z5 bytes                      med    91113B  min    91113  max    91113  n=5
+
+== warm
+fcp                           med       46ms  min       44  max       46  n=5
+firstTile                     med      182ms  min      178  max      183  n=5
+mapReady                      med      182ms  min      178  max      183  n=5
+catalogHeaders                med       53ms  min       51  max       54  n=5
+catalogParsed                 med       57ms  min       56  max       58  n=5
+guides                        med      129ms  min      126  max      137  n=5
+mapCreated                    med      150ms  min      147  max      156  n=5
+interactive                   med      165ms  min      163  max      172  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med     1745B  min     1745  max     1745  n=5
+req até mapa pronto           med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med     1745B  min     1745  max     1745  n=5
+req total                     med        1  min        1  max        1  n=5
+
+== interact
+hideAll handler               med       12ms  min       11  max       13  n=5
+hideAll até pintura           med       36ms  min       21  max       39  n=5
+showAll handler               med      484ms  min      478  max      509  n=5
+showAll até pintura           med      619ms  min      613  max      641  n=5
+showAllAgain handler          med       17ms  min       17  max       18  n=5
+showAllAgain até pintura      med      302ms  min      299  max      329  n=5
+hideAll2 handler              med      139ms  min       92  max      145  n=5
+hideAll2 até pintura          med      247ms  min      182  max      264  n=5
+clearSearch handler           med        0ms  min        0  max        0  n=5
+clearSearch até pintura       med      122ms  min      121  max      123  n=5
+chip handler                  med       15ms  min       14  max       16  n=5
+chip até pintura              med       46ms  min       30  max       46  n=5
+chipOff handler               med       12ms  min       10  max       16  n=5
+chipOff até pintura           med       32ms  min       15  max       45  n=5
+busca percebida               med      139ms  min      138  max      139  n=5
+pan@1.25 mediana/draw         med        1ms  min        0  max        1  n=5
+pan@2.5 mediana/draw          med        0ms  min        0  max        1  n=5
+long tasks                    med        0  min        0  max        0  n=5
+
+== offline
+offline mapa pronto           med      223ms  min      221  max      245  n=5
+offline interativo            med      210ms  min      208  max      215  n=5
+HD visitado ms                med       43ms  min       42  max       44  n=5
+HD visitado falhas            med        0  min        0  max        0  n=5
+não visitado: tiles detalhe   med        0  min        0  max        0  n=5

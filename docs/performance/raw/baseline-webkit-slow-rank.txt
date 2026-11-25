@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/baseline-webkit-slow-rank.json
+
+== rank
+Ranking 1ª abertura até lista med       67ms  min       30  max       72  n=5

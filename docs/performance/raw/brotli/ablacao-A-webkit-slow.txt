@@ -1,0 +1,33 @@
+Gravado em docs/performance/raw/ablacao-A-webkit-slow.json
+
+== cold
+fcp                           med      585ms  min      568  max      601  n=5
+firstTile                     med     1349ms  min     1331  max     1372  n=5
+mapReady                      med     8766ms  min     8517  max     8843  n=5
+catalogHeaders                med     1256ms  min     1238  max     1280  n=5
+catalogParsed                 med     2698ms  min     2681  max     2724  n=5
+guides                        med     2780ms  min     2770  max     2805  n=5
+mapCreated                    med     1013ms  min      995  max     1024  n=5
+interactive                   med     2803ms  min     2792  max     2852  n=5
+swActive                      med     9338ms  min     9277  max     9412  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med  1399176B  min  1388473  max  1413126  n=5
+req até mapa pronto           med      185  min      175  max      186  n=5
+GET catalog.json (servidor)   med        2  min        2  max        2  n=5
+bytes total (c/ SW)           med  1503058B  min  1501541  max  1503058  n=5
+req total                     med      194  min      193  max      194  n=5
+
+== warm
+fcp                           med       29ms  min       23  max       29  n=5
+firstTile                     med       89ms  min       75  max       89  n=5
+mapReady                      med       89ms  min       75  max       89  n=5
+catalogHeaders                med      101ms  min       88  max      103  n=5
+catalogParsed                 med      106ms  min       92  max      108  n=5
+guides                        med      201ms  min      190  max      206  n=5
+mapCreated                    med       75ms  min       60  max       77  n=5
+interactive                   med      223ms  min      210  max      226  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med     1517B  min     1517  max     1517  n=5
+req até mapa pronto           med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med     1517B  min     1517  max     1517  n=5
+req total                     med        1  min        1  max        1  n=5

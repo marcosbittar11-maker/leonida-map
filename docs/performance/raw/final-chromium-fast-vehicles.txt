@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/final-chromium-fast-vehicles.json
+
+== vehicles
+Car Finder 1ª abertura até cardsmed       18ms  min       18  max       19  n=5

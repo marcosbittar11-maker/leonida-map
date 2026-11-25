@@ -1,0 +1,41 @@
+{
+ "meta": {
+  "browser": "webkit",
+  "profile": "slow",
+  "shape": {
+   "latency": 150,
+   "kbps": 1600
+  },
+  "dpr": 3,
+  "cpu": 1,
+  "runs": 5,
+  "url": "local:dist-baseline",
+  "when": "2026-11-24T23:50:43.074Z",
+  "engine": "27.2",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "vehicles": [
+   {
+    "finderOpen": 42,
+    "cards": 60
+   },
+   {
+    "finderOpen": 38,
+    "cards": 60
+   },
+   {
+    "finderOpen": 38,
+    "cards": 60
+   },
+   {
+    "finderOpen": 39,
+    "cards": 60
+   },
+   {
+    "finderOpen": 32,
+    "cards": 60
+   }
+  ]
+ }
+}

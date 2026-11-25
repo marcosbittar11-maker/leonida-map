@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/baseline-webkit-fast-rank.json
+
+== rank
+Ranking 1ª abertura até lista med       15ms  min       14  max       44  n=5

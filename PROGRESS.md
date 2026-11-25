@@ -1,5 +1,27 @@
 # Progresso da entrega
 
+## Versão 1.9.0 · 24/11/2026 · desempenho e carregamento
+
+**Mudanças**
+- **Mapa antes do catálogo.** O mapa e os tiles são criados sem esperar o `catalog.json`; o download começa junto. Painel, navegação e configurações ficam inertes até os dados chegarem. Falha do catálogo mantém o mapa e oferece "Tentar novamente".
+- **Service worker depois do primeiro mapa útil**, sem disputar banda com tiles e catálogo. A atualização atômica do shell e o cache de tiles por revisão continuam. Ele ficou mais robusto: nova tentativa de tile (`?retry`) ignora o cache HTTP e regrava, só imagens entram no cache, gravação e evicção ficam fora do caminho de resposta.
+- **Pinos sem custo quadrático** (o Leaflet registrava três ouvintes por marcador): "Mostrar tudo" 278 → 151 ms no Chrome e 484 → 323 ms no WebKit; pan com ≈ 5,8 mil pinos 37 → 20 ms no Chrome.
+- **Medido, com cartografia intacta.** Os 31.022 tiles têm hash idêntico, as URLs de tile e as capturas em DPR 1, 2 e 3 são equivalentes. Resultado completo em [PERFORMANCE.md](PERFORMANCE.md).
+- Descartados com medição: preload do catálogo, ceder a thread ao mapa antes do `applyGuides`, `requestAnimationFrame` para agrupar o desenho, pré-carga de vizinhança, code splitting do Car Finder.
+
+**Números (medianas de 5, rede lenta 150 ms/1,6 Mbps no servidor local)**
+- Primeira visita, mapa pronto: Chrome 4,00 → 2,89 s, WebKit 9,93 → 2,93 s. Primeiro tile: 2,87 → 1,35 s e 4,93 → 1,39 s.
+- Recarga quente, mapa pronto: 149 → 26 ms (Chrome), 182 → 69 ms (WebKit); com CPU 4× 679 → 183 ms.
+- Trocas: catálogo interativo +19% no Chrome em rede lenta; "offline pronto" chega 0,2 a 1 s depois.
+
+**Testes**
+- `npm test`: 36 de 36 (8 novos, do service worker real num contexto isolado).
+- E2E em Chrome desktop e WebKit iPhone 15: suíte completa mais 2 testes novos por navegador (mapa antes do catálogo com controles inertes; falha do catálogo e recuperação). Atualização 1.8.0 → 1.9.0 com cache de tiles, progresso e HD offline preservados (`scripts/perf/upgrade.mjs`).
+- Não testado em iPhone físico. Lista do que conferir em [PERFORMANCE.md](PERFORMANCE.md).
+
+**Limitações**
+- O WebKit baixa o catálogo e a visão geral duas vezes na primeira visita (≈ 0,45 MB). `applyGuides` (≈ 110 ms; ≈ 0,5 s com CPU 4×) é o maior bloqueio até o catálogo interativo.
+
 ## Versão 1.8.0 · 24/11/2026 · colecionáveis e pontos ausentes
 
 **Mudanças**

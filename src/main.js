@@ -10,6 +10,7 @@ import { curationChecked } from './curation.js';
 import { configurable, configurableKeys, availabilityLabels, requirementLabel, usesEquipment } from './requirements.js';
 import { applyGuides, decodeProgress, mergeProgress, freshProgress, normalize, visible, availableOnMap, matches, onMap, remaining, rangeText, catalogAliases, availability, categoryCounts } from './model.js';
 import { createCarFinder } from './car-finder.js';
+import { mark } from './perf.js';
 import './style.css';
 import './car-finder.css';
 
@@ -83,7 +84,8 @@ function applyMap() {
 function refresh() {
   data=[...staticPoints,...customPoints()];
   lookup=new Map(data.map(p=>[p.id,p]));
-  for (const p of data) p.locked=availability(p,progress).state==='unmet';
+  // Estado de disponibilidade calculado uma vez por atualização (equipamentos mudam só aqui) e reaproveitado pelo painel.
+  for (const p of data) {p.avail=availability(p,progress).state;p.locked=p.avail==='unmet';}
   candidates=data.filter(p=>matches(p,filters,progress));
   if (selected && !candidates.some(p=>p.id===selected)) {selected=null;temporary=new Set();}
   applyMap();
@@ -118,7 +120,7 @@ function activeFilters() {
 function availabilityMarkup() {
   const base=data.filter(p=>availableOnMap(p));
   const states={all:base.length,met:0,unmet:0,unknown:0};
-  for(const p of base){const s=availability(p,progress).state;if(s in states)states[s]++;}
+  for(const p of base){const s=p.avail;if(s in states)states[s]++;}
   const active=activeFilters();
   return '<div class="section-title"><h2>Disponibilidade</h2>'+(active.length?button('Limpar filtros','clear-filters','x','text-button'):'')+'</div>'+
     (active.length?'<div class="active-filters" aria-label="Filtros ativos">'+active.map(([label,key])=>'<button type="button" class="chip active" data-clear="'+esc(key)+'" aria-label="Remover filtro '+esc(label)+'">'+esc(label)+icon('x')+'</button>').join('')+'</div>':'')+
@@ -404,6 +406,14 @@ function handleClick(event) {
   const target=event.target.closest('button');
   if(!target||target.closest('dialog'))return;
   const d=target.dataset;
+  if(!ready) {
+    // Antes de o catálogo chegar só funcionam os controles do mapa base e a nova tentativa.
+    if(d.action==='zoom-in')map.zoomIn();
+    else if(d.action==='zoom-out')map.zoomOut();
+    else if(d.action==='reset-map'||d.action==='home')map.home();
+    else if(d.action==='retry-catalog'){catalogLoad=fetchCatalog();catalogLoad.catch(()=>{});loadData();}
+    return;
+  }
   if(d.rankVehicle)return openPanel('vehicles',d.rankVehicle);
   if(d.point)return selectPoint(d.point,true);
   if(d.panel)return openPanel(d.panel);
@@ -458,34 +468,73 @@ function clearFilter(key) {
   listLimit=50;refresh();
 }
 
-async function init() {
-  if('serviceWorker' in navigator&&import.meta.env.PROD){
-    const hadController=!!navigator.serviceWorker.controller;
-    navigator.serviceWorker.register(base+'sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});
-    // Uma versão nova do catálogo assumiu o controle: avisa para recarregar em vez de manter dados antigos.
-    navigator.serviceWorker.addEventListener('controllerchange',()=>{
-      if(!hadController)return;
-      $('toast').innerHTML='Nova versão do catálogo disponível. <button type="button" class="toast-reload">Recarregar</button>';
-      $('toast').hidden=false;$('toast').style.pointerEvents='auto';
-      $('toast').querySelector('button').onclick=()=>location.reload();
-    });
-  }
+async function fetchCatalog() {
   const response=await fetch(base+'data/catalog.json');
+  mark('catalog:headers');
   if(!response.ok)throw new Error('Catálogo indisponível');
-  catalog=await response.json();
+  const json=await response.json();
+  mark('catalog:parsed');
+  return json;
+}
+let catalogLoad, ready=false, loadingData=false;
+/** O mapa abre sem esperar o catálogo; os controles que dependem dos dados ficam inertes até `ready`. */
+function setReady(value) {
+  ready=value;
+  for(const element of document.querySelectorAll('[data-needs-catalog]'))element.inert=!value;
+  $('panel-content').setAttribute('aria-busy',String(!value));
+}
+/** Registra o service worker só depois do primeiro mapa útil: o precache não disputa banda com tiles e catálogo. */
+function scheduleWorker(firstPaint) {
+  if(!('serviceWorker' in navigator)||!import.meta.env.PROD)return;
+  const hadController=!!navigator.serviceWorker.controller;
+  // Uma versão nova do catálogo assumiu o controle: avisa para recarregar em vez de manter dados antigos.
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{
+    if(!hadController)return;
+    $('toast').innerHTML='Nova versão do catálogo disponível. <button type="button" class="toast-reload">Recarregar</button>';
+    $('toast').hidden=false;$('toast').style.pointerEvents='auto';
+    $('toast').querySelector('button').onclick=()=>location.reload();
+  });
+  const idle=callback=>'requestIdleCallback' in window?requestIdleCallback(callback,{timeout:3000}):setTimeout(callback,500);
+  const start=()=>navigator.serviceWorker.register(base+'sw.js',{updateViaCache:'none'}).then(reg=>reg.update()).catch(()=>{});
+  Promise.race([Promise.all([firstPaint,catalogLoad.catch(()=>{})]),new Promise(resolve=>setTimeout(resolve,10000))]).then(()=>idle(start));
+}
+async function loadData() {
+  if(loadingData)return;
+  loadingData=true;
+  $('startup-error').hidden=true;
+  try {catalog=await catalogLoad;}
+  catch(error) {
+    console.error(error);
+    loadingData=false;
+    $('map-count').textContent='Sem dados';
+    $('startup-error').hidden=false;
+    return;
+  }
   aliases=catalogAliases(catalog);
   progress=freshProgress();
-  loadPrefs();
   try {
     const old=localStorage.getItem(storageKey);
     if(old){progress=decodeProgress(JSON.parse(old),aliases);save();}
   }
   catch {toast('O progresso salvo não pôde ser lido.');}
+  staticPoints=applyGuides(catalog);
+  mark('guides:applied');
+  map.setLabels(catalog.labels);
+  setReady(true);
+  loadingData=false;
+  refresh();
+  mark('refresh:first');
+}
+
+async function init() {
+  mark('init:start');
+  catalogLoad=fetchCatalog();
+  catalogLoad.catch(()=>{});
+  loadPrefs();
   $('topbar').hidden=false;
   $('workspace').hidden=false;
-  staticPoints=applyGuides(catalog);
   let detailWarned=false;
-  map=createMap({labels:catalog.labels,onSelect:selectPoint,
+  map=createMap({labels:[],onSelect:selectPoint,
     onDetailError:()=>{
       if(detailWarned)return;detailWarned=true;
       toast(navigator.onLine===false?'Sem conexão: áreas fora do cache aparecem em resolução reduzida.':'Alguns detalhes do mapa não carregaram; mostrando a visão geral nessas áreas.');
@@ -493,6 +542,7 @@ async function init() {
     onPlace:p=>{placement(false);openCustom(p);},
     markerIcon:(p,done)=>pinGlyph(p,done)+(p.locked&&!done?'<i class="pin-lock" aria-hidden="true">'+glyph('lock')+'</i>':'')});
   map.setPinSize(pinSizes[prefs.pinSize]);
+  mark('map:created');
   carFinder=createCarFinder({root:$('vehicle-finder'),dialog:$('vehicle-dialog'),base,getProgress:()=>progress,showMap:showVehicleMap,
     toggleFavorite:id=>{
       progress.vehicleFavorites=progress.vehicleFavorites.includes(id)?progress.vehicleFavorites.filter(key=>key!==id):[...progress.vehicleFavorites,id];
@@ -500,12 +550,14 @@ async function init() {
     }});
   document.addEventListener('click',handleClick);
   document.addEventListener('keydown',e=>{
+    if(!ready)return;
     if(e.key==='/'&&!$('dialog').open&&!$('vehicle-dialog').open&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){
       e.preventDefault();if(panel==='vehicles'){carFinder.focusSearch();return;}openPanel('map');if(mobile())$('workspace').classList.add('panel-open');$('query').focus();
     }
     if(e.key==='Escape'&&!$('dialog').open&&!$('vehicle-dialog').open){if(previewVehicle)clearVehicleMap();else if(placeMode)placement(false);else if(selected){deselect();}}
   });
   document.addEventListener('change',e=>{
+    if(!ready)return;
     const {group,kind,series}=e.target.dataset;
     if(e.target.id==='category-query')return;
     if(e.target.id==='availability-filter'){filters.availability=e.target.value;listLimit=50;refresh();return;}
@@ -527,9 +579,10 @@ async function init() {
   $('panel-content').addEventListener('toggle',event=>{
     if(event.target.matches('.series'))seriesOpen=event.target.open;
   },true);
-  $('category-query').addEventListener('input',e=>{categoryQuery=e.target.value;renderPanel();});
+  $('category-query').addEventListener('input',e=>{if(!ready)return;categoryQuery=e.target.value;renderPanel();});
   let searchTimer;
   $('query').addEventListener('input',e=>{
+    if(!ready)return;
     clearTimeout(searchTimer);
     searchTimer=setTimeout(()=>{
       filters.words=normalize(e.target.value).split(' ').filter(Boolean);listLimit=50;
@@ -537,7 +590,7 @@ async function init() {
     },75);
   });
   $('backup-input').addEventListener('change',async e=>{
-    const f=e.target.files[0];if(!f)return;
+    const f=e.target.files[0];if(!f||!ready)return;
     try {
       if(f.size>4_000_000)throw new Error('O arquivo excede 4 MB.');
       progress=mergeProgress(progress,decodeProgress(JSON.parse(await f.text()),aliases));
@@ -552,7 +605,7 @@ async function init() {
     }
   });
   document.addEventListener('pointerup',e=>{
-    if(gripStart&&e.clientY-gripStart.y>35) {
+    if(ready&&gripStart&&e.clientY-gripStart.y>35) {
       if(gripStart.parent.id==='detail'){deselect();}
       else $('workspace').classList.remove('panel-open');
     }
@@ -560,7 +613,8 @@ async function init() {
   });
   document.addEventListener('pointercancel',()=>{gripStart=null;});
 
-  refresh();
+  scheduleWorker(map.tilesReady);
+  await loadData();
 }
 $('app-version').textContent='v'+version;
 installSprite();

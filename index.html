@@ -9,12 +9,11 @@
 <body>
 <header class="topbar" id="topbar">
 <button class="brand" data-action="home" aria-label="Leonida Map, visão geral"><i class="brand-mark" data-icon="navigation"></i><span>Leonida<span class="brand-accent"> Map</span><small>GTA VI</small></span><span id="app-version" class="app-version" aria-label="Versão do aplicativo"></span></button>
-<nav aria-label="Navegação principal"><button class="nav-btn active" data-panel="map"><i data-icon="map"></i>Mapa</button><button class="nav-btn" data-panel="rank"><i data-icon="trophy"></i>Rankings</button><button class="nav-btn" data-panel="vehicles"><i data-icon="car"></i>Veículos</button><button class="nav-btn" data-panel="progress"><i data-icon="chart-no-axes-column-increasing"></i>Progresso</button></nav>
-<button class="chapter" data-action="settings" aria-label="Configurações de equipamentos e desbloqueios"><i data-icon="settings-2"></i><span id="settings-label">Configurações</span><i data-icon="chevron-down"></i></button>
+<nav aria-label="Navegação principal" data-needs-catalog inert><button class="nav-btn active" data-panel="map"><i data-icon="map"></i>Mapa</button><button class="nav-btn" data-panel="rank"><i data-icon="trophy"></i>Rankings</button><button class="nav-btn" data-panel="vehicles"><i data-icon="car"></i>Veículos</button><button class="nav-btn" data-panel="progress"><i data-icon="chart-no-axes-column-increasing"></i>Progresso</button></nav>
+<button class="chapter" data-needs-catalog inert data-action="settings" aria-label="Configurações de equipamentos e desbloqueios"><i data-icon="settings-2"></i><span id="settings-label">Configurações</span><i data-icon="chevron-down"></i></button>
 </header>
-<p role="alert" class="startup-error" id="startup-error" hidden>Não foi possível carregar o mapa. Recarregue a página com internet.</p>
 <main class="workspace" id="workspace">
-<aside class="sidebar" id="sidebar" aria-label="Painel de exploração">
+<aside class="sidebar" id="sidebar" aria-label="Painel de exploração" data-needs-catalog inert>
 <div class="mobile-grip" aria-hidden="true"></div>
 <div class="panel-head"><div><h1 id="panel-title">Explorar Leonida</h1><p id="panel-caption">Pontos de interesse e guias de GTA VI</p></div><button class="icon-button" data-action="sidebar" aria-label="Recolher painel"><i data-icon="panel-left-close"></i></button></div>
 <section id="search-tools">
@@ -23,17 +22,18 @@
 <div class="chips"><button class="chip active" data-status="all">Todos</button><button class="chip" data-status="pending">Pendentes</button><button class="chip" data-status="done">Concluídos</button><button class="chip square" data-status="favorite" aria-label="Favoritos"><i data-icon="star"></i></button></div>
 <div class="chips quick"><button class="chip" data-filter="guides">Com guia</button><button class="chip" data-filter="peace">Sem confronto</button><button class="chip" data-filter="repeat">Repetíveis</button></div>
 </section>
-<div class="panel-scroll" id="panel-content"></div><footer class="sidebar-footer" id="panel-footer"></footer>
+<div class="panel-scroll" id="panel-content" aria-busy="true"><p class="muted loading-note">Carregando o catálogo…</p></div><footer class="sidebar-footer" id="panel-footer"></footer>
 </aside>
 <section class="map-zone" aria-label="Mapa de Leonida">
 <div id="map" aria-label="Mapa interativo de Leonida"></div>
-<div class="map-hud"><button class="map-button" data-action="sidebar" aria-label="Abrir filtros"><i data-icon="sliders-horizontal"></i><span>Filtros</span></button><span class="map-count"><span class="count-light"></span><b id="map-count">Carregando…</b></span></div>
+<div class="map-hud"><button class="map-button" data-needs-catalog inert data-action="sidebar" aria-label="Abrir filtros"><i data-icon="sliders-horizontal"></i><span>Filtros</span></button><span class="map-count"><span class="count-light"></span><b id="map-count">Carregando…</b></span></div>
 <aside class="vehicle-map-bar" id="vehicle-map-bar" aria-label="Locais temporários de veículo" hidden>
 <button class="map-button vehicle-map-back" data-action="vehicle-map-back"><i data-icon="chevron-left"></i><span id="vehicle-map-model"></span></button>
 <button class="map-button" data-action="vehicle-map-clear" aria-label="Ocultar locais do veículo"><i data-icon="x"></i></button>
 </aside>
-<div class="map-controls" aria-label="Controles do mapa"><button class="icon-button" data-action="zoom-in" aria-label="Aproximar"><i data-icon="plus"></i></button><button class="icon-button" data-action="zoom-out" aria-label="Afastar"><i data-icon="minus"></i></button><button class="icon-button" data-action="reset-map" aria-label="Centralizar mapa"><i data-icon="locate-fixed"></i></button><button class="icon-button custom-add" data-action="place" aria-label="Adicionar ponto personalizado"><i data-icon="map-pin-plus"></i></button></div>
+<div class="map-controls" aria-label="Controles do mapa"><button class="icon-button" data-action="zoom-in" aria-label="Aproximar"><i data-icon="plus"></i></button><button class="icon-button" data-action="zoom-out" aria-label="Afastar"><i data-icon="minus"></i></button><button class="icon-button" data-action="reset-map" aria-label="Centralizar mapa"><i data-icon="locate-fixed"></i></button><button class="icon-button custom-add" data-needs-catalog inert data-action="place" aria-label="Adicionar ponto personalizado"><i data-icon="map-pin-plus"></i></button></div>
 <p class="placement" id="placement" hidden>Toque no mapa para criar um ponto <button data-action="cancel-place">Cancelar</button></p>
+<p role="alert" class="startup-error" id="startup-error" hidden>Não foi possível carregar os pontos do catálogo. O mapa continua disponível. <button type="button" class="ui-button primary" data-action="retry-catalog">Tentar novamente</button></p>
 <article class="detail" id="detail" aria-label="Detalhes do ponto" hidden></article><p class="toast" id="toast" role="status" hidden></p>
 </section>
 <section id="vehicle-finder" aria-label="Car Finder" hidden></section>

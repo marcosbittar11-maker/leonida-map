@@ -1,0 +1,36 @@
+{
+ "meta": {
+  "browser": "chromium",
+  "profile": "slow",
+  "shape": {
+   "latency": 150,
+   "kbps": 1600
+  },
+  "dpr": 1,
+  "cpu": 1,
+  "runs": 5,
+  "url": "local:dist-E",
+  "when": "2026-11-24T23:53:59.485Z",
+  "engine": "158.0.8127.88",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "rank": [
+   {
+    "rankOpen": 20
+   },
+   {
+    "rankOpen": 20
+   },
+   {
+    "rankOpen": 20
+   },
+   {
+    "rankOpen": 19
+   },
+   {
+    "rankOpen": 19
+   }
+  ]
+ }
+}

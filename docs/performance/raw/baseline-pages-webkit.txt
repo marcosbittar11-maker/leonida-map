@@ -1,0 +1,24 @@
+Gravado em docs/performance/raw/baseline-pages-webkit.json
+
+== cold
+fcp                           med       53ms  min       44  max      103  n=5
+firstTile                     med      261ms  min      247  max      329  n=5
+mapReady                      med      261ms  min      247  max      329  n=5
+interactive                   med      248ms  min      243  max      306  n=5
+swActive                      med      337ms  min      326  max      391  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med   506723B  min   506723  max   506725  n=5
+req até mapa pronto           med       38  min       38  max       38  n=5
+bytes total (c/ SW)           med   509188B  min   509188  max   509191  n=5
+req total                     med       39  min       39  max       39  n=5
+
+== warm
+fcp                           med       28ms  min       23  max       51  n=5
+firstTile                     med      188ms  min      174  max      219  n=5
+mapReady                      med      188ms  min      174  max      219  n=5
+interactive                   med      187ms  min      174  max      219  n=5
+longTaskMs                    med        0ms  min        0  max        0  n=5
+bytes até mapa pronto         med   508670B  min   508668  max   508705  n=5
+req até mapa pronto           med       38  min       38  max       38  n=5
+bytes total (c/ SW)           med   508670B  min   508668  max   508705  n=5
+req total                     med       38  min       38  max       38  n=5

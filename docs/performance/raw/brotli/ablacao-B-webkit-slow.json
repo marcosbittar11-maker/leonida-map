@@ -1,0 +1,2918 @@
+{
+ "meta": {
+  "browser": "webkit",
+  "profile": "slow",
+  "shape": {
+   "latency": 150,
+   "kbps": 1600
+  },
+  "dpr": 3,
+  "cpu": 1,
+  "runs": 5,
+  "url": "local:dist-B",
+  "when": "2026-11-24T23:35:28.744Z",
+  "engine": "27.2",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "cold": [
+   {
+    "fcp": 594,
+    "firstTile": 1377,
+    "mapReady": 2777,
+    "catalogHeaders": 1286,
+    "catalogParsed": 2666,
+    "guides": 2748,
+    "mapCreated": 1026,
+    "interactive": 2770,
+    "dataPoints": 2777,
+    "tilesOverviewLoad": 2772,
+    "tilesDetailLoad": null,
+    "responseStart": 187,
+    "domContentLoaded": 1027,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      191,
+      373,
+      551,
+      "other"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      192,
+      482,
+      8316,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      192,
+      513,
+      6225,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      192,
+      560,
+      8010,
+      "link"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      192,
+      966,
+      89207,
+      "script"
+     ],
+     [
+      "/data/catalog.json",
+      1011,
+      2652,
+      154913,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      1021,
+      1361,
+      16344,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      1021,
+      1423,
+      14556,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      1021,
+      1514,
+      15880,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      1021,
+      1560,
+      11252,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      1021,
+      1606,
+      9160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      1022,
+      1713,
+      6732,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      1022,
+      1774,
+      12791,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      1022,
+      2112,
+      4007,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      1022,
+      2360,
+      8160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      1022,
+      2731,
+      15747,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      1023,
+      1789,
+      2167,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      1023,
+      1880,
+      2710,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      1023,
+      1896,
+      2764,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      1023,
+      2114,
+      1980,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      1023,
+      2360,
+      1976,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      1023,
+      2560,
+      4428,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      1023,
+      2621,
+      8644,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      1023,
+      2771,
+      4174,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      1024,
+      1911,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      1024,
+      1989,
+      2026,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      1024,
+      2218,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      1024,
+      2219,
+      3212,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      1024,
+      2452,
+      2144,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      1024,
+      2575,
+      2215,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      1024,
+      2653,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      1024,
+      2746,
+      2676,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      1025,
+      2004,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      1025,
+      2097,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      1025,
+      2313,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      1025,
+      2468,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 37,
+     "bytes": 427706
+    },
+    "atReadyTiles": {
+     "requests": 30,
+     "bytes": 160409
+    },
+    "swReady": 10240,
+    "swActive": 10240,
+    "total": {
+     "requests": 193,
+     "bytes": 1501698
+    },
+    "catalogHits": 2
+   },
+   {
+    "fcp": 574,
+    "firstTile": 1341,
+    "mapReady": 2755,
+    "catalogHeaders": 1249,
+    "catalogParsed": 2599,
+    "guides": 2680,
+    "mapCreated": 1006,
+    "interactive": 2702,
+    "dataPoints": 2710,
+    "tilesOverviewLoad": 2743,
+    "tilesDetailLoad": null,
+    "responseStart": 166,
+    "domContentLoaded": 1008,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      171,
+      352,
+      551,
+      "other"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      171,
+      462,
+      8316,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      171,
+      493,
+      6225,
+      "link"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      171,
+      949,
+      89207,
+      "script"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      172,
+      540,
+      8010,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      993,
+      2586,
+      154913,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      1002,
+      1326,
+      16344,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      1002,
+      1402,
+      15880,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      1002,
+      1478,
+      14556,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      1002,
+      1508,
+      9160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      1003,
+      1571,
+      11252,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      1003,
+      1691,
+      6732,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      1003,
+      1752,
+      12791,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      1003,
+      2325,
+      8160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      1003,
+      2703,
+      15747,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      1004,
+      1752,
+      2167,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      1004,
+      1844,
+      2710,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      1004,
+      2077,
+      4007,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      1004,
+      2169,
+      1980,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      1004,
+      2417,
+      1976,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      1004,
+      2539,
+      4428,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      1004,
+      2615,
+      8644,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      1005,
+      1859,
+      2764,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      1005,
+      1953,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      1005,
+      2171,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      1005,
+      2184,
+      3212,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      1005,
+      2417,
+      2144,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      1005,
+      2709,
+      2676,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      1005,
+      2740,
+      4174,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      1006,
+      1954,
+      2026,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      1006,
+      1967,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      1006,
+      2061,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      1006,
+      2278,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      1006,
+      2432,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      1006,
+      2539,
+      2215,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      1006,
+      2631,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 38,
+     "bytes": 429224
+    },
+    "atReadyTiles": {
+     "requests": 30,
+     "bytes": 160409
+    },
+    "swReady": 10245,
+    "swActive": 10252,
+    "total": {
+     "requests": 194,
+     "bytes": 1503216
+    },
+    "catalogHits": 2
+   },
+   {
+    "fcp": 569,
+    "firstTile": 1321,
+    "mapReady": 2736,
+    "catalogHeaders": 1229,
+    "catalogParsed": 2578,
+    "guides": 2660,
+    "mapCreated": 986,
+    "interactive": 2681,
+    "dataPoints": 2689,
+    "tilesOverviewLoad": 2723,
+    "tilesDetailLoad": null,
+    "responseStart": 178,
+    "domContentLoaded": 987,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      183,
+      349,
+      551,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      183,
+      928,
+      89207,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      184,
+      472,
+      8316,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      184,
+      488,
+      6225,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      184,
+      535,
+      8010,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      971,
+      2565,
+      154913,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      981,
+      1306,
+      16344,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      982,
+      1382,
+      15880,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      982,
+      1457,
+      14556,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      982,
+      1503,
+      9160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      982,
+      1549,
+      11252,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      983,
+      1670,
+      6732,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      983,
+      1731,
+      12791,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      983,
+      1731,
+      2167,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      983,
+      2053,
+      4007,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      983,
+      2300,
+      8160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      983,
+      2595,
+      8644,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      983,
+      2682,
+      15747,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      984,
+      1824,
+      2710,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      984,
+      1838,
+      2764,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      984,
+      2146,
+      1980,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      984,
+      2160,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      984,
+      2393,
+      1976,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      984,
+      2516,
+      4428,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      984,
+      2720,
+      4174,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      985,
+      1931,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      985,
+      1946,
+      2026,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      985,
+      1946,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      985,
+      2175,
+      3212,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      985,
+      2393,
+      2144,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      985,
+      2516,
+      2215,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      985,
+      2689,
+      2676,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      986,
+      2038,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      986,
+      2255,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      986,
+      2408,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      986,
+      2610,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 38,
+     "bytes": 429224
+    },
+    "atReadyTiles": {
+     "requests": 30,
+     "bytes": 160409
+    },
+    "swReady": 10292,
+    "swActive": 10300,
+    "total": {
+     "requests": 194,
+     "bytes": 1503216
+    },
+    "catalogHits": 2
+   },
+   {
+    "fcp": 571,
+    "firstTile": 1342,
+    "mapReady": 2743,
+    "catalogHeaders": 1247,
+    "catalogParsed": 2634,
+    "guides": 2717,
+    "mapCreated": 1003,
+    "interactive": 2738,
+    "dataPoints": 2743,
+    "tilesOverviewLoad": 2740,
+    "tilesDetailLoad": null,
+    "responseStart": 177,
+    "domContentLoaded": 1004,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      182,
+      349,
+      551,
+      "other"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      182,
+      459,
+      8316,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      182,
+      490,
+      6225,
+      "link"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      182,
+      944,
+      89207,
+      "script"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      183,
+      538,
+      8010,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      989,
+      2620,
+      154913,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      999,
+      1327,
+      16344,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      999,
+      1403,
+      15880,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      999,
+      1463,
+      14556,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      999,
+      1509,
+      9160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      1000,
+      1569,
+      11252,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      1000,
+      1676,
+      6732,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      1000,
+      1752,
+      12791,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      1000,
+      2077,
+      4007,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      1000,
+      2323,
+      8160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      1000,
+      2697,
+      15747,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      1001,
+      1753,
+      2167,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      1001,
+      1844,
+      2710,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      1001,
+      2078,
+      1980,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      1001,
+      2323,
+      1976,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      1001,
+      2526,
+      4428,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      1001,
+      2588,
+      8644,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      1001,
+      2729,
+      4174,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      1002,
+      1859,
+      2764,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      1002,
+      1861,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      1002,
+      1953,
+      2026,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      1002,
+      2169,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      1002,
+      2184,
+      3212,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      1002,
+      2417,
+      2144,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      1002,
+      2712,
+      2676,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      1003,
+      1968,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      1003,
+      2061,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      1003,
+      2277,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      1003,
+      2418,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      1003,
+      2541,
+      2215,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      1003,
+      2620,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 38,
+     "bytes": 429224
+    },
+    "atReadyTiles": {
+     "requests": 30,
+     "bytes": 160409
+    },
+    "swReady": 10305,
+    "swActive": 10305,
+    "total": {
+     "requests": 194,
+     "bytes": 1503216
+    },
+    "catalogHits": 2
+   },
+   {
+    "fcp": 586,
+    "firstTile": 1347,
+    "mapReady": 2819,
+    "catalogHeaders": 1254,
+    "catalogParsed": 2683,
+    "guides": 2765,
+    "mapCreated": 1013,
+    "interactive": 2786,
+    "dataPoints": 2793,
+    "tilesOverviewLoad": 2809,
+    "tilesDetailLoad": null,
+    "responseStart": 179,
+    "domContentLoaded": 1015,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      184,
+      350,
+      551,
+      "other"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      184,
+      475,
+      8316,
+      "link"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      184,
+      955,
+      89207,
+      "script"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      185,
+      505,
+      6225,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      185,
+      552,
+      8010,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      1000,
+      2670,
+      154913,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      1009,
+      1332,
+      16344,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      1010,
+      1408,
+      15880,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      1010,
+      1484,
+      14556,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      1010,
+      1530,
+      9160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      1010,
+      1576,
+      11252,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      1011,
+      1958,
+      15747,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      1011,
+      1988,
+      4007,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      1011,
+      2004,
+      4428,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      1011,
+      2264,
+      12791,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      1011,
+      2355,
+      1980,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      1011,
+      2496,
+      8160,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      1011,
+      2638,
+      8644,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      1011,
+      2700,
+      2167,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      1011,
+      2730,
+      6732,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      1012,
+      1682,
+      4174,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      1012,
+      1684,
+      2676,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      1012,
+      2095,
+      1976,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      1012,
+      2095,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      1012,
+      2370,
+      2710,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      1012,
+      2512,
+      2764,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      1012,
+      2762,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      1013,
+      1713,
+      3212,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      1013,
+      1790,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      1013,
+      2188,
+      2215,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      1013,
+      2449,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      1013,
+      2591,
+      2026,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      1013,
+      2679,
+      2144,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      1014,
+      1805,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      1014,
+      2203,
+      1952,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      1014,
+      2809,
+      1952,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 38,
+     "bytes": 429224
+    },
+    "atReadyTiles": {
+     "requests": 30,
+     "bytes": 160409
+    },
+    "swReady": 10328,
+    "swActive": 10335,
+    "total": {
+     "requests": 194,
+     "bytes": 1503216
+    },
+    "catalogHits": 2
+   }
+  ],
+  "warm": [
+   {
+    "fcp": 33,
+    "firstTile": 88,
+    "mapReady": 88,
+    "catalogHeaders": 101,
+    "catalogParsed": 106,
+    "guides": 203,
+    "mapCreated": 75,
+    "interactive": 225,
+    "dataPoints": 245,
+    "tilesOverviewLoad": 86,
+    "tilesDetailLoad": null,
+    "responseStart": 1,
+    "domContentLoaded": 76,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      7,
+      9,
+      0,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      7,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      7,
+      14,
+      0,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      62,
+      78,
+      0,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      69,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      69,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      72,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      72,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      73,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      74,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      74,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 1,
+     "bytes": 1518
+    },
+    "atReadyTiles": {
+     "requests": 0,
+     "bytes": 0
+    },
+    "controlled": true,
+    "wall": 298,
+    "net": {
+     "requests": 1,
+     "bytes": 1518
+    }
+   },
+   {
+    "fcp": 23,
+    "firstTile": 74,
+    "mapReady": 74,
+    "catalogHeaders": 86,
+    "catalogParsed": 90,
+    "guides": 185,
+    "mapCreated": 61,
+    "interactive": 205,
+    "dataPoints": 218,
+    "tilesOverviewLoad": 72,
+    "tilesDetailLoad": null,
+    "responseStart": 1,
+    "domContentLoaded": 62,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      7,
+      9,
+      0,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      7,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      7,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      48,
+      64,
+      0,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      55,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      55,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      55,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      55,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      56,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      56,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      56,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      57,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      59,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      60,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      60,
+      70,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      60,
+      70,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      60,
+      70,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      60,
+      70,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 1,
+     "bytes": 1518
+    },
+    "atReadyTiles": {
+     "requests": 0,
+     "bytes": 0
+    },
+    "controlled": true,
+    "wall": 287,
+    "net": {
+     "requests": 1,
+     "bytes": 1518
+    }
+   },
+   {
+    "fcp": 23,
+    "firstTile": 74,
+    "mapReady": 74,
+    "catalogHeaders": 85,
+    "catalogParsed": 90,
+    "guides": 186,
+    "mapCreated": 60,
+    "interactive": 206,
+    "dataPoints": 217,
+    "tilesOverviewLoad": 71,
+    "tilesDetailLoad": null,
+    "responseStart": 1,
+    "domContentLoaded": 61,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      7,
+      9,
+      0,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      7,
+      10,
+      0,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      7,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      47,
+      62,
+      0,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      54,
+      64,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      54,
+      64,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      54,
+      64,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      55,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      55,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      55,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      55,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      55,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      56,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      56,
+      65,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      56,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      57,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      57,
+      66,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      57,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      58,
+      67,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      58,
+      68,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      59,
+      69,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 1,
+     "bytes": 1518
+    },
+    "atReadyTiles": {
+     "requests": 0,
+     "bytes": 0
+    },
+    "controlled": true,
+    "wall": 284,
+    "net": {
+     "requests": 1,
+     "bytes": 1518
+    }
+   },
+   {
+    "fcp": 29,
+    "firstTile": 89,
+    "mapReady": 89,
+    "catalogHeaders": 100,
+    "catalogParsed": 105,
+    "guides": 196,
+    "mapCreated": 76,
+    "interactive": 220,
+    "dataPoints": 232,
+    "tilesOverviewLoad": 86,
+    "tilesDetailLoad": null,
+    "responseStart": 1,
+    "domContentLoaded": 77,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      7,
+      9,
+      0,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      7,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      7,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      63,
+      78,
+      0,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      69,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      70,
+      80,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      72,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      72,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      73,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      73,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      73,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      74,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      74,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      74,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      75,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      75,
+      84,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 1,
+     "bytes": 1518
+    },
+    "atReadyTiles": {
+     "requests": 0,
+     "bytes": 0
+    },
+    "controlled": true,
+    "wall": 301,
+    "net": {
+     "requests": 1,
+     "bytes": 1518
+    }
+   },
+   {
+    "fcp": 29,
+    "firstTile": 89,
+    "mapReady": 89,
+    "catalogHeaders": 102,
+    "catalogParsed": 107,
+    "guides": 199,
+    "mapCreated": 76,
+    "interactive": 219,
+    "dataPoints": 233,
+    "tilesOverviewLoad": 88,
+    "tilesDetailLoad": null,
+    "responseStart": 1,
+    "domContentLoaded": 77,
+    "longTasks": 0,
+    "longTaskMs": 0,
+    "longMax": 0,
+    "pageRequests": 36,
+    "pageTileRequests": 30,
+    "heap": null,
+    "waterfall": [
+     [
+      "/manifest.webmanifest",
+      7,
+      9,
+      0,
+      "other"
+     ],
+     [
+      "/assets/main-CmISwCem.js",
+      7,
+      11,
+      0,
+      "script"
+     ],
+     [
+      "/assets/style-CEJcFtFt.js",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/style-DnZnC3Wv.css",
+      7,
+      12,
+      0,
+      "link"
+     ],
+     [
+      "/assets/main-DPUtelSH.css",
+      7,
+      13,
+      0,
+      "link"
+     ],
+     [
+      "/data/catalog.json",
+      63,
+      78,
+      0,
+      "fetch"
+     ],
+     [
+      "/tiles/game/1/1,3,3.jpg",
+      70,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,3.jpg",
+      70,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,4.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,2.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,4.jpg",
+      71,
+      81,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,3.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,3.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,2.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,4.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,2.jpg",
+      72,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,4.jpg",
+      73,
+      82,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,1.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,3,5.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,1.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,4,5.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,3.jpg",
+      73,
+      83,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,1.jpg",
+      73,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,2,5.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,1.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,5,5.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,3.jpg",
+      74,
+      84,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,2.jpg",
+      74,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,4.jpg",
+      74,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,2.jpg",
+      74,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,4.jpg",
+      75,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,1.jpg",
+      75,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,1,5.jpg",
+      75,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,1.jpg",
+      75,
+      85,
+      0,
+      "img"
+     ],
+     [
+      "/tiles/game/1/1,6,5.jpg",
+      75,
+      86,
+      0,
+      "img"
+     ]
+    ],
+    "atReady": {
+     "requests": 1,
+     "bytes": 1518
+    },
+    "atReadyTiles": {
+     "requests": 0,
+     "bytes": 0
+    },
+    "controlled": true,
+    "wall": 305,
+    "net": {
+     "requests": 1,
+     "bytes": 1518
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "meta": {
+  "browser": "webkit",
+  "profile": "fast",
+  "shape": {
+   "latency": 0,
+   "kbps": 0
+  },
+  "dpr": 3,
+  "cpu": 1,
+  "runs": 5,
+  "url": "local:dist-baseline",
+  "when": "2026-11-24T23:50:17.721Z",
+  "engine": "27.2",
+  "node": "v26.13.1"
+ },
+ "scenarios": {
+  "rank": [
+   {
+    "rankOpen": 44
+   },
+   {
+    "rankOpen": 14
+   },
+   {
+    "rankOpen": 15
+   },
+   {
+    "rankOpen": 15
+   },
+   {
+    "rankOpen": 14
+   }
+  ]
+ }
+}

@@ -31,5 +31,6 @@
 3. [x] Hospedar os tiles no próprio Pages (sparse checkout da revisão fixa), com visão geral em precache, detalhe sob demanda com orçamento de cache, política de DPR e falhas visíveis.
 4. [x] Remover a faixa de atribuição do mapa e levar os créditos para Configurações.
 5. [x] Validar com testes unitários, build e E2E direcionados em desktop e iPhone emulado; registrar medições e capturas.
-6. [ ] Pendente: conferir em iPhone físico (pinça, memória) e acompanhar novas revisões do GTADB com `npm run tiles:sync` após atualizar `src/tiles.js`.
+6. [x] Desempenho e carregamento (1.9.0): mapa antes do catálogo, service worker depois do primeiro mapa útil, pinos sem custo quadrático; medições antes/depois em PERFORMANCE.md.
+7. [ ] Pendente: conferir em iPhone físico (pinça, memória) e acompanhar novas revisões do GTADB com `npm run tiles:sync` após atualizar `src/tiles.js`.
 

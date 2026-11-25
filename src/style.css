@@ -180,7 +180,8 @@ legend{color:var(--soft);font-size:12px}
 
 #map[data-zoom^='-'] .local-map-label{display:none}
 
-.startup-error{margin:auto;padding:24px;color:var(--fg);text-align:center}
+.startup-error{position:absolute;z-index:850;left:50%;bottom:18px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 20px);padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;background:#1a2135;border:1px solid #776c9c;border-radius:9px;color:var(--fg);font-size:13px;text-align:center}
+.loading-note{padding:14px 4px}
 
 
 .app-version{align-self:center;font-size:10px;letter-spacing:0;color:#dfc7ff;border:1px solid #554072;border-radius:6px;padding:3px 5px;font-variant-numeric:tabular-nums}

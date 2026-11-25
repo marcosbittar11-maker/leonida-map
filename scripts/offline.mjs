@@ -19,6 +19,6 @@ for (const name of assets) hash.update(name).update(await readFile(new URL(name,
 const sw = await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
 const version=hash.update(sw).digest('hex').slice(0,14);
 await writeFile(new URL('sw.js',dist),'const VERSION = '+JSON.stringify(version)+';\nconst TILE_REVISION = '+JSON.stringify(tileSource.revision.slice(0,12))+
-  ';\nconst FILES = '+JSON.stringify(files)+';\n'+sw);
+  ';\nconst OVERVIEW_MAX = '+tileSource.overviewMaxZoom+';\nconst FILES = '+JSON.stringify(files)+';\n'+sw);
 const overview=files.filter(name=>tileLevel(name)!==undefined).length;
 console.log('PWA offline: '+files.length+' recursos ('+overview+' tiles de visão geral), versão '+version);

@@ -1,0 +1,24 @@
+Gravado em docs/performance/raw/baseline-pages-chromium.json
+
+== cold
+fcp                           med      116ms  min      112  max      688  n=5
+firstTile                     med      311ms  min      304  max     1641  n=5
+mapReady                      med      325ms  min      321  max     2224  n=5
+interactive                   med      305ms  min      300  max     1419  n=5
+swActive                      med      721ms  min      701  max    10865  n=5
+longTaskMs                    med      141ms  min      140  max      142  n=5
+bytes até mapa pronto         med   642181B  min   560028  max   642337  n=5
+req até mapa pronto           med      103  min       56  max      103  n=5
+bytes total (c/ SW)           med  1163790B  min  1163751  max  1164254  n=5
+req total                     med      193  min      193  max      193  n=5
+
+== warm
+fcp                           med       24ms  min       24  max       36  n=5
+firstTile                     med      164ms  min      162  max      195  n=5
+mapReady                      med      167ms  min      165  max      195  n=5
+interactive                   med      158ms  min      157  max      185  n=5
+longTaskMs                    med      119ms  min      118  max      140  n=5
+bytes até mapa pronto         med        0B  min        0  max        0  n=5
+req até mapa pronto           med       37  min       37  max       37  n=5
+bytes total (c/ SW)           med        0B  min        0  max        0  n=5
+req total                     med       37  min       37  max       37  n=5

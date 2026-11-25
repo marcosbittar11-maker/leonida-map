@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/baseline-chromium-fast-rank.json
+
+== rank
+Ranking 1ª abertura até lista med       18ms  min       17  max       33  n=5

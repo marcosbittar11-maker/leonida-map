@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { tileCover, tileSource } from './tiles.js';
+import { mark, perfDebug } from './perf.js';
 
 const base = import.meta.env.BASE_URL;
 const bounds = L.latLngBounds([-1024,0],[0,1024]);
@@ -32,6 +33,22 @@ const GameTiles = L.TileLayer.extend({
   }
 });
 
+// Marcador dos pinos. O Leaflet registra três ouvintes por marcador (zoom, viewreset e zoomanim) e, a cada registro ou
+// remoção, varre a lista inteira em busca de duplicatas: com milhares de pinos o custo é quadrático. Aqui o mapa tem um
+// único ouvinte para cada evento, que atualiza todos os pinos exibidos (ver createMap).
+const Pin = L.Marker.extend({
+  getEvents: () => ({}),
+  onAdd(map) {
+    this._zoomAnimated = this._zoomAnimated && map.options.markerZoomAnimation;
+    this._initIcon();
+    this.update();
+  },
+  onRemove() {
+    this._removeIcon();
+    this._removeShadow();
+  }
+});
+
 function gameLayers(onDetailError) {
   // Em telas de alta densidade, cada tile CSS de 128 px recebe a imagem de 256 px do nível seguinte.
   const retina = window.devicePixelRatio >= 1.5 ? 1 : 0;
@@ -50,27 +67,44 @@ export function createMap({ labels, onSelect, onPlace, markerIcon, onDetailError
   const map = L.map('map', { crs:L.CRS.Simple, zoomControl:false, attributionControl:false, minZoom:-1, maxZoom:7,
     zoomSnap:0.25, zoomDelta:0.75, maxBounds:bounds.pad(0.25), maxBoundsViscosity:0.85, preferCanvas:true });
   let detailFailures = 0;
-  for (const layer of gameLayers(() => {
+  const [overviewLayer, detailLayer] = gameLayers(() => {
     map.getContainer().dataset.detailFailures = ++detailFailures;
     onDetailError();
-  })) layer.addTo(map);
-  const labelsLayer = L.layerGroup().addTo(map);
-  for (const label of labels) {
-    const text = document.createElement('span');
-    text.textContent = label.name;
-    if (!['Vice City','Port Gellhorn','Key Lento'].includes(label.name)) text.className='local-map-label';
-    L.marker(xy(label), { interactive:false, keyboard:false, zIndexOffset:-100,
-      icon:L.divIcon({ className:'map-label', html:text, iconSize:[128,22], iconAnchor:[64,11] }) }).addTo(labelsLayer);
+  });
+  // Resolve quando a visão geral termina de carregar pela primeira vez (o mapa já tem algo útil na tela).
+  const tilesReady = new Promise(resolve => overviewLayer.once('load', resolve));
+  for (const layer of [overviewLayer, detailLayer]) {
+    const name = layer.options.className.replace('tiles-','');
+    layer.on('loading', () => mark('tiles:' + name + ':loading')).on('load', () => mark('tiles:' + name + ':load'));
+    layer.addTo(map);
   }
+  if (perfDebug) window.__leonida = { map };
+  const labelsLayer = L.layerGroup().addTo(map);
+  function setLabels(list) {
+    labelsLayer.clearLayers();
+    for (const label of list) {
+      const text = document.createElement('span');
+      text.textContent = label.name;
+      if (!['Vice City','Port Gellhorn','Key Lento'].includes(label.name)) text.className='local-map-label';
+      L.marker(xy(label), { interactive:false, keyboard:false, zIndexOffset:-100,
+        icon:L.divIcon({ className:'map-label', html:text, iconSize:[128,22], iconAnchor:[64,11] }) }).addTo(labelsLayer);
+    }
+  }
+  setLabels(labels);
   const pins = L.layerGroup().addTo(map);
   const vehicleLayer = L.layerGroup().addTo(map);
   let points = [], currentProgress, selected, placing = false;
   const rendered = new Map();
   const container = map.getContainer();
+  const eachPin = fn => { for (const item of rendered.values()) if (item.marker._map) fn(item.marker); };
+  map.on('zoom viewreset', () => eachPin(marker => marker.update()));
+  map.on('zoomanim', event => eachPin(marker => { if (marker._zoomAnimated) marker._animateZoom(event); }));
 
   let pinSize = 30;
   const dotThreshold = 900;
+  let drawQueued = false;
   function draw() {
+    drawQueued = false;
     if (!currentProgress) return;
     const view = map.getBounds().pad(0.16);
     const live = new Set();
@@ -87,14 +121,15 @@ export function createMap({ labels, onSelect, onPlace, markerIcon, onDetailError
       const old = rendered.get(key);
       const size = dots && !active && !favorite ? Math.round(pinSize * 0.42) : pinSize;
       const dot = size !== pinSize;
-      const variant = [done,favorite,active,!!point.locked,point.name,point.kind,point.x,point.y,size,dot].join('/');
-      if (old?.variant === variant) continue;
+      const locked = !!point.locked;
+      // Mesmo objeto de ponto e mesmo estado visual: o pino já está certo (sem montar chave de texto por ponto).
+      if (old && old.point === point && old.done === done && old.favorite === favorite && old.active === active && old.locked === locked && old.size === size && old.dot === dot) continue;
       if (old) pins.removeLayer(old.marker);
       const html = document.createElement('span');
       html.setAttribute('aria-hidden','true');
       if (!dot) html.innerHTML = markerIcon(point,done);
       const type = 'map-pin' + (done?' done':'') + (favorite?' favorite':'') + (active?' active':'') + (point.locked&&!done?' locked':'') + (dot?' dot':'');
-      const marker = L.marker(xy(point), {
+      const marker = new Pin(xy(point), {
         title:point.name, alt:point.name, zIndexOffset:active ? 1500 : 100,
         icon:L.divIcon({html,className:type,iconSize:[size,size]})
       }).on('click', () => {
@@ -107,7 +142,7 @@ export function createMap({ labels, onSelect, onPlace, markerIcon, onDetailError
         element?.style.setProperty('--pin',point.category.colour);
         element?.style.setProperty('--ink',point.category.ink || '#10121d');
       }
-      rendered.set(key,{marker,variant});
+      rendered.set(key,{marker,point,done,favorite,active,locked,size,dot});
     }
     for (const [key,item] of rendered) if (!live.has(key)) {
       pins.removeLayer(item.marker); rendered.delete(key);
@@ -121,13 +156,15 @@ export function createMap({ labels, onSelect, onPlace, markerIcon, onDetailError
     const snap = value => Math.max(0,Math.min(1024,Math.round(value*10000)/10000));
     onPlace({x:snap(latlng.lng),y:snap(-latlng.lat)});
   }
-  map.on('moveend zoomend',draw);
+  // zoomend e moveend chegam juntos na mesma tarefa: um único desenho, ainda antes do próximo quadro (sem esperar rAF).
+  map.on('moveend zoomend',() => { if (!drawQueued) { drawQueued = true; queueMicrotask(() => { if (drawQueued) draw(); }); } });
   map.on('click',event => { if (placing) place(event.latlng); });
   function home() { map.fitBounds(domain, { padding:[16,18], animate:false, maxZoom:1.25 }); }
   home();
   new ResizeObserver(() => map.invalidateSize({pan:false})).observe(container);
 
   return {
+    setLabels, tilesReady,
     update(visiblePoints, progress, active) {
       currentProgress = progress; selected = active;
       points = visiblePoints.filter(p=>p.x!=null);

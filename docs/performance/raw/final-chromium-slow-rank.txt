@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/final-chromium-slow-rank.json
+
+== rank
+Ranking 1ª abertura até lista med       20ms  min       19  max       20  n=5

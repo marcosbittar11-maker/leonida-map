@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/baseline-chromium-slow-vehicles.json
+
+== vehicles
+Car Finder 1ª abertura até cardsmed       20ms  min       20  max       22  n=5

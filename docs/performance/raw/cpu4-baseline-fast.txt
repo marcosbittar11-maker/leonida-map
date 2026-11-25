@@ -1,0 +1,33 @@
+Gravado em docs/performance/raw/cpu4-baseline-fast.json
+
+== cold
+fcp                           med      196ms  min      180  max      492  n=5
+firstTile                     med     1068ms  min     1043  max     1139  n=5
+mapReady                      med     1068ms  min     1043  max     1139  n=5
+catalogHeaders                med      329ms  min      310  max      342  n=5
+catalogParsed                 med      361ms  min      341  max      379  n=5
+guides                        med      879ms  min      855  max      923  n=5
+mapCreated                    med      906ms  min      882  max      954  n=5
+interactive                   med     1017ms  min      992  max     1082  n=5
+swActive                      med     1061ms  min     1035  max     1132  n=5
+longTaskMs                    med      918ms  min      900  max      965  n=5
+bytes até mapa pronto         med  1123861B  min  1123861  max  1123861  n=5
+req até mapa pronto           med      157  min      157  max      157  n=5
+GET catalog.json (servidor)   med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med  1123861B  min  1123861  max  1123861  n=5
+req total                     med      157  min      157  max      157  n=5
+
+== warm
+fcp                           med       64ms  min       64  max       68  n=5
+firstTile                     med      679ms  min      676  max      715  n=5
+mapReady                      med      679ms  min      676  max      715  n=5
+catalogHeaders                med      102ms  min      101  max      105  n=5
+catalogParsed                 med      127ms  min      126  max      130  n=5
+guides                        med      589ms  min      586  max      616  n=5
+mapCreated                    med      602ms  min      599  max      629  n=5
+interactive                   med      640ms  min      637  max      674  n=5
+longTaskMs                    med      521ms  min      518  max      552  n=5
+bytes até mapa pronto         med        0B  min        0  max        0  n=5
+req até mapa pronto           med        0  min        0  max        0  n=5
+bytes total (c/ SW)           med        0B  min        0  max        0  n=5
+req total                     med        0  min        0  max        0  n=5

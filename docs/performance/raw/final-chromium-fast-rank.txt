@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/final-chromium-fast-rank.json
+
+== rank
+Ranking 1ª abertura até lista med       17ms  min       17  max       18  n=5

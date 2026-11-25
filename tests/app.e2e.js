@@ -297,7 +297,7 @@ test('pinos, resultados, legenda e ficha usam os mesmos símbolos',async({page})
 
 test('início limpo, Mostrar tudo, Ocultar tudo e contadores dinâmicos',async({page})=>{
   await ready(page);
-  await expect(page.locator('#app-version')).toHaveText('v1.8.0');
+  await expect(page.locator('#app-version')).toHaveText('v1.9.0');
   await filters(page);
   await expect(page.locator('[data-group]:checked')).toHaveCount(0);
   await expect(map(page)).toHaveAttribute('data-points','0');
@@ -510,4 +510,51 @@ test('ATMs, carregadores e pontos de ônibus do Gameta usam as categorias e sím
   const kitty=page.locator('.category-row').filter({hasText:'Kitty Litter'});
   await expect(kitty.locator('.counter')).toHaveText('0/13');
   await expect(kitty.getByRole('checkbox')).toBeDisabled();
+});
+
+// Versão 1.9.0: o mapa abre antes do catálogo.
+test.describe('inicialização com o mapa antes do catálogo',()=>{
+  test.use({serviceWorkers:'block'});
+  test('tiles aparecem enquanto o catálogo não chegou; controles de dados ficam inertes e depois liberam',async({page})=>{
+    let release;const gate=new Promise(resolve=>{release=resolve;});
+    await page.route('**/data/catalog.json',async route=>{await gate;await route.continue();});
+    await page.goto('/?perf');
+    await expect(map(page).locator('.tiles-overview img.leaflet-tile-loaded').first()).toBeVisible();
+    await expect(page.locator('#map-count')).toHaveText('Carregando…');
+    await expect(page.locator('#sidebar')).toHaveAttribute('inert','');
+    await expect(page.locator('nav[aria-label="Navegação principal"]')).toHaveAttribute('inert','');
+    await expect(page.locator('.chapter')).toHaveAttribute('inert','');
+    expect(await page.locator('#map .leaflet-map-pane').count()).toBe(1);
+    // Zoom e centralização já funcionam com o mapa base
+    const zoom=()=>page.evaluate(()=>window.__leonida.map.getZoom());
+    const before=await zoom();
+    await tap(page,'Aproximar').click();
+    await expect.poll(zoom).toBeGreaterThan(before);
+    release();
+    await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
+    await expect(page.locator('#sidebar')).not.toHaveAttribute('inert','');
+    await expect(page.locator('#panel-content')).toHaveAttribute('aria-busy','false');
+    expect(await page.locator('#map .leaflet-map-pane').count()).toBe(1);
+    await expect(page.locator('#startup-error')).toBeHidden();
+  });
+
+  test('falha do catálogo mantém o mapa, oferece nova tentativa e recupera sem duplicar mapa nem ouvintes',async({page})=>{
+    let failures=0;
+    await page.route('**/data/catalog.json',route=>failures++<1?route.abort():route.continue());
+    await page.goto('/');
+    await expect(page.locator('#startup-error')).toBeVisible();
+    await expect(page.locator('#startup-error')).toContainText('O mapa continua disponível');
+    await expect(map(page).locator('.tiles-overview img.leaflet-tile-loaded').first()).toBeVisible();
+    await expect(map(page)).not.toHaveAttribute('data-points',/.*/);
+    await page.getByRole('button',{name:'Tentar novamente'}).click();
+    await expect(map(page)).toHaveAttribute('data-points',/^\d+$/);
+    await expect(page.locator('#startup-error')).toBeHidden();
+    expect(await page.locator('#map .leaflet-map-pane').count()).toBe(1);
+    // Um único ouvinte de clique: concluir e reabrir alternam uma vez cada.
+    await pick(page,'caranguejo','safe-070');
+    await tap(page,'Concluir ponto').click();
+    await expect(tap(page,'Reabrir ponto')).toBeVisible();
+    await tap(page,'Reabrir ponto').click();
+    await expect(tap(page,'Concluir ponto')).toBeVisible();
+  });
 });

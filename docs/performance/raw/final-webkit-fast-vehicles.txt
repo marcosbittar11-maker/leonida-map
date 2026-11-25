@@ -1,0 +1,4 @@
+Gravado em docs/performance/raw/final-webkit-fast-vehicles.json
+
+== vehicles
+Car Finder 1ª abertura até cardsmed       38ms  min       38  max       39  n=5

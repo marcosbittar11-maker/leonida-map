@@ -46,7 +46,7 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 - **Outros itens no local** liga cofres, armas, relógios e veículos ao complexo onde ficam. Os rankings não somam duas vezes o mesmo dinheiro.
 - Marque conclusões na ficha do ponto e salve favoritos do mapa e do catálogo de veículos no mesmo backup.
 - Use **Progresso → Exportar** para levar um backup ao celular. A importação combina favoritos, datas e pontos e mantém os equipamentos marcados no aparelho de destino. Backups e preferências de versões anteriores são convertidos: capítulo, proteção contra spoilers e requisitos que deixaram de ser configuráveis são descartados. O progresso permanece no navegador até que seja exportado ou removido pelo sistema.
-- O mapa geral, os catálogos e os guias ficam disponíveis após a instalação do service worker. As fotos de veículos são armazenadas quando exibidas. O detalhe cartográfico também é armazenado conforme a navegação, até 72 blocos. Áreas ainda não vistas usam a visão geral offline. Os links externos precisam de conexão.
+- O mapa geral, os catálogos e os guias ficam disponíveis após a instalação do service worker. As fotos de veículos são armazenadas quando exibidas. O detalhe cartográfico também é armazenado conforme a navegação, até 3.000 tiles (≈ 9 MB), os mais antigos saem primeiro. Áreas ainda não vistas usam a visão geral offline. Os links externos precisam de conexão.
 
 ## Manutenção
 
@@ -68,6 +68,7 @@ Abra o endereço no Safari. Use **Compartilhar → Adicionar à Tela de Início*
 | `scripts/vehicle-overrides.json` | Aliases, correções e fontes verificadas manualmente |
 | `src/tiles.js`, `scripts/import-tiles.mjs`, `public/tiles/game/` | Cartografia base GTADB (revisão fixa, sparse checkout); detalhes em CARTOGRAPHY.md |
 | `scripts/offline.mjs`, `scripts/service-worker.js` | Empacotamento offline (visão geral em precache, detalhes sob demanda) |
+| `scripts/perf/`, `src/perf.js`, `PERFORMANCE.md`, `docs/performance/` | Harness de desempenho (Chrome e WebKit, rede moldada), método, resultados e dados brutos |
 
 ~~~sh
 npm run data:sync -- SHA_COMPLETO_DA_REVISAO

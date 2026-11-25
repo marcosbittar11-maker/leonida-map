@@ -1,0 +1,33 @@
+Gravado em docs/performance/raw/ablacao-D-chromium-fast.json
+
+== cold
+fcp                           med       54ms  min       52  max       56  n=4
+firstTile                     med      237ms  min      231  max      353  n=5
+mapReady                      med      237ms  min      231  max      353  n=5
+catalogHeaders                med       89ms  min       85  max      199  n=5
+catalogParsed                 med       93ms  min       90  max      205  n=5
+guides                        med      204ms  min      199  max      316  n=5
+mapCreated                    med       84ms  min       80  max      130  n=5
+interactive                   med      229ms  min      224  max      350  n=5
+swActive                      med      651ms  min      622  max      976  n=5
+longTaskMs                    med      135ms  min      133  max      211  n=5
+bytes até mapa pronto         med   516130B  min   427477  max   542438  n=5
+req até mapa pronto           med       53  min       36  max       61  n=5
+GET catalog.json (servidor)   med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med  1076845B  min  1076845  max  1076845  n=5
+req total                     med      157  min      157  max      157  n=5
+
+== warm
+fcp                           med       28ms  min       24  max       28  n=5
+firstTile                     med       46ms  min       44  max       49  n=5
+mapReady                      med      161ms  min       46  max      163  n=5
+catalogHeaders                med       37ms  min       36  max       40  n=5
+catalogParsed                 med       47ms  min       45  max       49  n=5
+guides                        med      153ms  min      151  max      160  n=5
+mapCreated                    med       30ms  min       29  max       31  n=5
+interactive                   med      163ms  min      160  max      170  n=5
+longTaskMs                    med      116ms  min      115  max      120  n=5
+bytes até mapa pronto         med        0B  min        0  max        0  n=5
+req até mapa pronto           med        0  min        0  max        0  n=5
+bytes total (c/ SW)           med        0B  min        0  max        0  n=5
+req total                     med        0  min        0  max        0  n=5

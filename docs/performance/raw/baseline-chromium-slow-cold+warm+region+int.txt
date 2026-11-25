@@ -1,0 +1,82 @@
+Gravado em docs/performance/raw/baseline-chromium-slow-cold+warm+region+int.json
+
+== cold
+fcp                           med      544ms  min      536  max      644  n=5
+firstTile                     med     2871ms  min     2860  max     2878  n=5
+mapReady                      med     3998ms  min     3979  max     4011  n=5
+catalogHeaders                med     1261ms  min     1250  max     1274  n=5
+catalogParsed                 med     2470ms  min     2464  max     2479  n=5
+guides                        med     2580ms  min     2576  max     2590  n=5
+mapCreated                    med     2586ms  min     2582  max     2596  n=5
+interactive                   med     2611ms  min     2607  max     2622  n=5
+swActive                      med    10691ms  min    10657  max    10721  n=5
+longTaskMs                    med      143ms  min      141  max      146  n=5
+bytes até mapa pronto         med   583558B  min   578392  max   583558  n=5
+req até mapa pronto           med       58  min       55  max       58  n=5
+GET catalog.json (servidor)   med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med  1123861B  min  1123861  max  1123861  n=5
+req total                     med      157  min      157  max      157  n=5
+
+== region:vicecity
+fresh ms                      med     1020ms  min     1015  max     1032  n=5
+fresh tiles                   med       26  min       26  max       26  n=5
+again ms                      med        3ms  min        3  max        4  n=5
+again tiles                   med       26  min       26  max       26  n=5
+afterReload ms                med       13ms  min       12  max       15  n=5
+afterReload tiles             med       26  min       26  max       26  n=5
+bytes inédita                 med   154208B  min   154208  max   154208  n=5
+req inédita                   med       25  min       25  max       25  n=5
+req revisita                  med        0  min        0  max        0  n=5
+req após reload               med        0  min        0  max        0  n=5
+
+== zoomsteps
+z2 ms                         med       11ms  min        9  max       12  n=5
+z2 bytes                      med        0B  min        0  max        0  n=5
+z3 ms                         med     1263ms  min     1256  max     1272  n=5
+z3 bytes                      med   218949B  min   218949  max   218949  n=5
+z4 ms                         med     1206ms  min     1202  max     1209  n=5
+z4 bytes                      med   206005B  min   206005  max   206005  n=5
+z5 ms                         med     1089ms  min     1077  max     1092  n=5
+z5 bytes                      med   181945B  min   181945  max   181945  n=5
+
+== warm
+fcp                           med       24ms  min       20  max       24  n=5
+firstTile                     med      171ms  min      169  max      176  n=5
+mapReady                      med      171ms  min      169  max      176  n=5
+catalogHeaders                med       22ms  min       17  max       23  n=5
+catalogParsed                 med       29ms  min       28  max       30  n=5
+guides                        med      148ms  min      146  max      152  n=5
+mapCreated                    med      155ms  min      152  max      159  n=5
+interactive                   med      165ms  min      164  max      170  n=5
+longTaskMs                    med      135ms  min      134  max      141  n=5
+bytes até mapa pronto         med        0B  min        0  max        0  n=5
+req até mapa pronto           med        1  min        1  max        1  n=5
+bytes total (c/ SW)           med        0B  min        0  max        0  n=5
+req total                     med        1  min        1  max        1  n=5
+
+== interact
+hideAll handler               med        7ms  min        7  max        7  n=5
+hideAll até pintura           med        9ms  min        9  max       10  n=5
+showAll handler               med      297ms  min      294  max      298  n=5
+showAll até pintura           med      351ms  min      343  max      356  n=5
+showAllAgain handler          med       19ms  min       13  max       21  n=5
+showAllAgain até pintura      med       45ms  min       40  max       48  n=5
+hideAll2 handler              med       69ms  min       37  max       93  n=5
+hideAll2 até pintura          med       78ms  min       44  max      103  n=5
+clearSearch handler           med        0ms  min        0  max        0  n=5
+clearSearch até pintura       med       85ms  min       83  max       86  n=5
+chip handler                  med       10ms  min        9  max       11  n=5
+chip até pintura              med       12ms  min       11  max       14  n=5
+chipOff handler               med        7ms  min        6  max        7  n=5
+chipOff até pintura           med        8ms  min        7  max        9  n=5
+busca percebida               med      625ms  min      618  max      646  n=5
+pan@1.25 mediana/draw         med       20ms  min       19  max       21  n=5
+pan@2.5 mediana/draw          med        0ms  min        0  max        0  n=5
+long tasks                    med        8  min        7  max        8  n=5
+
+== offline
+offline mapa pronto           med      187ms  min      180  max      203  n=5
+offline interativo            med      178ms  min      171  max      193  n=5
+HD visitado ms                med        8ms  min        7  max        9  n=5
+HD visitado falhas            med        0  min        0  max        0  n=5
+não visitado: tiles detalhe   med        0  min        0  max        0  n=5
