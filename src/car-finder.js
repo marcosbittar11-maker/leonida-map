@@ -3,7 +3,7 @@ import { icon, installIcons } from './icons.js';
 import { rangeText, moneyText } from './model.js';
 import { requirementLabel, configurable } from './requirements.js';
 import { classes, buyers, trackers, rarity, availability, confidence, unknown, selectVehicles, vehicleSearch,
-  exactMarkers, visibleSpawns, observed, buyerStatus, priceRange } from './vehicles.js';
+  exactMarkers, visibleSpawns, observed, buyerStatus, priceRange, randyPrice } from './vehicles.js';
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const fmt = new Intl.NumberFormat('pt-BR');
@@ -20,7 +20,7 @@ const source = (url,label) => {
   if (!/^https:\/\//i.test(url ?? '')) return '';
   return '<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label||new URL(url).hostname.replace(/^www\./,''))+icon('arrow-up-right')+'</a>';
 };
-const noteKinds = {gtaplus:'Com bônus GTA+',randy:'Encomenda do Randy',destroyed:'Veículo destruído','map-card':'Cartão no mapa','owned-card':'Veículo próprio','info-card':'Cartão de menu',rejected:'Descartado'};
+const noteKinds = {gtaplus:'Com bônus GTA+',randy:'Encomenda do Randy',destroyed:'Veículo destruído','map-card':'Cartão no mapa','owned-card':'Veículo próprio','info-card':'Cartão de menu',rejected:'Descartado','unclassified-scan':'Scan · escopo da venda não confirmado'};
 const observation = q => '<div>'+esc(rangeText(q.value))+(noteKinds[q.kind]?' · '+esc(noteKinds[q.kind]):'')+(q.context?' · '+esc(q.context):'')+' · '+source(q.source,q.credit)+'</div>';
 const action = (label,attr,value='',glyph='',styles='') => '<button type="button" class="ui-button '+styles+'" data-'+attr+'="'+esc(value)+'">'+icon(glyph)+esc(label)+'</button>';
 const favoritesButton = (vehicle,favorite) => '<button type="button" class="icon-button vf-star '+(favorite?'is-fave':'')+'" data-vehicle-favorite="'+esc(vehicle.id)+'" aria-label="Favoritar '+esc(vehicle.name)+'" aria-pressed="'+favorite+'">'+icon('star')+'</button>';
@@ -36,12 +36,12 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
   let dialogReturn;
   const makeFilters = () => ({query:'',sort:'name',min:'',max:''});
   let filters=makeFilters();
-  root.innerHTML='<div class="vf-shell"><header class="vf-header"><div class="vf-title"><h1>Veículos</h1><p>Car Finder</p></div>'+
+  root.innerHTML='<div class="vf-shell"><header class="vf-header"><div class="vf-title"><h1>Veículos</h1><p>Car Finder · veículos pessoais</p></div>'+
     '<div class="vf-toolbar"><label class="searchbox">'+icon('search')+'<input name="query" type="search" aria-label="Buscar veículos" placeholder="Modelo ou fabricante…" autocomplete="off"></label>'+
     '<div class="vf-layout" aria-label="Visualização"><button type="button" data-vehicle-view="list" class="icon-button" aria-label="Lista compacta" aria-pressed="true">'+icon('list')+'</button>'+
     '<button type="button" data-vehicle-view="gallery" class="icon-button" aria-label="Galeria" aria-pressed="false">'+icon('layout-grid')+'</button></div></div>'+
     '<div class="vf-actions"><button type="button" class="ui-button" data-vehicle-favorites aria-pressed="false">'+icon('star')+'Favoritos</button>'+
-    select('Ordenar','sort',{name:'Nome',price:'Revenda',speed:'Velocidade',rarity:'Raridade'},'').replace('<option value=""></option>','')+'</div>'+
+    select('Ordenar','sort',{name:'Nome',price:'Revenda livre',randy:'Randy · primeira entrega',speed:'Velocidade',rarity:'Raridade'},'').replace('<option value=""></option>','')+'</div>'+
     '<details class="vf-filter"><summary>'+icon('sliders-horizontal')+'Filtros <span id="vf-filter-count"></span>'+icon('chevron-down')+'</summary>'+
     '<form class="vf-filter-fields">'+select('Classe','class',classes,'Todas')+select('Comprador','buyer',buyers)+
     '<label>Revenda mínima<input name="min" type="number" inputmode="numeric" min="0" placeholder="US$"></label>'+
@@ -85,7 +85,7 @@ export function createCarFinder({root,dialog,base,getProgress,toggleFavorite,sho
       return '<article class="vf-card"><button type="button" class="vf-open" data-vehicle-detail="'+esc(v.id)+'">'+
         (view==='gallery'?photo(v,base):'<span class="vf-car-icon">'+icon('car')+'</span>')+
         '<span class="vf-card-copy"><strong>'+esc(v.name)+'</strong><small>'+esc(className(v)+(v.variant?' · Variante':''))+'</small>'+
-        '<span class="vf-price">'+esc(value?rangeText(value):unknown)+'</span></span></button>'+favoritesButton(v,favoriteIds.has(v.id))+'</article>';
+        '<span class="vf-price">'+esc(value?rangeText(value):'Revenda não confirmada')+'</span>'+(randyPrice(v)!=null?'<small>'+esc('Randy (1ª entrega): '+moneyText(randyPrice(v)))+'</small>':'')+'</span></button>'+favoritesButton(v,favoriteIds.has(v.id))+'</article>';
     };
     const container=rows=>'<div class="vf-cards '+view+'">'+rows.map(card).join('')+'</div>';
     if (filters.sort==='name' && !filters.class && !filters.query && !filters.favorites) {

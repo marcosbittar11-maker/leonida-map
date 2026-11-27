@@ -15,6 +15,20 @@
       ],
       "addRefs": [
         "https://www.gtafinder.com/vehicles/albany-emperor-85"
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:albany-emperor-85:900",
+          "value": [
+            900,
+            900
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
       ]
     },
     "variant-piccia-big-cat-furia": {
@@ -44,6 +58,19 @@
         "https://www.gtaboom.com/gta-6-starfish-island-mansion-garage-4cf3",
         "https://www.gtafinder.com/gta-6/guides/supercar-locations",
         "https://gta6wiki.eu/vehicles/big-cat-furia/"
+      ],
+      "randy": true,
+      "register": 66250,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            20950,
+            20950
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
       ]
     },
     "vehicle-vapid-stanier-98": {
@@ -89,6 +116,18 @@
             650
           ],
           "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        },
+        {
+          "id": "20261127:Leonida Navigator:bravado-dorado:650",
+          "value": [
+            650,
+            650
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ],
       "appendScans": [
@@ -135,6 +174,18 @@
           "credit": "Clutchbase",
           "context": "Cartão de menu do Rebel registrado do Jason; não é scan de exemplar de rua.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:Leonida Navigator:karin-rebel-84:1100",
+          "value": [
+            1100,
+            1100
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ],
       "appendScans": [
@@ -159,6 +210,18 @@
             2950
           ],
           "source": "https://gta6playertools.com/locations/sell-and-register-cars"
+        },
+        {
+          "id": "20261127:GTA6Legit:vapid-caracara-4x4:2950",
+          "value": [
+            2950,
+            2950
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "appendScans": [
@@ -227,6 +290,20 @@
       ],
       "addRefs": [
         "https://meowdb.com/gta6/vehicles"
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:declasse-bobcat-xl-84:1150",
+          "value": [
+            1150,
+            1150
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
       ]
     },
     "variant-vapid-red-hot-hustler": {
@@ -300,6 +377,18 @@
       ],
       "addRefs": [
         "https://gta6wiki.eu/guides/gta-6-standout-vehicles/"
+      ],
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            13250,
+            13250
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
       ]
     },
     "vapid-stanier-55": {
@@ -584,6 +673,20 @@
           "note": "Venda registrada em gameplay; o WAiNK separadamente indicava US$ 1.450.",
           "source": "https://www.gta6heists.com/money/sell-stolen-cars"
         }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:bravado-bison:1150",
+          "value": [
+            1150,
+            1150
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
       ]
     },
     "declasse-rancher-86": {
@@ -622,6 +725,42 @@
             20950
           ],
           "source": "https://www.gta6heists.com/money/sell-stolen-cars"
+        },
+        {
+          "id": "20261127:GTA6Legit:piccia-furia:12350",
+          "value": [
+            12350,
+            12350
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:GTA6Legit:piccia-furia:11040",
+          "value": [
+            11040,
+            11040
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:GTA6Legit:piccia-furia:10190",
+          "value": [
+            10190,
+            10190
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "appendScans": [
@@ -645,6 +784,27 @@
           ],
           "kind": "gtaplus",
           "context": "23.045 = 20.950 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        },
+        {
+          "source": "https://www.gta6heists.com/money/sell-stolen-cars",
+          "value": [
+            20950,
+            20950
+          ],
+          "kind": "randy",
+          "context": "Coincide com cotação da primeira entrega RK documentada; retirada da faixa livre por precaução."
+        }
+      ],
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            20950,
+            20950
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
         }
       ]
     },
@@ -669,6 +829,19 @@
       ],
       "addRefs": [
         "https://www.gta6heists.com/money/sell-stolen-cars"
+      ],
+      "randy": true,
+      "register": 38750,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            16300,
+            16300
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
       ]
     },
     "albany-cavalcade-xl": {
@@ -762,6 +935,29 @@
           "alarm": true,
           "source": "https://meowdb.com/gta6/vehicles/bravado-banshee"
         }
+      ],
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            6650,
+            6650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "retagQuotes": [
+        {
+          "id": "leonidaracing:bravado-banshee:2",
+          "value": [
+            6650,
+            6650
+          ],
+          "kind": "randy",
+          "context": "Coincide com cotação da primeira entrega RK documentada; retirada da faixa livre por precaução."
+        }
       ]
     },
     "bravado-gauntlet-hellfire": {
@@ -834,8 +1030,18 @@
           ],
           "note": "Cartão de interesse no mapa (Pay 'n' Spray - Balsero). Oferta de uma sessão; não é scan de exemplar nem preço garantido.",
           "source": "https://meowdb.com/gta6/vehicles/bravado-gauntlet-hellfire"
+        },
+        {
+          "buyer": "randy",
+          "value": [
+            4105,
+            4105
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
         }
-      ]
+      ],
+      "randy": true
     },
     "pegassi-tempesta": {
       "appendQuotes": [
@@ -850,6 +1056,42 @@
           "credit": "NiaDB",
           "context": "Scan de telefone: exemplar destrancado, sem alarme, rastreador avançado (vídeo de Skill Up).",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA Bites:pegassi-tempesta:7650",
+          "value": [
+            7650,
+            7650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "waink-scan",
+          "context": "Valor observado depois da entrega RK; não inclui bônus de missão.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:GTA6Legit:pegassi-tempesta:9185",
+          "value": [
+            9185,
+            9185
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:Leonida Navigator:pegassi-tempesta:13710",
+          "value": [
+            13710,
+            13710
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "randy",
+          "context": "Pagamento de entrega RK observado.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
@@ -863,6 +1105,18 @@
           "entry": "open",
           "alarm": false,
           "source": "https://meowdb.com/gta6/vehicles/pegassi-tempesta"
+        }
+      ],
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            16300,
+            16300
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
         }
       ]
     },
@@ -1061,6 +1315,18 @@
           "credit": "NiaDB",
           "context": "Scan de telefone: exemplar destrancado, sem alarme, sem rastreador (vídeo de WiLLiSGaming).",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA6Legit:variant-pegassi-charred-toros:20950",
+          "value": [
+            20950,
+            20950
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
@@ -1074,6 +1340,17 @@
           "entry": "open",
           "alarm": false,
           "source": "https://meowdb.com/gta6/vehicles/pegassi-charred-toros"
+        }
+      ],
+      "retagQuotes": [
+        {
+          "id": "niadb:variant-pegassi-charred-toros:1",
+          "value": [
+            23045,
+            23045
+          ],
+          "kind": "gtaplus",
+          "context": "US$ 23.045 coincide com 110% do scan PS5 de US$ 20.950; bônus provável, fora do ranking por precaução."
         }
       ]
     },
@@ -1171,6 +1448,18 @@
           "credit": "NiaDB",
           "context": "Scan de telefone: terceiro exemplar trancado, alarmado, rastreador padrão, carroceria em condição média.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:Leonida Navigator:variant-annis-drifter-elegy:2175",
+          "value": [
+            2175,
+            2175
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
@@ -1211,10 +1500,33 @@
           "credit": "NiaDB",
           "context": "Cartão no mapa do veículo destruído do Jason; fora da faixa de revenda de exemplares em circulação.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA6Legit:pfister-comet-s2:8850",
+          "value": [
+            8850,
+            8850
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
         "https://meowdb.com/gta6/vehicles/pfister-comet-s2"
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            16500,
+            16500
+          ],
+          "kind": "gtaplus",
+          "context": "Scan da conta GTA+; US$ 16.500 é 110% de US$ 15.000. Não presumir bônus em toda venda."
+        }
       ]
     },
     "vehicle-fathom-fr36": {
@@ -1512,6 +1824,30 @@
           "credit": "Clutchbase",
           "context": "Scan da GameSpot sem selo RK: clonador de chaves, alarmado, rastreador padrão.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA6Legit:pfister-growler:7150",
+          "value": [
+            7150,
+            7150
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:Leonida Navigator:pfister-growler:5700",
+          "value": [
+            5700,
+            5700
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "unclassified-scan",
+          "context": "Scan de outro exemplar; entrega ao Randy mencionada, escopo incerto.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
@@ -1537,6 +1873,15 @@
           ],
           "note": "Selo RK (item da lista do Randy) em vídeo de MonkeyKingHero; mais que o dobro do scan sem selo (US$ 5.700). Não é revenda livre.",
           "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        },
+        {
+          "buyer": "randy",
+          "value": [
+            12100,
+            12100
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
         }
       ],
       "retagQuotes": [
@@ -1549,7 +1894,8 @@
           "kind": "randy",
           "context": "13.310 = 12.100 × 1,10: cotação RK do Randy com bônus GTA+ (GTAPedia)."
         }
-      ]
+      ],
+      "randy": true
     },
     "grotti-carbonizzare": {
       "appendQuotes": [
@@ -1564,11 +1910,24 @@
           "credit": "Clutchbase",
           "context": "Cartão de menu do Carbonizzare registrado do Jason (especialista Luxury); não é scan de exemplar de rua.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA6Legit:grotti-carbonizzare:5300",
+          "value": [
+            5300,
+            5300
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
         "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
-      ]
+      ],
+      "register": 28300
     },
     "declasse-tulip-m-100-78": {
       "appendQuotes": [
@@ -1621,6 +1980,18 @@
           "credit": "Clutchbase",
           "context": "Scan da GameSpot: clonador de chaves, alarmado, rastreador padrão. Taxa de registro US$ 24.000 confere com a ficha.",
           "checked": "2026-11-24"
+        },
+        {
+          "id": "20261127:GTA6Legit:invetero-coquette:3575",
+          "value": [
+            3575,
+            3575
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
         }
       ],
       "addRefs": [
@@ -1657,6 +2028,24 @@
           ],
           "note": "Selo RK (item da lista do Randy). Não é revenda livre.",
           "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        },
+        {
+          "buyer": "randy",
+          "value": [
+            21250,
+            21250
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        },
+        {
+          "buyer": "pay",
+          "value": [
+            10000,
+            10000
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Venda após a encomenda, oficina Stockyard."
         }
       ],
       "addRefs": [
@@ -1681,6 +2070,21 @@
           "kind": "gtaplus",
           "context": "23.375 = 21.250 × 1,10: cotação RK com bônus GTA+ (GTAPedia)."
         }
+      ],
+      "randy": true,
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA Bites:granforma-zorrusso:10000",
+          "value": [
+            10000,
+            10000
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "sale",
+          "context": "Valor observado depois da entrega RK; não inclui bônus de missão.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        }
       ]
     },
     "pegassi-infernus-96": {
@@ -1693,11 +2097,21 @@
           ],
           "note": "Selo RK (item da lista do Randy) em vídeo de MonkeyKingHero. Não é revenda livre; o valor agregado do modelo pode vir de outro scan.",
           "source": "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
+        },
+        {
+          "buyer": "randy",
+          "value": [
+            15600,
+            15600
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
         }
       ],
       "addRefs": [
         "https://clutchbase.app/gta6/guides/gta-6-best-cars-to-steal"
-      ]
+      ],
+      "randy": true
     },
     "benefactor-schafter-v12": {
       "retagQuotes": [
@@ -1709,6 +2123,20 @@
           ],
           "kind": "gtaplus",
           "context": "1.870 = 1.700 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:benefactor-schafter-v12:1700",
+          "value": [
+            1700,
+            1700
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
         }
       ]
     },
@@ -1723,6 +2151,20 @@
           "kind": "gtaplus",
           "context": "495 = 450 × 1,10 (valor da conta GTA+ no GTAPedia)."
         }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:bf-greta:450",
+          "value": [
+            450,
+            450
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
       ]
     },
     "vapid-montagne-xl": {
@@ -1735,6 +2177,884 @@
           ],
           "kind": "gtaplus",
           "context": "605 = 550 × 1,10 (valor da conta GTA+ no GTAPedia)."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vapid-montagne-xl:550",
+          "value": [
+            550,
+            550
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "pegassi-vitello": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            17150,
+            17150
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            18865,
+            18865
+          ],
+          "kind": "gtaplus",
+          "context": "Valor de conta GTA+ coincide com 110% da cotação RK; não é revenda livre."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:pegassi-vitello:9605",
+          "value": [
+            9605,
+            9605
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:Leonida Navigator:pegassi-vitello:14305",
+          "value": [
+            14305,
+            14305
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "randy",
+          "context": "Pagamento de entrega RK observado.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "grotti-itali-rsx": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            16600,
+            16600
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            18260,
+            18260
+          ],
+          "kind": "gtaplus",
+          "context": "Valor de conta GTA+ coincide com 110% da cotação RK; não é revenda livre."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA Bites:grotti-itali-rsx:7800",
+          "value": [
+            7800,
+            7800
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "waink-scan",
+          "context": "Valor observado depois da entrega RK; não inclui bônus de missão.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:GTA6Legit:grotti-itali-rsx:9260",
+          "value": [
+            9260,
+            9260
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "buckingham-jubilee": {
+      "randy": true,
+      "register": 34900,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            15650,
+            15650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "buckingham-windsor-drop": {
+      "randy": true,
+      "register": 31650,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            15100,
+            15100
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "ascot-paragon": {
+      "randy": true,
+      "register": 31400,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            15050,
+            15050
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA Bites:ascot-paragon:7100",
+          "value": [
+            7100,
+            7100
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "waink-scan",
+          "context": "Valor observado depois da entrega RK; não inclui bônus de missão.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "pegassi-toros": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            13250,
+            13250
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            14575,
+            14575
+          ],
+          "kind": "gtaplus",
+          "context": "Valor de conta GTA+ coincide com 110% da cotação RK; não é revenda livre."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:pegassi-toros:11420",
+          "value": [
+            11420,
+            11420
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "randy",
+          "context": "Pagamento observado em entrega RK, condição variável.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "ocelot-jugular": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            9650,
+            9650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "retagQuotes": [
+        {
+          "source": "https://gtapedia.org/vehicules/",
+          "value": [
+            10615,
+            10615
+          ],
+          "kind": "gtaplus",
+          "context": "Valor de conta GTA+ coincide com 110% da cotação RK; não é revenda livre."
+        }
+      ],
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:ocelot-jugular:5700",
+          "value": [
+            5700,
+            5700
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "gallivanter-baller-st-d": {
+      "randy": true,
+      "register": 27600,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            7050,
+            7050
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "benefactor-dubsta": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            5650,
+            5650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "invetero-coquette-d10": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            7475,
+            7475
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "declasse-mamba-gt-64": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            11900,
+            11900
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Pagamento observado em entrega da encomenda; não é revenda livre."
+        }
+      ]
+    },
+    "variant-bravado-devil-s-rope-gauntlet": {
+      "randy": true,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            19900,
+            19900
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ],
+      "class": "muscle"
+    },
+    "variant-ocelot-bloodless-jugular": {
+      "randy": true,
+      "register": 28550,
+      "appendBuyerPrices": [
+        {
+          "buyer": "randy",
+          "value": [
+            9650,
+            9650
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Primeira entrega da lista (RK); condição pode reduzir o preço; bônus separado. Não é revenda recorrente."
+        }
+      ]
+    },
+    "dinka-sugoi": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA Bites:dinka-sugoi:3150",
+          "value": [
+            3150,
+            3150
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "sale",
+          "context": "Venda livre documentada na oficina.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "pay",
+          "value": [
+            3150,
+            3150
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Venda livre de exemplar observado."
+        }
+      ]
+    },
+    "vehicle-mer-can-outlaw": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA Bites:vehicle-mer-can-outlaw:1300",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "kind": "sale",
+          "context": "Venda livre documentada na oficina.",
+          "credit": "GTA Bites",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:Leonida Navigator:vehicle-mer-can-outlaw:1300",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://www.gtabites.com/guides/gta-6-most-expensive-cars-to-sell",
+          "note": "Venda livre de exemplar observado."
+        }
+      ]
+    },
+    "pfister-neon": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:pfister-neon:3555",
+          "value": [
+            3555,
+            3555
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "unclassified-scan",
+          "context": "Scan PS5; a fonte não informa se a encomenda RK já foi concluída.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vapid-dominator-gt": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:vapid-dominator-gt:1750",
+          "value": [
+            1750,
+            1750
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "bravado-buffalo-19": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:bravado-buffalo-19:1800",
+          "value": [
+            1800,
+            1800
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "willard-grouse-92": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:willard-grouse-92:125",
+          "value": [
+            125,
+            125
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        },
+        {
+          "id": "20261127:Leonida Navigator:willard-grouse-92:250",
+          "value": [
+            250,
+            250
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "declasse-granger": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:declasse-granger:1050",
+          "value": [
+            1050,
+            1050
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vehicle-vapid-reclaimer-70s": {
+      "appendQuotes": [
+        {
+          "id": "20261127:GTA6Legit:vehicle-vapid-reclaimer-70s:950",
+          "value": [
+            950,
+            950
+          ],
+          "source": "https://gta6legit.com/gta-6-car-stats/",
+          "kind": "waink-scan",
+          "context": "Scan WAiNK PS5; condição do exemplar e configuração GTA+ podem afetar o valor.",
+          "credit": "GTA6Legit",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "invetero-coquette-64": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:invetero-coquette-64:12320",
+          "value": [
+            12320,
+            12320
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "variant-pegassi-gold-rope-infernus": {
+      "register": 34750,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:variant-pegassi-gold-rope-infernus:9200",
+          "value": [
+            9200,
+            9200
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "unclassified-scan",
+          "context": "Scan de variante; estado RK não confirmado.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "obey-8f-drafter": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:obey-8f-drafter:3000",
+          "value": [
+            3000,
+            3000
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "annis-elegy-90": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:annis-elegy-90:2300",
+          "value": [
+            2300,
+            2300
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "bravado-bison-1800": {
+      "register": 8250,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:bravado-bison-1800:2250",
+          "value": [
+            2250,
+            2250
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "obey-tailgater-s": {
+      "register": 7650,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:obey-tailgater-s:2100",
+          "value": [
+            2100,
+            2100
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "ubermacht-apoc": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:ubermacht-apoc:1760",
+          "value": [
+            1760,
+            1760
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "bravado-bison-900-95": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:bravado-bison-900-95:1650",
+          "value": [
+            1650,
+            1650
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            1650,
+            1650
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Venda livre observada; não inclui bônus de encomenda."
+        }
+      ]
+    },
+    "karin-futo-85": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:karin-futo-85:1500",
+          "value": [
+            1500,
+            1500
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "annis-hellion-95": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:annis-hellion-95:1400",
+          "value": [
+            1400,
+            1400
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vehicle-canis-mesa": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vehicle-canis-mesa:1300",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vapid-aleutian": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vapid-aleutian:1300",
+          "value": [
+            1300,
+            1300
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vapid-shifter": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vapid-shifter:1150",
+          "value": [
+            1150,
+            1150
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "willard-transient": {
+      "register": 7150,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:willard-transient:1150",
+          "value": [
+            1150,
+            1150
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "variant-vapid-anarchist-dominator": {
+      "register": 6900,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:variant-vapid-anarchist-dominator:975",
+          "value": [
+            975,
+            975
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ],
+      "class": "muscle"
+    },
+    "vehicle-emperor-sultan": {
+      "register": 5400,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vehicle-emperor-sultan:850",
+          "value": [
+            850,
+            850
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vapid-montagne-pickup": {
+      "register": 5400,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vapid-montagne-pickup:850",
+          "value": [
+            850,
+            850
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "albany-manana-77": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:albany-manana-77:800",
+          "value": [
+            800,
+            800
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "vehicle-vapid-rumpo": {
+      "register": 2500,
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:vehicle-vapid-rumpo:400",
+          "value": [
+            400,
+            400
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "waink-scan",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ]
+    },
+    "karin-allander": {
+      "appendQuotes": [
+        {
+          "id": "20261127:Leonida Navigator:karin-allander:450",
+          "value": [
+            450,
+            450
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "kind": "sale",
+          "context": "Leitura de WAiNK ou venda observada em vídeo referenciado na tabela.",
+          "credit": "Leonida Navigator",
+          "checked": "2026-11-27"
+        }
+      ],
+      "appendBuyerPrices": [
+        {
+          "buyer": "moses",
+          "value": [
+            450,
+            450
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Venda livre observada; não inclui bônus de encomenda."
+        }
+      ]
+    },
+    "imponte-phoenix-77": {
+      "appendBuyerPrices": [
+        {
+          "buyer": "pay",
+          "value": [
+            3575,
+            3575
+          ],
+          "source": "https://leonidanavigator.com/en/vehicle-values",
+          "note": "Venda livre observada; não inclui bônus de encomenda."
         }
       ]
     }

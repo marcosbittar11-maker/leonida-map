@@ -144,7 +144,7 @@ const combineList = (old,next,key) => [...new Map([...old ?? [],...next ?? []].m
 export const observationKey = q => q.id ?? q.source;
 // Escopos que não entram na faixa principal de revenda livre: bônus GTA+, encomenda de Randy, cartão de oferta/mapa,
 // veículo próprio ou destruído e ficha de menu sem scan. O restante (scan WAiNK ou valor agregado sem contexto) compõe a faixa.
-export const sideScopes = new Set(['gtaplus','randy','map-card','owned-card','destroyed','info-card','rejected']);
+export const sideScopes = new Set(['gtaplus','randy','map-card','owned-card','destroyed','info-card','rejected','unclassified-scan']);
 const range = list => ({value:[Math.min(...list.map(q=>q.value[0])),Math.max(...list.map(q=>q.value[1]))],observations:list});
 const allObservations = record => [...record?.resale?.observations ?? [],...record?.valueNotes ?? []];
 /** Separa a faixa principal das cotações de outro escopo, sem descartar nenhuma evidência. */

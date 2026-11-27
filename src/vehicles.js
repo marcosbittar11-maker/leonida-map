@@ -81,10 +81,23 @@ export function priceRange(vehicle) {
 }
 const collator = new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});
 
+// Car Finder is for personal vehicles, not the full world catalogue. Keep raw data and IDs for future evidence.
+const nonPersonalClasses = new Set(['boat','plane','helicopter','aircraft','emergency','military','service','transport','industrial','truck','utility','commercial','cycle','train']);
+export function canListVehicle(v) {
+  if (v.registrable===false) return false;
+  if (/\\b(?:police|ambulance|fire truck|tow truck|lifeguard|marshall|monster truck|taxi)\\b/i.test(v.name??'') && v.register==null) return false;
+  return !nonPersonalClasses.has(v.class) || Number.isFinite(v.register);
+}
+export function randyPrice(v) {
+  const prices=(v.buyerPrices??[]).filter(q=>q.buyer==='randy').flatMap(q=>q.value);
+  return prices.length?Math.max(...prices):null;
+}
+
 export function selectVehicles(vehicles, filters, progress) {
   const words = normalize(filters.query).split(' ').filter(Boolean);
   const optional = (filter,value) => !filter || (filter==='unknown' ? value == null : filter===String(value));
   const chosen = vehicles.filter(v=>{
+    if (!canListVehicle(v)) return false;
     if (!words.every(word=>(v.search ?? vehicleSearch(v)).includes(word))) return false;
     if (filters.favorites && !progress.vehicleFavorites.includes(v.id)) return false;
     if (filters.class && v.class!==filters.class) return false;
@@ -102,6 +115,6 @@ export function selectVehicles(vehicles, filters, progress) {
     const max = filters.max==='' || filters.max==null ? Infinity : Number(filters.max);
     return min<=max && (min===-Infinity && max===Infinity || !!range && range[0]<=max && range[1]>=min);
   });
-  const rank = v=>({price:priceRange(v)?.[1],speed:v.stats?.speed,rarity:{edition:2,standout:1}[v.rarity]})[filters.sort];
+  const rank = v=>({price:priceRange(v)?.[1],randy:randyPrice(v),speed:v.stats?.speed,rarity:{edition:2,standout:1}[v.rarity]})[filters.sort];
   return chosen.sort((a,b)=>(rank(b) ?? -Infinity) - (rank(a) ?? -Infinity) || collator.compare(a.name,b.name));
 }

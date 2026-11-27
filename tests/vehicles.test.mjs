@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { freshProgress } from '../src/model.js';
 import { configurableKeys } from '../src/requirements.js';
-import { compatible, exactMarkers, observed, selectVehicles } from '../src/vehicles.js';
+import { compatible, exactMarkers, observed, selectVehicles, canListVehicle, randyPrice } from '../src/vehicles.js';
 import { consolidate, readFinderPrices } from '../scripts/vehicles-normalize.mjs';
 
 const snapshot = JSON.parse(await readFile(new URL('../public/data/vehicles.json',import.meta.url),'utf8'));
@@ -111,7 +111,7 @@ test('revenda ampliada: valores com proveniência, escopos separados e filtro de
       if (q.id) assert.match(q.source,/^https:\/\//,v.id);
     }
     if (v.resale) assert.ok(v.resale.observations.length && v.resale.value[0]===Math.min(...v.resale.observations.map(q=>q.value[0])),v.id);
-    assert.ok(!(v.resale?.observations ?? []).some(q=>['gtaplus','randy','destroyed','rejected','owned-card','info-card','map-card'].includes(q.kind)),v.id);
+    assert.ok(!(v.resale?.observations ?? []).some(q=>['gtaplus','randy','destroyed','rejected','owned-card','info-card','map-card','unclassified-scan'].includes(q.kind)),v.id);
   }
   const niaDrank=byId.get('variant-progen-purple-drank-emerus').resale;
   assert.deepEqual(niaDrank.observations.map(q=>q.value[0]),[33000,32205,27620]);
@@ -128,4 +128,20 @@ test('revenda ampliada: valores com proveniência, escopos separados e filtro de
   assert.equal(byId.get('variant-pegassi-gold-rope-infernus').resale,undefined);
   const known=selectVehicles(snapshot.vehicles,{priced:true,sort:'name'},progress);
   assert.ok(known.length>120 && known.every(v=>v.resale));
+});
+
+
+test('Car Finder exclui veículos não pessoais sem apagar catálogo e distingue Randy de revenda',()=>{
+  const filtered=selectVehicles(snapshot.vehicles,{},progress);
+  assert.ok(filtered.length<snapshot.vehicles.length);
+  assert.ok(filtered.every(canListVehicle));
+  assert.ok(!filtered.some(v=>['boat','plane','helicopter','emergency'].includes(v.class)&&v.register==null));
+  const z=byId.get('granforma-zorrusso');
+  assert.deepEqual(z.resale.value,[10000,10000]);
+  assert.equal(randyPrice(z),21250);
+  const comet=byId.get('pfister-comet-s2');
+  assert.deepEqual(comet.resale.value,[8850,15000]);
+  assert.ok(comet.valueNotes.some(q=>q.kind==='gtaplus'&&q.value[0]===16500));
+  assert.ok(byId.get('bravado-bison-1800').resale);
+  assert.equal(randyPrice(byId.get('buckingham-jubilee')),15650);
 });
