@@ -135,6 +135,9 @@ test('Car Finder exclui veículos não pessoais sem apagar catálogo e distingue
   const filtered=selectVehicles(snapshot.vehicles,{},progress);
   assert.ok(filtered.length<snapshot.vehicles.length);
   assert.ok(filtered.every(canListVehicle));
+  assert.equal(canListVehicle({name:'Pegassi Police Tempesta',class:'super'}),false);
+  assert.equal(canListVehicle({name:'Vapid DriveShaft Marshall',class:'offroad'}),false);
+  assert.equal(canListVehicle({name:'Civilian SUV',class:'suv'}),true);
   assert.ok(!filtered.some(v=>['boat','plane','helicopter','emergency'].includes(v.class)&&v.register==null));
   const z=byId.get('granforma-zorrusso');
   assert.deepEqual(z.resale.value,[10000,10000]);

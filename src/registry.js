@@ -69,7 +69,7 @@ export const categories = [
   c('bret','Alvos do Bret','Atividades','#a3b18a',{pending:'Sem coordenadas publicadas'}),
 
   c('easter','Easter eggs','Exploração','#ed9cf1'),
-  c('mystery','Mistérios e Easter Eggs','Exploração','#b18aff',{symbol:'event'}),
+  c('mystery','Mistérios e Easter Eggs','Exploração','#b18aff'),
   c('event','Eventos aleatórios','Exploração','#ff006e'),
   c('underwater','Descobertas subaquáticas','Exploração','#2a9df4'),
   c('nature','Paisagens naturais','Exploração','#52b788'),

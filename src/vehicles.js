@@ -85,7 +85,7 @@ const collator = new Intl.Collator('pt-BR',{numeric:true,sensitivity:'base'});
 const nonPersonalClasses = new Set(['boat','plane','helicopter','aircraft','emergency','military','service','transport','industrial','truck','utility','commercial','cycle','train']);
 export function canListVehicle(v) {
   if (v.registrable===false) return false;
-  if (/\\b(?:police|ambulance|fire truck|tow truck|lifeguard|marshall|monster truck|taxi)\\b/i.test(v.name??'') && v.register==null) return false;
+  if (/\b(?:police|ambulance|fire truck|tow truck|lifeguard|marshall|monster truck|taxi)\b/i.test(v.name??'') && v.register==null) return false;
   return !nonPersonalClasses.has(v.class) || Number.isFinite(v.register);
 }
 export function randyPrice(v) {
