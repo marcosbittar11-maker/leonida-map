@@ -302,7 +302,7 @@ test('mistérios mantêm IDs, âncoras e pistas sem coordenadas inventadas',()=>
     assert.ok(a,anchor); assert.equal(p.x,a.x); assert.equal(p.y,a.y); assert.ok(byId.has(anchor));
   }
   for(const id of ['mystery-silent-hill','mystery-backrooms','mystery-kraken']) {
-    const p=byId.get(id); assert.equal(p.x,null); assert.equal(p.y,null); assert.ok(matches(p,{words:['mistérios'].map(w=>w.normalize('NFD').replace(/\\p{Diacritic}/gu,''))},everything));
+    const p=byId.get(id); assert.equal(p.x,null); assert.equal(p.y,null); assert.ok(matches(p,{words:['misterios']},everything));
     assert.equal(onMap(p,{show:new Set(['mystery'])},everything),false);
   }
 });
