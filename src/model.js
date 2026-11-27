@@ -7,6 +7,7 @@ import { configurableKeys, requirementState, usesEquipment } from './requirement
 import safeCodes from './data/safe-codes.js';
 import gameta from './data/gameta.js';
 import clues from './data/clues.js';
+import { mysteryGuides, mysteryPoints } from './mysteries.js';
 
 const lockNames = {safe:'Cofre', keypad:'Teclado', password:'Senha do computador'};
 const statusNames = {checked:'verificada (duas fontes ou teste)', reported:'relato de uma fonte'};
@@ -73,16 +74,17 @@ const shopItems = new Set(['safe','fence']);
 
 export function applyGuides(catalog) {
   const categories = categoryByKey;
-  const points = [...catalog.points,...additionalVariants,...safeCodes.created,...gameta.created,...clues.created].filter(point => !duplicateAliases[point.id]).map(point => {
+  const original = [...catalog.points,...additionalVariants,...safeCodes.created,...gameta.created,...clues.created];
+  const points = [...original,...mysteryPoints(original)].filter(point => !duplicateAliases[point.id]).map(point => {
     const kindKey = curatedKind(point);
     const rule = categoryRules[kindKey] || {};
-    const guide = guides[point.id] || bankSummary(point);
+    const guide = mysteryGuides[point.id] || guides[point.id] || bankSummary(point);
     const variant = isPersonalVariant(point);
     const excludedVehicle = point.kind==='vehicle' && !variant || /^vehicle-request-/.test(point.id);
     const notes = variantNotes[point.id];
     const series = variant ? variantSeries(point) : null;
     const official = officialPlaces.has(point.id);
-    const category = categories.get(guide?.kind || kindKey) || fallbackCategory;
+    const category = categories.get(point.id==='safe-070'?'mystery':guide?.kind || kindKey) || fallbackCategory;
     const rename = renames[point.id];
     const gang = gangOperations[point.id] || (category?.key === 'gang' ? {gang:/Gang:\s*([^;]+)/i.exec(point.description)?.[1]?.trim(), checklist:false} : null);
     const fence = fences[point.id];

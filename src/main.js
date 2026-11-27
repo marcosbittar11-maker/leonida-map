@@ -191,8 +191,9 @@ function renderPanel() {
   const pct=available.length?Math.round(completed.length/available.length*100):0;
   const scroll=$('panel-content').scrollTop;
   if (panel==='map') {
-    const showingList=filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides || filters.availability!=='all' || filters.equipment.size;
-    const list=candidates;
+    const mysteryOnly=filters.show.has('mystery')&&filters.show.size===1;
+    const showingList=mysteryOnly||filters.words.length || filters.status!=='all' || filters.repeat || filters.peace || filters.guides || filters.availability!=='all' || filters.equipment.size;
+    const list=mysteryOnly?candidates.filter(p=>p.kind==='mystery'):candidates;
     const featured=['safe-070','L2453','liquor-store-002','standout-vehicle-101'].map(id=>lookup.get(id)).filter(p=>p && candidates.includes(p));
     $('panel-content').innerHTML=(showingList?
       '<div class="section-title"><h2>Resultados</h2><span>'+fmt.format(list.length)+'</span></div>'+listMarkup(list)
@@ -281,11 +282,11 @@ function renderDetail() {
     (p.description && p.description!==p.intro && (p.evidence==='personal'||!p.guide||p.guide.summary)?'<p>'+esc(p.description)+'</p>':'')+
     reqBlock+
     (p.guide?.image?'<img class="location-photo" src="'+esc(base+p.guide.image.file)+'" alt="'+esc(p.guide.image.alt)+'" loading="lazy"><small>'+esc(p.guide.image.credit)+'</small>':'')+
-    (Object.keys(fields).length?'<dl>'+Object.entries(fields).map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>':'')+
-    (p.steps?.length?'<details class="note"><summary>Como fazer</summary><ol>'+p.steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol></details>':'')+
+    (Object.keys(fields).length?(p.kind==='mystery'&&p.id!=='safe-070'?'<details class="note"><summary>Requisitos, horário e recompensas · pode conter spoilers</summary>':'')+'<dl>'+Object.entries(fields).map(([label,value])=>'<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>').join('')+'</dl>'+(p.kind==='mystery'&&p.id!=='safe-070'?'</details>':''):'')+
+    (p.steps?.length?'<details class="note"><summary>'+(p.kind==='mystery'?'Como fazer · revelar pistas':'Como fazer')+'</summary><ol>'+p.steps.map(step=>'<li>'+esc(step)+'</li>').join('')+'</ol></details>':'')+
     linked+
-    (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide&&!p.guide.summary?checked:curationChecked)+'</summary>'+
-      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(['gameta','clue'].includes(p.collection)?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
+    (p.evidence==='personal'?'':'<details class="note"><summary>Fontes · '+auditDate(p.guide?.checked || (p.guide&&!p.guide.summary?checked:curationChecked))+'</summary>'+
+      sourceLinks.map((ref,i)=>external(ref,sourceName(ref,i))).join('')+(['gameta','clue','mystery'].includes(p.collection)?'':external(sourceURL(p.collection,catalog.metadata.revision),'Open GTA 6 Map · coordenadas'))+
       (p.variant?external(registrationGuide,'Como guardar a variante na garagem'):'')+'</details>')+
     '</div><div class="detail-actions">'+button(complete?'Reabrir ponto':'Concluir ponto','done','check',complete?'':'primary')+
       (p.x!=null&&!filters.show.has(p.kind)?button('Mostrar categoria','enable-kind','eye'):'')+

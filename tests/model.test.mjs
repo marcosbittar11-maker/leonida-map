@@ -23,7 +23,7 @@ test('snapshot público mantém coordenadas, categorias e guias referenciáveis'
   assert.ok(catalog.stats.total>5000);
   assert.equal(new Set(data.map(p=>p.id)).size,data.length);
   const dups=Object.keys(duplicateAliases).filter(id=>catalog.points.some(p=>p.id===id)).length;
-  assert.equal(data.filter(p=>!['gameta','leonidalab'].includes(p.collection)&&Number.isFinite(p.x)&&Number.isFinite(p.y)).length,catalog.stats.positioned-dups);
+  assert.equal(data.filter(p=>!['gameta','leonidalab','mystery'].includes(p.collection)&&Number.isFinite(p.x)&&Number.isFinite(p.y)).length,catalog.stats.positioned-dups);
   assert.ok(data.every(p=>p.category && p.category.group));
   for(const [id,guide] of Object.entries(guides)) {
     assert.ok(byId.get(id)?.guide,id);
@@ -287,4 +287,22 @@ test('flamingos reclassificados preservam IDs, conclusões e favoritos',()=>{
 test('IDs do snapshot continuam todos no catálogo consultável (nenhuma renumeração)',()=>{
   const removed=new Set(Object.keys(catalogAliases(catalog)));
   for(const p of catalog.points) assert.ok(byId.has(p.id)||removed.has(p.id),p.id);
+});
+
+
+test('mistérios mantêm IDs, âncoras e pistas sem coordenadas inventadas',()=>{
+  const mysteries=kind('mystery');
+  assert.equal(mysteries.length,12);
+  for(const id of ['random-event-074','random-event-089','random-event-093','random-event-063','random-event-186']) {
+    const p=byId.get(id), original=catalog.points.find(q=>q.id===id);
+    assert.ok(original,id); assert.equal(p.kind,'mystery'); assert.equal(p.x,original.x); assert.equal(p.y,original.y); assert.ok(p.refs.length);
+  }
+  for(const [id,anchor] of [['mystery-skunk-ape','bar-012'],['mystery-circles-of-hell','standout-vehicle-024'],['mystery-vice-city-portal','waink-landmark-028']]) {
+    const p=byId.get(id), a=catalog.points.find(q=>q.id===anchor);
+    assert.ok(a,anchor); assert.equal(p.x,a.x); assert.equal(p.y,a.y); assert.ok(byId.has(anchor));
+  }
+  for(const id of ['mystery-silent-hill','mystery-backrooms','mystery-kraken']) {
+    const p=byId.get(id); assert.equal(p.x,null); assert.equal(p.y,null); assert.ok(matches(p,{words:['mistérios'].map(w=>w.normalize('NFD').replace(/\\p{Diacritic}/gu,''))},everything));
+    assert.equal(onMap(p,{show:new Set(['mystery'])},everything),false);
+  }
 });
